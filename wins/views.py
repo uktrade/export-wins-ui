@@ -1,4 +1,4 @@
-from .forms import WinForm
+from .forms import WinForm, ConfirmationForm
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.urlresolvers import reverse
@@ -26,6 +26,7 @@ class NewWinView(LoginRequiredMixin, FormView):
 class CustomerResponseView(FormView):
 
     template_name = "wins/customer-response.html"
+    form_class = ConfirmationForm
 
     def get_success_url(self):
         return reverse("thanks")

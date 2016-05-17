@@ -1,10 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <title>New Export Win</title>
-  </head>
-  <body>
+{% extends 'ui/base.html' %}
+
+
+{% load staticfiles %}
+
+
+{% comment %}
     Notes from Claire's email:
 
     Thank you for taking the time to complete this form.  The information you provide will remain confidential.
@@ -16,5 +16,26 @@
         §  Story in newspaper/magazine
         §  Word of mouth
         §  Event
-  </body>
-</html>
+{% endcomment %}
+
+{% block content %}
+
+  {% if form.errors %}
+    <div class="alert alert-danger">
+      There were some errors with your submission.  Please see below.
+    </div>
+    {{ form.non_field_errors }}
+  {% endif %}
+
+  <form method="post">
+
+    {{ form.as_p }}
+
+    {% csrf_token %}
+    <div class="end-buttons">
+      <input type="submit" name="s" value="Create Record & Send Email to Customer" class="btn btn-primary" />
+    </div>
+
+  </form>
+
+{% endblock content %}

@@ -4,35 +4,6 @@
 {% load staticfiles %}
 
 
-{% block css %}
-
-  {{ block.super }}
-
-  <style>
-    .help-text {
-      font-style: italic;
-      color: #666666;
-      padding: 0.5em;
-    }
-    .form-group .alert {
-      padding: 0.5em;
-    }
-    table tr th {
-      text-align: center;
-    }
-    td.error input {
-      background-color: #f2dede;
-    }
-    .form-group.error {
-      border: 1px solid #f2dede;
-      border-radius: 0.5em;
-      padding: 1em;
-    }
-  </style>
-
-{% endblock css %}
-
-
 {% block content %}
 
   {% if form.errors %}
