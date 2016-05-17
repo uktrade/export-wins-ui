@@ -26,9 +26,14 @@ class ReflectiveFormMetaclass(forms.forms.DeclarativeFieldsMetaclass):
         new_class = forms.forms.DeclarativeFieldsMetaclass.__new__(
             mcs, name, bases, attrs)
 
-        fields = rabbit("get", mcs.reflection_url + "schema/").json()
+        fields = rabbit(
+            "get", mcs.reflection_url + "schema/", keep_trying=True).json()
 
         for name, spec in fields.items():
+            if hasattr(new_class, "Meta"):
+                if hasattr(new_class.Meta, "exclude"):
+                    if name in new_class.Meta.exclude:
+                        continue
             mcs._generate_field(new_class, name, spec)
 
         return new_class
