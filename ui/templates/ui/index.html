@@ -1,0 +1,21 @@
+{% extends 'ui/base.html' %}
+
+
+{% load staticfiles %}
+
+
+{% block css %}
+
+  {{ block.super }}
+
+  <style>
+  </style>
+
+{% endblock css %}
+
+
+{% block content %}
+  <div style="text-align: center;">
+    <a href="{% url 'new' %}" class="btn btn-primary">Create a new export win record</a>
+  </div>
+{% endblock content %}

@@ -60,3 +60,10 @@ target/
 
 #Ipython Notebook
 .ipynb_checkpoints
+
+# No need to track the dev db
+db.sqlite3
+
+# PyCharm
+.idea
+

@@ -1,0 +1,27 @@
+{% extends 'ui/base.html' %}
+
+
+{% load staticfiles %}
+
+
+{% block css %}
+
+  {{ block.super }}
+
+  <style>
+    h2 {
+      margin: 50px auto;
+      text-align: center;
+      background-color: #be0048;
+      padding: 2em;
+      border-radius: 1em;
+      color: #ffffff;
+    }
+  </style>
+
+{% endblock css %}
+
+
+{% block content %}
+  <h2>Thanks for being awesome ;-)</h2>
+{% endblock content %}
