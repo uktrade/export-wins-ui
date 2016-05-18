@@ -2,7 +2,7 @@ from django.conf.urls import url
 
 from ui.views import IndexView
 from users.views import LoginView, LogoutView
-from wins.views import NewWinView, ThanksView, CustomerResponseView
+from wins.views import NewWinView, ThanksView, ConfirmationView
 
 urlpatterns = [
 
@@ -10,7 +10,7 @@ urlpatterns = [
     url(r"^wins/thanks/", ThanksView.as_view(), name="thanks"),
     url(
         r"^wins/review/(?P<pk>[a-z0-9\-]+)/",
-        CustomerResponseView.as_view(),
+        ConfirmationView.as_view(),
         name="responses"
     ),
 
