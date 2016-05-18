@@ -56,6 +56,8 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
         BootstrappedForm.__init__(self, *args, **kwargs)
 
         self.fields["date"].widget.attrs.update({"placeholder": "YYYY-MM"})
+        self.fields["is_personally_confirmed"].required = True
+        self.fields["is_line_manager_confirmed"].required = True
 
         self._add_breakdown_fields()
         self._add_advisor_fields()
