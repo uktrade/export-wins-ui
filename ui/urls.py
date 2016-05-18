@@ -9,7 +9,7 @@ urlpatterns = [
     url(r"^wins/new/", NewWinView.as_view(), name="new"),
     url(r"^wins/thanks/", ThanksView.as_view(), name="thanks"),
     url(
-        r"^wins/review/(?P<win_id>[a-z0-9\-]+)/",
+        r"^wins/review/(?P<pk>[a-z0-9\-]+)/",
         CustomerResponseView.as_view(),
         name="responses"
     ),

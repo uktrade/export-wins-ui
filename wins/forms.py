@@ -97,7 +97,7 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
             "Subject Line!",
             "Oh hai! You should click this:\n\n  {}".format(
                 self.request.build_absolute_uri(
-                    reverse("responses", kwargs={"win_id": win["id"]})
+                    reverse("responses", kwargs={"pk": win["id"]})
                 )
             ),
             settings.SENDING_ADDRESS,
