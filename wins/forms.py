@@ -201,4 +201,9 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
 
 
 class ConfirmationForm(BootstrappedForm, metaclass=ConfirmationFormMetaclass):
-    pass
+
+    def __init__(self, *args, **kwargs):
+
+        BootstrappedForm.__init__(self, *args, **kwargs)
+
+        self.fields["win_id"].widget = forms.widgets.HiddenInput()

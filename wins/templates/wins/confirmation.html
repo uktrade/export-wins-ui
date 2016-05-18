@@ -4,19 +4,19 @@
 {% load staticfiles %}
 
 
-{% comment %}
-    Notes from Claire's email:
+{% block css %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'contrib/stars/css/star-rating.min.css' %}" />
+  <style>
+  </style>
+{% endblock css %}
 
-    Thank you for taking the time to complete this form.  The information you provide will remain confidential.
-    If you are willing to be consider publicity opportunities about your businesses success, please tick this box. We may contact you for more details and with relevant opportunities, that you can review on a case by case basis.
 
-    * Suggest the following additional question for tab 2 as this info could be interesting anecdotally re ‘the movement’. We tend to review all those that tick that they are interested in publicity opps.
-      o   Did any of the following inspire you to export? (tick any that are relevant)
-        §  TV , radio or online advert
-        §  Story in newspaper/magazine
-        §  Word of mouth
-        §  Event
-{% endcomment %}
+{% block js_header %}
+  {{ block.super }}
+  <script language="JavaScript" src="{% static 'contrib/stars/js/star-rating.min.js' %}"></script>
+{% endblock js_header %}
+
 
 {% block content %}
 
@@ -29,9 +29,152 @@
 
   <form method="post">
 
-    {{ form.as_p }}
+    <h3>How important was our support in securing the win?</h3>
+
+    <div class="form-group {{ form.access_to_contacts.errors|yesno:'error,' }}">
+      {{ form.access_to_contacts.errors }}
+      <div class="col-md-6">{{ form.access_to_contacts.label_tag }}</div>
+      <div class="col-md-6">{{ form.access_to_contacts }}</div>
+      {% if form.access_to_contacts.help_text %}<div class="help-text">{{ form.access_to_contacts.help_text }}</div>{% endif %}
+      <div class="clearfix"></div>
+    </div>
+
+    <div class="form-group {{ form.access_to_information.errors|yesno:'error,' }}">
+      {{ form.access_to_information.errors }}
+      <div class="col-md-6">{{ form.access_to_information.label_tag }}</div>
+      <div class="col-md-6">{{ form.access_to_information }}</div>
+      {% if form.access_to_information.help_text %}<div class="help-text">{{ form.access_to_information.help_text }}</div>{% endif %}
+      <div class="clearfix"></div>
+    </div>
+
+    <div class="form-group {{ form.improved_profile.errors|yesno:'error,' }}">
+      {{ form.improved_profile.errors }}
+      <div class="col-md-6">{{ form.improved_profile.label_tag }}</div>
+      <div class="col-md-6">{{ form.improved_profile }}</div>
+      {% if form.improved_profile.help_text %}<div class="help-text">{{ form.improved_profile.help_text }}</div>{% endif %}
+      <div class="clearfix"></div>
+    </div>
+
+    <div class="form-group {{ form.gained_confidence.errors|yesno:'error,' }}">
+      {{ form.gained_confidence.errors }}
+      <div class="col-md-6">{{ form.gained_confidence.label_tag }}</div>
+      <div class="col-md-6">{{ form.gained_confidence }}</div>
+      {% if form.gained_confidence.help_text %}<div class="help-text">{{ form.gained_confidence.help_text }}</div>{% endif %}
+      <div class="clearfix"></div>
+    </div>
+
+    <div class="form-group {{ form.developed_relationships.errors|yesno:'error,' }}">
+      {{ form.developed_relationships.errors }}
+      <div class="col-md-6">{{ form.developed_relationships.label_tag }}</div>
+      <div class="col-md-6">{{ form.developed_relationships }}</div>
+      {% if form.developed_relationships.help_text %}<div class="help-text">{{ form.developed_relationships.help_text }}</div>{% endif %}
+      <div class="clearfix"></div>
+    </div>
+
+    <div class="form-group {{ form.overcame_problem.errors|yesno:'error,' }}">
+      {{ form.overcame_problem.errors }}
+      <div class="col-md-6">{{ form.overcame_problem.label_tag }}</div>
+      <div class="col-md-6">{{ form.overcame_problem }}</div>
+      {% if form.overcame_problem.help_text %}<div class="help-text">{{ form.overcame_problem.help_text }}</div>{% endif %}
+      <div class="clearfix"></div>
+    </div>
+
+    <h3>Thinking About the Export Value Recorded in this Form</h3>
+
+    <div class="form-group {{ form.involved_state_enterprise.errors|yesno:'error,' }}">
+      {{ form.involved_state_enterprise.errors }}
+      {{ form.involved_state_enterprise.label_tag }}
+      {{ form.involved_state_enterprise }}
+      {% if form.involved_state_enterprise.help_text %}<div class="help-text">{{ form.involved_state_enterprise.help_text }}</div>{% endif %}
+    </div>
+
+    <div class="form-group {{ form.interventions_were_prerequisite.errors|yesno:'error,' }}">
+      {{ form.interventions_were_prerequisite.errors }}
+      {{ form.interventions_were_prerequisite.label_tag }}
+      {{ form.interventions_were_prerequisite }}
+      {% if form.interventions_were_prerequisite.help_text %}<div class="help-text">{{ form.interventions_were_prerequisite.help_text }}</div>{% endif %}
+    </div>
+
+    <div class="form-group {{ form.support_improved_speed.errors|yesno:'error,' }}">
+      {{ form.support_improved_speed.errors }}
+      {{ form.support_improved_speed.label_tag }}
+      {{ form.support_improved_speed }}
+      {% if form.support_improved_speed.help_text %}<div class="help-text">{{ form.support_improved_speed.help_text }}</div>{% endif %}
+    </div>
+
+    <div class="form-group {{ form.expected_portion_without_help.errors|yesno:'error,' }}">
+      {{ form.expected_portion_without_help.errors }}
+      {{ form.expected_portion_without_help.label_tag }}
+      {{ form.expected_portion_without_help }}
+      {% if form.expected_portion_without_help.help_text %}<div class="help-text">{{ form.expected_portion_without_help.help_text }}</div>{% endif %}
+    </div>
+
+    <h3>Your Export Experience</h3>
+
+    <div class="form-group {{ form.last_export.errors|yesno:'error,' }}">
+      {{ form.last_export.errors }}
+      {{ form.last_export.label_tag }}
+      {{ form.last_export }}
+      {% if form.last_export.help_text %}<div class="help-text">{{ form.last_export.help_text }}</div>{% endif %}
+    </div>
+
+    <div class="form-group {{ form.company_was_at_risk_of_not_exporting.errors|yesno:'error,' }}">
+      {{ form.company_was_at_risk_of_not_exporting.errors }}
+      {{ form.company_was_at_risk_of_not_exporting.label_tag }}
+      {{ form.company_was_at_risk_of_not_exporting }}
+      {% if form.company_was_at_risk_of_not_exporting.help_text %}<div class="help-text">{{ form.company_was_at_risk_of_not_exporting.help_text }}</div>{% endif %}
+    </div>
+
+    <div class="form-group {{ form.has_explicit_export_plans.errors|yesno:'error,' }}">
+      {{ form.has_explicit_export_plans.errors }}
+      {{ form.has_explicit_export_plans.label_tag }}
+      {{ form.has_explicit_export_plans }}
+      {% if form.has_explicit_export_plans.help_text %}<div class="help-text">{{ form.has_explicit_export_plans.help_text }}</div>{% endif %}
+    </div>
+
+    <hr />
+
+    <div class="form-group {{ form.has_enabled_expansion_into_new_market.errors|yesno:'error,' }}">
+      {{ form.has_enabled_expansion_into_new_market.errors }}
+      {{ form.has_enabled_expansion_into_new_market.label_tag }}
+      {{ form.has_enabled_expansion_into_new_market }}
+      {% if form.has_enabled_expansion_into_new_market.help_text %}<div class="help-text">{{ form.has_enabled_expansion_into_new_market.help_text }}</div>{% endif %}
+    </div>
+
+    <div class="form-group {{ form.has_increased_exports_as_percent_of_turnover.errors|yesno:'error,' }}">
+      {{ form.has_increased_exports_as_percent_of_turnover.errors }}
+      {{ form.has_increased_exports_as_percent_of_turnover.label_tag }}
+      {{ form.has_increased_exports_as_percent_of_turnover }}
+      {% if form.has_increased_exports_as_percent_of_turnover.help_text %}<div class="help-text">{{ form.has_increased_exports_as_percent_of_turnover.help_text }}</div>{% endif %}
+    </div>
+
+    <div class="form-group {{ form.has_enabled_expansion_into_existing_market.errors|yesno:'error,' }}">
+      {{ form.has_enabled_expansion_into_existing_market.errors }}
+      {{ form.has_enabled_expansion_into_existing_market.label_tag }}
+      {{ form.has_enabled_expansion_into_existing_market }}
+      {% if form.has_enabled_expansion_into_existing_market.help_text %}<div class="help-text">{{ form.has_enabled_expansion_into_existing_market.help_text }}</div>{% endif %}
+    </div>
+
+    <hr />
+
+    <div class="form-group {{ form.comments.errors|yesno:'error,' }}">
+      {{ form.comments.errors }}
+      {{ form.comments.label_tag }}
+      {{ form.comments }}
+      {% if form.comments.help_text %}<div class="help-text">{{ form.comments.help_text }}</div>{% endif %}
+    </div>
+
+    <div class="form-group {{ form.name.errors|yesno:'error,' }}">
+      {{ form.name.errors }}
+      {{ form.name.label_tag }}
+      {{ form.name }}
+      {% if form.name.help_text %}<div class="help-text">{{ form.name.help_text }}</div>{% endif %}
+    </div>
+
+    {{ form.win_id }}
 
     {% csrf_token %}
+
     <div class="end-buttons">
       <input type="submit" name="s" value="Create Record & Send Email to Customer" class="btn btn-primary" />
     </div>
@@ -39,3 +182,27 @@
   </form>
 
 {% endblock content %}
+
+
+{% block js_footer %}
+  <script>
+    var star_fields = [
+      "access_to_information",
+      "improved_profile",
+      "access_to_contacts",
+      "developed_relationships",
+      "overcame_problem",
+      "gained_confidence"
+    ];
+    for (var i = 0; i < star_fields.length; i++) {
+      $("#id_" + star_fields[i]).rating({
+        "theme": "",
+        "showCaption": false,
+        "animate": false,
+        "size": "xs",
+        "step": 1,
+        "showClear": false
+      });
+    }
+  </script>
+{% endblock js_footer %}
