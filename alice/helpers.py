@@ -44,7 +44,10 @@ def rabbit(method, *args, keep_trying=False, request=None, **kwargs):
             request.COOKIES["alice"]
         )
 
-    path = bytes(urlsplit(args[0]).path, "utf-8")
+    url = urlsplit(args[0])
+    path = bytes(url.path, "utf-8")
+    if url.query:
+        path += bytes("?{}".format(url.query), "utf-8")
     salt = bytes(settings.UI_SECRET, "utf-8")
 
     body = prepared_request.body or b""
