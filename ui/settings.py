@@ -20,10 +20,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '3s-c=0((s$x)g#$g2j+&t$#h_%*f%)6swnu1v8grv&qlid+__('
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(os.getenv("DEBUG", False))
 
 ALLOWED_HOSTS = []
 
@@ -129,14 +129,15 @@ STATIC_URL = '/static/'
 
 
 # Application authorisation
-DATA_SERVER = "http://localhost:8002"
+DATA_SERVER = os.getenv("DATA_SERVER")
 WINS_AP = "{}/wins/".format(DATA_SERVER)
 CONFIRMATIONS_AP = "{}/confirmations/".format(DATA_SERVER)
 BREAKDOWNS_AP = "{}/breakdowns/".format(DATA_SERVER)
 ADVISORS_AP = "{}/advisors/".format(DATA_SERVER)
 LOGIN_AP = "{}/login/".format(DATA_SERVER)
 LOGOUT_AP = "{}/auth/logout/".format(DATA_SERVER)
-UI_SECRET = "I AM THE PUMPKIN KING!"
+
+UI_SECRET = os.getenv("UI_SECRET")
 AUTHENTICATION_BACKENDS = ("users.backends.RelayedBackend",)
 
 
