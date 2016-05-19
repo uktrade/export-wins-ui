@@ -66,7 +66,12 @@ class ConfirmationView(FormView):
         now = timezone.now()
 
         win_url = "{}{}/".format(settings.WINS_AP, pk)
-        win = rabbit("get", win_url, request=request).json()
+        win = rabbit("get", win_url, request=request)
+
+        if not win.status_code == 200:
+            raise self.SecurityException("That key appears to be invalid")
+
+        win = win.json()
 
         created = date_parser(win["created"])
         window_extent = created + relativedelta(days=self.ACCEPTANCE_WINDOW)
