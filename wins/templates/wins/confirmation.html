@@ -8,6 +8,20 @@
   {{ block.super }}
   <link rel="stylesheet" href="{% static 'contrib/stars/css/star-rating.min.css' %}" />
   <style>
+    .form-group label {
+      float: left;
+      max-width: 80%;
+    }
+    .form-group ul li label {
+      white-space: nowrap;
+    }
+    .form-group ul {
+      width: 20%;
+      float: right;
+    }
+    .form-group ul li {
+      display: inline;
+    }
   </style>
 {% endblock css %}
 
@@ -33,48 +47,48 @@
 
     <div class="form-group {{ form.access_to_contacts.errors|yesno:'error,' }}">
       {{ form.access_to_contacts.errors }}
-      <div class="col-md-6">{{ form.access_to_contacts.label_tag }}</div>
-      <div class="col-md-6">{{ form.access_to_contacts }}</div>
+      <div class="col-md-7">{{ form.access_to_contacts.label_tag }}</div>
+      <div class="col-md-5">{{ form.access_to_contacts }}</div>
       {% if form.access_to_contacts.help_text %}<div class="help-text">{{ form.access_to_contacts.help_text }}</div>{% endif %}
       <div class="clearfix"></div>
     </div>
 
     <div class="form-group {{ form.access_to_information.errors|yesno:'error,' }}">
       {{ form.access_to_information.errors }}
-      <div class="col-md-6">{{ form.access_to_information.label_tag }}</div>
-      <div class="col-md-6">{{ form.access_to_information }}</div>
+      <div class="col-md-7">{{ form.access_to_information.label_tag }}</div>
+      <div class="col-md-5">{{ form.access_to_information }}</div>
       {% if form.access_to_information.help_text %}<div class="help-text">{{ form.access_to_information.help_text }}</div>{% endif %}
       <div class="clearfix"></div>
     </div>
 
     <div class="form-group {{ form.improved_profile.errors|yesno:'error,' }}">
       {{ form.improved_profile.errors }}
-      <div class="col-md-6">{{ form.improved_profile.label_tag }}</div>
-      <div class="col-md-6">{{ form.improved_profile }}</div>
+      <div class="col-md-7">{{ form.improved_profile.label_tag }}</div>
+      <div class="col-md-5">{{ form.improved_profile }}</div>
       {% if form.improved_profile.help_text %}<div class="help-text">{{ form.improved_profile.help_text }}</div>{% endif %}
       <div class="clearfix"></div>
     </div>
 
     <div class="form-group {{ form.gained_confidence.errors|yesno:'error,' }}">
       {{ form.gained_confidence.errors }}
-      <div class="col-md-6">{{ form.gained_confidence.label_tag }}</div>
-      <div class="col-md-6">{{ form.gained_confidence }}</div>
+      <div class="col-md-7">{{ form.gained_confidence.label_tag }}</div>
+      <div class="col-md-5">{{ form.gained_confidence }}</div>
       {% if form.gained_confidence.help_text %}<div class="help-text">{{ form.gained_confidence.help_text }}</div>{% endif %}
       <div class="clearfix"></div>
     </div>
 
     <div class="form-group {{ form.developed_relationships.errors|yesno:'error,' }}">
       {{ form.developed_relationships.errors }}
-      <div class="col-md-6">{{ form.developed_relationships.label_tag }}</div>
-      <div class="col-md-6">{{ form.developed_relationships }}</div>
+      <div class="col-md-7">{{ form.developed_relationships.label_tag }}</div>
+      <div class="col-md-5">{{ form.developed_relationships }}</div>
       {% if form.developed_relationships.help_text %}<div class="help-text">{{ form.developed_relationships.help_text }}</div>{% endif %}
       <div class="clearfix"></div>
     </div>
 
     <div class="form-group {{ form.overcame_problem.errors|yesno:'error,' }}">
       {{ form.overcame_problem.errors }}
-      <div class="col-md-6">{{ form.overcame_problem.label_tag }}</div>
-      <div class="col-md-6">{{ form.overcame_problem }}</div>
+      <div class="col-md-7">{{ form.overcame_problem.label_tag }}</div>
+      <div class="col-md-5">{{ form.overcame_problem }}</div>
       {% if form.overcame_problem.help_text %}<div class="help-text">{{ form.overcame_problem.help_text }}</div>{% endif %}
       <div class="clearfix"></div>
     </div>
@@ -86,6 +100,7 @@
       {{ form.involved_state_enterprise.label_tag }}
       {{ form.involved_state_enterprise }}
       {% if form.involved_state_enterprise.help_text %}<div class="help-text">{{ form.involved_state_enterprise.help_text }}</div>{% endif %}
+      <div class="clearfix"></div>
     </div>
 
     <div class="form-group {{ form.interventions_were_prerequisite.errors|yesno:'error,' }}">
@@ -93,6 +108,7 @@
       {{ form.interventions_were_prerequisite.label_tag }}
       {{ form.interventions_were_prerequisite }}
       {% if form.interventions_were_prerequisite.help_text %}<div class="help-text">{{ form.interventions_were_prerequisite.help_text }}</div>{% endif %}
+      <div class="clearfix"></div>
     </div>
 
     <div class="form-group {{ form.support_improved_speed.errors|yesno:'error,' }}">
@@ -100,6 +116,7 @@
       {{ form.support_improved_speed.label_tag }}
       {{ form.support_improved_speed }}
       {% if form.support_improved_speed.help_text %}<div class="help-text">{{ form.support_improved_speed.help_text }}</div>{% endif %}
+      <div class="clearfix"></div>
     </div>
 
     <div class="form-group {{ form.expected_portion_without_help.errors|yesno:'error,' }}">
@@ -123,6 +140,7 @@
       {{ form.company_was_at_risk_of_not_exporting.label_tag }}
       {{ form.company_was_at_risk_of_not_exporting }}
       {% if form.company_was_at_risk_of_not_exporting.help_text %}<div class="help-text">{{ form.company_was_at_risk_of_not_exporting.help_text }}</div>{% endif %}
+      <div class="clearfix"></div>
     </div>
 
     <div class="form-group {{ form.has_explicit_export_plans.errors|yesno:'error,' }}">
@@ -130,6 +148,7 @@
       {{ form.has_explicit_export_plans.label_tag }}
       {{ form.has_explicit_export_plans }}
       {% if form.has_explicit_export_plans.help_text %}<div class="help-text">{{ form.has_explicit_export_plans.help_text }}</div>{% endif %}
+      <div class="clearfix"></div>
     </div>
 
     <hr />
@@ -139,6 +158,7 @@
       {{ form.has_enabled_expansion_into_new_market.label_tag }}
       {{ form.has_enabled_expansion_into_new_market }}
       {% if form.has_enabled_expansion_into_new_market.help_text %}<div class="help-text">{{ form.has_enabled_expansion_into_new_market.help_text }}</div>{% endif %}
+      <div class="clearfix"></div>
     </div>
 
     <div class="form-group {{ form.has_increased_exports_as_percent_of_turnover.errors|yesno:'error,' }}">
@@ -146,6 +166,7 @@
       {{ form.has_increased_exports_as_percent_of_turnover.label_tag }}
       {{ form.has_increased_exports_as_percent_of_turnover }}
       {% if form.has_increased_exports_as_percent_of_turnover.help_text %}<div class="help-text">{{ form.has_increased_exports_as_percent_of_turnover.help_text }}</div>{% endif %}
+      <div class="clearfix"></div>
     </div>
 
     <div class="form-group {{ form.has_enabled_expansion_into_existing_market.errors|yesno:'error,' }}">
@@ -153,6 +174,7 @@
       {{ form.has_enabled_expansion_into_existing_market.label_tag }}
       {{ form.has_enabled_expansion_into_existing_market }}
       {% if form.has_enabled_expansion_into_existing_market.help_text %}<div class="help-text">{{ form.has_enabled_expansion_into_existing_market.help_text }}</div>{% endif %}
+      <div class="clearfix"></div>
     </div>
 
     <hr />

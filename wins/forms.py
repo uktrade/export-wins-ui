@@ -18,7 +18,34 @@ class WinReflectiveFormMetaclass(ReflectiveFormMetaclass):
 
 
 class ConfirmationFormMetaclass(ReflectiveFormMetaclass):
+
     reflection_url = settings.CONFIRMATIONS_AP
+
+    def __new__(mcs, name, bases, attrs):
+
+        new_class = ReflectiveFormMetaclass.__new__(mcs, name, bases, attrs)
+
+        make_typed_choice = (
+            "involved_state_enterprise",
+            "interventions_were_prerequisite",
+            "support_improved_speed",
+            "company_was_at_risk_of_not_exporting",
+            "has_explicit_export_plans",
+            "has_enabled_expansion_into_new_market",
+            "has_increased_exports_as_percent_of_turnover",
+            "has_enabled_expansion_into_existing_market"
+        )
+        for name in make_typed_choice:
+            form_field = forms.TypedChoiceField(
+                coerce=lambda x: x == "True",
+                choices=((True, 'Yes'), (False, 'No')),
+                widget=forms.RadioSelect,
+                label=new_class._schema[name]["label"]
+            )
+            new_class.base_fields[name] = form_field
+            new_class.declared_fields[name] = form_field
+
+        return new_class
 
 
 class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
