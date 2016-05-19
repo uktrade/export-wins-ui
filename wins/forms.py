@@ -14,7 +14,28 @@ from ui.forms import BootstrappedForm
 
 
 class WinReflectiveFormMetaclass(ReflectiveFormMetaclass):
+
     reflection_url = settings.WINS_AP
+
+    def __new__(mcs, name, bases, attrs):
+        new_class = ReflectiveFormMetaclass.__new__(mcs, name, bases, attrs)
+
+        make_typed_choice = (
+            "is_prosperity_fund_related",
+            "is_e_exported",
+            "has_hvo_specialist_involvement",
+        )
+        for name in make_typed_choice:
+            form_field = forms.TypedChoiceField(
+                coerce=lambda x: x == "True",
+                choices=((True, 'Yes'), (False, 'No')),
+                widget=forms.RadioSelect,
+                label=new_class._schema[name]["label"]
+            )
+            new_class.base_fields[name] = form_field
+            new_class.declared_fields[name] = form_field
+
+        return new_class
 
 
 class ConfirmationFormMetaclass(ReflectiveFormMetaclass):
@@ -53,26 +74,6 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
     # We're only caring about yyyy-mm formatted dates
     date = forms.fields.CharField(max_length=7, label="Date business won")
 
-    # See: https://code.djangoproject.com/ticket/2723
-    is_prosperity_fund_related = forms.fields.TypedChoiceField(
-        coerce=lambda _: _ == "True",
-        choices=((True, "Yes"), (False, "No")),
-        widget=forms.Select,
-        label="Prosperity Fund related"
-    )
-    is_e_exported = forms.fields.TypedChoiceField(
-        coerce=lambda _: _ == "True",
-        choices=((True, "Yes"), (False, "No")),
-        widget=forms.Select,
-        label="E-Exporting"
-    )
-    has_hvo_specialist_involvement = forms.fields.TypedChoiceField(
-        coerce=lambda _: _ == "True",
-        choices=((True, "Yes"), (False, "No")),
-        widget=forms.Select,
-        label="HVO Specialist Involvement"
-    )
-
     class Meta(object):
         exclude = ("id",)
 
@@ -83,8 +84,12 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
         BootstrappedForm.__init__(self, *args, **kwargs)
 
         self.fields["date"].widget.attrs.update({"placeholder": "YYYY-MM"})
+
         self.fields["is_personally_confirmed"].required = True
+        self.fields["is_personally_confirmed"].label_suffix = ""
+
         self.fields["is_line_manager_confirmed"].required = True
+        self.fields["is_line_manager_confirmed"].label_suffix = ""
 
         self._add_breakdown_fields()
         self._add_advisor_fields()
@@ -97,6 +102,18 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
         if not m:
             raise forms.ValidationError('Invalid format. Please use "YYYY-MM"')
         return "{}-01".format(date)
+
+    def clean_is_personally_confirmed(self):
+        r = self.cleaned_data.get("is_personally_confirmed")
+        if not r:
+            raise forms.ValidationError("This is a required field")
+        return r
+
+    def clean_is_line_manager_confirmed(self):
+        r = self.cleaned_data.get("is_line_manager_confirmed")
+        if not r:
+            raise forms.ValidationError("This is a required field")
+        return r
 
     def clean(self):
 
