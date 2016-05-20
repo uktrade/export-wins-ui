@@ -4,6 +4,7 @@ requests==2.10.0
 django-filter==0.13.0
 django_extensions==1.6.7
 gunicorn==19.5.0
+whitenoise==3.1
 
 # Tests
 factory-boy==2.7.0
