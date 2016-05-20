@@ -1,0 +1,31 @@
+{
+  "name": "export-wins-ui-ukti",
+  "scripts": {},
+  "env": {
+    "UI_SECRET": "change-me-when-you-can",
+    "DATA_SERVER": {
+      "description": "",
+      "required": "true"
+    },
+    "SECRET_KEY": {
+      "description": "A secret key for cookies",
+      "generator": "secret"
+    }
+  },
+  "addons": [
+    "heroku-redis:hobby-dev"
+  ],
+  "buildpacks": [
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-redis"
+    },
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-python"
+    }
+  ],
+  "formation": {
+    "web": {
+      "quantity": 2
+    }
+  }
+}
