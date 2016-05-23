@@ -157,4 +157,4 @@ EMAIL_SSL_KEYFILE = os.getenv("EMAIL_SSL_KEYFILE")
 EMAIL_SSL_CERTFILE = os.getenv("EMAIL_SSL_CERTFILE")
 EMAIL_BACKEND = os.getenv("EMAIL_BACKEND")  # The default is just fine
 
-ENABLE_ANALYTICS = bool(os.getenv("ENABLE_ANALYTICS"))
+ANALYTICS_ID = bool(os.getenv("ANALYTICS_ID"))
