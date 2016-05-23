@@ -24,6 +24,22 @@
 
 {% block content %}
 
+  <div class="alert alert-info">
+    <p>
+      We want to keep track of the success of UK companies, and understand how
+      our support helps them succeed.
+    </p>
+    <p>
+      At the same time, we are working to minimise bureaucracy and test the
+      system to ensure that your private and confidential information is
+      handled securely at all times.
+    </p>
+    <p>
+      Please let us know, using the button above, if you encounter any problems
+      with this service.
+    </p>
+  </div>
+
   {% if form.errors %}
     <div class="alert alert-danger">
       There were some errors with your submission.  Please see below.
@@ -188,7 +204,7 @@
     {% csrf_token %}
 
     <div class="end-buttons">
-      <input type="submit" name="s" value="Create Record & Send Email to Customer" class="btn btn-primary" />
+      <input type="submit" name="s" value="Submit" class="btn btn-primary" />
     </div>
 
   </form>

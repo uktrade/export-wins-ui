@@ -102,8 +102,11 @@
         </div>
       </div>
       <h1>
-        Export Wins<br />
-        <small>Stuff was sold. Someone is responsible.</small>
+        Export Wins
+        <p>{% block subheader %}
+          This is a new service being developed with feedback from live user
+          testing.
+        {% endblock subheader %}</p>
       </h1>
       {% block content %}{% endblock content %}
     </div>
