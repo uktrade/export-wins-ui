@@ -137,7 +137,7 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
                 self.cleaned_data["company_name"],
                 settings.SENDING_ADDRESS
             ),
-            settings.SENDING_ADDRESS,
+            settings.NOREPLY,
             (self.request.user.email,)
         )
 
@@ -149,7 +149,7 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
                     reverse("responses", kwargs={"pk": win["id"]})
                 )
             ),
-            settings.SENDING_ADDRESS,
+            settings.NOREPLY,
             (self.cleaned_data["customer_email_address"],)
         )
 
