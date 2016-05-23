@@ -115,17 +115,6 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
             raise forms.ValidationError("This is a required field")
         return r
 
-    def clean(self):
-
-        cleaned_data = self.cleaned_data
-
-        if not self._test_at_least_one_advisor(cleaned_data):
-            raise forms.ValidationError(
-                "At least one advisor must be defined."
-            )
-
-        return cleaned_data
-
     def save(self):
 
         win = self.push(settings.WINS_AP, self.cleaned_data)
@@ -217,31 +206,6 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
         for advisor in self._advisors:
             advisor["win"] = win_id
         return self._advisors
-
-    def _test_at_least_one_advisor(self, cleaned_data):
-        """
-        A convoluted way to test whether one advisor was filled out or not.
-        This could probably be a lot cleaner but deadlines.
-        :param cleaned_data:
-        :return:
-        """
-        for i in range(0, 5):
-            score = 0
-            for name in ("name", "team_type", "hq_team", "location"):
-                field_name = "advisor_{}_{}".format(i, name)
-                if field_name not in cleaned_data:
-                    break
-                if not cleaned_data[field_name]:
-                    break
-                score += 1
-            if score == 4:
-                self._advisors.append({
-                    "name": self.cleaned_data["advisor_{}_name".format(i)],
-                    "team_type": self.cleaned_data["advisor_{}_team_type".format(i)],
-                    "hq_team": self.cleaned_data["advisor_{}_hq_team".format(i)],
-                    "location": self.cleaned_data["advisor_{}_location".format(i)]
-                })
-        return bool(self._advisors)
 
 
 class ConfirmationForm(BootstrappedForm, metaclass=ConfirmationFormMetaclass):
