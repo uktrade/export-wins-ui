@@ -23,5 +23,23 @@
 
 
 {% block content %}
-  <h2>Thanks for being awesome ;-)</h2>
+  <h2>Thank you for submitting a new Export Win.</h2>
+  <div class="alert alert-info">
+    <p>This win will be forwarded to the customer shortly</p>
+    <p>
+      While we are testing the new digital process, there may be a delay before
+      we contact Customers to confirm Export Wins.
+    </p>
+    <p>
+      We will let you know by email when we contact your Customer to confirm
+      this win.
+    </p>
+    <p>
+      If you would like to offer feedback on this service, please contact us,
+      giving brief details, using the button below.
+    </p>
+  </div>
+  <div class="text-center">
+    <a href="mailto:{{ FEEDBACK_EMAIL }}" class="btn btn-primary">Provide Feedback</a>
+  </div>
 {% endblock content %}

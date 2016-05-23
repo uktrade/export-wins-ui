@@ -125,7 +125,23 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
         for data in self._get_advisor_data(win["id"]):
             self.push(settings.ADVISORS_AP, data)
 
-        # Send mail
+        # Mail to officer
+        send_mail(
+            "Thank you for submitting a new Export Win.",
+            "We are contacting you to let you know that an Export Win you "
+            "recorded has been forwarded to {} of {} for confirmation.  If "
+            "you have experienced a problem with the new Export Wins service, "
+            "please contact us, giving brief details, at this address: "
+            "{}".format(
+                self.cleaned_data["customer_name"],
+                self.cleaned_data["company_name"],
+                settings.SENDING_ADDRESS
+            ),
+            settings.SENDING_ADDRESS,
+            (self.request.user.email,)
+        )
+
+        # Mail to customer
         send_mail(
             "Subject Line!",
             "Oh hai! You should click this:\n\n  {}".format(

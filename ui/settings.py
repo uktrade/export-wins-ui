@@ -72,6 +72,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                "ui.context_processors.handy",
             ],
         },
     },
@@ -144,7 +145,7 @@ AUTHENTICATION_BACKENDS = ("users.backends.RelayedBackend",)
 
 
 # Mail stuffs
-SENDING_ADDRESS = "noreply@somewhere.gov.uk"
+SENDING_ADDRESS = os.getenv("SENDING_ADDRESS")
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 EMAIL_HOST_USER = None
 EMAIL_HOST_PASSWORD = None
