@@ -137,6 +137,7 @@ WINS_AP = "{}/wins/".format(DATA_SERVER)
 CONFIRMATIONS_AP = "{}/confirmations/".format(DATA_SERVER)
 BREAKDOWNS_AP = "{}/breakdowns/".format(DATA_SERVER)
 ADVISORS_AP = "{}/advisors/".format(DATA_SERVER)
+NOTIFICATIONS_AP = "{}/notifications/".format(DATA_SERVER)
 LOGIN_AP = "{}/login/".format(DATA_SERVER)
 LOGOUT_AP = "{}/auth/logout/".format(DATA_SERVER)
 
@@ -145,7 +146,7 @@ AUTHENTICATION_BACKENDS = ("users.backends.RelayedBackend",)
 
 
 # Mail stuffs
-NOREPLY = os.getenv("no-reply@exportwins.ukti.gov.uk")
+NOREPLY = os.getenv("NOREPLY", "no-reply@exportwins.ukti.gov.uk")
 SENDING_ADDRESS = os.getenv("SENDING_ADDRESS")
 EMAIL_HOST = os.getenv("EMAIL_HOST")
 EMAIL_PORT = os.getenv("EMAIL_PORT")

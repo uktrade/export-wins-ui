@@ -5,7 +5,6 @@ from dateutil.relativedelta import relativedelta
 
 from django import forms
 from django.conf import settings
-from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
 
 from alice.helpers import rabbit, get_form_field
@@ -75,7 +74,7 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
     date = forms.fields.CharField(max_length=7, label="Date business won")
 
     class Meta(object):
-        exclude = ("id",)
+        exclude = ("id", "user")
 
     def __init__(self, *args, **kwargs):
 
@@ -117,6 +116,8 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
 
     def save(self):
 
+        self.cleaned_data["user"] = self.request.user.pk
+
         win = self.push(settings.WINS_AP, self.cleaned_data)
 
         for data in self._get_breakdown_data(win["id"]):
@@ -125,33 +126,30 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
         for data in self._get_advisor_data(win["id"]):
             self.push(settings.ADVISORS_AP, data)
 
-        # Mail to officer
-        send_mail(
-            "Thank you for submitting a new Export Win.",
-            "We are contacting you to let you know that an Export Win you "
-            "recorded has been forwarded to {} of {} for confirmation.  If "
-            "you have experienced a problem with the new Export Wins service, "
-            "please contact us, giving brief details, at this address: "
-            "{}".format(
-                self.cleaned_data["customer_name"],
-                self.cleaned_data["company_name"],
-                settings.SENDING_ADDRESS
-            ),
-            settings.NOREPLY,
-            (self.request.user.email,)
-        )
+        self.send_notifications(win["id"])
 
-        # Mail to customer
-        send_mail(
-            "Subject Line!",
-            "Oh hai! You should click this:\n\n  {}".format(
-                self.request.build_absolute_uri(
-                    reverse("responses", kwargs={"pk": win["id"]})
-                )
-            ),
-            settings.NOREPLY,
-            (self.cleaned_data["customer_email_address"],)
-        )
+    def send_notifications(self, win_id):
+        """
+        Tell the data server to send mail. Failures will not blow up at the
+        client, but will blow up the server, so we'll be notified if something
+        goes wrong.
+        """
+
+        rabbit("post", settings.NOTIFICATIONS_AP, {
+            "win": win_id,
+            "type": "o",
+            "user": self.request.user.pk,
+        })
+
+        # Disabled until we get the go-ahead
+        # rabbit("post", settings.NOTIFICATIONS_AP, {
+        #     "win": win_id,
+        #     "type": "c",
+        #     "recipient": self.cleaned_data["customer_email_address"],
+        #     "url": self.request.build_absolute_uri(
+        #         reverse("responses", kwargs={"pk": win_id})
+        #     )
+        # })
 
     def push(self, ap, data):
 
