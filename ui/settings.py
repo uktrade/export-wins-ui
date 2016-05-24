@@ -26,7 +26,8 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(os.getenv("DEBUG", False))
 
-# as app is running behind a host based router supplied by Heroku or other PaaS, we can open ALLOWED_HOSTS
+# As the app is running behind a host-based router supplied by Heroku or other
+# PaaS, we can open ALLOWED_HOSTS
 ALLOWED_HOSTS = ['*']
 
 
@@ -50,6 +51,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
+    'ui.middleware.SSLRedirectMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
