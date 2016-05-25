@@ -37,13 +37,6 @@
       {% if form.lead_officer_name.help_text %}<div class="help-text">{{ form.lead_officer_name.help_text }}</div>{% endif %}
     </div>
 
-    <div class="form-group {{ form.line_manager_name.errors|yesno:'error,' }}">
-      {{ form.line_manager_name.errors }}
-      {{ form.line_manager_name.label_tag }}
-      {{ form.line_manager_name }}
-      {% if form.line_manager_name.help_text %}<div class="help-text">{{ form.line_manager_name.help_text }}</div>{% endif %}
-    </div>
-
     <div class="form-group {{ form.team_type.errors|yesno:'error,' }}">
       {{ form.team_type.errors }}
       {{ form.team_type.label_tag }}
@@ -63,6 +56,13 @@
       {{ form.location.label_tag }}
       {{ form.location }}
       {% if form.location.help_text %}<div class="help-text">{{ form.location.help_text }}</div>{% endif %}
+    </div>
+
+    <div class="form-group {{ form.line_manager_name.errors|yesno:'error,' }}">
+      {{ form.line_manager_name.errors }}
+      {{ form.line_manager_name.label_tag }}
+      {{ form.line_manager_name }}
+      {% if form.line_manager_name.help_text %}<div class="help-text">{{ form.line_manager_name.help_text }}</div>{% endif %}
     </div>
 
     <hr />
@@ -220,20 +220,20 @@
       <div class="clearfix"></div>
     </div>
 
-    <div class="form-group {{ form.is_prosperity_fund_related.errors|yesno:'error,' }}">
-      {{ form.is_prosperity_fund_related.errors }}
-      {{ form.is_prosperity_fund_related.label_tag }}
-      {{ form.is_prosperity_fund_related }}
-      {% if form.is_prosperity_fund_related.help_text %}<div class="help-text">{{ form.is_prosperity_fund_related.help_text }}</div>{% endif %}
-      <div class="clearfix"></div>
-    </div>
-
     <div class="form-group {{ form.has_hvo_specialist_involvement.errors|yesno:'error,' }}">
       {{ form.has_hvo_specialist_involvement.errors }}
       {{ form.has_hvo_specialist_involvement.label_tag }}
       {{ form.has_hvo_specialist_involvement }}
       <div class="clearfix"></div>
       {% if form.has_hvo_specialist_involvement.help_text %}<div class="help-text">{{ form.has_hvo_specialist_involvement.help_text }}</div>{% endif %}
+    </div>
+
+    <div class="form-group {{ form.is_prosperity_fund_related.errors|yesno:'error,' }}">
+      {{ form.is_prosperity_fund_related.errors }}
+      {{ form.is_prosperity_fund_related.label_tag }}
+      {{ form.is_prosperity_fund_related }}
+      {% if form.is_prosperity_fund_related.help_text %}<div class="help-text">{{ form.is_prosperity_fund_related.help_text }}</div>{% endif %}
+      <div class="clearfix"></div>
     </div>
 
     <div class="form-group {{ form.is_e_exported.errors|yesno:'error,' }}">
@@ -247,8 +247,8 @@
     <hr />
 
     <h3>
-      Advisors
-      <p>One team per row. (Do not include other members of your own team)</p>
+      Contributing Teams and Advisers
+      <p>One individual or team per row.</p>
     </h3>
 
     <table id="advisors" class="advisors table table-responsive">
@@ -354,7 +354,7 @@
 
     {% csrf_token %}
     <div class="end-buttons">
-      <input type="submit" name="s" value="Create Record & Send Email to Customer" class="btn btn-primary" />
+      <input type="submit" name="s" value="Submit Record" class="btn btn-primary" />
     </div>
 
   </form>

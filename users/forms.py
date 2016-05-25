@@ -6,7 +6,7 @@ from ui.forms import BootstrappedForm
 
 class LoginForm(BootstrappedForm):
 
-    email = forms.EmailField()
+    email = forms.EmailField(label="Login ID")
     password = forms.CharField(widget=forms.widgets.PasswordInput)
 
     def __init__(self, *args, **kwargs):

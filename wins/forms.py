@@ -90,6 +90,11 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
         self.fields["is_line_manager_confirmed"].required = True
         self.fields["is_line_manager_confirmed"].label_suffix = ""
 
+        self.fields["total_expected_export_value"].widget.attrs.update(
+            {"placeholder": "£GBP"})
+        self.fields["total_expected_non_export_value"].widget.attrs.update(
+            {"placeholder": "£GBP"})
+
         self._add_breakdown_fields()
         self._add_advisor_fields()
 
@@ -158,9 +163,6 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
         # find out.
         response = rabbit("post", ap, data=data, request=self.request)
 
-        # This would be a nice place to use a public key to encrypt the POST
-        # data and store it locally.  That way the user could report an
-        # "error <primary key>" for where the payload is stored.
         if not response.status_code == 201:
             raise forms.ValidationError(
                 "Something has gone terribly wrong.  Please contact support.")
@@ -181,8 +183,11 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
                 self.fields[field.format(i)] = forms.fields.IntegerField(
                     label="{}/{}".format(d.year, str(d.year + 1)[-2:]),
                     widget=forms.fields.NumberInput(
-                        attrs={"class": "form-control"}
-                    )
+                        attrs={
+                            "class": "form-control",
+                            "placeholder": "£GBP"
+                        }
+                    ),
                 )
 
     def _get_breakdown_data(self, win_id):
