@@ -4,6 +4,16 @@
 {% load staticfiles %}
 
 
+{% block css %}
+  {{ block.super }}
+  <style>
+    table.advisors tr th {
+       vertical-align: middle;
+    }
+  </style>
+{% endblock css %}
+
+
 {% block subheader %}
   Lead officer to complete
 {% endblock subheader %}
@@ -241,41 +251,41 @@
       <p>One team per row. (Do not include other members of your own team)</p>
     </h3>
 
-    <table class="table table-responsive">
+    <table id="advisors" class="advisors table table-responsive">
       <tr>
         <th>Name</th>
         <th>Team Type</th>
-        <th>HQ Team</th>
+        <th>HQ Team<br />Region or Post</th>
         <th>Location</th>
       </tr>
-      <tr>
+      <tr class="advisor">
         <td>{{ form.advisor_0_name }}</td>
-        <td>{{ form.advisor_0_team_type }}</td>
-        <td>{{ form.advisor_0_hq_team }}</td>
+        <td class="team-type">{{ form.advisor_0_team_type }}</td>
+        <td class="team-hq_team">{{ form.advisor_0_hq_team }}</td>
         <td>{{ form.advisor_0_location }}</td>
       </tr>
-      <tr>
+      <tr class="advisor">
         <td>{{ form.advisor_1_name }}</td>
-        <td>{{ form.advisor_1_team_type }}</td>
-        <td>{{ form.advisor_1_hq_team }}</td>
+        <td class="team-type">{{ form.advisor_1_team_type }}</td>
+        <td class="team-hq_team">{{ form.advisor_1_hq_team }}</td>
         <td>{{ form.advisor_1_location }}</td>
       </tr>
-      <tr>
+      <tr class="advisor">
         <td>{{ form.advisor_2_name }}</td>
-        <td>{{ form.advisor_2_team_type }}</td>
-        <td>{{ form.advisor_2_hq_team }}</td>
+        <td class="team-type">{{ form.advisor_2_team_type }}</td>
+        <td class="team-hq_team">{{ form.advisor_2_hq_team }}</td>
         <td>{{ form.advisor_2_location }}</td>
       </tr>
-      <tr>
+      <tr class="advisor">
         <td>{{ form.advisor_3_name }}</td>
-        <td>{{ form.advisor_3_team_type }}</td>
-        <td>{{ form.advisor_3_hq_team }}</td>
+        <td class="team-type">{{ form.advisor_3_team_type }}</td>
+        <td class="team-hq_team">{{ form.advisor_3_hq_team }}</td>
         <td>{{ form.advisor_3_location }}</td>
       </tr>
-      <tr>
+      <tr class="advisor">
         <td>{{ form.advisor_4_name }}</td>
-        <td>{{ form.advisor_4_team_type }}</td>
-        <td>{{ form.advisor_4_hq_team }}</td>
+        <td class="team-type">{{ form.advisor_4_team_type }}</td>
+        <td class="team-hq_team">{{ form.advisor_4_hq_team }}</td>
         <td>{{ form.advisor_4_location }}</td>
       </tr>
     </table>
@@ -349,3 +359,30 @@
 
   </form>
 {% endblock content %}
+
+
+{% block js_footer %}
+  <script>
+
+    // Auto filter the hq-team lists
+
+    // Officer
+    $("#id_team_type").on("change", function(){
+      var type = $(this).val();
+      $("#id_hq_team option").addClass("hidden");
+      $("#id_hq_team option[value^=" + type + "]").removeClass("hidden");
+      $("#id_hq_team").val($("#id_hq_team option[value^=" + type + "]").first().val());
+    });
+
+    // Advisor(s)
+    $("#advisors tr.advisor td.team-type select").on("change", function(){
+      var $this = $(this);
+      var type = $this.val();
+      var i = $this.attr("id").replace("id_advisor_", "").replace("_team_type", "");
+      $("#id_advisor_" + i + "_hq_team option").addClass("hidden");
+      $("#id_advisor_" + i + "_hq_team option[value^=" + type + "]").removeClass("hidden");
+      $("#id_advisor_" + i + "_hq_team").val($("#id_advisor_" + i + "_hq_team option[value^=" + type + "]").first().val());
+    });
+
+  </script>
+{% endblock js_footer %}
