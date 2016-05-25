@@ -1,4 +1,5 @@
 import requests
+import logging
 import time
 
 from hashlib import sha256
@@ -17,6 +18,8 @@ TYPES_MAP = {
     "date": forms.DateField,
     "datetime": forms.DateTimeField
 }
+
+logger = logging.getLogger(__name__)
 
 
 class RabbitException(Exception):
@@ -58,6 +61,10 @@ def rabbit(method, *args, keep_trying=False, request=None, **kwargs):
     prepared_request.headers["X-Signature"] = signature
 
     response = send_request(prepared_request, keep_trying)
+
+    if response.status_code > 299:
+        logger.error(response.status_code)
+        logger.error(response.content)
 
     if response.status_code == 403:
         raise RabbitException("Data server access is failing for {} requests "
