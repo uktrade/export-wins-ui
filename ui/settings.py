@@ -148,7 +148,7 @@ AUTHENTICATION_BACKENDS = ("users.backends.RelayedBackend",)
 
 
 # Mail stuffs
-NOREPLY = os.getenv("NOREPLY", "no-reply@exportwins.ukti.gov.uk")
+FEEDBACK_ADDRESS = os.getenv("FEEDBACK_ADDRESS")
 SENDING_ADDRESS = os.getenv("SENDING_ADDRESS")
 EMAIL_HOST = os.getenv("EMAIL_HOST")
 EMAIL_PORT = os.getenv("EMAIL_PORT")
