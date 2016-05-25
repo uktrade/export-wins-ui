@@ -140,14 +140,14 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
         goes wrong.
         """
 
-        rabbit("post", settings.NOTIFICATIONS_AP, {
+        rabbit("post", settings.NOTIFICATIONS_AP, data={
             "win": win_id,
             "type": "o",
             "user": self.request.user.pk,
         })
 
         # Disabled until we get the go-ahead
-        # rabbit("post", settings.NOTIFICATIONS_AP, {
+        # rabbit("post", settings.NOTIFICATIONS_AP, data={
         #     "win": win_id,
         #     "type": "c",
         #     "recipient": self.cleaned_data["customer_email_address"],
