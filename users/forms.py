@@ -13,6 +13,10 @@ class LoginForm(BootstrappedForm):
         BootstrappedForm.__init__(self, *args, **kwargs)
         self.user = None
 
+    def clean_email(self):
+        if "email" in self.cleaned_data:
+            return self.cleaned_data["email"].lower()
+
     def clean(self):
 
         self.user = authenticate(
