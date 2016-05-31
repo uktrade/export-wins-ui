@@ -1,13 +1,23 @@
 from django.conf.urls import url
+from django.views.generic import TemplateView
 
 from ui.views import IndexView
 from users.views import LoginView, LogoutView
-from wins.views import NewWinView, ThanksView, ConfirmationView
+from wins.views import NewWinView, ConfirmationView
 
 urlpatterns = [
 
     url(r"^wins/new/", NewWinView.as_view(), name="new"),
-    url(r"^wins/thanks/", ThanksView.as_view(), name="thanks"),
+    url(
+        r"^wins/thanks/",
+        TemplateView.as_view(template_name="wins/thanks.html"),
+        name="thanks"
+    ),
+    url(
+        r"^wins/review/thanks/",
+        TemplateView.as_view(template_name="wins/confirmation-thanks.html"),
+        name="confirmation-thanks"
+    ),
     url(
         r"^wins/review/(?P<pk>[a-z0-9\-]+)/",
         ConfirmationView.as_view(),

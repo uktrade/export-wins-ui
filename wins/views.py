@@ -44,7 +44,7 @@ class ConfirmationView(FormView):
 
         try:
             win = self._check_outside_window(kwargs["pk"], request)
-            self._check_already_submitted(win["id"], request)
+            self._check_already_submitted(win["id"])
         except self.SecurityException as e:
             return self.denied(request, message=str(e), *args, **kwargs)
 
@@ -61,8 +61,8 @@ class ConfirmationView(FormView):
         win_url = "{}{}/".format(settings.LIMITED_WINS_AP, self.kwargs["pk"])
         schema_url = "{}schema/".format(settings.WINS_AP)
 
-        win = rabbit.get(schema_url).json()
         values = rabbit.get(win_url).json()
+        win = rabbit.get(schema_url).json()
         for key, value in values.items():
             win[key]["value"] = value
 
@@ -72,7 +72,7 @@ class ConfirmationView(FormView):
         return context
 
     def get_success_url(self):
-        return reverse("thanks")
+        return reverse("confirmation-thanks")
 
     def form_valid(self, form):
         form.save()
@@ -90,7 +90,7 @@ class ConfirmationView(FormView):
 
         now = timezone.now()
 
-        win_url = "{}{}/".format(settings.WINS_AP, pk)
+        win_url = "{}{}/".format(settings.LIMITED_WINS_AP, pk)
         win = rabbit.get(win_url, request=request)
 
         if not win.status_code == 200:
@@ -107,21 +107,12 @@ class ConfirmationView(FormView):
 
         return win
 
-    def _check_already_submitted(self, pk, request):
+    def _check_already_submitted(self, pk):
         ap = settings.CONFIRMATIONS_AP
         confirmation_url = "{}?win__id={}".format(ap, pk)
-        confirmation = rabbit.get(confirmation_url, request=request).json()
+        confirmation = rabbit.get(confirmation_url).json()
 
         if bool(confirmation["count"]):
             raise self.SecurityException(
                 "This confirmation was already completed."
             )
-
-
-class ThanksView(TemplateView):
-    """
-    Doubles as the thank-you page for both the win creation and customer
-    responses.
-    """
-
-    template_name = "wins/thanks.html"
