@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     "django_extensions",
+    "raven.contrib.django.raven_compat",
 
     "ui",
     "users",
@@ -136,6 +137,7 @@ STATIC_URL = '/static/'
 # Application authorisation
 DATA_SERVER = os.getenv("DATA_SERVER")
 WINS_AP = "{}/wins/".format(DATA_SERVER)
+LIMITED_WINS_AP = "{}/limited-wins/".format(DATA_SERVER)
 CONFIRMATIONS_AP = "{}/confirmations/".format(DATA_SERVER)
 BREAKDOWNS_AP = "{}/breakdowns/".format(DATA_SERVER)
 ADVISORS_AP = "{}/advisors/".format(DATA_SERVER)
@@ -162,3 +164,13 @@ EMAIL_SSL_CERTFILE = os.getenv("EMAIL_SSL_CERTFILE")
 EMAIL_BACKEND = os.getenv("EMAIL_BACKEND")  # The default is just fine
 
 ANALYTICS_ID = os.getenv("ANALYTICS_ID")
+
+
+# Sentry
+
+RAVEN_CONFIG = {
+    "dsn": os.getenv("SENTRY_DSN"),
+    # If you are using git, you can also automatically configure the
+    # release based on the git info.
+    # 'release': raven.fetch_git_sha(os.path.dirname(__file__)),
+}
