@@ -169,14 +169,14 @@ class WinForm(RabbitMixin, BootstrappedForm,
         })
 
         # Disabled until we get the go-ahead
-        # rabbit.post(settings.NOTIFICATIONS_AP, data={
-        #     "win": win_id,
-        #     "type": "c",
-        #     "recipient": self.cleaned_data["customer_email_address"],
-        #     "url": self.request.build_absolute_uri(
-        #         reverse("responses", kwargs={"pk": win_id})
-        #     )
-        # })
+        rabbit.post(settings.NOTIFICATIONS_AP, data={
+            "win": win_id,
+            "type": "c",
+            "recipient": self.cleaned_data["customer_email_address"],
+            "url": self.request.build_absolute_uri(
+                reverse("responses", kwargs={"pk": win_id})
+            )
+        })
 
     def _add_breakdown_fields(self):
 
