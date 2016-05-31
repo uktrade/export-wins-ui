@@ -50,8 +50,33 @@ class ConfirmationView(FormView):
 
         return FormView.dispatch(self, request, *args, **kwargs)
 
+    def get_form_kwargs(self):
+        r = FormView.get_form_kwargs(self)
+        r["request"] = self.request
+        r["initial"]["win"] = self.kwargs["pk"]
+        return r
+
+    def get_context_data(self, **kwargs):
+
+        win_url = "{}{}/".format(settings.LIMITED_WINS_AP, self.kwargs["pk"])
+        schema_url = "{}schema/".format(settings.WINS_AP)
+
+        win = rabbit.get(schema_url).json()
+        values = rabbit.get(win_url).json()
+        for key, value in values.items():
+            win[key]["value"] = value
+
+        context = FormView.get_context_data(self, **kwargs)
+        context.update({"win": win})
+
+        return context
+
     def get_success_url(self):
         return reverse("thanks")
+
+    def form_valid(self, form):
+        form.save()
+        return FormView.form_valid(self, form)
 
     def denied(self, request, *args, **kwargs):
         return self.response_class(
@@ -66,7 +91,7 @@ class ConfirmationView(FormView):
         now = timezone.now()
 
         win_url = "{}{}/".format(settings.WINS_AP, pk)
-        win = rabbit("get", win_url, request=request)
+        win = rabbit.get(win_url, request=request)
 
         if not win.status_code == 200:
             raise self.SecurityException("That key appears to be invalid")
@@ -82,14 +107,15 @@ class ConfirmationView(FormView):
 
         return win
 
-    @staticmethod
-    def _check_already_submitted(pk, request):
+    def _check_already_submitted(self, pk, request):
         ap = settings.CONFIRMATIONS_AP
         confirmation_url = "{}?win__id={}".format(ap, pk)
-        confirmation = rabbit("get", confirmation_url, request=request).json()
+        confirmation = rabbit.get(confirmation_url, request=request).json()
 
         if bool(confirmation["count"]):
-            raise self.SecurityException("This confirmation was already completed.")
+            raise self.SecurityException(
+                "This confirmation was already completed."
+            )
 
 
 class ThanksView(TemplateView):

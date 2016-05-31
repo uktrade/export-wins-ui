@@ -3,6 +3,8 @@ from django.contrib.auth import authenticate
 
 from ui.forms import BootstrappedForm
 
+from .exceptions import LoginException
+
 
 class LoginForm(BootstrappedForm):
 
@@ -19,12 +21,17 @@ class LoginForm(BootstrappedForm):
 
     def clean(self):
 
-        self.user = authenticate(
-            username=self.cleaned_data["email"],
-            password=self.cleaned_data["password"]
-        )
+        cleaned_data = BootstrappedForm.clean(self)
+
+        try:
+            self.user = authenticate(
+                username=cleaned_data.get("email"),
+                password=cleaned_data.get("password")
+            )
+        except LoginException as e:
+            raise forms.ValidationError(e)
 
         if self.user is not None:
-            return self.cleaned_data
+            return cleaned_data
 
         raise forms.ValidationError("Invalid login.  Please try again.")
