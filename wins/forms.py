@@ -118,10 +118,18 @@ class WinForm(RabbitMixin, BootstrappedForm,
         self._advisors = []
 
     def clean_date(self):
+
         date = self.cleaned_data.get("date")
-        m = re.match(r"^(\d\d\d\d)-(\d\d)$", date)
+
+        m = re.match(r"^(?P<year>\d\d\d\d)-(?P<month>\d\d)$", date)
         if not m:
             raise forms.ValidationError('Invalid format. Please use "YYYY-MM"')
+
+        try:
+            datetime(int(m.group("year")), int(m.group("month")), 1)
+        except:
+            raise forms.ValidationError('Invalid date. Please use "YYYY-MM"')
+
         return "{}-01".format(date)
 
     def clean_is_personally_confirmed(self):
