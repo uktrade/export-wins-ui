@@ -5,7 +5,7 @@ from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.urlresolvers import reverse
 from django.utils import timezone
-from django.views.generic import FormView, TemplateView
+from django.views.generic import FormView
 
 from alice.helpers import rabbit
 
@@ -109,7 +109,7 @@ class ConfirmationView(FormView):
 
     def _check_already_submitted(self, pk):
         ap = settings.CONFIRMATIONS_AP
-        confirmation_url = "{}?win__id={}".format(ap, pk)
+        confirmation_url = "{}?win={}".format(ap, pk)
         confirmation = rabbit.get(confirmation_url).json()
 
         if bool(confirmation["count"]):
