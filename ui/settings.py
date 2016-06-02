@@ -174,3 +174,7 @@ RAVEN_CONFIG = {
     # release based on the git info.
     # 'release': raven.fetch_git_sha(os.path.dirname(__file__)),
 }
+
+if not DEBUG:
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True

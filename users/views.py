@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.contrib.auth import login, logout
+from django.utils.http import is_safe_url
 from django.views.generic import FormView, RedirectView
 
 from alice.helpers import rabbit
@@ -19,7 +20,11 @@ class LoginView(FormView):
         return response
 
     def get_success_url(self):
-        return self.request.GET.get("next") or "/"
+        redirect_to = self.request.GET.get("next")
+        if redirect_to:
+            if is_safe_url(url=redirect_to, host=self.request.get_host()):
+                return redirect_to
+        return "/"
 
 
 class LogoutView(RedirectView):
