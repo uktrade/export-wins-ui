@@ -174,3 +174,10 @@ RAVEN_CONFIG = {
     # release based on the git info.
     # 'release': raven.fetch_git_sha(os.path.dirname(__file__)),
 }
+
+# Security stuff
+SECURE_HSTS_SECONDS = 3600  # todo increase after checking
+if not DEBUG:
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+SECURE_BROWSER_XSS_FILTER = True
