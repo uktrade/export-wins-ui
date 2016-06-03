@@ -17,7 +17,11 @@ class LoginView(FormView):
         login(self.request, form.user)
         response = FormView.form_valid(self, form)
         response.set_cookie(
-            "alice", form.user.token, secure=settings.SESSION_COOKIE_SECURE)
+            "alice",
+            form.user.token,
+            secure=settings.SESSION_COOKIE_SECURE,
+            httponly=True
+        )
         return response
 
     def get_success_url(self):
