@@ -86,6 +86,7 @@ class Rabbit(object):
             prepared_request.headers["Authorization"] = "Token {}".format(
                 request.COOKIES["alice"]
             )
+        prepared_request.headers["Content-Type"] = "applicaiton/json"
 
         url = urlsplit(url)
         path = bytes(url.path, "utf-8")
