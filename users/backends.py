@@ -3,25 +3,30 @@ from django.contrib.auth.models import User
 
 from alice.helpers import rabbit
 
+from .exceptions import LoginException
+
 
 class RelayedBackend(object):
 
     def authenticate(self, username=None, password=None):
 
-        response = rabbit("post", settings.LOGIN_AP, data={
+        response = rabbit.post(settings.LOGIN_AP, data={
             "username": username,
             "password": password
         })
 
         # Anything other than 200 means the data server rejected the login
         if not response.status_code == 200:
+            error_message = response.json().get("non_field_errors")
+            if error_message:
+                raise LoginException(error_message[0])
             return None
 
         user, __ = User.objects.get_or_create(
             username=username, defaults={"password": "*"})
 
         # Attach the data server's token to the user object temporarily so that
-        # the LoginForm can put it into a cookie.
+        # the LoginView can put it into a cookie.
         user.token = response.json()["token"]
 
         return user

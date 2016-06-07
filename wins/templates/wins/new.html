@@ -112,6 +112,27 @@
 
     <hr />
 
+    <div class="form-group {{ form.business_type.errors|yesno:'error,' }}">
+      {{ form.business_type.errors }}
+      {{ form.business_type.label_tag }}
+      {{ form.business_type }}
+      {% if form.business_type.help_text %}<div class="help-text">{{ form.business_type.help_text }}</div>{% endif %}
+    </div>
+
+    <div class="form-group {{ form.name_of_customer.errors|yesno:'error,' }}">
+      {{ form.name_of_customer.errors }}
+      {{ form.name_of_customer.label_tag }}
+      {{ form.name_of_customer }}
+      {% if form.name_of_customer.help_text %}<div class="help-text">{{ form.name_of_customer.help_text }}</div>{% endif %}
+    </div>
+
+    <div class="form-group {{ form.name_of_export.errors|yesno:'error,' }}">
+      {{ form.name_of_export.errors }}
+      {{ form.name_of_export.label_tag }}
+      {{ form.name_of_export }}
+      {% if form.name_of_export.help_text %}<div class="help-text">{{ form.name_of_export.help_text }}</div>{% endif %}
+    </div>
+
     <div class="form-group {{ form.description.errors|yesno:'error,' }}">
       {{ form.description.errors }}
       {{ form.description.label_tag }}
