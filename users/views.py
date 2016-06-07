@@ -18,7 +18,8 @@ class LoginView(FormView):
         response = FormView.form_valid(self, form)
         response.set_cookie(
             "alice",
-            form.user.token,
+            value=form.user.session_cookie.value,
+            expires=form.user.session_cookie.expires,
             secure=settings.SESSION_COOKIE_SECURE,
             httponly=True
         )

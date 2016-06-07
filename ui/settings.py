@@ -142,7 +142,7 @@ CONFIRMATIONS_AP = "{}/confirmations/".format(DATA_SERVER)
 BREAKDOWNS_AP = "{}/breakdowns/".format(DATA_SERVER)
 ADVISORS_AP = "{}/advisors/".format(DATA_SERVER)
 NOTIFICATIONS_AP = "{}/notifications/".format(DATA_SERVER)
-LOGIN_AP = "{}/login/".format(DATA_SERVER)
+LOGIN_AP = "{}/auth/login/".format(DATA_SERVER)
 LOGOUT_AP = "{}/auth/logout/".format(DATA_SERVER)
 
 UI_SECRET = os.getenv("UI_SECRET")
