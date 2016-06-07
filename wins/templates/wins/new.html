@@ -384,6 +384,10 @@
 
 {% block js_footer %}
   <script>
+  $(function() {
+
+    // Hide temporary business type
+    $("option:contains('Other (TEMPORARY)')").remove();
 
     // Auto filter the hq-team lists
 
@@ -404,6 +408,6 @@
       $("#id_advisor_" + i + "_hq_team option[value^=" + type + "]").removeClass("hidden");
       $("#id_advisor_" + i + "_hq_team").val($("#id_advisor_" + i + "_hq_team option[value^=" + type + "]").first().val());
     });
-
+  });
   </script>
 {% endblock js_footer %}
