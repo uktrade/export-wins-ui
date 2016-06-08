@@ -82,8 +82,9 @@ class Rabbit(object):
         prepared_request = requests.Request(
             method, url, *args, **kwargs).prepare()
 
+        # prepared_request.headers["Content-Type"] = "application/json"
         if request and request.COOKIES and "alice" in request.COOKIES:
-            prepared_request.headers["Authorization"] = "Token {}".format(
+            prepared_request.headers["Cookie"] = "sessionid={}".format(
                 request.COOKIES["alice"]
             )
 

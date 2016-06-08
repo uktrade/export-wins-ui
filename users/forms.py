@@ -17,7 +17,11 @@ class LoginForm(BootstrappedForm):
 
     def clean_email(self):
         if "email" in self.cleaned_data:
-            return self.cleaned_data["email"].lower()
+            return self.cleaned_data["email"].lower().strip()
+
+    def clean_password(self):
+        if "password" in self.cleaned_data:
+            return self.cleaned_data["password"].strip()
 
     def clean(self):
 

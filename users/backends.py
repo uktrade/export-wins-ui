@@ -25,9 +25,10 @@ class RelayedBackend(object):
         user, __ = User.objects.get_or_create(
             username=username, defaults={"password": "*"})
 
-        # Attach the data server's token to the user object temporarily so that
-        # the LoginView can put it into a cookie.
-        user.token = response.json()["token"]
+        # Attach the data server's session cookie to the user object
+        # temporarily so that the LoginView can put it into a cookie for the
+        # client.
+        user.session_cookie = self._get_cookie(response.cookies)
 
         return user
 
@@ -36,3 +37,9 @@ class RelayedBackend(object):
             return User.objects.get(pk=user_id)
         except User.DoesNotExist:
             return None
+
+    def _get_cookie(self, cookies):
+        for cookie in cookies:
+            if cookie.name == "sessionid":
+                return cookie
+        raise Exception("The data server didn't return a session cookie")
