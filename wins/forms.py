@@ -87,7 +87,7 @@ class RabbitMixin(object):
 class WinForm(RabbitMixin, BootstrappedForm,
               metaclass=WinReflectiveFormMetaclass):
 
-    # We're only caring about yyyy-mm formatted dates
+    # We're only caring about MM/YYYY formatted dates
     date = forms.fields.CharField(max_length=7, label="Date business won")
 
     class Meta(object):
@@ -99,7 +99,7 @@ class WinForm(RabbitMixin, BootstrappedForm,
 
         BootstrappedForm.__init__(self, *args, **kwargs)
 
-        self.fields["date"].widget.attrs.update({"placeholder": "YYYY-MM"})
+        self.fields["date"].widget.attrs.update({"placeholder": "MM/YYYY"})
 
         self.fields["is_personally_confirmed"].required = True
         self.fields["is_personally_confirmed"].label_suffix = ""
@@ -119,18 +119,18 @@ class WinForm(RabbitMixin, BootstrappedForm,
 
     def clean_date(self):
 
-        date = self.cleaned_data.get("date")
+        date_str = self.cleaned_data.get("date")
 
-        m = re.match(r"^(?P<year>\d\d\d\d)-(?P<month>\d\d)$", date)
+        m = re.match(r"^(?P<month>\d\d)/(?P<year>\d\d\d\d)$", date_str)
         if not m:
-            raise forms.ValidationError('Invalid format. Please use "YYYY-MM"')
+            raise forms.ValidationError('Invalid format. Please use "MM/YYYY"')
 
         try:
-            datetime(int(m.group("year")), int(m.group("month")), 1)
+            date = datetime(int(m.group("year")), int(m.group("month")), 1)
         except:
-            raise forms.ValidationError('Invalid date. Please use "YYYY-MM"')
+            raise forms.ValidationError('Invalid date. Please use "MM/YYYY"')
 
-        return "{}-01".format(date)
+        return date.strftime('%Y-%m-%d')  # serializer expects YYYY-MM-DD
 
     def clean_is_personally_confirmed(self):
         r = self.cleaned_data.get("is_personally_confirmed")
