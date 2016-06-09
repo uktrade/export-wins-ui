@@ -19,6 +19,9 @@
     .required {
       color: #d00;
     }
+    #id_description {
+      height: 9em;
+    }
   </style>
 {% endblock css %}
 
@@ -26,6 +29,13 @@
 {% block subheader %}
   Lead officer to complete
 {% endblock subheader %}
+
+
+{% block banner %}
+  <div class="visible-print-block">
+    <div class="text-center"><h5><strong>Commercial in Confidence (when complete)</strong></h5></div>
+  </div>
+{% endblock banner %}
 
 
 {% block content %}
@@ -39,6 +49,7 @@
 
   <form method="post">
 
+    <h3>Lead officer's details</h3>
     {% include "wins/new-field.html" with field=form.lead_officer_name %}
     {% include "wins/new-field.html" with field=form.lead_officer_email_address help="You only need to provide this if you are completing this form on behalf of the lead officer" %}
     {% include "wins/new-field.html" with field=form.other_official_email_address help="You can provide an alternate email if someone else in your team needs to be notified about this Export Win" %}
@@ -48,7 +59,7 @@
     {% include "wins/new-field.html" with field=form.line_manager_name %}
 
     <hr />
-    <h3>Customer's Details</h3>
+    <h3>Customer's details</h3>
 
     {% include "wins/new-field.html" with field=form.company_name %}
     {% include "wins/new-field.html" with field=form.cdms_reference %}
@@ -59,6 +70,10 @@
 
     <hr />
     <h3>Details of Export Win</h3>
+    <p>
+      Your answers to these questions will be included in the details confirmed
+      by the customer.
+    </p>
 
     {% include "wins/new-field.html" with field=form.business_type help="e.g. export sales, contract, order, distributor, tender /competition win, joint venture, outward investment, etc." %}
     {% include "wins/new-field.html" with field=form.description help="Please provide details of any key products services provided, missions, initiatives, etc." %}
@@ -69,12 +84,16 @@
 
     <hr />
     <h3>Expected value of the win</h3>
-
-
-
-    <div class="help-text">These questions help us to understand the £ value of the customer's win over a five year period. How much of that £ value is UK exports and how much is non-export value. We will use these aggregated values to help demonstrate the contribution to the Government's £1 trillion by 2020 export target.
-    <br><br>
-    Please see guidance and FAQs.</div>
+    <p>
+      These questions help us to understand the £ value of the customer's win
+      over a five year period. How much of that £ value is UK exports and how
+      much is non-export value. We will use these aggregated values to help
+      demonstrate the contribution to the Government's £1 trillion by 2020
+      export target.
+      <br />
+      <br />
+      Please see guidance and FAQs.
+    </p>
 
     <div class="form-group {{ form.type.errors|yesno:'error,' }}">
       {{ form.type.errors }}
@@ -93,7 +112,7 @@
 
     <h4>Export value</h4>
 
-    {% include "wins/new-field.html" with field=form.total_expected_export_value help="Enter whole numbers in £ e.g. for one-and-a-half-million, enter 1500000. <br> The total expected value should be the sum of the annual values of the win over the next 5 years." %}
+    {% include "wins/new-field.html" with field=form.total_expected_export_value help="Enter whole numbers in £ e.g. for one-and-a-half-million, enter 1500000 <br /> The total expected value should be the sum of the annual values of the win." %}
 
     <table class="table table-responsive">
       <tr>
@@ -119,7 +138,7 @@
 
     <h4>Non-export value</h4>
 
-    {% include "wins/new-field.html" with field=form.total_expected_non_export_value help="Enter whole numbers in £ e.g. for one-and-a-half-million, enter 1500000. <br> The total expected value should be the sum of the annual values of the win over the next 5 years." %}
+    {% include "wins/new-field.html" with field=form.total_expected_non_export_value help="Enter whole numbers in £ e.g. for one-and-a-half-million, enter 1500000 <br /> The total expected value should be the sum of the annual values of the win." %}
 
     <table class="table table-responsive">
       <tr>
@@ -142,7 +161,7 @@
     <hr />
 
     <h3>
-      Contributing Teams and Advisers
+      Contributing teams and advisers
       <p>One individual or team per row.</p>
     </h3>
 
@@ -209,7 +228,7 @@
     <div class="form-group {{ form.is_personally_confirmed.errors|yesno:'error,' }}">
       {{ form.is_personally_confirmed.errors }}
       {{ form.is_personally_confirmed }}
-      {{ form.is_personally_confirmed.label_tag }} {% if form.is_personally_confirmed.field.required %}<span class="required">*</span>{% endif %}
+      {% if form.is_personally_confirmed.field.required %}<span class="required">*</span>{% endif %} {{ form.is_personally_confirmed.label_tag }}
       {% if form.is_personally_confirmed.help_text %}<div class="help-text">{{ form.is_personally_confirmed.help_text }}</div>{% endif %}
       <div class="clearfix"></div>
     </div>
@@ -217,14 +236,17 @@
     <div class="form-group {{ form.is_line_manager_confirmed.errors|yesno:'error,' }}">
       {{ form.is_line_manager_confirmed.errors }}
       {{ form.is_line_manager_confirmed }}
-      {{ form.is_line_manager_confirmed.label_tag }} {% if form.is_line_manager_confirmed.field.required %}<span class="required">*</span>{% endif %}
+      {% if form.is_line_manager_confirmed.field.required %}<span class="required">*</span>{% endif %} {{ form.is_line_manager_confirmed.label_tag }}
       {% if form.is_line_manager_confirmed.help_text %}<div class="help-text">{{ form.is_line_manager_confirmed.help_text }}</div>{% endif %}
       <div class="clearfix"></div>
     </div>
 
     {% csrf_token %}
 
-    <h3><p>Before submitting, you may wish to print this window using your browser to save a copy for your records. </p></h3>
+    <p class="well">
+      Before submitting, you may wish to print this window using your browser
+      to save a copy for your records.
+    </p>
 
     <div class="end-buttons">
       <input type="submit" name="s" value="Submit Record" class="btn btn-primary" />
