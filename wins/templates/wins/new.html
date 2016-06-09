@@ -10,6 +10,15 @@
     table.advisors tr th {
        vertical-align: middle;
     }
+    span.glyphicon {
+      font-size: 1.4em;
+    }
+    .tooltip-inner {
+      font-size: 1.2em;
+    }
+    .required {
+      color: #d00;
+    }
   </style>
 {% endblock css %}
 
@@ -30,126 +39,59 @@
 
   <form method="post">
 
-    <div class="form-group {{ form.lead_officer_name.errors|yesno:'error,' }}">
-      {{ form.lead_officer_name.errors }}
-      {{ form.lead_officer_name.label_tag }}
-      {{ form.lead_officer_name }}
-      {% if form.lead_officer_name.help_text %}<div class="help-text">{{ form.lead_officer_name.help_text }}</div>{% endif %}
-    </div>
-
-    <div class="form-group {{ form.team_type.errors|yesno:'error,' }}">
-      {{ form.team_type.errors }}
-      {{ form.team_type.label_tag }}
-      {{ form.team_type }}
-      {% if form.team_type.help_text %}<div class="help-text">{{ form.team_type.help_text }}</div>{% endif %}
-    </div>
-
-    <div class="form-group {{ form.hq_team.errors|yesno:'error,' }}">
-      {{ form.hq_team.errors }}
-      {{ form.hq_team.label_tag }}
-      {{ form.hq_team }}
-      {% if form.hq_team.help_text %}<div class="help-text">{{ form.hq_team.help_text }}</div>{% endif %}
-    </div>
-
-    <div class="form-group {{ form.location.errors|yesno:'error,' }}">
-      {{ form.location.errors }}
-      {{ form.location.label_tag }}
-      {{ form.location }}
-      {% if form.location.help_text %}<div class="help-text">{{ form.location.help_text }}</div>{% endif %}
-    </div>
-
-    <div class="form-group {{ form.line_manager_name.errors|yesno:'error,' }}">
-      {{ form.line_manager_name.errors }}
-      {{ form.line_manager_name.label_tag }}
-      {{ form.line_manager_name }}
-      {% if form.line_manager_name.help_text %}<div class="help-text">{{ form.line_manager_name.help_text }}</div>{% endif %}
-    </div>
+    {% include "wins/new-field.html" with field=form.lead_officer_name %}
+    {% include "wins/new-field.html" with field=form.team_type %}
+    {% include "wins/new-field.html" with field=form.hq_team %}
+    {% include "wins/new-field.html" with field=form.location %}
+    {% include "wins/new-field.html" with field=form.line_manager_name %}
 
     <hr />
+    <h3>Customer's Details</h3>
 
+    {% include "wins/new-field.html" with field=form.company_name %}
+    {% include "wins/new-field.html" with field=form.cdms_reference %}
+    {% include "wins/new-field.html" with field=form.customer_name %}
+    {% include "wins/new-field.html" with field=form.customer_job_title %}
+    {% include "wins/new-field.html" with field=form.customer_email_address %}
+    {% include "wins/new-field.html" with field=form.customer_location %}
+
+    <hr />
     <h3>Details of Export Win</h3>
-    <div class="form-group {{ form.company_name.errors|yesno:'error,' }}">
-      {{ form.company_name.errors }}
-      {{ form.company_name.label_tag }}
-      {{ form.company_name }}
-      {% if form.company_name.help_text %}<div class="help-text">{{ form.company_name.help_text }}</div>{% endif %}
-    </div>
 
-    <div class="form-group {{ form.cdms_reference.errors|yesno:'error,' }}">
-      {{ form.cdms_reference.errors }}
-      {{ form.cdms_reference.label_tag }}
-      {{ form.cdms_reference }}
-      {% if form.cdms_reference.help_text %}<div class="help-text">{{ form.cdms_reference.help_text }}</div>{% endif %}
-    </div>
-
-    <div class="form-group {{ form.customer_name.errors|yesno:'error,' }}">
-      {{ form.customer_name.errors }}
-      {{ form.customer_name.label_tag }}
-      {{ form.customer_name }}
-      {% if form.customer_name.help_text %}<div class="help-text">{{ form.customer_name.help_text }}</div>{% endif %}
-    </div>
-
-    <div class="form-group {{ form.customer_job_title.errors|yesno:'error,' }}">
-      {{ form.customer_job_title.errors }}
-      {{ form.customer_job_title.label_tag }}
-      {{ form.customer_job_title }}
-      {% if form.customer_job_title.help_text %}<div class="help-text">{{ form.customer_job_title.help_text }}</div>{% endif %}
-    </div>
-
-    <div class="form-group {{ form.customer_email_address.errors|yesno:'error,' }}">
-      {{ form.customer_email_address.errors }}
-      {{ form.customer_email_address.label_tag }}
-      {{ form.customer_email_address }}
-      {% if form.customer_email_address.help_text %}<div class="help-text">{{ form.customer_email_address.help_text }}</div>{% endif %}
-    </div>
-
-    <div class="form-group {{ form.customer_location.errors|yesno:'error,' }}">
-      {{ form.customer_location.errors }}
-      {{ form.customer_location.label_tag }}
-      {{ form.customer_location }}
-      {% if form.customer_location.help_text %}<div class="help-text">{{ form.customer_location.help_text }}</div>{% endif %}
-    </div>
+    {% include "wins/new-field.html" with field=form.business_type help="e.g. export sales, contract, order, distributor, tender /competition win, joint venture, outward investment, etc." %}
+    {% include "wins/new-field.html" with field=form.description help="Please provide details of any key products services provided, missions, initiatives, etc." %}
+    {% include "wins/new-field.html" with field=form.name_of_customer %}
+    {% include "wins/new-field.html" with field=form.name_of_export %}
+    {% include "wins/new-field.html" with field=form.date help="Enter month and year in the format MM/YYYY." %}
+    {% include "wins/new-field.html" with field=form.country %}
 
     <hr />
+    <h3>Expected value of the win</h3>
 
-    <div class="form-group {{ form.description.errors|yesno:'error,' }}">
-      {{ form.description.errors }}
-      {{ form.description.label_tag }}
-      {{ form.description }}
-      {% if form.description.help_text %}<div class="help-text">{{ form.description.help_text }}</div>{% endif %}
-    </div>
+
+
+    <div class="help-text">These questions help us to understand the £ value of the customer's win over a five year period. How much of that £ value is UK exports and how much is non-export value. We will use these aggregated values to help demonstrate the contribution to the Government's £1 trillion by 2020 export target.
+    <br><br>
+    Please see guidance and FAQs.</div>
 
     <div class="form-group {{ form.type.errors|yesno:'error,' }}">
       {{ form.type.errors }}
-      {{ form.type.label_tag }}
+      <h4>
+        {% if form.type.field.required %}<span class="required">*</span>{% endif %}
+        Type of win
+      </h4>
+      {% if help %}<div class="help-text">{{ help }}</div>{% endif %}
+      {% if tooltip %}
+        <span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-original-title="{{ tooltip }}"></span>
+      {% endif %}
       {{ form.type }}
-      {% if form.type.help_text %}<div class="help-text">{{ form.type.help_text }}</div>{% endif %}
+      <div class="clearfix"></div>
     </div>
-
-    <div class="form-group {{ form.date.errors|yesno:'error,' }}">
-      {{ form.date.errors }}
-      {{ form.date.label_tag }}
-      {{ form.date }}
-      {% if form.date.help_text %}<div class="help-text">{{ form.date.help_text }}</div>{% endif %}
-    </div>
-
-    <div class="form-group {{ form.country.errors|yesno:'error,' }}">
-      {{ form.country.errors }}
-      {{ form.country.label_tag }}
-      {{ form.country }}
-      {% if form.country.help_text %}<div class="help-text">{{ form.country.help_text }}</div>{% endif %}
-    </div>
-
     <hr />
 
-    <h3>Exports</h3>
+    <h4>Export value</h4>
 
-    <div class="form-group {{ form.total_expected_export_value.errors|yesno:'error,' }}">
-      {{ form.total_expected_export_value.errors }}
-      {{ form.total_expected_export_value.label_tag }}
-      {{ form.total_expected_export_value }}
-      {% if form.total_expected_export_value.help_text %}<div class="help-text">{{ form.total_expected_export_value.help_text }}</div>{% endif %}
-    </div>
+    {% include "wins/new-field.html" with field=form.total_expected_export_value help="Enter whole numbers in £ e.g. for one-and-a-half-million, enter 1500000. <br> The total expected value should be the sum of the annual values of the win over the next 5 years." %}
 
     <table class="table table-responsive">
       <tr>
@@ -168,16 +110,14 @@
       </tr>
     </table>
 
+    {% include "wins/new-field.html" with field=form.goods_vs_services %}
+    {% include "wins/new-field.html" with field=form.sector %}
+
     <hr />
 
-    <h3>Non-Exports</h3>
+    <h4>Non-export value</h4>
 
-    <div class="form-group {{ form.total_expected_non_export_value.errors|yesno:'error,' }}">
-      {{ form.total_expected_non_export_value.errors }}
-      {{ form.total_expected_non_export_value.label_tag }}
-      {{ form.total_expected_non_export_value }}
-      {% if form.total_expected_non_export_value.help_text %}<div class="help-text">{{ form.total_expected_non_export_value.help_text }}</div>{% endif %}
-    </div>
+    {% include "wins/new-field.html" with field=form.total_expected_non_export_value help="Enter whole numbers in £ e.g. for one-and-a-half-million, enter 1500000. <br> The total expected value should be the sum of the annual values of the win over the next 5 years." %}
 
     <table class="table table-responsive">
       <tr>
@@ -196,53 +136,6 @@
       </tr>
     </table>
 
-    <hr />
-
-    <div class="form-group {{ form.goods_vs_services.errors|yesno:'error,' }}">
-      {{ form.goods_vs_services.errors }}
-      {{ form.goods_vs_services.label_tag }}
-      {{ form.goods_vs_services }}
-      {% if form.goods_vs_services.help_text %}<div class="help-text">{{ form.goods_vs_services.help_text }}</div>{% endif %}
-    </div>
-
-    <div class="form-group {{ form.sector.errors|yesno:'error,' }}">
-      {{ form.sector.errors }}
-      {{ form.sector.label_tag }}
-      {{ form.sector }}
-      {% if form.sector.help_text %}<div class="help-text">{{ form.sector.help_text }}</div>{% endif %}
-    </div>
-
-    <div class="form-group {{ form.hvo_programme.errors|yesno:'error,' }}">
-      {{ form.hvo_programme.errors }}
-      {{ form.hvo_programme.label_tag }}
-      {{ form.hvo_programme }}
-      {% if form.hvo_programme.help_text %}<div class="help-text">{{ form.hvo_programme.help_text }}</div>{% endif %}
-      <div class="clearfix"></div>
-    </div>
-
-    <div class="form-group {{ form.has_hvo_specialist_involvement.errors|yesno:'error,' }}">
-      {{ form.has_hvo_specialist_involvement.errors }}
-      {{ form.has_hvo_specialist_involvement.label_tag }}
-      {{ form.has_hvo_specialist_involvement }}
-      <div class="clearfix"></div>
-      {% if form.has_hvo_specialist_involvement.help_text %}<div class="help-text">{{ form.has_hvo_specialist_involvement.help_text }}</div>{% endif %}
-    </div>
-
-    <div class="form-group {{ form.is_prosperity_fund_related.errors|yesno:'error,' }}">
-      {{ form.is_prosperity_fund_related.errors }}
-      {{ form.is_prosperity_fund_related.label_tag }}
-      {{ form.is_prosperity_fund_related }}
-      {% if form.is_prosperity_fund_related.help_text %}<div class="help-text">{{ form.is_prosperity_fund_related.help_text }}</div>{% endif %}
-      <div class="clearfix"></div>
-    </div>
-
-    <div class="form-group {{ form.is_e_exported.errors|yesno:'error,' }}">
-      {{ form.is_e_exported.errors }}
-      {{ form.is_e_exported.label_tag }}
-      {{ form.is_e_exported }}
-      <div class="clearfix"></div>
-      {% if form.is_e_exported.help_text %}<div class="help-text">{{ form.is_e_exported.help_text }}</div>{% endif %}
-    </div>
 
     <hr />
 
@@ -291,55 +184,30 @@
     </table>
 
     <hr />
+    <h3>Support provided
+    <p>How did we help the customer achieve this win?</p>
+    </h3>
 
-    <div class="form-group {{ form.type_of_support_1.errors|yesno:'error,' }}">
-      {{ form.type_of_support_1.errors }}
-      {{ form.type_of_support_1.label_tag }}
-      {{ form.type_of_support_1 }}
-      {% if form.type_of_support_1.help_text %}<div class="help-text">{{ form.type_of_support_1.help_text }}</div>{% endif %}
-    </div>
 
-    <div class="form-group {{ form.type_of_support_2.errors|yesno:'error,' }}">
-      {{ form.type_of_support_2.errors }}
-      {{ form.type_of_support_2.label_tag }}
-      {{ form.type_of_support_2 }}
-      {% if form.type_of_support_2.help_text %}<div class="help-text">{{ form.type_of_support_2.help_text }}</div>{% endif %}
-    </div>
-
-    <div class="form-group {{ form.type_of_support_3.errors|yesno:'error,' }}">
-      {{ form.type_of_support_3.errors }}
-      {{ form.type_of_support_3.label_tag }}
-      {{ form.type_of_support_3 }}
-      {% if form.type_of_support_3.help_text %}<div class="help-text">{{ form.type_of_support_3.help_text }}</div>{% endif %}
-    </div>
-
-    <div class="form-group {{ form.associated_programme_1.errors|yesno:'error,' }}">
-      {{ form.associated_programme_1.errors }}
-      {{ form.associated_programme_1.label_tag }}
-      {{ form.associated_programme_1 }}
-      {% if form.associated_programme_1.help_text %}<div class="help-text">{{ form.associated_programme_1.help_text }}</div>{% endif %}
-    </div>
-
-    <div class="form-group {{ form.associated_programme_2.errors|yesno:'error,' }}">
-      {{ form.associated_programme_2.errors }}
-      {{ form.associated_programme_2.label_tag }}
-      {{ form.associated_programme_2 }}
-      {% if form.associated_programme_2.help_text %}<div class="help-text">{{ form.associated_programme_2.help_text }}</div>{% endif %}
-    </div>
-
-    <div class="form-group {{ form.associated_programme_3.errors|yesno:'error,' }}">
-      {{ form.associated_programme_3.errors }}
-      {{ form.associated_programme_3.label_tag }}
-      {{ form.associated_programme_3 }}
-      {% if form.associated_programme_3.help_text %}<div class="help-text">{{ form.associated_programme_3.help_text }}</div>{% endif %}
-    </div>
+    {% include "wins/new-field.html" with field=form.hvo_programme %}
+    {% include "wins/new-field.html" with field=form.has_hvo_specialist_involvement %}
+    {% include "wins/new-field.html" with field=form.is_prosperity_fund_related %}
+    {% include "wins/new-field.html" with field=form.is_e_exported %}
+    {% include "wins/new-field.html" with field=form.type_of_support_1 %}
+    {% include "wins/new-field.html" with field=form.type_of_support_2 %}
+    {% include "wins/new-field.html" with field=form.type_of_support_3 %}
+    {% include "wins/new-field.html" with field=form.associated_programme_1 %}
+    {% include "wins/new-field.html" with field=form.associated_programme_2 %}
+    {% include "wins/new-field.html" with field=form.associated_programme_3 %}
 
     <hr />
+
+    {# these manually place the label before the field #}
 
     <div class="form-group {{ form.is_personally_confirmed.errors|yesno:'error,' }}">
       {{ form.is_personally_confirmed.errors }}
       {{ form.is_personally_confirmed }}
-      {{ form.is_personally_confirmed.label_tag }}
+      {{ form.is_personally_confirmed.label_tag }} {% if form.is_personally_confirmed.field.required %}<span class="required">*</span>{% endif %}
       {% if form.is_personally_confirmed.help_text %}<div class="help-text">{{ form.is_personally_confirmed.help_text }}</div>{% endif %}
       <div class="clearfix"></div>
     </div>
@@ -347,12 +215,15 @@
     <div class="form-group {{ form.is_line_manager_confirmed.errors|yesno:'error,' }}">
       {{ form.is_line_manager_confirmed.errors }}
       {{ form.is_line_manager_confirmed }}
-      {{ form.is_line_manager_confirmed.label_tag }}
+      {{ form.is_line_manager_confirmed.label_tag }} {% if form.is_line_manager_confirmed.field.required %}<span class="required">*</span>{% endif %}
       {% if form.is_line_manager_confirmed.help_text %}<div class="help-text">{{ form.is_line_manager_confirmed.help_text }}</div>{% endif %}
       <div class="clearfix"></div>
     </div>
 
     {% csrf_token %}
+
+    <h3><p>Before submitting, you may wish to print this window using your browser to save a copy for your records. </p></h3>
+
     <div class="end-buttons">
       <input type="submit" name="s" value="Submit Record" class="btn btn-primary" />
     </div>
@@ -363,6 +234,12 @@
 
 {% block js_footer %}
   <script>
+  $(function() {
+
+    // Initialise tooltips
+    $('[data-toggle="tooltip"]').tooltip({
+        placement: 'top'
+    });
 
     // Auto filter the hq-team lists
 
@@ -383,6 +260,6 @@
       $("#id_advisor_" + i + "_hq_team option[value^=" + type + "]").removeClass("hidden");
       $("#id_advisor_" + i + "_hq_team").val($("#id_advisor_" + i + "_hq_team option[value^=" + type + "]").first().val());
     });
-
+  });
   </script>
 {% endblock js_footer %}

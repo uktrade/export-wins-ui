@@ -1,6 +1,7 @@
 from django import forms
 from django.forms.utils import ErrorList
 from django.utils.safestring import mark_safe
+from django.utils.html import escape
 
 
 class BootstrapErrorClass(ErrorList):
@@ -11,7 +12,7 @@ class BootstrapErrorClass(ErrorList):
             return ''
 
         return mark_safe('<div class="alert alert-danger">{}</div>'.format(
-            ''.join(['<div class="error">%s</div>' % e for e in self])
+            ''.join(['<div class="error">%s</div>' % escape(e) for e in self])
         ))
 
 
