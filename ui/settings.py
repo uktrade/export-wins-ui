@@ -135,7 +135,7 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 STATIC_URL = '/static/'
 
 
-# Application authorisation
+# URLs for access points on the data server
 DATA_SERVER = os.getenv("DATA_SERVER")
 WINS_AP = "{}/wins/".format(DATA_SERVER)
 LIMITED_WINS_AP = "{}/limited-wins/".format(DATA_SERVER)
