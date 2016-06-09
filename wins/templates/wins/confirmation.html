@@ -2,6 +2,7 @@
 
 
 {% load staticfiles %}
+{% load humanize %}
 
 
 {% block css %}
@@ -50,44 +51,30 @@
     {{ form.non_field_errors }}
   {% endif %}
 
-  <h3>Export Win Details</h3>
+  <h3>Your export success</h3>
   <table class="win-details table table-striped table-responsive">
-    <tr>
-      <th>{{ win.type.label }}</th>
-      <td>{{ win.type.value }}</td>
-    </tr>
     <tr>
       <th>{{ win.description.label }}</th>
       <td>{{ win.description.value }}</td>
     </tr>
     <tr>
-      <th>{{ win.goods_vs_services.label }}</th>
-      <td>{{ win.goods_vs_services.value }}</td>
-    </tr>
-    <tr>
-      <th>{{ win.customer_location.label }}</th>
-      <td>{{ win.customer_location.value }}</td>
-    </tr>
-    <tr>
-      <th>{{ win.country.label }}</th>
+      <th>The country where the business was won</th>
       <td>{{ win.country.value }}</td>
     </tr>
     <tr>
-      <th>{{ win.date.label }}</th>
-      <td>{{ win.date.value }}</td>
+      <th>Date business won</th>
+      <td>{{ win.date.value|date:'m/Y' }}</td>
     </tr>
     <tr>
-      <th>{{ win.created.label }}</th>
-      <td>{{ win.created.value }}</td>
+      <th>The total expected export value over the next 5 years</th>
+      <td>£{{ win.total_expected_export_value.value|intcomma }}</td>
     </tr>
-    <tr>
-      <th>{{ win.total_expected_export_value.label }}</th>
-      <td>£{{ win.total_expected_export_value.value }}</td>
-    </tr>
-    <tr>
-      <th>{{ win.total_expected_non_export_value.label }}</th>
-      <td>£{{ win.total_expected_non_export_value.value }}</td>
-    </tr>
+    {% if win.total_expected_non_export_value.value %}
+      <tr>
+        <th>{{ win.total_expected_non_export_value.label }}</th>
+        <td>£{{ win.total_expected_non_export_value.value }}</td>
+      </tr>
+    {% endif %}
   </table>
 
   <form method="post">
