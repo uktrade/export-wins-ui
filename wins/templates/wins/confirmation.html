@@ -2,6 +2,7 @@
 
 
 {% load staticfiles %}
+{% load humanize %}
 
 
 {% block css %}
@@ -50,99 +51,110 @@
     {{ form.non_field_errors }}
   {% endif %}
 
-  <h3>Export Win Details</h3>
+  <h3>Your export success</h3>
   <table class="win-details table table-striped table-responsive">
+    {% if win.business_type.value %}
+      <tr>
+        <th>Type of business deal</th>
+        <td>{{ win.business_type.value }}</td>
+      </tr>
+    {% endif %}
     <tr>
-      <th>{{ win.type.label }}</th>
-      <td>{{ win.type.value }}</td>
-    </tr>
-    <tr>
-      <th>{{ win.description.label }}</th>
+      <th>How we supported you to achieve this win</th>
       <td>{{ win.description.value }}</td>
     </tr>
+    {% if win.total_expected_export_value.value %}
+      <tr>
+        <th>The total expected export value over the next 5 years</th>
+        <td>£{{ win.total_expected_export_value.value|intcomma }}</td>
+      </tr>
+    {% endif %}
+    {% if win.total_expected_non_export_value.value %}
+      <tr>
+        <th>{{ win.total_expected_non_export_value.label }}</th>
+        <td>£{{ win.total_expected_non_export_value.value }}</td>
+      </tr>
+    {% endif %}
     <tr>
-      <th>{{ win.goods_vs_services.label }}</th>
-      <td>{{ win.goods_vs_services.value }}</td>
-    </tr>
-    <tr>
-      <th>{{ win.customer_location.label }}</th>
-      <td>{{ win.customer_location.value }}</td>
-    </tr>
-    <tr>
-      <th>{{ win.country.label }}</th>
+      <th>The country where the business was won</th>
       <td>{{ win.country.value }}</td>
     </tr>
     <tr>
-      <th>{{ win.date.label }}</th>
-      <td>{{ win.date.value }}</td>
-    </tr>
-    <tr>
-      <th>{{ win.created.label }}</th>
-      <td>{{ win.created.value }}</td>
-    </tr>
-    <tr>
-      <th>{{ win.total_expected_export_value.label }}</th>
-      <td>£{{ win.total_expected_export_value.value }}</td>
-    </tr>
-    <tr>
-      <th>{{ win.total_expected_non_export_value.label }}</th>
-      <td>£{{ win.total_expected_non_export_value.value }}</td>
+      <th>Date business won</th>
+      <td>{{ win.date.value|date:'m/Y' }}</td>
     </tr>
   </table>
+
+  <p class="alert alert-info">
+    If this information is incorrect, please tell us how it should change in
+    the comment box at the bottom of this form.
+  </p>
 
   <form method="post">
 
     <h3>How important was our support in securing the win?</h3>
 
+    <p>
+      On a scale of 1-5 where 1 is to no extent and 5 is to a significant
+      extent, please rate your experiences.
+    </p>
+
     <div class="form-group {{ form.access_to_contacts.errors|yesno:'error,' }}">
       {{ form.access_to_contacts.errors }}
-      <div class="col-md-7">{{ form.access_to_contacts.label_tag }}</div>
-      <div class="col-md-5">{{ form.access_to_contacts }}</div>
+      <div class="col-sm-7 col-xs-12">{{ form.access_to_contacts.label_tag }}</div>
+      <div class="col-sm-5 col-xs-12">{{ form.access_to_contacts }}</div>
       {% if form.access_to_contacts.help_text %}<div class="help-text">{{ form.access_to_contacts.help_text }}</div>{% endif %}
       <div class="clearfix"></div>
     </div>
 
     <div class="form-group {{ form.access_to_information.errors|yesno:'error,' }}">
       {{ form.access_to_information.errors }}
-      <div class="col-md-7">{{ form.access_to_information.label_tag }}</div>
-      <div class="col-md-5">{{ form.access_to_information }}</div>
+      <div class="col-sm-7 col-xs-12">{{ form.access_to_information.label_tag }}</div>
+      <div class="col-sm-5 col-xs-12">{{ form.access_to_information }}</div>
       {% if form.access_to_information.help_text %}<div class="help-text">{{ form.access_to_information.help_text }}</div>{% endif %}
       <div class="clearfix"></div>
     </div>
 
     <div class="form-group {{ form.improved_profile.errors|yesno:'error,' }}">
       {{ form.improved_profile.errors }}
-      <div class="col-md-7">{{ form.improved_profile.label_tag }}</div>
-      <div class="col-md-5">{{ form.improved_profile }}</div>
+      <div class="col-sm-7 col-xs-12">{{ form.improved_profile.label_tag }}</div>
+      <div class="col-sm-5 col-xs-12">{{ form.improved_profile }}</div>
       {% if form.improved_profile.help_text %}<div class="help-text">{{ form.improved_profile.help_text }}</div>{% endif %}
       <div class="clearfix"></div>
     </div>
 
     <div class="form-group {{ form.gained_confidence.errors|yesno:'error,' }}">
       {{ form.gained_confidence.errors }}
-      <div class="col-md-7">{{ form.gained_confidence.label_tag }}</div>
-      <div class="col-md-5">{{ form.gained_confidence }}</div>
+      <div class="col-sm-7 col-xs-12">{{ form.gained_confidence.label_tag }}</div>
+      <div class="col-sm-5 col-xs-12">{{ form.gained_confidence }}</div>
       {% if form.gained_confidence.help_text %}<div class="help-text">{{ form.gained_confidence.help_text }}</div>{% endif %}
       <div class="clearfix"></div>
     </div>
 
     <div class="form-group {{ form.developed_relationships.errors|yesno:'error,' }}">
       {{ form.developed_relationships.errors }}
-      <div class="col-md-7">{{ form.developed_relationships.label_tag }}</div>
-      <div class="col-md-5">{{ form.developed_relationships }}</div>
+      <div class="col-sm-7 col-xs-12">{{ form.developed_relationships.label_tag }}</div>
+      <div class="col-sm-5 col-xs-12">{{ form.developed_relationships }}</div>
       {% if form.developed_relationships.help_text %}<div class="help-text">{{ form.developed_relationships.help_text }}</div>{% endif %}
       <div class="clearfix"></div>
     </div>
 
     <div class="form-group {{ form.overcame_problem.errors|yesno:'error,' }}">
       {{ form.overcame_problem.errors }}
-      <div class="col-md-7">{{ form.overcame_problem.label_tag }}</div>
-      <div class="col-md-5">{{ form.overcame_problem }}</div>
+      <div class="col-sm-7 col-xs-12">{{ form.overcame_problem.label_tag }}</div>
+      <div class="col-sm-5 col-xs-12">{{ form.overcame_problem }}</div>
       {% if form.overcame_problem.help_text %}<div class="help-text">{{ form.overcame_problem.help_text }}</div>{% endif %}
       <div class="clearfix"></div>
     </div>
 
-    <h3>Thinking About the Export Value Recorded in this Form</h3>
+    <h3>Thinking about the export value recorded in this form</h3>
+
+    <div class="form-group {{ form.expected_portion_without_help.errors|yesno:'error,' }}">
+      {{ form.expected_portion_without_help.errors }}
+      {{ form.expected_portion_without_help.label_tag }}
+      {{ form.expected_portion_without_help }}
+      {% if form.expected_portion_without_help.help_text %}<div class="help-text">{{ form.expected_portion_without_help.help_text }}</div>{% endif %}
+    </div>
 
     <div class="form-group {{ form.involved_state_enterprise.errors|yesno:'error,' }}">
       {{ form.involved_state_enterprise.errors }}
@@ -168,14 +180,7 @@
       <div class="clearfix"></div>
     </div>
 
-    <div class="form-group {{ form.expected_portion_without_help.errors|yesno:'error,' }}">
-      {{ form.expected_portion_without_help.errors }}
-      {{ form.expected_portion_without_help.label_tag }}
-      {{ form.expected_portion_without_help }}
-      {% if form.expected_portion_without_help.help_text %}<div class="help-text">{{ form.expected_portion_without_help.help_text }}</div>{% endif %}
-    </div>
-
-    <h3>Your Export Experience</h3>
+    <h3>Your export experience</h3>
 
     <div class="form-group {{ form.last_export.errors|yesno:'error,' }}">
       {{ form.last_export.errors }}
@@ -199,8 +204,6 @@
       {% if form.has_explicit_export_plans.help_text %}<div class="help-text">{{ form.has_explicit_export_plans.help_text }}</div>{% endif %}
       <div class="clearfix"></div>
     </div>
-
-    <hr />
 
     <div class="form-group {{ form.has_enabled_expansion_into_new_market.errors|yesno:'error,' }}">
       {{ form.has_enabled_expansion_into_new_market.errors }}
@@ -226,11 +229,21 @@
       <div class="clearfix"></div>
     </div>
 
-    <hr />
-
     <div class="form-group {{ form.comments.errors|yesno:'error,' }}">
       {{ form.comments.errors }}
       {{ form.comments.label_tag }}
+      <div class="clearfix"></div>
+      <div class="help-text">
+        <p>
+          In this box, please let us know about anything we should change in the
+          information we've recorded for the win, the support you received from
+          UKTI &amp; FCO colleagues, and your feedback on this service.
+        </p>
+        <p>
+          Please also let us know if you'd be interested in helping us produce a
+          case study about this win.
+        </p>
+      </div>
       {{ form.comments }}
       {% if form.comments.help_text %}<div class="help-text">{{ form.comments.help_text }}</div>{% endif %}
     </div>
@@ -272,7 +285,7 @@
         "animate": false,
         "size": "xs",
         "step": 1,
-        "showClear": false
+        "showClear": true
       });
     }
   </script>

@@ -1,3 +1,4 @@
+from datetime import datetime
 from dateutil.parser import parse as date_parser
 from dateutil.relativedelta import relativedelta
 
@@ -64,6 +65,8 @@ class ConfirmationView(FormView):
         values = rabbit.get(win_url).json()
         win = rabbit.get(schema_url).json()
         for key, value in values.items():
+            if key == "date":
+                value = date_parser(value)
             win[key]["value"] = value
 
         context = FormView.get_context_data(self, **kwargs)
