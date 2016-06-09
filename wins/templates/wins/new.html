@@ -16,6 +16,9 @@
     .tooltip-inner {
       font-size: 1.2em;
     }
+    .required {
+      color: #d00;
+    }
   </style>
 {% endblock css %}
 
@@ -36,14 +39,14 @@
 
   <form method="post">
 
-    {% include "wins/new-field.html" with field=form.lead_officer_name tooltip="This is a test tooltip" %}
+    {% include "wins/new-field.html" with field=form.lead_officer_name %}
     {% include "wins/new-field.html" with field=form.team_type %}
     {% include "wins/new-field.html" with field=form.hq_team %}
     {% include "wins/new-field.html" with field=form.location %}
     {% include "wins/new-field.html" with field=form.line_manager_name %}
 
     <hr />
-    <h3>Details of Export Win</h3>
+    <h3>Customer's Details</h3>
 
     {% include "wins/new-field.html" with field=form.company_name %}
     {% include "wins/new-field.html" with field=form.cdms_reference %}
@@ -53,19 +56,42 @@
     {% include "wins/new-field.html" with field=form.customer_location %}
 
     <hr />
+    <h3>Details of Export Win</h3>
 
-    {% include "wins/new-field.html" with field=form.business_type %}
+    {% include "wins/new-field.html" with field=form.business_type help="e.g. export sales, contract, order, distributor, tender /competition win, joint venture, outward investment, etc." %}
+    {% include "wins/new-field.html" with field=form.description help="Please provide details of any key products services provided, missions, initiatives, etc." %}
     {% include "wins/new-field.html" with field=form.name_of_customer %}
     {% include "wins/new-field.html" with field=form.name_of_export %}
-    {% include "wins/new-field.html" with field=form.description %}
-    {% include "wins/new-field.html" with field=form.type %}
-    {% include "wins/new-field.html" with field=form.date %}
+    {% include "wins/new-field.html" with field=form.date help="Enter month and year in the format MM/YYYY." %}
     {% include "wins/new-field.html" with field=form.country %}
 
     <hr />
-    <h3>Exports</h3>
+    <h3>Expected value of the win</h3>
 
-    {% include "wins/new-field.html" with field=form.total_expected_export_value %}
+
+
+    <div class="help-text">These questions help us to understand the £ value of the customer's win over a five year period. How much of that £ value is UK exports and how much is non-export value. We will use these aggregated values to help demonstrate the contribution to the Government's £1 trillion by 2020 export target.
+    <br><br>
+    Please see guidance and FAQs.</div>
+
+    <div class="form-group {{ form.type.errors|yesno:'error,' }}">
+      {{ form.type.errors }}
+      <h4>
+        {% if form.type.field.required %}<span class="required">*</span>{% endif %}
+        Type of win
+      </h4>
+      {% if help %}<div class="help-text">{{ help }}</div>{% endif %}
+      {% if tooltip %}
+        <span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-original-title="{{ tooltip }}"></span>
+      {% endif %}
+      {{ form.type }}
+      <div class="clearfix"></div>
+    </div>
+    <hr />
+
+    <h4>Export value</h4>
+
+    {% include "wins/new-field.html" with field=form.total_expected_export_value help="Enter whole numbers in £ e.g. for one-and-a-half-million, enter 1500000. <br> The total expected value should be the sum of the annual values of the win over the next 5 years." %}
 
     <table class="table table-responsive">
       <tr>
@@ -84,11 +110,14 @@
       </tr>
     </table>
 
+    {% include "wins/new-field.html" with field=form.goods_vs_services %}
+    {% include "wins/new-field.html" with field=form.sector %}
+
     <hr />
 
-    <h3>Non-Exports</h3>
+    <h4>Non-export value</h4>
 
-    {% include "wins/new-field.html" with field=form.total_expected_non_export_value %}
+    {% include "wins/new-field.html" with field=form.total_expected_non_export_value help="Enter whole numbers in £ e.g. for one-and-a-half-million, enter 1500000. <br> The total expected value should be the sum of the annual values of the win over the next 5 years." %}
 
     <table class="table table-responsive">
       <tr>
@@ -107,14 +136,6 @@
       </tr>
     </table>
 
-    <hr />
-
-    {% include "wins/new-field.html" with field=form.goods_vs_services %}
-    {% include "wins/new-field.html" with field=form.sector %}
-    {% include "wins/new-field.html" with field=form.hvo_programme %}
-    {% include "wins/new-field.html" with field=form.has_hvo_specialist_involvement %}
-    {% include "wins/new-field.html" with field=form.is_prosperity_fund_related %}
-    {% include "wins/new-field.html" with field=form.is_e_exported %}
 
     <hr />
 
@@ -163,7 +184,15 @@
     </table>
 
     <hr />
+    <h3>Support provided
+    <p>How did we help the customer achieve this win?</p>
+    </h3>
 
+
+    {% include "wins/new-field.html" with field=form.hvo_programme %}
+    {% include "wins/new-field.html" with field=form.has_hvo_specialist_involvement %}
+    {% include "wins/new-field.html" with field=form.is_prosperity_fund_related %}
+    {% include "wins/new-field.html" with field=form.is_e_exported %}
     {% include "wins/new-field.html" with field=form.type_of_support_1 %}
     {% include "wins/new-field.html" with field=form.type_of_support_2 %}
     {% include "wins/new-field.html" with field=form.type_of_support_3 %}
@@ -178,7 +207,7 @@
     <div class="form-group {{ form.is_personally_confirmed.errors|yesno:'error,' }}">
       {{ form.is_personally_confirmed.errors }}
       {{ form.is_personally_confirmed }}
-      {{ form.is_personally_confirmed.label_tag }}
+      {{ form.is_personally_confirmed.label_tag }} {% if form.is_personally_confirmed.field.required %}<span class="required">*</span>{% endif %}
       {% if form.is_personally_confirmed.help_text %}<div class="help-text">{{ form.is_personally_confirmed.help_text }}</div>{% endif %}
       <div class="clearfix"></div>
     </div>
@@ -186,12 +215,15 @@
     <div class="form-group {{ form.is_line_manager_confirmed.errors|yesno:'error,' }}">
       {{ form.is_line_manager_confirmed.errors }}
       {{ form.is_line_manager_confirmed }}
-      {{ form.is_line_manager_confirmed.label_tag }}
+      {{ form.is_line_manager_confirmed.label_tag }} {% if form.is_line_manager_confirmed.field.required %}<span class="required">*</span>{% endif %}
       {% if form.is_line_manager_confirmed.help_text %}<div class="help-text">{{ form.is_line_manager_confirmed.help_text }}</div>{% endif %}
       <div class="clearfix"></div>
     </div>
 
     {% csrf_token %}
+
+    <h3><p>Before submitting, you may wish to print this window using your browser to save a copy for your records. </p></h3>
+
     <div class="end-buttons">
       <input type="submit" name="s" value="Submit Record" class="btn btn-primary" />
     </div>
@@ -208,9 +240,6 @@
     $('[data-toggle="tooltip"]').tooltip({
         placement: 'top'
     });
-
-    // Hide temporary business type
-    $("option:contains('Other (TEMPORARY)')").remove();
 
     // Auto filter the hq-team lists
 

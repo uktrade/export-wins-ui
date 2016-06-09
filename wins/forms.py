@@ -70,12 +70,13 @@ class ConfirmationFormMetaclass(ReflectiveFormMetaclass):
 
 class RabbitMixin(object):
 
-    def push(self, ap, data):
+    def push(self, url, data):
+        """ POST data to URL on data server, return json response """
 
         # The POST request is http-url-encoded rather than json-encoded for now
         # since I don't know how to set it that way and don't have the time to
         # find out.
-        response = rabbit.post(ap, data=data, request=self.request)
+        response = rabbit.post(url, data=data, request=self.request)
 
         if not response.status_code == 201:
             raise forms.ValidationError(
@@ -99,7 +100,9 @@ class WinForm(RabbitMixin, BootstrappedForm,
 
         BootstrappedForm.__init__(self, *args, **kwargs)
 
-        self.fields["date"].widget.attrs.update({"placeholder": "MM/YYYY"})
+        self.date_format = 'MM/YYYY'  # the format the date field expects
+
+        self.fields["date"].widget.attrs.update({"placeholder": self.date_format})
 
         self.fields["is_personally_confirmed"].required = True
         self.fields["is_personally_confirmed"].label_suffix = ""
@@ -111,6 +114,8 @@ class WinForm(RabbitMixin, BootstrappedForm,
             {"placeholder": "£GBP"})
         self.fields["total_expected_non_export_value"].widget.attrs.update(
             {"placeholder": "£GBP"})
+        self.fields["total_expected_export_value"].initial = '0'
+        self.fields["total_expected_non_export_value"].initial = '0'
 
         self._add_breakdown_fields()
         self._add_advisor_fields()
@@ -118,17 +123,18 @@ class WinForm(RabbitMixin, BootstrappedForm,
         self._advisors = []
 
     def clean_date(self):
+        """ Validate date entered as a string and reformat for serializer """
 
         date_str = self.cleaned_data.get("date")
 
         m = re.match(r"^(?P<month>\d\d)/(?P<year>\d\d\d\d)$", date_str)
         if not m:
-            raise forms.ValidationError('Invalid format. Please use "MM/YYYY"')
+            raise forms.ValidationError('Invalid format. Please use {}'.format(self.date_format))
 
         try:
             date = datetime(int(m.group("year")), int(m.group("month")), 1)
         except:
-            raise forms.ValidationError('Invalid date. Please use "MM/YYYY"')
+            raise forms.ValidationError('Invalid date. Please use {}'.format(self.date_format))
 
         return date.strftime('%Y-%m-%d')  # serializer expects YYYY-MM-DD
 
@@ -145,6 +151,7 @@ class WinForm(RabbitMixin, BootstrappedForm,
         return r
 
     def save(self):
+        """ Push cleaned data to appropriate data server access points """
 
         # This is overwritten by the data server to be request.user, but since
         # it's entirely possible that the local user id and the data server's
@@ -187,6 +194,7 @@ class WinForm(RabbitMixin, BootstrappedForm,
         })
 
     def _add_breakdown_fields(self):
+        """ Create breakdown fields """
 
         breakdown_values = ("breakdown_exports_{}", "breakdown_non_exports_{}")
 
@@ -205,6 +213,7 @@ class WinForm(RabbitMixin, BootstrappedForm,
                             "placeholder": "£GBP"
                         }
                     ),
+                    initial='0',
                 )
 
     def _get_breakdown_data(self, win_id):
