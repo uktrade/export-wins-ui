@@ -52,6 +52,9 @@ def get_form_field(spec):
         else:
             kwargs["widget"] = forms.widgets.Textarea
 
+    if spec["type"] == "integer":
+        kwargs["max_value"] = 2000000000
+
     return field(**kwargs)
 
 

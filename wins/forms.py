@@ -219,6 +219,7 @@ class WinForm(RabbitMixin, BootstrappedForm,
                         }
                     ),
                     initial='0',
+                    max_value=2000000000,
                     label_suffix=""
                 )
 
