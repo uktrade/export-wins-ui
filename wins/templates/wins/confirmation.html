@@ -26,6 +26,9 @@
 {% endblock js_header %}
 
 
+{% block subheader %}{% endblock subheader %}
+
+
 {% block content %}
 
   <div class="alert alert-info">
@@ -34,13 +37,11 @@
       our support helps them succeed.
     </p>
     <p>
-      At the same time, we are working to minimise bureaucracy and test the
-      system to ensure that your private and confidential information is
-      handled securely at all times.
+      At the same time, we are working to minimise bureaucracy.
     </p>
     <p>
       Please let us know, using the button above, if you encounter any problems
-      with this service.
+      completing this form.
     </p>
   </div>
 
@@ -86,8 +87,8 @@
   </table>
 
   <p class="alert alert-info">
-    If this information is incorrect, please tell us how it should change in
-    the comment box at the bottom of this form.
+    If this information is incorrect, please tell us how it should be changed
+    in the comment box at the bottom of this form.
   </p>
 
   <form method="post">
@@ -95,8 +96,9 @@
     <h3>How important was our support in securing the win?</h3>
 
     <p>
-      On a scale of 1-5 where 1 is to no extent and 5 is to a significant
-      extent, please rate your experiences.
+      On a scale of 1-5 where 1 star means is to no extent and 5 stars means
+      to a significant extent, please rate your experiences below.  Only answer
+      those questions that apply.
     </p>
 
     <div class="form-group {{ form.access_to_contacts.errors|yesno:'error,' }}">
@@ -237,11 +239,7 @@
         <p>
           In this box, please let us know about anything we should change in the
           information we've recorded for the win, the support you received from
-          UKTI &amp; FCO colleagues, and your feedback on this service.
-        </p>
-        <p>
-          Please also let us know if you'd be interested in helping us produce a
-          case study about this win.
+          UKTI &amp; FCO colleagues, and your feedback.
         </p>
       </div>
       {{ form.comments }}
