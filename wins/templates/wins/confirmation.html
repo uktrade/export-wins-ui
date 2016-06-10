@@ -53,6 +53,11 @@
   {% endif %}
 
   <h3>Your export success</h3>
+  <p>
+    Below is a summary of your recent Export Win provided by
+    {{ win.lead_officer_name|default:win.user.name }}.  Please review this
+    information to confirm that the details are correct.
+  </p>
   <table class="win-details table table-striped table-responsive">
     {% if win.business_type.value %}
       <tr>
@@ -240,6 +245,10 @@
           In this box, please let us know about anything we should change in the
           information we've recorded for the win, the support you received from
           UKTI &amp; FCO colleagues, and your feedback.
+        </p>
+        <p>
+          Please let us know if you would be willing to have your success
+          featured as a UKTI / Exporting is GREAT case study.
         </p>
       </div>
       {{ form.comments }}
