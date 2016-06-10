@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
+    'django.contrib.humanize',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
@@ -134,7 +135,7 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 STATIC_URL = '/static/'
 
 
-# Application authorisation
+# URLs for access points on the data server
 DATA_SERVER = os.getenv("DATA_SERVER")
 WINS_AP = "{}/wins/".format(DATA_SERVER)
 LIMITED_WINS_AP = "{}/limited-wins/".format(DATA_SERVER)
@@ -142,7 +143,7 @@ CONFIRMATIONS_AP = "{}/confirmations/".format(DATA_SERVER)
 BREAKDOWNS_AP = "{}/breakdowns/".format(DATA_SERVER)
 ADVISORS_AP = "{}/advisors/".format(DATA_SERVER)
 NOTIFICATIONS_AP = "{}/notifications/".format(DATA_SERVER)
-LOGIN_AP = "{}/login/".format(DATA_SERVER)
+LOGIN_AP = "{}/auth/login/".format(DATA_SERVER)
 LOGOUT_AP = "{}/auth/logout/".format(DATA_SERVER)
 
 UI_SECRET = os.getenv("UI_SECRET")
@@ -174,3 +175,13 @@ RAVEN_CONFIG = {
     # release based on the git info.
     # 'release': raven.fetch_git_sha(os.path.dirname(__file__)),
 }
+
+# Security stuff
+SECURE_HSTS_SECONDS = 60 * 60 * 24 * 365
+SECURE_BROWSER_XSS_FILTER = True
+
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+if DEBUG:
+    SESSION_COOKIE_SECURE = False
+    CSRF_COOKIE_SECURE = False
