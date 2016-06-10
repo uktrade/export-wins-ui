@@ -129,12 +129,18 @@ class WinForm(RabbitMixin, BootstrappedForm,
 
         m = re.match(r"^(?P<month>\d\d)/(?P<year>\d\d\d\d)$", date_str)
         if not m:
-            raise forms.ValidationError('Invalid format. Please use {}'.format(self.date_format))
+            raise forms.ValidationError(
+                'Invalid format. Please use {}'.format(self.date_format))
 
         try:
-            date = datetime(int(m.group("year")), int(m.group("month")), 1)
+            year = int(m.group("year"))
+            month = int(m.group("month"))
+            if year < 1970:
+                raise ValueError("Year is unreasonable")
+            date = datetime(year, month, 1)
         except:
-            raise forms.ValidationError('Invalid date. Please use {}'.format(self.date_format))
+            raise forms.ValidationError(
+                'Invalid date. Please use {}'.format(self.date_format))
 
         return date.strftime('%Y-%m-%d')  # serializer expects YYYY-MM-DD
 
