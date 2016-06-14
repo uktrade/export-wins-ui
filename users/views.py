@@ -1,5 +1,7 @@
 import jwt
 
+from datetime import datetime
+
 from django.conf import settings
 from django.utils.http import is_safe_url
 from django.views.generic import FormView, RedirectView
@@ -25,7 +27,9 @@ class LoginView(FormView):
                 },
                 settings.UI_SECRET
             ),
-            expires=form.session_cookie.expires,
+            expires=datetime.fromtimestamp(
+                form.session_cookie.expires
+            ).strftime('%a, %d %b %Y %H:%M:%S'),
             secure=settings.SESSION_COOKIE_SECURE,
             httponly=True
         )
