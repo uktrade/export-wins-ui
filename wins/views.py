@@ -35,7 +35,7 @@ class ConfirmationView(FormView):
     template_name = "wins/confirmation.html"
     form_class = ConfirmationForm
 
-    ACCEPTANCE_WINDOW = 7  # Days
+    ACCEPTANCE_WINDOW = 30  # Days
 
     class SecurityException(Exception):
         pass
