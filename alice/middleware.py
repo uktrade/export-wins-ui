@@ -22,7 +22,7 @@ class User(object):
             setattr(self, k, v)
 
     def is_authenticated(self):
-        return self.is_authenticated
+        return self._is_authenticated
 
     @property
     def pk(self):
