@@ -1,9 +1,8 @@
-from datetime import datetime
 from dateutil.parser import parse as date_parser
 from dateutil.relativedelta import relativedelta
 
 from django.conf import settings
-from django.contrib.auth.mixins import LoginRequiredMixin
+from alice.braces import LoginRequiredMixin
 from django.core.urlresolvers import reverse
 from django.utils import timezone
 from django.views.generic import FormView

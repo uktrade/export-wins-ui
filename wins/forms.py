@@ -159,12 +159,10 @@ class WinForm(RabbitMixin, BootstrappedForm,
     def save(self):
         """ Push cleaned data to appropriate data server access points """
 
-        # This is overwritten by the data server to be request.user, but since
-        # it's entirely possible that the local user id and the data server's
-        # user id are different, we can't use request.user.pk here.
-        # Ideally this should be rewritten to have a local user.data_server_id
-        # or something, but that's not here yet because deadlines.
-        self.cleaned_data["user"] = 1
+        # This doesn't really matter, since the data server ignores this value
+        # and substitutes the logged-in user id.  However, if you don't provide
+        # it, the serialiser explodes, so we attach it for kicks.
+        self.cleaned_data["user"] = self.request.user.pk
 
         win = self.push(settings.WINS_AP, self.cleaned_data)
 
