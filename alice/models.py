@@ -5,6 +5,16 @@ class User(object):
     """
 
     def __init__(self, is_authenticated=True, **kwargs):
+        """
+        IMPORTANT: This code effectively allows `kwargs` to override properties
+        IMPORTANT: of our fake user object.  This is intentional, as it would
+        IMPORTANT: allow one to create a super user simply by issuing
+        IMPORTANT: `User(is_authenticated=True, superuser=True)`.
+        IMPORTANT: This shouldn't be a problem though, since kwargs is only
+        IMPORTANT: ever sourced from a JWT-verified dictionary (in Alice's
+        IMPORTANT: middleware), but if in future this is expanded, such a use
+        IMPORTANT: case should be considered.
+        """
 
         self._is_authenticated = is_authenticated
 
