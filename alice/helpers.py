@@ -86,9 +86,9 @@ class Rabbit(object):
             method, url, *args, **kwargs).prepare()
 
         # prepared_request.headers["Content-Type"] = "application/json"
-        if request and request.COOKIES and "alice" in request.COOKIES:
+        if request and request.alice_id:
             prepared_request.headers["Cookie"] = "sessionid={}".format(
-                request.COOKIES["alice"]
+                request.alice_id
             )
 
         url = urlsplit(url)

@@ -1,5 +1,8 @@
+import jwt
+
+from datetime import datetime
+
 from django.conf import settings
-from django.contrib.auth import login, logout
 from django.utils.http import is_safe_url
 from django.views.generic import FormView, RedirectView
 
@@ -14,12 +17,19 @@ class LoginView(FormView):
     template_name = "users/login.html"
 
     def form_valid(self, form):
-        login(self.request, form.user)
         response = FormView.form_valid(self, form)
         response.set_cookie(
             "alice",
-            value=form.user.session_cookie.value,
-            expires=form.user.session_cookie.expires,
+            value=jwt.encode(
+                {
+                    "user": form.user,
+                    "session": form.session_cookie.value
+                },
+                settings.UI_SECRET
+            ),
+            expires=datetime.fromtimestamp(
+                form.session_cookie.expires
+            ).strftime('%a, %d %b %Y %H:%M:%S'),
             secure=settings.SESSION_COOKIE_SECURE,
             httponly=True
         )
@@ -38,8 +48,7 @@ class LogoutView(RedirectView):
     url = "/"
 
     def get(self, request, *args, **kwargs):
-        logout(self.request)  # Local
-        rabbit.get(settings.LOGOUT_AP)  # Remote
+        rabbit.get(settings.LOGOUT_AP, request=request)  # Data server log out
         response = RedirectView.get(self, request, *args, **kwargs)
         response.delete_cookie("alice")
         return response
