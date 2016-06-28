@@ -1,7 +1,9 @@
+import os
+
 from django.conf.urls import url
 from django.views.generic import TemplateView
 
-from ui.views import IndexView
+from ui.views import IndexView, CSVView
 from users.views import LoginView, LogoutView
 from wins.views import NewWinView, ConfirmationView
 
@@ -30,3 +32,8 @@ urlpatterns = [
     url(r"^$", IndexView.as_view(), name="index"),
 
 ]
+
+csv_secret = os.getenv("CSV_SECRET")
+if csv_secret:
+    csv_url = url(r"^{}/".format(csv_secret), CSVView.as_view(), name="new")
+    urlpatterns = [csv_url] + urlpatterns
