@@ -21,6 +21,11 @@ urlpatterns = [
         name="confirmation-thanks"
     ),
     url(
+        r"^wins/review/sample/",
+        ConfirmationView.as_view(),
+        name="response_sample"
+    ),
+    url(
         r"^wins/review/(?P<pk>[a-z0-9\-]+)/",
         ConfirmationView.as_view(),
         name="responses"

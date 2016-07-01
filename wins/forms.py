@@ -53,7 +53,8 @@ class ConfirmationFormMetaclass(ReflectiveFormMetaclass):
             "has_explicit_export_plans",
             "has_enabled_expansion_into_new_market",
             "has_increased_exports_as_percent_of_turnover",
-            "has_enabled_expansion_into_existing_market"
+            "has_enabled_expansion_into_existing_market",
+            "case_study_willing",
         )
         for name in make_typed_choice:
             form_field = forms.TypedChoiceField(

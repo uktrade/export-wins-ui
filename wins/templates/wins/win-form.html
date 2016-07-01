@@ -50,23 +50,23 @@
   <form method="post">
 
     <h3>Lead officer's details</h3>
-    {% include "wins/new-field.html" with field=form.lead_officer_name %}
-    {% include "wins/new-field.html" with field=form.lead_officer_email_address help="You only need to provide this if you are completing this form on behalf of the lead officer" %}
-    {% include "wins/new-field.html" with field=form.other_official_email_address help="You can provide an alternate email if someone else in your team needs to be notified about this Export Win" %}
-    {% include "wins/new-field.html" with field=form.team_type %}
-    {% include "wins/new-field.html" with field=form.hq_team %}
-    {% include "wins/new-field.html" with field=form.location %}
-    {% include "wins/new-field.html" with field=form.line_manager_name %}
+    {% include "wins/win-field.html" with field=form.lead_officer_name %}
+    {% include "wins/win-field.html" with field=form.lead_officer_email_address help="You only need to provide this if you are completing this form on behalf of the lead officer" %}
+    {% include "wins/win-field.html" with field=form.other_official_email_address help="You can provide an alternate email if someone else in your team needs to be notified about this Export Win" %}
+    {% include "wins/win-field.html" with field=form.team_type %}
+    {% include "wins/win-field.html" with field=form.hq_team %}
+    {% include "wins/win-field.html" with field=form.location %}
+    {% include "wins/win-field.html" with field=form.line_manager_name %}
 
     <hr />
     <h3>Customer's details</h3>
 
-    {% include "wins/new-field.html" with field=form.company_name %}
-    {% include "wins/new-field.html" with field=form.cdms_reference %}
-    {% include "wins/new-field.html" with field=form.customer_name %}
-    {% include "wins/new-field.html" with field=form.customer_job_title %}
-    {% include "wins/new-field.html" with field=form.customer_email_address %}
-    {% include "wins/new-field.html" with field=form.customer_location %}
+    {% include "wins/win-field.html" with field=form.company_name %}
+    {% include "wins/win-field.html" with field=form.cdms_reference %}
+    {% include "wins/win-field.html" with field=form.customer_name %}
+    {% include "wins/win-field.html" with field=form.customer_job_title %}
+    {% include "wins/win-field.html" with field=form.customer_email_address %}
+    {% include "wins/win-field.html" with field=form.customer_location %}
 
     <hr />
     <h3>Details of Export Win</h3>
@@ -75,12 +75,12 @@
       by the customer.
     </p>
 
-    {% include "wins/new-field.html" with field=form.business_type help="e.g. export sales, contract, order, distributor, tender /competition win, joint venture, outward investment, etc." %}
-    {% include "wins/new-field.html" with field=form.description help="Please provide details of any key products services provided, missions, initiatives, etc." %}
-    {% include "wins/new-field.html" with field=form.name_of_customer %}
-    {% include "wins/new-field.html" with field=form.name_of_export %}
-    {% include "wins/new-field.html" with field=form.date help="Enter month and year in the format MM/YYYY." %}
-    {% include "wins/new-field.html" with field=form.country %}
+    {% include "wins/win-field.html" with field=form.business_type help="e.g. export sales, contract, order, distributor, tender /competition win, joint venture, outward investment, etc." %}
+    {% include "wins/win-field.html" with field=form.description help="Please provide details of any key products services provided, missions, initiatives, etc." %}
+    {% include "wins/win-field.html" with field=form.name_of_customer %}
+    {% include "wins/win-field.html" with field=form.name_of_export %}
+    {% include "wins/win-field.html" with field=form.date help="Enter month and year in the format MM/YYYY." %}
+    {% include "wins/win-field.html" with field=form.country %}
 
     <hr />
     <h3>Expected value of the win</h3>
@@ -112,7 +112,7 @@
 
     <h4>Export value</h4>
 
-    {% include "wins/new-field.html" with field=form.total_expected_export_value help="Enter whole numbers in £ e.g. for one-and-a-half-million, enter 1500000 <br /> The total expected value should be the sum of the annual values of the win." %}
+    {% include "wins/win-field.html" with field=form.total_expected_export_value help="Enter whole numbers in £ e.g. for one-and-a-half-million, enter 1500000 <br /> The total expected value should be the sum of the annual values of the win." %}
 
     <table class="table table-responsive">
       <tr>
@@ -131,14 +131,14 @@
       </tr>
     </table>
 
-    {% include "wins/new-field.html" with field=form.goods_vs_services %}
-    {% include "wins/new-field.html" with field=form.sector %}
+    {% include "wins/win-field.html" with field=form.goods_vs_services %}
+    {% include "wins/win-field.html" with field=form.sector %}
 
     <hr />
 
     <h4>Non-export value</h4>
 
-    {% include "wins/new-field.html" with field=form.total_expected_non_export_value help="Enter whole numbers in £ e.g. for one-and-a-half-million, enter 1500000 <br /> The total expected value should be the sum of the annual values of the win." %}
+    {% include "wins/win-field.html" with field=form.total_expected_non_export_value help="Enter whole numbers in £ e.g. for one-and-a-half-million, enter 1500000 <br /> The total expected value should be the sum of the annual values of the win." %}
 
     <table class="table table-responsive">
       <tr>
@@ -210,16 +210,16 @@
     </h3>
 
 
-    {% include "wins/new-field.html" with field=form.hvo_programme %}
-    {% include "wins/new-field.html" with field=form.has_hvo_specialist_involvement %}
-    {% include "wins/new-field.html" with field=form.is_prosperity_fund_related %}
-    {% include "wins/new-field.html" with field=form.is_e_exported %}
-    {% include "wins/new-field.html" with field=form.type_of_support_1 %}
-    {% include "wins/new-field.html" with field=form.type_of_support_2 %}
-    {% include "wins/new-field.html" with field=form.type_of_support_3 %}
-    {% include "wins/new-field.html" with field=form.associated_programme_1 %}
-    {% include "wins/new-field.html" with field=form.associated_programme_2 %}
-    {% include "wins/new-field.html" with field=form.associated_programme_3 %}
+    {% include "wins/win-field.html" with field=form.hvo_programme %}
+    {% include "wins/win-field.html" with field=form.has_hvo_specialist_involvement %}
+    {% include "wins/win-field.html" with field=form.is_prosperity_fund_related %}
+    {% include "wins/win-field.html" with field=form.is_e_exported %}
+    {% include "wins/win-field.html" with field=form.type_of_support_1 %}
+    {% include "wins/win-field.html" with field=form.type_of_support_2 %}
+    {% include "wins/win-field.html" with field=form.type_of_support_3 %}
+    {% include "wins/win-field.html" with field=form.associated_programme_1 %}
+    {% include "wins/win-field.html" with field=form.associated_programme_2 %}
+    {% include "wins/win-field.html" with field=form.associated_programme_3 %}
 
     <hr />
 
