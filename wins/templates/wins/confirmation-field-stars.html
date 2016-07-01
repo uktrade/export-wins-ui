@@ -1,0 +1,7 @@
+<div class="form-group {{ field.errors|yesno:'error,' }}">
+  {{ field.errors }}
+  <div class="col-sm-7 col-xs-12">{{ field.label_tag }}</div>
+  <div class="col-sm-5 col-xs-12">{{ field }}</div>
+  {% if field.help_text %}<div class="help-text">{{ field.help_text }}</div>{% endif %}
+  <div class="clearfix"></div>
+</div>
