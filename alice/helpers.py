@@ -16,7 +16,7 @@ TYPES_MAP = {
     "integer": forms.IntegerField,
     "boolean": forms.BooleanField,
     "date": forms.DateField,
-    "datetime": forms.DateTimeField
+    "datetime": forms.DateTimeField,
 }
 
 logger = logging.getLogger(__name__)
@@ -27,12 +27,13 @@ class RabbitException(Exception):
 
 
 def get_form_field(spec):
-    """
+    """ Create a Django form field from a schema
+
     :param spec: A subset of the result from a /*/schema API call
     :return: A form field
     """
 
-    field = TYPES_MAP[spec["type"]]
+    FieldClass = TYPES_MAP[spec["type"]]
 
     kwargs = {
         "label": spec.get("label"),
@@ -55,8 +56,7 @@ def get_form_field(spec):
     if spec["type"] == "integer":
         kwargs["max_value"] = 2000000000
 
-    return field(**kwargs)
-
+    return FieldClass(**kwargs)
 
 class Rabbit(object):
 
