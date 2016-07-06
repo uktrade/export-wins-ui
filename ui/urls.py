@@ -5,7 +5,7 @@ from django.views.generic import TemplateView
 
 from ui.views import IndexView, CSVView
 from users.views import LoginView, LogoutView
-from wins.views import NewWinView, ConfirmationView
+from wins.views import NewWinView, ConfirmationView, test500
 
 urlpatterns = [
 
@@ -35,6 +35,8 @@ urlpatterns = [
     url(r"^accounts/logout/", LogoutView.as_view(), name="logout"),
 
     url(r"^$", IndexView.as_view(), name="index"),
+
+    url(r"^500$", test500),
 
 ]
 
