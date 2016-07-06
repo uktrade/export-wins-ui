@@ -119,9 +119,9 @@ class WinForm(RabbitMixin, BootstrappedForm,
         self.fields["total_expected_non_export_value"].initial = '0'
 
         self._add_breakdown_fields()
-        self._add_advisor_fields()
 
-        self._advisors = []
+        self.advisor_fields = self._get_advisor_fields()
+        self._add_advisor_fields()
 
     def clean_date(self):
         """ Validate date entered as a string and reformat for serializer """
@@ -231,6 +231,7 @@ class WinForm(RabbitMixin, BootstrappedForm,
                 )
 
     def _get_breakdown_data(self, win_id):
+        """ Make breakdown data for pushing to endpoint from cleaned data """
 
         r = []
         now = datetime.utcnow()
@@ -248,13 +249,28 @@ class WinForm(RabbitMixin, BootstrappedForm,
                     })
         return r
 
-    def _add_advisor_fields(self):
+    def _get_advisor_fields(self):
+        """ Make list of lists of advisor field names and specs """
 
-        schema = rabbit.get(settings.ADVISORS_AP + "schema/").json()
-
-        for i in range(0, 5):
-            for name, spec in schema.items():
+        advisor_schema = rabbit.get(settings.ADVISORS_AP + "schema/").json()
+        advisor_fields = []
+        num_advisor_fields = 5
+        for i in range(0, num_advisor_fields):
+            instance_fields = []
+            for name, spec in advisor_schema.items():
+                if name == 'win':
+                    # don't want a field for the foreign key in the form
+                    continue
                 field_name = "advisor_{}_{}".format(i, name)
+                instance_fields.append((name, field_name, spec))
+            advisor_fields.append(instance_fields)
+        return advisor_fields
+
+    def _add_advisor_fields(self):
+        """ Create advisor fields from advisor data """
+
+        for instance_data in self.advisor_fields:
+            for _, field_name, spec in instance_data:
                 self.fields[field_name] = get_form_field(spec)
                 self.fields[field_name].required = False
                 self.fields[field_name].widget.attrs.update({
@@ -262,9 +278,21 @@ class WinForm(RabbitMixin, BootstrappedForm,
                 })
 
     def _get_advisor_data(self, win_id):
-        for advisor in self._advisors:
-            advisor["win"] = win_id
-        return self._advisors
+        """ Make advisor data for pushing to endpoint from cleaned data """
+
+        advisor_data = []
+        for instance_data in self.advisor_fields:
+            instance_dict = {
+                name: self.cleaned_data[field_name]
+                for name, field_name, _ in instance_data
+            }
+            if not instance_dict['name']:
+                # ignore any instances where user has not input a name
+                continue
+            # manually add the foriegn key for the newly created win
+            instance_dict['win'] = win_id
+            advisor_data.append(instance_dict)
+        return advisor_data
 
 
 class ConfirmationForm(RabbitMixin, BootstrappedForm,
