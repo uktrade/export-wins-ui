@@ -1,7 +1,11 @@
 <div class="form-group {{ field.errors|yesno:'error,' }}">
   {{ field.errors }}
   {# {% if field.field.required %}<span class="required">*</span>{% endif %} #}
-  {{ field.label_tag }}
+  {% if label %}
+    <label>{{ label }}</label>
+  {% else %}
+    {{ field.label_tag }}
+  {% endif %}
   {% if help %}<div class="help-text">{{ help }}</div>{% endif %}
   {% if tooltip %}
     <span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-original-title="{{ tooltip }}"></span>

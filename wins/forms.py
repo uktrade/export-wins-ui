@@ -46,6 +46,7 @@ class ConfirmationFormMetaclass(ReflectiveFormMetaclass):
         new_class = ReflectiveFormMetaclass.__new__(mcs, name, bases, attrs)
 
         make_typed_choice = (
+            "agree_with_win",
             "involved_state_enterprise",
             "interventions_were_prerequisite",
             "support_improved_speed",

@@ -69,8 +69,7 @@
 
   <h3>Your export success</h3>
   <p>
-    Below is a summary of your recent Export Win.  Please review this
-    information to confirm that the details are correct.
+    Below is a summary of what we understand about your recent Export Win. Please review this information to confirm that the details are correct.
   </p>
   <table class="win-details table table-striped table-responsive">
     {% if win.business_type.value %}
@@ -104,6 +103,10 @@
       <td>{{ win.date.value|date:'m/Y' }}</td>
     </tr>
   </table>
+
+  <h4>Please confirm:</h4>
+
+  {% include "wins/confirmation-field.html" with field=form.agree_with_win label="Are the details of the win shown above correct?" %}
 
   <p class="alert alert-info">
     If this information is incorrect, please tell us how it should be changed
