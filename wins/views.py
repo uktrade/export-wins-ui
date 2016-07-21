@@ -37,7 +37,7 @@ class ConfirmationView(FormView):
 
     # limit the number of days form may be accessed after win submission for
     # security purposes
-    ACCEPTANCE_WINDOW = 30
+    ACCEPTANCE_WINDOW = 90
 
     sample = False  # is this a sample win, which will not be saved?
 
