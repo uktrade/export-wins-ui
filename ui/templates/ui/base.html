@@ -95,9 +95,13 @@
     {% block banner %}{% endblock banner %}
     <div class="content">
       <div class="row">
-        <div class="col-xs-6"><img src="{% static 'ui/img/ukti-logo.png' %}" alt="logo" title="UK Trade &amp; Investment" height="200" class="img-responsive logo" /></div>
+        <div class="col-xs-6">
+          <img src="{% static 'ui/img/ukti-logo.png' %}" alt="logo" title="UK Trade &amp; Investment" height="100" class="img-responsive logo" />
+        </div>
         <div class="col-xs-6 text-right">
-            <div><img src="{% static 'ui/img/exporting-is-great-logo.png' %}" alt="logo" title="UK Trade &amp; Investment Exporting is Great" height="200" class="logo" /></div>
+            <div>
+              <img src="{% static 'ui/img/exporting-is-great-logo_200.png' %}" alt="logo" title="UK Trade &amp; Investment Exporting is Great" height="100" class="logo" />
+            </div>
             <br />
             <div class="hidden-print">
               {% if user.is_authenticated %}
