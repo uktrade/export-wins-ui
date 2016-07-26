@@ -1,0 +1,12 @@
+<div class="form-group {{ field.errors|yesno:'error,' }}">
+  {{ field.errors }}
+
+  <div class="checkbox">
+  <label for="case-study">
+    <input name="{{ field.name }}" id="case-study" type="checkbox" value="True">{{ label }}
+  </label>
+</div>
+ 
+  {% if field.help_text %}<div class="help-text">{{ field.help_text }}</div>{% endif %}
+  <div class="clearfix"></div>
+</div>
