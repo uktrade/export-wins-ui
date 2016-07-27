@@ -109,10 +109,14 @@ class ConfirmationView(FormView):
 
         win_url = "{}{}/".format(settings.LIMITED_WINS_AP, pk)
         win_resp = rabbit.get(win_url, request=request)
+
         # likely because already submitted
         if not win_resp.status_code == 200:
             raise self.SecurityException(
-                "Sorry, this record is not available or does not exist."
+                """Sorry, this record is not available. If the form has already
+                been submitted, then the record cannot be viewed or
+                resubmitted.
+                """
             )
 
         win_dict = win_resp.json()
@@ -133,8 +137,6 @@ class ConfirmationView(FormView):
         )
         confirmation_dict = rabbit.get(confirmation_url).json()
         if confirmation_dict["count"]:
-            print('butbutbut', confirmation_dict)
-
             raise self.SecurityException(
                 "Sorry, this confirmation was already completed."
             )
