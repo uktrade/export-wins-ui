@@ -143,5 +143,6 @@ class ConfirmationView(FormView):
 
         return win_dict
 
+
 def test500(request):
     raise Exception('test error')
