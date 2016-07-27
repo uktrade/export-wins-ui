@@ -58,6 +58,7 @@ def get_form_field(spec):
 
     return FieldClass(**kwargs)
 
+
 class Rabbit(object):
 
     def get(self, url, *args, **kwargs):
@@ -114,8 +115,8 @@ class Rabbit(object):
 
         if response.status_code == 403:
             raise RabbitException(
-                "Data server access is failing for {} requests to {}.".format(
-                    method, str(path, "utf-8")
+                "Data server access is failing for {} requests to {} with error {}.".format(
+                    method, str(path, "utf-8"), response.content,
                 )
             )
 
