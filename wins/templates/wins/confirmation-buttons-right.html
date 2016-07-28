@@ -1,6 +1,7 @@
 <div class="form-group {{ field.errors|yesno:'error,' }}">
 	{{ field.errors }}
 	{# {% if field.field.required %}<span class="required">*</span>{% endif %} #}
+
 	{% if label %}
 		<label>{{ label }}</label>
 	{% else %}
@@ -14,9 +15,9 @@
 	
 	<div class="btn-group pull-right" data-toggle="buttons">
 		{% for choice in field %}
-		<label for="{{ field.name }}-{{ forloop.counter }}" class="btn btn-default">
+		<label for="{{ field.name }}-{{ forloop.counter }}" class="btn btn-default{% if choice.choice_value == field.value %} active{% endif %}"{% if choice.choice_value == field.value %} aria-pressed="true"{% endif %}>
 			{{ choice.choice_label }}
-			<input type="radio" id="{{ field.name }}-{{ forloop.counter }}" name="{{ field.name }}" value="{{ choice.choice_value }}">
+			<input type="radio" id="{{ field.name }}-{{ forloop.counter }}" name="{{ field.name }}" value="{{ choice.choice_value }}" {% if choice.choice_value == field.value %} checked{% endif %}>
 		</label>
 		{% endfor %}
 	</div>

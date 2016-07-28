@@ -13,9 +13,6 @@
       float: left;
       max-width: 80%;
     }
-    table.win-details tr th {
-      text-align: left;
-    }
     span.glyphicon {
       font-size: 1.4em;
     }
@@ -37,6 +34,16 @@
     .pad-top {
       margin-top: 2em;
     }
+
+    .win-details dt {
+      width: 70%;
+      text-align: left;
+      padding-top: 0.5em;
+    }
+
+    .win-details dd {
+      padding-top: 0.5em;
+    }
   </style>
 {% endblock css %}
 
@@ -47,6 +54,11 @@
   <script language="JavaScript" src="{% static 'contrib/stars/js/star-rating.min.js' %}"></script>
 {% endblock js_header %}
 
+{% block header %}
+  <h1>
+    Give your feedback on our support
+  </h1>
+{% endblock header %}
 
 {% block subheader %}{% endblock subheader %}
 
@@ -54,8 +66,7 @@
 {% block content %}
       
     <p class="lead">
-      We want to keep track of the success of UK companies, and understand how
-      our support helps them succeed.
+      We&#39;re asking UK companies about our export support services to help us improve. Tell us how our support contributed to your export success.
     </p>
     <p>
       If you encounter any problems completing this form, please use the feedback button above.
@@ -68,54 +79,55 @@
     {{ form.non_field_errors }}
   {% endif %}
 
-  <h2 class="pad-top">Your export success</h2>
-  <p>
-    Below is a summary of what we understand about your recent Export Win. Please review this information to confirm that the details are correct.
-  </p>
-  <table class="win-details table table-striped table-responsive">
+  <h2 class="pad-top">Details of your recent export success</h2>
+
+
+  <dl class="dl-horizontal win-details">
+
+      <dt>Date business won</dt>
+      <dd>{{ win.date.value|date:'m/Y' }}</dd>
+
+      <dt>Country where the business was won</dt>
+      <dd>{{ win.country.value }}</dd>
+
     {% if win.business_type.value %}
-      <tr>
-        <th>Type of business deal</th>
-        <td>{{ win.business_type.value }}</td>
-      </tr>
+
+        <dt>Business deal type</dt>
+        <dd>{{ win.business_type.value }}</dd>
+
     {% endif %}
-    <tr>
-      <th>How we supported you to achieve this win</th>
-      <td>{{ win.description.value|linebreaks }}</td>
-    </tr>
+
     {% if win.total_expected_export_value.value %}
-      <tr>
-        <th>The total expected export value over the next 5 years</th>
-        <td>£{{ win.total_expected_export_value.value|intcomma }}</td>
-      </tr>
+
+        <dt>Export value expected over the next 5 years</dt>
+        <dd>&pound;{{ win.total_expected_export_value.value|intcomma }}</dd>
+
     {% endif %}
+
     {% if win.total_expected_non_export_value.value %}
-      <tr>
-        <th>The total expected non-export value over the next 5 years</th>
-        <td>£{{ win.total_expected_non_export_value.value|intcomma }}</td>
-      </tr>
+
+        <dt>Non-export value expected over the next 5 years</dt>
+        <dd>&pound;{{ win.total_expected_non_export_value.value|intcomma }}</dd>
+
     {% endif %}
-    <tr>
-      <th>The country where the business was won</th>
-      <td>{{ win.country.value }}</td>
-    </tr>
-    <tr>
-      <th>Date business won</th>
-      <td>{{ win.date.value|date:'m/Y' }}</td>
-    </tr>
-  </table>
+  </dl>
 
-  <form method="post">
+  <div class="">
+    <h4>How we supported you</h4>
+   <p>{{ win.description.value|linebreaks }}</p>
+  </li>
 
-  <h4>Please confirm:</h4>
+  <form method="post" id="confirmation-form">
 
-  {% include "wins/confirmation-field-buttons.html" with field=form.agree_with_win label="Are the details of the win shown above correct?" %}
+  <h4>Please confirm these details are correct:</h4>
 
-  <!-- TODO: Make this show only when selecting no above -->
-  <p class="alert alert-info">
-    If this information is incorrect, please tell us how it should be changed
-    in the comment box at the bottom of this form.
-  </p>
+  {% include "wins/confirmation-buttons.html" with field=form.agree_with_win label="Are the details of the win shown above correct?" trueLabel="Yes, these details are correct" falseLabel="No, I need to amend them" %}
+
+  <div class="form-group" id="confirm-false-info">
+
+    <label for="confirm-false-details">Please tell us how these details should be changed</label>
+    <textarea name="confirm-details" id="confirm-false-details" rows="4" class="form-control"></textarea>
+  </div>
 
 
     <h2 class="pad-top">Our support</h2>
@@ -142,18 +154,18 @@
       
     -->
     {% include "wins/confirmation-field.html" with field=form.expected_portion_without_help %}
-    {% include "wins/confirmation-field-buttons.html" with field=form.involved_state_enterprise %}
-    {% include "wins/confirmation-field-buttons.html" with field=form.interventions_were_prerequisite %}
-    {% include "wins/confirmation-field-buttons.html" with field=form.support_improved_speed %}
+    {% include "wins/confirmation-buttons-right.html" with field=form.involved_state_enterprise %}
+    {% include "wins/confirmation-buttons-right.html" with field=form.interventions_were_prerequisite %}
+    {% include "wins/confirmation-buttons-right.html" with field=form.support_improved_speed %}
 
     <h3 class="pad-top">Your export experience</h3>
 
     {% include "wins/confirmation-field.html" with field=form.last_export %}
-    {% include "wins/confirmation-field-buttons.html" with field=form.company_was_at_risk_of_not_exporting %}
-    {% include "wins/confirmation-field-buttons.html" with field=form.has_explicit_export_plans %}
-    {% include "wins/confirmation-field-buttons.html" with field=form.has_enabled_expansion_into_existing_market %}
-    {% include "wins/confirmation-field-buttons.html" with field=form.has_enabled_expansion_into_new_market %}
-    {% include "wins/confirmation-field-buttons.html" with field=form.has_increased_exports_as_percent_of_turnover %}
+    {% include "wins/confirmation-buttons-right.html" with field=form.company_was_at_risk_of_not_exporting %}
+    {% include "wins/confirmation-buttons-right.html" with field=form.has_explicit_export_plans %}
+    {% include "wins/confirmation-buttons-right.html" with field=form.has_enabled_expansion_into_existing_market %}
+    {% include "wins/confirmation-buttons-right.html" with field=form.has_enabled_expansion_into_new_market %}
+    {% include "wins/confirmation-buttons-right.html" with field=form.has_increased_exports_as_percent_of_turnover %}
 
     <hr>
   
@@ -207,5 +219,41 @@
           5: 'Completely'
         }
       });
+
+      (function(){
+
+        var $infoBox = $( '#confirm-false-info' );
+        var $agree = $( 'form input[name={{ form.agree_with_win.name }}]' );
+        var $confirmationForm = $( '#confirmation-form' );
+        var $confirmFalseComments = $( '#confirm-false-details' );
+        var $comments = $( 'form textarea[ name={{form.comments.name }} ]' );
+
+        //hide the comments box on load
+        $infoBox.hide();
+
+        //Toggle the comments box when the value of the radio changes
+        $agree.on( 'change', function( e ){
+
+          if( $agree[0].checked ){
+
+            $infoBox.hide();
+
+          } else {
+
+            $infoBox.show();
+          }
+        } );
+
+        //When the form gets submitted copy the values from the top comments box into the bottom one
+        $confirmationForm.on( 'submit', function( e ){
+
+          var confirmFalseText = $confirmFalseComments.val();
+
+          if( confirmFalseText ){
+
+            $comments.val( confirmFalseText + "\n\n" + $comments.val() );
+          }
+        } );
+      }());
   </script>
 {% endblock js_footer %}

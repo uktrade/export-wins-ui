@@ -27,7 +27,7 @@
 
 
 {% block subheader %}
-  Lead officer to complete
+  <p class="alert alert-info">The Lead officer should provide information for this form.</p>
 {% endblock subheader %}
 
 
@@ -58,7 +58,7 @@
     {% include "wins/win-field.html" with field=form.location %}
     {% include "wins/win-field.html" with field=form.line_manager_name %}
 
-    <hr />
+    <hr>
     <h3>Customer's details</h3>
 
     {% include "wins/win-field.html" with field=form.company_name %}
@@ -68,7 +68,7 @@
     {% include "wins/win-field.html" with field=form.customer_email_address %}
     {% include "wins/win-field.html" with field=form.customer_location %}
 
-    <hr />
+    <hr>
     <h3>Details of Export Win</h3>
     <p>
       Your answers to these questions will be included in the details confirmed
@@ -82,7 +82,7 @@
     {% include "wins/win-field.html" with field=form.date help="Enter month and year in the format MM/YYYY." %}
     {% include "wins/win-field.html" with field=form.country %}
 
-    <hr />
+    <hr>
     <h3>Expected value of the win</h3>
     <p>
       These questions help us to understand the £ value of the customer's win
