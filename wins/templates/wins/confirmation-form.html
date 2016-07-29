@@ -28,7 +28,7 @@
       height: 9em;
     }
     .help-text {
-      display: block;
+      clear: both;
     }
 
     .pad-top {
@@ -384,7 +384,7 @@
 
     {% include "wins/confirmation-buttons-right.html" with field=form.case_study_willing label="Would you be willing for UKTI / Exporting is GREAT to feature your success in marketing materials?" %}
 
-    {% include "wins/confirmation-field.html" with field=form.comments help="<br>Please enter any comments you would like to make regarding the value and nature of the win, the support you received from UKTI and FCO staff, and any  feedback regarding the way we collect this information. Your comments may be shared with the individuals and teams who have supported you."%}
+    {% include "wins/confirmation-field.html" with field=form.comments help="(Your comments may be shared with the individuals and teams who have supported you)"%}
 
     {{ form.win }}
 
