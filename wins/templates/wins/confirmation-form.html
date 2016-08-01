@@ -39,10 +39,22 @@
       padding: 1em;
     }
 
-    .win-details {
+    .win-details-wrapper {
+
       border: 1px solid #eee;
       border-radius: 0.25em;
+    }
+
+    .win-details-wrapper .supported-header {
+
+      font-size: 1em;
+      margin: 0.5em 1em;
+      font-weight: bold;
+    }
+
+    .win-details {
       overflow: hidden;
+      margin-bottom: 0;
     }
 
     .win-details dt {
@@ -65,6 +77,10 @@
     .win-details dt:nth-of-type( even ),
     .win-details dd:nth-of-type( even ) {
       background-color: #eee;
+    }
+
+    .supported-details {
+      padding: 0.25em 2em;
     }
 
     .radio label,
@@ -133,38 +149,41 @@
   <h2 class="pad-top">Details of your recent export success</h2>
 
 
-  <dl class="dl-horizontal win-details">
+  <div class="win-details-wrapper">
+    
+    <dl class="dl-horizontal win-details">
 
-      <dt>Date business won</dt>
-      <dd>{{ win.date.value|date:'m/Y' }}</dd>
+        <dt>Date business won</dt>
+        <dd>{{ win.date.value|date:'m/Y' }}</dd>
 
-      <dt>Country where the business was won</dt>
-      <dd>{{ win.country.value }}</dd>
+        <dt>Country where the business was won</dt>
+        <dd>{{ win.country.value }}</dd>
 
-    {% if win.business_type.value %}
+      {% if win.business_type.value %}
 
-        <dt>Business deal type</dt>
-        <dd>{{ win.business_type.value }}</dd>
+          <dt>Business deal type</dt>
+          <dd>{{ win.business_type.value }}</dd>
 
-    {% endif %}
+      {% endif %}
 
-    {% if win.total_expected_export_value.value %}
+      {% if win.total_expected_export_value.value %}
 
-        <dt>Export value expected over the next 5 years</dt>
-        <dd>&pound;{{ win.total_expected_export_value.value|intcomma }}</dd>
+          <dt>Export value expected over the next 5 years</dt>
+          <dd>&pound;{{ win.total_expected_export_value.value|intcomma }}</dd>
 
-    {% endif %}
+      {% endif %}
 
-    {% if win.total_expected_non_export_value.value %}
+      {% if win.total_expected_non_export_value.value %}
 
-        <dt>Non-export value expected over the next 5 years</dt>
-        <dd>&pound;{{ win.total_expected_non_export_value.value|intcomma }}</dd>
+          <dt>Non-export value expected over the next 5 years</dt>
+          <dd>&pound;{{ win.total_expected_non_export_value.value|intcomma }}</dd>
 
-    {% endif %}
-  </dl>
+      {% endif %}
+    </dl>
 
-  <h4>How we supported you</h4>
-  <div class="pad-text">{{ win.description.value|linebreaks }}</div>
+    <h4 class="supported-header">How we supported you</h4>
+    <div class="supported-details">{{ win.description.value|linebreaks }}</div>
+  </div>
 
   <form method="post" id="confirmation-form">
 
@@ -184,7 +203,7 @@
 
       <div class="radio">
         <label for="{{ field.name }}-false">
-          <input type="radio" id="{{ field.name }}-false" name="{{ field.name }}" value="False"{% if field.value == 'False' %} checked{% endif %}>
+          <input type="radio" id="{{ field.name }}-false" name="{{ field.name }}" value="False "{% if field.value == 'False' %} checked{% endif %}>
           No, they&#39;re not correct
         </label>
       </div>
