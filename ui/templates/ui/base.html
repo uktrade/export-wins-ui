@@ -85,14 +85,18 @@
       }
 
     </style>
+
     {% block css %}{% endblock css %}
-    <script src="{% static 'contrib/jquery-1.12.3.min.js' %}"></script>
+
+    <script src="{% static 'vendor/jquery-1.12.3.min.js' %}"></script>
     <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+
     {% block js_header %}{% endblock js_header %}
   </head>
   <body>
 
     {% block banner %}{% endblock banner %}
+
     <div class="content">
       <div class="row">
         <div class="col-xs-6">
@@ -100,7 +104,7 @@
         </div>
         <div class="col-xs-6 text-right">
             <div>
-              <img src="{% static 'ui/img/exporting-is-great-logo_200.png' %}" alt="logo" title="UK Trade &amp; Investment Exporting is Great" height="100" class="logo" />
+              <img src="{% static 'ui/img/exporting-is-great-logo_200.png' %}" alt="logo" title="UK Trade &amp; Investment Exporting is Great" height="100" class="logo">
             </div>
             <br />
             <div class="hidden-print">
@@ -123,7 +127,6 @@
           This is a new service being developed with feedback from live user testing.
         </p>
       {% endblock subheader %}
-
 
       {% block content %}{% endblock content %}
     </div>
