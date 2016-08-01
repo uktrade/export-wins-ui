@@ -83,6 +83,14 @@
       padding: 0.25em 2em;
     }
 
+    .what-extent-heading {
+      margin-top: 1.5em;
+    }
+
+    .confirm-details-heading {
+      margin-top: 1.5em;
+    }
+
     .radio label,
     .checkbox label {
       border: 1px solid #ccc;
@@ -187,7 +195,7 @@
 
   <form method="post" id="confirmation-form">
 
-  <h4>Please confirm these details are correct</h4>
+  <h4 class="confirm-details-heading">Please confirm these details are correct:</h4>
 
   {% with field=form.agree_with_win %}
   <div class="pad-top {{ field.errors|yesno:'error,' }}">
@@ -219,7 +227,7 @@
 
     <h2 class="pad-top">Tell us what made a difference</h2>
 
-    <p><!-- match h3 heading style -->
+    <p class="h4 what-extent-heading"><!-- match h3 heading style -->
       To what extent did our support help in:
     </p>
 
