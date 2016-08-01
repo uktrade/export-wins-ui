@@ -47,10 +47,7 @@ class ConfirmationFormMetaclass(ReflectiveFormMetaclass):
 
         make_typed_choice = (
             "agree_with_win",
-            "involved_state_enterprise",
-            "interventions_were_prerequisite",
-            "support_improved_speed",
-            "case_study_willing",
+            "case_study_willing"
         )
         for name in make_typed_choice:
             form_field = forms.TypedChoiceField(
