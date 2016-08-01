@@ -170,7 +170,7 @@
 
   <h4>Please confirm these details are correct</h4>
 
-  {% include "wins/confirmation-buttons.html" with field=form.agree_with_win label="Are the details of the win shown above correct?" trueLabel="Yes, these details are correct" falseLabel="No, I need to amend them" %}
+  {% include "wins/confirmation-buttons.html" with field=form.agree_with_win label="Are the details of the win shown above correct?" trueLabel="Yes, these details are correct" falseLabel="No, they're not correct" %}
 
   <div class="form-group" id="confirm-false-info">
 
@@ -179,22 +179,20 @@
   </div>
 
 
-    <h2 class="pad-top">Our support</h2>
+    <h2 class="pad-top">Tell us what made a difference</h2>
 
-    <p>
-      Please rate your experiences below, where 1 star means to no extent and 5 stars means to a significant extent.  Only answer those questions that apply.
+    <p><!-- match h3 heading style -->
+      To what extent did our support help in:
     </p>
 
-    {% include "wins/confirmation-field-stars.html" with field=form.our_support label="How important was our support in securing the win?" %}
+    {% include "wins/confirmation-field-stars.html" with field=form.our_support label="Securing the win overall?" %}
 
-    <h4>As a result of our help, did you:</h4>
-
-    {% include "wins/confirmation-field-stars.html" with field=form.access_to_contacts label="Gain access to contacts not otherwise accessible?" %}
-    {% include "wins/confirmation-field-stars.html" with field=form.access_to_information label="Gain access to information or improved understanding of the country?" %}
-    {% include "wins/confirmation-field-stars.html" with field=form.improved_profile label="Improve your profile or credibility in the country?" %}
-    {% include "wins/confirmation-field-stars.html" with field=form.gained_confidence label="Gain the confidence to explore or expand in the country?" %}
-    {% include "wins/confirmation-field-stars.html" with field=form.developed_relationships label="Develop and/or nurture critical relationships?" %}
-    {% include "wins/confirmation-field-stars.html" with field=form.overcame_problem label="Overcome a problem in the country (eg legal, regulatory, commercial)?" %}
+    {% include "wins/confirmation-field-stars.html" with field=form.access_to_contacts label="Gaining access to contacts?" %}
+    {% include "wins/confirmation-field-stars.html" with field=form.access_to_information label="Getting information or improved understanding of the country?" %}
+    {% include "wins/confirmation-field-stars.html" with field=form.improved_profile label="Improving your profile or credibility in the country?" %}
+    {% include "wins/confirmation-field-stars.html" with field=form.gained_confidence label="Having confidence to explore or expand in the country?" %}
+    {% include "wins/confirmation-field-stars.html" with field=form.developed_relationships label="Developing or nurturing critical relationships?" %}
+    {% include "wins/confirmation-field-stars.html" with field=form.overcame_problem label="Overcoming a problem in the country (eg legal, regulatory, commercial)?" %}
 
     <h3 class="pad-top">About this export win</h3>
 
@@ -404,7 +402,7 @@
 
     {% include "wins/confirmation-buttons-right.html" with field=form.case_study_willing label="Would you be willing for UKTI / Exporting is GREAT to feature your success in marketing materials?" %}
 
-    {% include "wins/confirmation-field.html" with field=form.comments help="(Your comments may be shared with the individuals and teams who have supported you)"%}
+    {% include "wins/confirmation-field.html" with field=form.comments label="Any other comments:" help="Your comments may be shared with the individuals and teams who have supported you."%}
 
     {{ form.win }}
 
