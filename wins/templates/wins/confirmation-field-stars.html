@@ -1,3 +1,4 @@
+{% comment %}
 <div class="form-group {{ field.errors|yesno:'error,' }}">
   {{ field.errors }}
   <div class="col-sm-7 col-xs-12">
@@ -8,6 +9,39 @@
   {% endif %}
   </div>
   <div class="col-sm-5 col-xs-12 star-rating-container">{{ field }}</div>
+  {% if field.help_text %}<div class="help-text">{{ field.help_text }}</div>{% endif %}
+  <div class="clearfix"></div>
+</div>
+{% endcomment %}
+
+<div class="form-group survey-buttons{{ field.errors|yesno:' error,' }}">
+
+  {{ field.errors }}
+  
+  <h4 class="h5">{{ label }}</h4>
+
+  <div class="btn-group" data-toggle="buttons">
+    <label for="" class="btn btn-default">
+      <input type="radio">N/A
+    </label>
+    <label for="" class="btn btn-default">
+      <input type="radio">Didn't help
+    </label>
+    <label for="" class="btn btn-default">
+      <input type="radio">Very little
+    </label>
+    <label for="" class="btn btn-default">
+      <input type="radio">Some extent
+    </label>
+    <label for="" class="btn btn-default">
+      <input type="radio">Great extent
+    </label>
+    <label for="" class="btn btn-default">
+      <input type="radio">Completely
+    </label>
+  </div>
+  
+
   {% if field.help_text %}<div class="help-text">{{ field.help_text }}</div>{% endif %}
   <div class="clearfix"></div>
 </div>

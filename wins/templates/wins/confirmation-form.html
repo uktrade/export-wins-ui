@@ -7,7 +7,7 @@
 
 {% block css %}
   {{ block.super }}
-  <link rel="stylesheet" href="{% static 'contrib/stars/css/star-rating.min.css' %}" />
+  <!--link rel="stylesheet" href="{% static 'contrib/stars/css/star-rating.min.css' %}" /-->
   <style>
     .form-group label {
       float: left;
@@ -74,6 +74,27 @@
       padding: 0.5em 0.7em 0.5em 2.4em;
       margin-bottom: 0.5em;
     }
+
+    @media(max-width:767px){
+
+      .btn-group .btn {
+        width: 100%;
+        border-radius: 4px !important;
+        margin-bottom: 1em;
+        max-width: 100%;
+        display: block;
+      }
+
+      .form-group .btn-group {
+        float: none !important;
+        width: 100%;
+      }
+
+      .radio label,
+      .checkbox label {
+        width: 100%;
+      }
+    }
   </style>
 {% endblock css %}
 
@@ -81,7 +102,7 @@
 
 {% block js_header %}
   {{ block.super }}
-  <script language="JavaScript" src="{% static 'contrib/stars/js/star-rating.min.js' %}"></script>
+  <!--script language="JavaScript" src="{% static 'contrib/stars/js/star-rating.min.js' %}"></script-->
 {% endblock js_header %}
 
 {% block header %}
@@ -161,11 +182,10 @@
     <h2 class="pad-top">Our support</h2>
 
     <p>
-      Please rate your experiences below, where 1 star means to no extent and 5 stars means
-      to a significant extent.  Only answer those questions that apply.
+      Please rate your experiences below, where 1 star means to no extent and 5 stars means to a significant extent.  Only answer those questions that apply.
     </p>
 
-    {% include "wins/confirmation-field-stars.html" with field=form.our_support %}
+    {% include "wins/confirmation-field-stars.html" with field=form.our_support label="How important was our support in securing the win?" %}
 
     <h4>As a result of our help, did you:</h4>
 
@@ -401,6 +421,7 @@
 
 {% block js_footer %}
   <script>
+  /*
       $( '.star-rating-container select' ).rating({
         theme: "",
         showCaption: true,
@@ -426,7 +447,7 @@
           5: 'Completely'
         }
       });
-
+*/
       (function(){
 
         var $infoBox = $( '#confirm-false-info' );
