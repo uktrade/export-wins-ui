@@ -170,7 +170,26 @@
 
   <h4>Please confirm these details are correct</h4>
 
-  {% include "wins/confirmation-buttons.html" with field=form.agree_with_win label="Are the details of the win shown above correct?" trueLabel="Yes, these details are correct" falseLabel="No, they're not correct" %}
+  {% with field=form.agree_with_win %}
+  <div class="pad-top {{ field.errors|yesno:'error,' }}">
+
+      {{ field.errors }}  
+
+      <div class="radio">
+        <label for="{{ field.name }}-true">
+          <input type="radio" id="{{ field.name }}-true" name="{{ field.name }}" value="True"{% if field.value == 'True' %} checked{% endif %}>
+          Yes, these details are correct
+        </label>
+      </div>
+
+      <div class="radio">
+        <label for="{{ field.name }}-false">
+          <input type="radio" id="{{ field.name }}-false" name="{{ field.name }}" value="False"{% if field.value == 'False' %} checked{% endif %}>
+          No, they&#39;re not correct
+        </label>
+      </div>
+  </div>
+  {% endwith %}
 
   <div class="form-group" id="confirm-false-info">
 
