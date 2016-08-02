@@ -4,7 +4,9 @@
   "description": "The UI component for the export-wins application",
   "main": "Gruntfile.js",
   "scripts": {
-    "build": "grunt build"
+    "build": "grunt build",
+    "watch": "grunt watch",
+    "sass": "grunt sass:main"
   },
   "repository": {
     "type": "git",
@@ -18,9 +20,9 @@
   "homepage": "https://github.com/UKTradeInvestment/export-wins-ui#readme",
   "devDependencies": {
     "grunt": "^1.0.1",
-    "grunt-cli": "^1.2.0",
     "grunt-contrib-concat": "^1.0.1",
     "grunt-contrib-uglify": "^2.0.0",
+    "grunt-contrib-watch": "^1.0.0",
     "grunt-sass": "^1.2.0",
     "load-grunt-tasks": "^3.5.0"
   }

@@ -7,11 +7,13 @@ module.exports = function( grunt ){
 	grunt.initConfig({
 
 		src: {
-			bootstrap: 'bootstrap-sass-3.3.7/assets'
+			bootstrap: 'bootstrap-sass-3.3.7/assets',
+			scss: 'ui/static/ui/scss'
 		},
 
 		dest: {
-			vendor: 'ui/static/vendor'
+			vendor: 'ui/static/vendor',
+			css: 'ui/static/ui/css'
 		},
 
 		concat: {
@@ -53,10 +55,22 @@ module.exports = function( grunt ){
 				sourceMap: true,
 				outputStyle: 'compact'
 			},
-			dist: {
+			bootstrap: {
 				files: {
 					'<%= dest.vendor %>/bootstrap/css/bootstrap.css': '<%= src.bootstrap %>/stylesheets/main.scss'
 				}
+			},
+			main: {
+				files: {
+					'<%= dest.css %>/main.css': '<%= src.scss %>/main.scss'
+				}
+			}
+		},
+
+		watch: {
+			sass: {
+				files: '<%= src.scss %>/**/*.scss',
+				tasks: [ 'sass:main' ]
 			}
 		}
 	});

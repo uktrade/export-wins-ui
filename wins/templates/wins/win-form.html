@@ -1,291 +1,270 @@
 {% extends 'ui/base.html' %}
 
-
 {% load staticfiles %}
 
-
-{% block css %}
-  {{ block.super }}
-  <style>
-    table.advisors tr th {
-       vertical-align: middle;
-    }
-    span.glyphicon {
-      font-size: 1.4em;
-    }
-    .tooltip-inner {
-      font-size: 1.2em;
-    }
-    .required {
-      color: #d00;
-    }
-    #id_description {
-      height: 9em;
-    }
-  </style>
-{% endblock css %}
-
-
 {% block subheader %}
-  <p class="alert alert-info">The Lead officer should provide information for this form.</p>
+	<p class="alert alert-info">The Lead officer should provide information for this form.</p>
 {% endblock subheader %}
 
 
 {% block banner %}
-  <div class="visible-print-block">
-    <div class="text-center"><h5><strong>Commercial in Confidence (when complete)</strong></h5></div>
-  </div>
+	<div class="visible-print-block">
+		<div class="text-center"><h5><strong>Commercial in Confidence (when complete)</strong></h5></div>
+	</div>
 {% endblock banner %}
 
 
 {% block content %}
 
-  {% if form.errors %}
-    <div class="alert alert-danger">
-      There were some errors with your submission.  Please see below.
-    </div>
-    {{ form.non_field_errors }}
-  {% endif %}
+<div class="win-form">
 
-  <form method="post">
+	{% if form.errors %}
+		<div class="alert alert-danger">
+			There were some errors with your submission.  Please see below.
+		</div>
+		{{ form.non_field_errors }}
+	{% endif %}
 
-    <h3>Lead officer's details</h3>
-    {% include "wins/win-field.html" with field=form.lead_officer_name %}
-    {% include "wins/win-field.html" with field=form.lead_officer_email_address help="You only need to provide this if you are completing this form on behalf of the lead officer" %}
-    {% include "wins/win-field.html" with field=form.other_official_email_address help="You can provide an alternate email if someone else in your team needs to be notified about this Export Win" %}
-    {% include "wins/win-field.html" with field=form.team_type %}
-    {% include "wins/win-field.html" with field=form.hq_team %}
-    {% include "wins/win-field.html" with field=form.location %}
-    {% include "wins/win-field.html" with field=form.line_manager_name %}
+	<form method="post">
 
-    <hr>
-    <h3>Customer's details</h3>
+		<h3>Lead officer's details</h3>
+		{% include "wins/win-field.html" with field=form.lead_officer_name %}
+		{% include "wins/win-field.html" with field=form.lead_officer_email_address help="You only need to provide this if you are completing this form on behalf of the lead officer" %}
+		{% include "wins/win-field.html" with field=form.other_official_email_address help="You can provide an alternate email if someone else in your team needs to be notified about this Export Win" %}
+		{% include "wins/win-field.html" with field=form.team_type %}
+		{% include "wins/win-field.html" with field=form.hq_team %}
+		{% include "wins/win-field.html" with field=form.location %}
+		{% include "wins/win-field.html" with field=form.line_manager_name %}
 
-    {% include "wins/win-field.html" with field=form.company_name %}
-    {% include "wins/win-field.html" with field=form.cdms_reference %}
-    {% include "wins/win-field.html" with field=form.customer_name %}
-    {% include "wins/win-field.html" with field=form.customer_job_title %}
-    {% include "wins/win-field.html" with field=form.customer_email_address %}
-    {% include "wins/win-field.html" with field=form.customer_location %}
+		<hr>
+		<h3>Customer's details</h3>
 
-    <hr>
-    <h3>Details of Export Win</h3>
-    <p>
-      Your answers to these questions will be included in the details confirmed
-      by the customer.
-    </p>
+		{% include "wins/win-field.html" with field=form.company_name %}
+		{% include "wins/win-field.html" with field=form.cdms_reference %}
+		{% include "wins/win-field.html" with field=form.customer_name %}
+		{% include "wins/win-field.html" with field=form.customer_job_title %}
+		{% include "wins/win-field.html" with field=form.customer_email_address %}
+		{% include "wins/win-field.html" with field=form.customer_location %}
 
-    {% include "wins/win-field.html" with field=form.business_type help="e.g. export sales, contract, order, distributor, tender /competition win, joint venture, outward investment, etc." %}
-    {% include "wins/win-field.html" with field=form.description help="Please provide details of any key products services provided, missions, initiatives, etc." %}
-    {% include "wins/win-field.html" with field=form.name_of_customer %}
-    {% include "wins/win-field.html" with field=form.name_of_export %}
-    {% include "wins/win-field.html" with field=form.date help="Enter month and year in the format MM/YYYY." %}
-    {% include "wins/win-field.html" with field=form.country %}
+		<hr>
+		<h3>Details of Export Win</h3>
+		<p>
+			Your answers to these questions will be included in the details confirmed
+			by the customer.
+		</p>
 
-    <hr>
-    <h3>Expected value of the win</h3>
-    <p>
-      These questions help us to understand the £ value of the customer's win
-      over a five year period. How much of that £ value is UK exports and how
-      much is non-export value. We will use these aggregated values to help
-      demonstrate the contribution to the Government's £1 trillion by 2020
-      export target.
-      <br />
-      <br />
-      Please see guidance and FAQs.
-    </p>
+		{% include "wins/win-field.html" with field=form.business_type help="e.g. export sales, contract, order, distributor, tender /competition win, joint venture, outward investment, etc." %}
+		{% include "wins/win-field.html" with field=form.description help="Please provide details of any key products services provided, missions, initiatives, etc." %}
+		{% include "wins/win-field.html" with field=form.name_of_customer %}
+		{% include "wins/win-field.html" with field=form.name_of_export %}
+		{% include "wins/win-field.html" with field=form.date help="Enter month and year in the format MM/YYYY." %}
+		{% include "wins/win-field.html" with field=form.country %}
 
-    <div class="form-group {{ form.type.errors|yesno:'error,' }}">
-      {{ form.type.errors }}
-      <h4>
-        {% if form.type.field.required %}<span class="required">*</span>{% endif %}
-        Type of win
-      </h4>
-      {% if help %}<div class="help-text">{{ help }}</div>{% endif %}
-      {% if tooltip %}
-        <span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-original-title="{{ tooltip }}"></span>
-      {% endif %}
-      {{ form.type }}
-      <div class="clearfix"></div>
-    </div>
-    <hr />
+		<hr>
+		<h3>Expected value of the win</h3>
+		<p>
+			These questions help us to understand the £ value of the customer's win
+			over a five year period. How much of that £ value is UK exports and how
+			much is non-export value. We will use these aggregated values to help
+			demonstrate the contribution to the Government's £1 trillion by 2020
+			export target.
+			<br />
+			<br />
+			Please see guidance and FAQs.
+		</p>
 
-    <h4>Export value</h4>
+		<div class="form-group {{ form.type.errors|yesno:'error,' }}">
+			{{ form.type.errors }}
+			<h4>
+				{% if form.type.field.required %}<span class="required">*</span>{% endif %}
+				Type of win
+			</h4>
+			{% if help %}<div class="help-text">{{ help }}</div>{% endif %}
+			{% if tooltip %}
+				<span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-original-title="{{ tooltip }}"></span>
+			{% endif %}
+			{{ form.type }}
+			<div class="clearfix"></div>
+		</div>
+		<hr />
 
-    {% include "wins/win-field.html" with field=form.total_expected_export_value help="Enter whole numbers in £ e.g. for one-and-a-half-million, enter 1500000 <br /> The total expected value should be the sum of the annual values of the win." %}
+		<h4>Export value</h4>
 
-    <table class="table table-responsive">
-      <tr>
-        <th>{{ form.breakdown_exports_0.label_tag }}</th>
-        <th>{{ form.breakdown_exports_1.label_tag }}</th>
-        <th>{{ form.breakdown_exports_2.label_tag }}</th>
-        <th>{{ form.breakdown_exports_3.label_tag }}</th>
-        <th>{{ form.breakdown_exports_4.label_tag }}</th>
-      </tr>
-      <tr>
-        <td {% if form.breakdown_exports_0.errors %} class="error"{% endif %}>{{ form.breakdown_exports_0 }}</td>
-        <td {% if form.breakdown_exports_1.errors %} class="error"{% endif %}>{{ form.breakdown_exports_1 }}</td>
-        <td {% if form.breakdown_exports_2.errors %} class="error"{% endif %}>{{ form.breakdown_exports_2 }}</td>
-        <td {% if form.breakdown_exports_3.errors %} class="error"{% endif %}>{{ form.breakdown_exports_3 }}</td>
-        <td {% if form.breakdown_exports_4.errors %} class="error"{% endif %}>{{ form.breakdown_exports_4 }}</td>
-      </tr>
-    </table>
+		{% include "wins/win-field.html" with field=form.total_expected_export_value help="Enter whole numbers in £ e.g. for one-and-a-half-million, enter 1500000 <br /> The total expected value should be the sum of the annual values of the win." %}
 
-    {% include "wins/win-field.html" with field=form.goods_vs_services %}
-    {% include "wins/win-field.html" with field=form.sector %}
+		<table class="table table-responsive">
+			<tr>
+				<th>{{ form.breakdown_exports_0.label_tag }}</th>
+				<th>{{ form.breakdown_exports_1.label_tag }}</th>
+				<th>{{ form.breakdown_exports_2.label_tag }}</th>
+				<th>{{ form.breakdown_exports_3.label_tag }}</th>
+				<th>{{ form.breakdown_exports_4.label_tag }}</th>
+			</tr>
+			<tr>
+				<td {% if form.breakdown_exports_0.errors %} class="error"{% endif %}>{{ form.breakdown_exports_0 }}</td>
+				<td {% if form.breakdown_exports_1.errors %} class="error"{% endif %}>{{ form.breakdown_exports_1 }}</td>
+				<td {% if form.breakdown_exports_2.errors %} class="error"{% endif %}>{{ form.breakdown_exports_2 }}</td>
+				<td {% if form.breakdown_exports_3.errors %} class="error"{% endif %}>{{ form.breakdown_exports_3 }}</td>
+				<td {% if form.breakdown_exports_4.errors %} class="error"{% endif %}>{{ form.breakdown_exports_4 }}</td>
+			</tr>
+		</table>
 
-    <hr />
+		{% include "wins/win-field.html" with field=form.goods_vs_services %}
+		{% include "wins/win-field.html" with field=form.sector %}
 
-    <h4>Non-export value</h4>
+		<hr />
 
-    {% include "wins/win-field.html" with field=form.total_expected_non_export_value help="Enter whole numbers in £ e.g. for one-and-a-half-million, enter 1500000 <br /> The total expected value should be the sum of the annual values of the win." %}
+		<h4>Non-export value</h4>
 
-    <table class="table table-responsive">
-      <tr>
-        <th>{{ form.breakdown_non_exports_0.label_tag }}</th>
-        <th>{{ form.breakdown_non_exports_1.label_tag }}</th>
-        <th>{{ form.breakdown_non_exports_2.label_tag }}</th>
-        <th>{{ form.breakdown_non_exports_3.label_tag }}</th>
-        <th>{{ form.breakdown_non_exports_4.label_tag }}</th>
-      </tr>
-      <tr>
-        <td {% if form.breakdown_non_exports_0.errors %} class="error"{% endif %}>{{ form.breakdown_non_exports_0 }}</td>
-        <td {% if form.breakdown_non_exports_1.errors %} class="error"{% endif %}>{{ form.breakdown_non_exports_1 }}</td>
-        <td {% if form.breakdown_non_exports_2.errors %} class="error"{% endif %}>{{ form.breakdown_non_exports_2 }}</td>
-        <td {% if form.breakdown_non_exports_3.errors %} class="error"{% endif %}>{{ form.breakdown_non_exports_3 }}</td>
-        <td {% if form.breakdown_non_exports_4.errors %} class="error"{% endif %}>{{ form.breakdown_non_exports_4 }}</td>
-      </tr>
-    </table>
+		{% include "wins/win-field.html" with field=form.total_expected_non_export_value help="Enter whole numbers in £ e.g. for one-and-a-half-million, enter 1500000 <br /> The total expected value should be the sum of the annual values of the win." %}
+
+		<table class="table table-responsive">
+			<tr>
+				<th>{{ form.breakdown_non_exports_0.label_tag }}</th>
+				<th>{{ form.breakdown_non_exports_1.label_tag }}</th>
+				<th>{{ form.breakdown_non_exports_2.label_tag }}</th>
+				<th>{{ form.breakdown_non_exports_3.label_tag }}</th>
+				<th>{{ form.breakdown_non_exports_4.label_tag }}</th>
+			</tr>
+			<tr>
+				<td {% if form.breakdown_non_exports_0.errors %} class="error"{% endif %}>{{ form.breakdown_non_exports_0 }}</td>
+				<td {% if form.breakdown_non_exports_1.errors %} class="error"{% endif %}>{{ form.breakdown_non_exports_1 }}</td>
+				<td {% if form.breakdown_non_exports_2.errors %} class="error"{% endif %}>{{ form.breakdown_non_exports_2 }}</td>
+				<td {% if form.breakdown_non_exports_3.errors %} class="error"{% endif %}>{{ form.breakdown_non_exports_3 }}</td>
+				<td {% if form.breakdown_non_exports_4.errors %} class="error"{% endif %}>{{ form.breakdown_non_exports_4 }}</td>
+			</tr>
+		</table>
+
+		<hr />
+
+		<h3>
+			Contributing teams and advisers
+			<p>One individual or team per row.</p>
+		</h3>
+
+		<table id="advisors" class="advisors table table-responsive">
+			<tr>
+				<th>Name</th>
+				<th>Team Type</th>
+				<th>HQ Team<br />Region or Post</th>
+				<th>Location</th>
+			</tr>
+			<tr class="advisor">
+				<td>{{ form.advisor_0_name }}</td>
+				<td class="team-type">{{ form.advisor_0_team_type }}</td>
+				<td class="team-hq_team">{{ form.advisor_0_hq_team }}</td>
+				<td>{{ form.advisor_0_location }}</td>
+			</tr>
+			<tr class="advisor">
+				<td>{{ form.advisor_1_name }}</td>
+				<td class="team-type">{{ form.advisor_1_team_type }}</td>
+				<td class="team-hq_team">{{ form.advisor_1_hq_team }}</td>
+				<td>{{ form.advisor_1_location }}</td>
+			</tr>
+			<tr class="advisor">
+				<td>{{ form.advisor_2_name }}</td>
+				<td class="team-type">{{ form.advisor_2_team_type }}</td>
+				<td class="team-hq_team">{{ form.advisor_2_hq_team }}</td>
+				<td>{{ form.advisor_2_location }}</td>
+			</tr>
+			<tr class="advisor">
+				<td>{{ form.advisor_3_name }}</td>
+				<td class="team-type">{{ form.advisor_3_team_type }}</td>
+				<td class="team-hq_team">{{ form.advisor_3_hq_team }}</td>
+				<td>{{ form.advisor_3_location }}</td>
+			</tr>
+			<tr class="advisor">
+				<td>{{ form.advisor_4_name }}</td>
+				<td class="team-type">{{ form.advisor_4_team_type }}</td>
+				<td class="team-hq_team">{{ form.advisor_4_hq_team }}</td>
+				<td>{{ form.advisor_4_location }}</td>
+			</tr>
+		</table>
+
+		<hr />
+		<h3>Support provided
+		<p>How did we help the customer achieve this win?</p>
+		</h3>
 
 
-    <hr />
+		{% include "wins/win-field.html" with field=form.hvo_programme %}
+		{% include "wins/win-field.html" with field=form.has_hvo_specialist_involvement %}
+		{% include "wins/win-field.html" with field=form.is_prosperity_fund_related %}
+		{% include "wins/win-field.html" with field=form.is_e_exported %}
+		{% include "wins/win-field.html" with field=form.type_of_support_1 %}
+		{% include "wins/win-field.html" with field=form.type_of_support_2 %}
+		{% include "wins/win-field.html" with field=form.type_of_support_3 %}
+		{% include "wins/win-field.html" with field=form.associated_programme_1 %}
+		{% include "wins/win-field.html" with field=form.associated_programme_2 %}
+		{% include "wins/win-field.html" with field=form.associated_programme_3 %}
 
-    <h3>
-      Contributing teams and advisers
-      <p>One individual or team per row.</p>
-    </h3>
+		<hr />
 
-    <table id="advisors" class="advisors table table-responsive">
-      <tr>
-        <th>Name</th>
-        <th>Team Type</th>
-        <th>HQ Team<br />Region or Post</th>
-        <th>Location</th>
-      </tr>
-      <tr class="advisor">
-        <td>{{ form.advisor_0_name }}</td>
-        <td class="team-type">{{ form.advisor_0_team_type }}</td>
-        <td class="team-hq_team">{{ form.advisor_0_hq_team }}</td>
-        <td>{{ form.advisor_0_location }}</td>
-      </tr>
-      <tr class="advisor">
-        <td>{{ form.advisor_1_name }}</td>
-        <td class="team-type">{{ form.advisor_1_team_type }}</td>
-        <td class="team-hq_team">{{ form.advisor_1_hq_team }}</td>
-        <td>{{ form.advisor_1_location }}</td>
-      </tr>
-      <tr class="advisor">
-        <td>{{ form.advisor_2_name }}</td>
-        <td class="team-type">{{ form.advisor_2_team_type }}</td>
-        <td class="team-hq_team">{{ form.advisor_2_hq_team }}</td>
-        <td>{{ form.advisor_2_location }}</td>
-      </tr>
-      <tr class="advisor">
-        <td>{{ form.advisor_3_name }}</td>
-        <td class="team-type">{{ form.advisor_3_team_type }}</td>
-        <td class="team-hq_team">{{ form.advisor_3_hq_team }}</td>
-        <td>{{ form.advisor_3_location }}</td>
-      </tr>
-      <tr class="advisor">
-        <td>{{ form.advisor_4_name }}</td>
-        <td class="team-type">{{ form.advisor_4_team_type }}</td>
-        <td class="team-hq_team">{{ form.advisor_4_hq_team }}</td>
-        <td>{{ form.advisor_4_location }}</td>
-      </tr>
-    </table>
+		{# these manually place the label before the field #}
 
-    <hr />
-    <h3>Support provided
-    <p>How did we help the customer achieve this win?</p>
-    </h3>
+		<div class="form-group {{ form.is_personally_confirmed.errors|yesno:'error,' }}">
+			{{ form.is_personally_confirmed.errors }}
+			{{ form.is_personally_confirmed }}
+			{% if form.is_personally_confirmed.field.required %}<span class="required">*</span>{% endif %} {{ form.is_personally_confirmed.label_tag }}
+			{% if form.is_personally_confirmed.help_text %}<div class="help-text">{{ form.is_personally_confirmed.help_text }}</div>{% endif %}
+			<div class="clearfix"></div>
+		</div>
 
+		<div class="form-group {{ form.is_line_manager_confirmed.errors|yesno:'error,' }}">
+			{{ form.is_line_manager_confirmed.errors }}
+			{{ form.is_line_manager_confirmed }}
+			{% if form.is_line_manager_confirmed.field.required %}<span class="required">*</span>{% endif %} {{ form.is_line_manager_confirmed.label_tag }}
+			{% if form.is_line_manager_confirmed.help_text %}<div class="help-text">{{ form.is_line_manager_confirmed.help_text }}</div>{% endif %}
+			<div class="clearfix"></div>
+		</div>
 
-    {% include "wins/win-field.html" with field=form.hvo_programme %}
-    {% include "wins/win-field.html" with field=form.has_hvo_specialist_involvement %}
-    {% include "wins/win-field.html" with field=form.is_prosperity_fund_related %}
-    {% include "wins/win-field.html" with field=form.is_e_exported %}
-    {% include "wins/win-field.html" with field=form.type_of_support_1 %}
-    {% include "wins/win-field.html" with field=form.type_of_support_2 %}
-    {% include "wins/win-field.html" with field=form.type_of_support_3 %}
-    {% include "wins/win-field.html" with field=form.associated_programme_1 %}
-    {% include "wins/win-field.html" with field=form.associated_programme_2 %}
-    {% include "wins/win-field.html" with field=form.associated_programme_3 %}
+		{% csrf_token %}
 
-    <hr />
+		<p class="well">
+			Before submitting, you may wish to print this window using your browser
+			to save a copy for your records.
+		</p>
 
-    {# these manually place the label before the field #}
+		<div class="end-buttons">
+			<input type="submit" name="s" value="Submit Record" class="btn btn-primary">
+		</div>
 
-    <div class="form-group {{ form.is_personally_confirmed.errors|yesno:'error,' }}">
-      {{ form.is_personally_confirmed.errors }}
-      {{ form.is_personally_confirmed }}
-      {% if form.is_personally_confirmed.field.required %}<span class="required">*</span>{% endif %} {{ form.is_personally_confirmed.label_tag }}
-      {% if form.is_personally_confirmed.help_text %}<div class="help-text">{{ form.is_personally_confirmed.help_text }}</div>{% endif %}
-      <div class="clearfix"></div>
-    </div>
+	</form>
+</div>
 
-    <div class="form-group {{ form.is_line_manager_confirmed.errors|yesno:'error,' }}">
-      {{ form.is_line_manager_confirmed.errors }}
-      {{ form.is_line_manager_confirmed }}
-      {% if form.is_line_manager_confirmed.field.required %}<span class="required">*</span>{% endif %} {{ form.is_line_manager_confirmed.label_tag }}
-      {% if form.is_line_manager_confirmed.help_text %}<div class="help-text">{{ form.is_line_manager_confirmed.help_text }}</div>{% endif %}
-      <div class="clearfix"></div>
-    </div>
-
-    {% csrf_token %}
-
-    <p class="well">
-      Before submitting, you may wish to print this window using your browser
-      to save a copy for your records.
-    </p>
-
-    <div class="end-buttons">
-      <input type="submit" name="s" value="Submit Record" class="btn btn-primary">
-    </div>
-
-  </form>
 {% endblock content %}
 
 
 {% block js_footer %}
-  <script>
-  $(function() {
+	<script>
+	$(function() {
 
-    // Initialise tooltips
-    /*
-    $('[data-toggle="tooltip"]').tooltip({
-        placement: 'top'
-    });
-    */
+		// Initialise tooltips
+		/*
+		$('[data-toggle="tooltip"]').tooltip({
+				placement: 'top'
+		});
+		*/
 
-    // Auto filter the hq-team lists
+		// Auto filter the hq-team lists
 
-    // Officer
-    $("#id_team_type").on("change", function(){
-      var type = $(this).val();
-      $("#id_hq_team option").addClass("hidden");
-      $("#id_hq_team option[value^=" + type + "]").removeClass("hidden");
-      $("#id_hq_team").val($("#id_hq_team option[value^=" + type + "]").first().val());
-    });
+		// Officer
+		$("#id_team_type").on("change", function(){
+			var type = $(this).val();
+			$("#id_hq_team option").addClass("hidden");
+			$("#id_hq_team option[value^=" + type + "]").removeClass("hidden");
+			$("#id_hq_team").val($("#id_hq_team option[value^=" + type + "]").first().val());
+		});
 
-    // Advisor(s)
-    $("#advisors tr.advisor td.team-type select").on("change", function(){
-      var $this = $(this);
-      var type = $this.val();
-      var i = $this.attr("id").replace("id_advisor_", "").replace("_team_type", "");
-      $("#id_advisor_" + i + "_hq_team option").addClass("hidden");
-      $("#id_advisor_" + i + "_hq_team option[value^=" + type + "]").removeClass("hidden");
-      $("#id_advisor_" + i + "_hq_team").val($("#id_advisor_" + i + "_hq_team option[value^=" + type + "]").first().val());
-    });
-  });
-  </script>
+		// Advisor(s)
+		$("#advisors tr.advisor td.team-type select").on("change", function(){
+			var $this = $(this);
+			var type = $this.val();
+			var i = $this.attr("id").replace("id_advisor_", "").replace("_team_type", "");
+			$("#id_advisor_" + i + "_hq_team option").addClass("hidden");
+			$("#id_advisor_" + i + "_hq_team option[value^=" + type + "]").removeClass("hidden");
+			$("#id_advisor_" + i + "_hq_team").val($("#id_advisor_" + i + "_hq_team option[value^=" + type + "]").first().val());
+		});
+	});
+	</script>
 {% endblock js_footer %}
