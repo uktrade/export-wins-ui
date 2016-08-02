@@ -1,6 +1,8 @@
+@import "bootstrap/variables";
 @import "login";
 @import "win-form";
 @import "confirmation-form";
+
 
 .content {
 	max-width: 600px;
@@ -84,4 +86,11 @@ input[type='number'] {
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
 	-webkit-appearance: none;
+}
+
+@media( max-width:$device-sm-min ){
+
+	form.end-buttons {
+		width: 100%;
+	}
 }

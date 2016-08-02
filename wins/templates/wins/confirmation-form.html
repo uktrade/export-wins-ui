@@ -122,7 +122,8 @@
 		{% with field=form.expected_portion_without_help %}
 		<div class="pad-top {{ field.errors|yesno:'error,' }}">
 
-			{{ field.errors }}  
+			{{ field.errors }}
+			name: {{ field.name }}
 
 			<h4>What value do you estimate you would have achieved without our support?</h4>    
 
@@ -185,7 +186,7 @@
 		{{ field.errors }}
 			<div class="checkbox">
 				<label for="{{ field.name }}">
-					<input name="{{ field.name }}" id="{{ field.name }}" type="checkbox" value="True"{% if field.value == 'True' %} checked{% endif %}>
+					<input name="{{ field.name }}" id="{{ field.name }}" type="checkbox" value="True"{% if field.value == True %} checked{% endif %}>
 					The win involved a foreign government or state-owned enterprise (eg as an intermediary or facilitator)
 				</label>
 			</div>
@@ -195,7 +196,7 @@
 		{{ field.errors }}
 			<div class="checkbox">
 				<label for="{{ field.name }}">
-					<input name="{{ field.name }}" id="{{ field.name }}" type="checkbox" value="True"{% if field.value == 'True' %} checked{% endif %}>
+					<input name="{{ field.name }}" id="{{ field.name }}" type="checkbox" value="True"{% if field.value == True %} checked{% endif %}>
 					Our support was a prerequisite to generate this export value
 				</label>
 			</div>
@@ -205,7 +206,7 @@
 		{{ field.errors }}
 			<div class="checkbox">
 				<label for="{{ field.name }}">
-					<input name="{{ field.name }}" id="{{ field.name }}" type="checkbox" value="True"{% if field.value == 'True' %} checked{% endif %}>
+					<input name="{{ field.name }}" id="{{ field.name }}" type="checkbox" value="True"{% if field.value == True %} checked{% endif %}>
 					Our support helped you achieve this win more quickly
 				</label>
 			</div>
@@ -273,7 +274,7 @@
 		{{ field.errors }}
 			<div class="checkbox">
 				<label for="{{ field.name }}">
-					<input name="{{ field.name }}" id="{{ field.name }}" type="checkbox" value="True"{% if field.value == 'True' %} checked{% endif %}>
+					<input name="{{ field.name }}" id="{{ field.name }}" type="checkbox" value="True"{% if field.value == True %} checked{% endif %}>
 					It enabled you to expand into <strong>a new market</strong>
 				</label>
 			</div>
@@ -283,7 +284,7 @@
 		{{ field.errors }}
 			<div class="checkbox">
 				<label for="{{ field.name }}">
-					<input name="{{ field.name }}" id="{{ field.name }}" type="checkbox" value="True"{% if field.value == 'True' %} checked{% endif %}>
+					<input name="{{ field.name }}" id="{{ field.name }}" type="checkbox" value="True"{% if field.value == True %} checked{% endif %}>
 					It enabled you to maintain or expand in <strong>an existing market</strong>
 				</label>
 			</div>
@@ -293,7 +294,7 @@
 		{{ field.errors }}
 			<div class="checkbox">
 				<label for="{{ field.name }}">
-					<input name="{{ field.name }}" id="{{ field.name }}" type="checkbox" value="True"{% if field.value == 'True' %} checked{% endif %}>
+					<input name="{{ field.name }}" id="{{ field.name }}" type="checkbox" value="True"{% if field.value == True %} checked{% endif %}>
 					It enabled you to increase exports as a proportion of your turnover
 				</label>
 			</div>
@@ -303,7 +304,7 @@
 		{{ field.errors }}
 			<div class="checkbox">
 				<label for="{{ field.name }}">
-					<input name="{{ field.name }}" id="{{ field.name }}" type="checkbox" value="True"{% if field.value == 'True' %} checked{% endif %}>
+					<input name="{{ field.name }}" id="{{ field.name }}" type="checkbox" value="True"{% if field.value == True %} checked{% endif %}>
 					If you hadn’t achieved this win, your company might have stopped exporting
 				</label>
 			</div>
@@ -313,7 +314,7 @@
 		{{ field.errors }}
 			<div class="checkbox">
 				<label for="{{ field.name }}">
-					<input name="{{ field.name }}" id="{{ field.name }}" type="checkbox" value="True"{% if field.value == 'True' %} checked{% endif %}>
+					<input name="{{ field.name }}" id="{{ field.name }}" type="checkbox" value="True"{% if field.value == True %} checked{% endif %}>
 					Apart from this win, you already have specific plans to export in the next 12 months
 				</label>
 			</div>

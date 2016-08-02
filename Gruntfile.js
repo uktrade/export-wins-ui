@@ -53,7 +53,8 @@ module.exports = function( grunt ){
 		sass: {
 			options: {
 				sourceMap: true,
-				outputStyle: 'compact'
+				outputStyle: 'compact',
+				includePaths: [ '<%= src.bootstrap %>/stylesheets' ]
 			},
 			bootstrap: {
 				files: {

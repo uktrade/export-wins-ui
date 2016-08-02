@@ -21,23 +21,23 @@
   <h4 class="h5">{{ label }}</h4>
 
   <div class="btn-group" data-toggle="buttons">
-    <label for="" class="btn btn-default">
-      <input type="radio">N/A
+    <label for="{{ field.name }}-0" class="btn btn-default{% if field.value == '0' %} active{% endif %}"{% if field.value == '0' %} aria-pressed="true"{% endif %}>
+      <input type="radio" id="{{ field.name }}-0" name="{{ field.name }}" value="0"{% if field.value == '0' %} checked{% endif %}>N/A
     </label>
-    <label for="" class="btn btn-default">
-      <input type="radio">Didn't help
+    <label for="{{ field.name }}-1" class="btn btn-default{% if field.value == '1' %} active{% endif %}"{% if field.value == '1' %} aria-pressed="true"{% endif %}>
+      <input type="radio" id="{{ field.name }}-1" name="{{ field.name }}" value="1"{% if field.value == '1' %} checked{% endif %}>Didn't help
     </label>
-    <label for="" class="btn btn-default">
-      <input type="radio">Very little
+    <label for="{{ field.name }}-2" class="btn btn-default{% if field.value == '2' %} active{% endif %}"{% if field.value == '2' %} aria-pressed="true"{% endif %}>
+      <input type="radio"id="{{ field.name }}-2" name="{{ field.name }}" value="2"{% if field.value == '2' %} checked{% endif %}>Very little
     </label>
-    <label for="" class="btn btn-default">
-      <input type="radio">Some extent
+    <label for="{{ field.name }}-3" class="btn btn-default{% if field.value == '3' %} active{% endif %}"{% if field.value == '3' %} aria-pressed="true"{% endif %}>
+      <input type="radio"id="{{ field.name }}-3" name="{{ field.name }}" value="3"{% if field.value == '3' %} checked{% endif %}>Some extent
     </label>
-    <label for="" class="btn btn-default">
-      <input type="radio">Great extent
+    <label for="{{ field.name }}-4" class="btn btn-default{% if field.value == '4' %} active{% endif %}"{% if field.value == '4' %} aria-pressed="true"{% endif %}>
+      <input type="radio"id="{{ field.name }}-4" name="{{ field.name }}" value="4"{% if field.value == '4' %} checked{% endif %}>Great extent
     </label>
-    <label for="" class="btn btn-default">
-      <input type="radio">Completely
+    <label for="{{ field.name }}-5" class="btn btn-default{% if field.value == '5' %} active{% endif %}"{% if field.value == '5' %} aria-pressed="true"{% endif %}>
+      <input type="radio"id="{{ field.name }}-5" name="{{ field.name }}" value="5"{% if field.value == '5' %} checked{% endif %}>Completely
     </label>
   </div>
   
