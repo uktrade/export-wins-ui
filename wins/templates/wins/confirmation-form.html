@@ -108,14 +108,14 @@
 			To what extent did our support help in:
 		</p>
 
-		{% include "wins/confirmation-field-stars.html" with field=form.our_support label="Securing the win overall?" %}
+		{% include "wins/confirmation-rate-buttons.html" with field=form.our_support label="Securing the win overall?" %}
 
-		{% include "wins/confirmation-field-stars.html" with field=form.access_to_contacts label="Gaining access to contacts?" %}
-		{% include "wins/confirmation-field-stars.html" with field=form.access_to_information label="Getting information or improved understanding of the country?" %}
-		{% include "wins/confirmation-field-stars.html" with field=form.improved_profile label="Improving your profile or credibility in the country?" %}
-		{% include "wins/confirmation-field-stars.html" with field=form.gained_confidence label="Having confidence to explore or expand in the country?" %}
-		{% include "wins/confirmation-field-stars.html" with field=form.developed_relationships label="Developing or nurturing critical relationships?" %}
-		{% include "wins/confirmation-field-stars.html" with field=form.overcame_problem label="Overcoming a problem in the country (eg legal, regulatory, commercial)?" %}
+		{% include "wins/confirmation-rate-buttons.html" with field=form.access_to_contacts label="Gaining access to contacts?" %}
+		{% include "wins/confirmation-rate-buttons.html" with field=form.access_to_information label="Getting information or improved understanding of the country?" %}
+		{% include "wins/confirmation-rate-buttons.html" with field=form.improved_profile label="Improving your profile or credibility in the country?" %}
+		{% include "wins/confirmation-rate-buttons.html" with field=form.gained_confidence label="Having confidence to explore or expand in the country?" %}
+		{% include "wins/confirmation-rate-buttons.html" with field=form.developed_relationships label="Developing or nurturing critical relationships?" %}
+		{% include "wins/confirmation-rate-buttons.html" with field=form.overcame_problem label="Overcoming a problem in the country (eg legal, regulatory, commercial)?" %}
 
 		<h3 class="pad-top">About this export win</h3>
 
@@ -344,33 +344,7 @@
 
 {% block js_footer %}
 	<script>
-	/*
-			$( '.star-rating-container select' ).rating({
-				theme: "",
-				showCaption: true,
-				animate: false,
-				size: 'xs',
-				step: 1,
-				showClear: true,
-				hoverOnClear: false,
-				clearCaption: 'Not rated',
-				starCaptionClasses: {
-					0: 'label label-default',
-					1: 'label label-default',
-					2: 'label label-default',
-					3: 'label label-default',
-					4: 'label label-default',
-					5: 'label label-default'
-				},
-				starCaptions: {
-					1: 'Didn\'t help',
-					2: 'Very little',
-					3: 'Some extent',
-					4: 'Great extent',
-					5: 'Completely'
-				}
-			});
-*/
+
 			(function(){
 
 				var $infoBox = $( '#confirm-false-info' );

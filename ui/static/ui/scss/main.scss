@@ -88,9 +88,9 @@ input::-webkit-inner-spin-button {
 	-webkit-appearance: none;
 }
 
-@media( max-width:$device-sm-min ){
+@media( max-width:$screen-sm-min ){
 
-	form.end-buttons {
+	form .end-buttons .btn {
 		width: 100%;
 	}
 }

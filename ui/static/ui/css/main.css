@@ -44,8 +44,7 @@
 
 @media (max-width: 767px) { .confirmation-form .btn-group .btn { width: 100%; border-radius: 4px !important; margin-bottom: 1em; max-width: 100%; display: block; }
   .confirmation-form .form-group .btn-group { float: none !important; width: 100%; }
-  .confirmation-form .radio label, .confirmation-form .checkbox label { width: 100%; }
-  .confirmation-form .end-buttons .btn { width: 100%; } }
+  .confirmation-form .radio label, .confirmation-form .checkbox label { width: 100%; } }
 
 .content { max-width: 600px; margin: 25px auto; padding: 10px; }
 
@@ -83,5 +82,7 @@ td.error input { background-color: #f2dede; }
 input[type='number'] { -moz-appearance: textfield; }
 
 input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; }
+
+@media (max-width: 768px) { form .end-buttons .btn { width: 100%; } }
 
 /*# sourceMappingURL=main.css.map */
