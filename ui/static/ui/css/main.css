@@ -46,6 +46,8 @@
   .confirmation-form .form-group .btn-group { float: none !important; width: 100%; }
   .confirmation-form .radio label, .confirmation-form .checkbox label { width: 100%; } }
 
+.feedback-link { margin-right: 1em; }
+
 .content { max-width: 600px; margin: 25px auto; padding: 10px; }
 
 img.logo { margin-bottom: 1em; height: 100px; }

@@ -21,7 +21,7 @@
     <div class="content">
       <div class="row">
         <div class="col-xs-6">
-          <img src="{% static 'ui/img/ukti-logo.png' %}" alt="logo" title="UK Trade &amp; Investment" height="100" class="img-responsive logo" />
+          <img src="{% static 'ui/img/ukti-logo.png' %}" alt="logo" title="UK Trade &amp; Investment" height="100" class="img-responsive logo">
         </div>
         <div class="col-xs-6 text-right">
             <div>
@@ -29,7 +29,7 @@
             </div>
             <br />
             <div class="hidden-print">
-              <a href="mailto:{{ FEEDBACK_EMAIL }}?subject=Export%20Wins%20Feedback" class="btn btn-info btn-sm">Feedback</a>
+              <a href="mailto:{{ FEEDBACK_EMAIL }}?subject=Export%20Wins%20Feedback" class="feedback-link">Feedback</a>
               {% if user.is_authenticated %}
                 <a href="{% url 'logout' %}" class="btn btn-danger btn-sm">Logout</a>
               {% endif %}

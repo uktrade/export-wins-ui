@@ -20,10 +20,6 @@
 			We&#39;re asking UK companies about our export support services to help us improve. Tell us how our support contributed to your export success.
 		</p>
 
-		<p>
-			If you encounter any problems completing this form, please use the feedback button above.
-		</p>
-
 	{% if form.errors %}
 		<div class="alert alert-danger">
 			There were some errors with your submission.  Please see below.
@@ -353,7 +349,10 @@
 				var $confirmFalseComments = $( '#confirm-false-details' );
 
 				//hide the comments box on load
-				$infoBox.hide();
+				if( !$agree[1].checked ) {
+
+					$infoBox.hide();
+				}
 
 				//Toggle the comments box when the value of the radio changes
 				$agree.on( 'change', function( e ){
