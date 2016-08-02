@@ -21,13 +21,13 @@ module.exports = function( grunt ){
 			src: [
 				//'<%= src.bootstrap %>/javascripts/bootstrap/transition.js',
 				//'<%= src.bootstrap %>/javascripts/bootstrap/alert.js',
-				'<%= src.bootstrap %>/javascripts/bootstrap/button.js'
+				'<%= src.bootstrap %>/javascripts/bootstrap/button.js',
 				//'<%= src.bootstrap %>/javascripts/bootstrap/carousel.js',
 				//'<%= src.bootstrap %>/javascripts/bootstrap/collapse.js',
 				//'<%= src.bootstrap %>/javascripts/bootstrap/dropdown.js',
 				//'<%= src.bootstrap %>/javascripts/bootstrap/modal.js',
-				//'<%= src.bootstrap %>/javascripts/bootstrap/tooltip.js'
-				//'<%= src.bootstrap %>/javascripts/bootstrap/popover.js',
+				'<%= src.bootstrap %>/javascripts/bootstrap/tooltip.js',
+				'<%= src.bootstrap %>/javascripts/bootstrap/popover.js'
 				//'<%= src.bootstrap %>/javascripts/bootstrap/scrollspy.js',
 				//'<%= src.bootstrap %>/javascripts/bootstrap/tab.js',
 				//'<%= src.bootstrap %>/javascripts/bootstrap/affix.js'

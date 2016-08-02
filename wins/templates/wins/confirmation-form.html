@@ -11,7 +11,6 @@
 
 {% block subheader %}{% endblock subheader %}
 
-
 {% block content %}
 
 	<div class="confirmation-form">
@@ -28,7 +27,6 @@
 	{% endif %}
 
 		<h2 class="pad-top">Details of your recent export success</h2>
-
 
 		<div class="win-details-wrapper">
 			
@@ -56,7 +54,7 @@
 
 				{% if win.total_expected_non_export_value.value %}
 
-						<dt>Non-export value expected over the next 5 years</dt>
+						<dt>Non-export value <a role="button" id="non-export-info" tabindex="0" data-toggle="popover" data-content="Non-exports are blah blah blah blah blah blah..."><span class="glyphicon glyphicon-question-sign more-info" ></span></a> expected over the next 5 years</dt>
 						<dd>&pound;{{ win.total_expected_non_export_value.value|intcomma }}</dd>
 
 				{% endif %}
@@ -122,56 +120,15 @@
 			{{ field.errors }}
 			name: {{ field.name }}
 
-			<h4>What value do you estimate you would have achieved without our support?</h4>    
+			<h4>What value do you estimate you would have achieved without our support?</h4>
 
-			<div class="radio">
-				<label for="{{ field.name }}-1">
-					<input type="radio" id="{{ field.name }}-1" name="{{ field.name }}" value="1"{% if field.value == '1' %} checked{% endif %}>
-					No value without our help
-				</label>
-			</div>
-
-			<div class="radio">
-				<label for="{{ field.name }}-2">
-					<input type="radio" id="{{ field.name }}-2" name="{{ field.name }}" value="2"{% if field.value == '2' %} checked{% endif %}>
-					Up to 20% of the total expected value without our help
-				</label>
-			</div>
-
-			<div class="radio">
-				<label for="{{ field.name }}-3">
-					<input type="radio" id="{{ field.name }}-3" name="{{ field.name }}" value="3"{% if field.value == '3' %} checked{% endif %}>
-					Up to 40%
-				</label>
-			</div>
-
-			<div class="radio">
-				<label for="{{ field.name }}-4">
-					<input type="radio" id="{{ field.name }}-4" name="{{ field.name }}" value="4"{% if field.value == '4' %} checked{% endif %}>
-					Up to 60%
-				</label>
-			</div>
-
-			<div class="radio">
-				<label for="{{ field.name }}-5">
-					<input type="radio" id="{{ field.name }}-5" name="{{ field.name }}" value="5"{% if field.value == '5' %} checked{% endif %}>
-					Up to 80%
-				</label>
-			</div>
-
-			<div class="radio">
-				<label for="{{ field.name }}-6">
-					<input type="radio" id="{{ field.name }}-6" name="{{ field.name }}" value="6"{% if field.value == '6' %} checked{% endif %}>
-					More than 80%
-				</label>
-			</div>
-
-			<div class="radio">
-				<label for="{{ field.name }}-7">
-					<input type="radio" id="{{ field.name }}-7" name="{{ field.name }}" value="8"{% if field.value == '7' %} checked{% endif %}>
-					You could have won the entire value or similar without our help
-				</label>
-			</div>
+			{% include "wins/confirmation-radio.html" with value="1" label="No value without our help" %}
+			{% include "wins/confirmation-radio.html" with value="2" label="Up to 20% of the total expected value without our help" %}
+			{% include "wins/confirmation-radio.html" with value="3" label="Up to 40%" %}
+			{% include "wins/confirmation-radio.html" with value="4" label="Up to 60%" %}
+			{% include "wins/confirmation-radio.html" with value="5" label="Up to 80%" %}
+			{% include "wins/confirmation-radio.html" with value="6" label="More than 80%" %}
+			{% include "wins/confirmation-radio.html" with value="7" label="You could have won the entire value or similar without our help" %}
 
 			<div class="clearfix"></div>
 		</div>
@@ -179,36 +136,9 @@
 
 		<h4>Please tick any that apply to this win:</h4>
 
-		{% with field=form.involved_state_enterprise %}
-		{{ field.errors }}
-			<div class="checkbox">
-				<label for="{{ field.name }}">
-					<input name="{{ field.name }}" id="{{ field.name }}" type="checkbox" value="True"{% if field.value == True %} checked{% endif %}>
-					The win involved a foreign government or state-owned enterprise (eg as an intermediary or facilitator)
-				</label>
-			</div>
-		{% endwith %}
-
-		{% with field=form.interventions_were_prerequisite %}
-		{{ field.errors }}
-			<div class="checkbox">
-				<label for="{{ field.name }}">
-					<input name="{{ field.name }}" id="{{ field.name }}" type="checkbox" value="True"{% if field.value == True %} checked{% endif %}>
-					Our support was a prerequisite to generate this export value
-				</label>
-			</div>
-		{% endwith %}
-
-		{% with field=form.support_improved_speed %}
-		{{ field.errors }}
-			<div class="checkbox">
-				<label for="{{ field.name }}">
-					<input name="{{ field.name }}" id="{{ field.name }}" type="checkbox" value="True"{% if field.value == True %} checked{% endif %}>
-					Our support helped you achieve this win more quickly
-				</label>
-			</div>
-		{% endwith %}
-	
+		{% include "wins/confirmation-checkbox.html" with field=form.involved_state_enterprise label="The win involved a foreign government or state-owned enterprise (eg as an intermediary or facilitator)" %}
+		{% include "wins/confirmation-checkbox.html" with field=form.interventions_were_prerequisite label="The win involved a foreign government or state-owned enterprise (eg as an intermediary or facilitator)" %}
+		{% include "wins/confirmation-checkbox.html" with field=form.support_improved_speed label="Our support helped you achieve this win more quickly" %}
 
 		<h3 class="pad-top">Your export experience</h3>
 
@@ -217,49 +147,14 @@
 
 			{{ field.errors }}  
 
-			<h4>When did your company last export goods or services?</h4>    
+			<h4>When did your company last export goods or services?</h4>
 
-			<div class="radio">
-				<label for="{{ field.name }}-1">
-					<input type="radio" id="{{ field.name }}-1" name="{{ field.name }}" value="1"{% if field.value == '1' %} checked{% endif %}>
-					We had not started exporting before this win
-				</label>
-			</div>
-
-			<div class="radio">
-				<label for="{{ field.name }}-2">
-					<input type="radio" id="{{ field.name }}-2" name="{{ field.name }}" value="2"{% if field.value == '2' %} checked{% endif %}>
-					We’ve been exporting in the last 12 months 
-				</label>
-			</div>
-
-			<div class="radio">
-				<label for="{{ field.name }}-3">
-					<input type="radio" id="{{ field.name }}-3" name="{{ field.name }}" value="3"{% if field.value == '3' %} checked{% endif %}>
-					We last exported 1 to 2 years ago
-				</label>
-			</div>
-
-			<div class="radio">
-				<label for="{{ field.name }}-4">
-					<input type="radio" id="{{ field.name }}-4" name="{{ field.name }}" value="4"{% if field.value == '4' %} checked{% endif %}>
-					2 to 5 years ago
-				</label>
-			</div>
-
-			<div class="radio">
-				<label for="{{ field.name }}-5">
-					<input type="radio" id="{{ field.name }}-5" name="{{ field.name }}" value="5"{% if field.value == '5' %} checked{% endif %}>
-					5 to 10 years ago
-				</label>
-			</div>
-
-			<div class="radio">
-				<label for="{{ field.name }}-6">
-					<input type="radio" id="{{ field.name }}-6" name="{{ field.name }}" value="6"{% if field.value == '6' %} checked{% endif %}>
-					More than 10 years ago
-				</label>
-			</div>
+			{% include "wins/confirmation-radio.html" with value="1" label="We had not started exporting before this win" %}
+			{% include "wins/confirmation-radio.html" with value="2" label="We’ve been exporting in the last 12 months" %}
+			{% include "wins/confirmation-radio.html" with value="3" label="We last exported 1 to 2 years ago" %}
+			{% include "wins/confirmation-radio.html" with value="4" label="2 to 5 years ago" %}
+			{% include "wins/confirmation-radio.html" with value="5" label="5 to 10 years ago" %}
+			{% include "wins/confirmation-radio.html" with value="6" label="More than 10 years ago" %}
 
 			<div class="clearfix"></div>
 		</div>
@@ -267,55 +162,11 @@
 
 		<h4>Tick any that apply to this win:</h4>
 
-		{% with field=form.has_enabled_expansion_into_new_market %}
-		{{ field.errors }}
-			<div class="checkbox">
-				<label for="{{ field.name }}">
-					<input name="{{ field.name }}" id="{{ field.name }}" type="checkbox" value="True"{% if field.value == True %} checked{% endif %}>
-					It enabled you to expand into <strong>a new market</strong>
-				</label>
-			</div>
-		{% endwith %}
-
-		{% with field=form.has_enabled_expansion_into_existing_market %}
-		{{ field.errors }}
-			<div class="checkbox">
-				<label for="{{ field.name }}">
-					<input name="{{ field.name }}" id="{{ field.name }}" type="checkbox" value="True"{% if field.value == True %} checked{% endif %}>
-					It enabled you to maintain or expand in <strong>an existing market</strong>
-				</label>
-			</div>
-		{% endwith %}
-
-		{% with field=form.has_increased_exports_as_percent_of_turnover %}
-		{{ field.errors }}
-			<div class="checkbox">
-				<label for="{{ field.name }}">
-					<input name="{{ field.name }}" id="{{ field.name }}" type="checkbox" value="True"{% if field.value == True %} checked{% endif %}>
-					It enabled you to increase exports as a proportion of your turnover
-				</label>
-			</div>
-		{% endwith %}
-		
-		{% with field=form.company_was_at_risk_of_not_exporting %}
-		{{ field.errors }}
-			<div class="checkbox">
-				<label for="{{ field.name }}">
-					<input name="{{ field.name }}" id="{{ field.name }}" type="checkbox" value="True"{% if field.value == True %} checked{% endif %}>
-					If you hadn’t achieved this win, your company might have stopped exporting
-				</label>
-			</div>
-		{% endwith %}
-
-		{% with field=form.has_explicit_export_plans %}
-		{{ field.errors }}
-			<div class="checkbox">
-				<label for="{{ field.name }}">
-					<input name="{{ field.name }}" id="{{ field.name }}" type="checkbox" value="True"{% if field.value == True %} checked{% endif %}>
-					Apart from this win, you already have specific plans to export in the next 12 months
-				</label>
-			</div>
-		{% endwith %}
+		{% include "wins/confirmation-checkbox.html" with field=form.has_enabled_expansion_into_new_market label="It enabled you to expand into <strong>a new market</strong>" %}
+		{% include "wins/confirmation-checkbox.html" with field=form.has_enabled_expansion_into_existing_market label="It enabled you to maintain or expand in <strong>an existing market</strong>" %}
+		{% include "wins/confirmation-checkbox.html" with field=form.has_increased_exports_as_percent_of_turnover label="It enabled you to increase exports as a proportion of your turnover" %}
+		{% include "wins/confirmation-checkbox.html" with field=form.company_was_at_risk_of_not_exporting label="If you hadn’t achieved this win, your company might have stopped exporting" %}
+		{% include "wins/confirmation-checkbox.html" with field=form.has_explicit_export_plans label="Apart from this win, you already have specific plans to export in the next 12 months" %}
 
 		<hr>
 	
@@ -330,7 +181,7 @@
 		{% csrf_token %}
 
 		<div class="end-buttons">
-			<input type="submit" name="s" value="Submit" class="btn btn-primary" />
+			<input type="submit" name="s" value="Submit" class="btn btn-primary">
 		</div>
 
 	</form>
@@ -347,6 +198,11 @@
 				var $infoBox = $( '#confirm-false-info' );
 				var $agree = $( 'form input[name={{ form.agree_with_win.name }}]' );
 				var $confirmFalseComments = $( '#confirm-false-details' );
+
+				$( '#non-export-info' ).popover({
+					container: '.win-details-wrapper',
+					trigger: 'click'
+				});
 
 				//hide the comments box on load
 				if( !$agree[1].checked ) {

@@ -8,9 +8,9 @@
 
 .win-form #id_description { height: 9em; }
 
-.confirmation-form .form-group label { float: left; max-width: 80%; }
+.confirmation-form .more-info { font-size: 1.1em; position: relative; top: -2px; }
 
-.confirmation-form span.glyphicon { font-size: 1.4em; }
+.confirmation-form .form-group label { float: left; max-width: 80%; }
 
 .confirmation-form .tooltip-inner { font-size: 1.2em; }
 

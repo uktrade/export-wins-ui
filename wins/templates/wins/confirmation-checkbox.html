@@ -1,12 +1,7 @@
-<div class="form-group {{ field.errors|yesno:'error,' }}">
-  {{ field.errors }}
-
-  <div class="checkbox">
-  <label for="{{ field.name }}">
-    <input name="{{ field.name }}" id="{{ field.name }}" type="checkbox" value="True">{{ label }}
-  </label>
-</div>
- 
-  {% if field.help_text %}<div class="help-text">{{ field.help_text }}</div>{% endif %}
-  <div class="clearfix"></div>
+{{ field.errors }}
+<div class="checkbox">
+	<label for="{{ field.name }}">
+		<input name="{{ field.name }}" id="{{ field.name }}" type="checkbox" value="True"{% if field.value == True %} checked{% endif %}>
+		{{ label }}
+	</label>
 </div>

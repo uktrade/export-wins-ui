@@ -1,11 +1,16 @@
 .confirmation-form {
+
+	.more-info {
+		font-size: 1.1em;
+		position: relative;
+		top: -2px;
+	}
+
 	.form-group label {
 		float: left;
 		max-width: 80%;
 	}
-	span.glyphicon {
-		font-size: 1.4em;
-	}
+
 	.tooltip-inner {
 		font-size: 1.2em;
 	}

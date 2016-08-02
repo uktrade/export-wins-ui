@@ -1,25 +1,6 @@
-<div class="form-group {{ field.errors|yesno:'error,' }}">
-	{{ field.errors }}
-	{# {% if field.field.required %}<span class="required">*</span>{% endif %} #}
-
-	{% if help %}<div class="help-text">{{ help }}</div>{% endif %}
-	{% if tooltip %}
-		<span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-original-title="{{ tooltip }}"></span>
-	{% endif %}
-	
-
-	{% for val in values|split:"|" %}
-		{{ val }}
-	{% endfor %}
-
-	<div class="radio">
-		{% for choice in field %}
-		<label for="{{ field.name }}-{{ forloop.counter }}">
-			{{ label }}
-			<input type="radio" id="{{ field.name }}-{{ forloop.counter }}" name="{{ field.name }}" value="{{ choice.choice_value }}"{% if choice.choice_value == field.value %} checked{% endif %}>
-		</label>
-		{% endfor %}
-	</div>
-
-	<div class="clearfix"></div>
+<div class="radio">
+	<label for="{{ field.name }}-{{ value }}">
+		<input type="radio" id="{{ field.name }}-{{ value }}" name="{{ field.name }}" value="{{ value }}"{% if field.value == value %} checked{% endif %}>
+		{{ label }}
+	</label>
 </div>
