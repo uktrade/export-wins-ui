@@ -64,12 +64,12 @@
 			<div class="supported-details">{{ win.description.value|linebreaks }}</div>
 		</div>
 
-		<form method="post" action="{{form.action}}" id="confirmation-form">
+		<form method="post" action="{{ request.path }}" id="confirmation-form">
 
-		<h4 class="confirm-details-heading">Please confirm these details are correct:</h4>
+			<h4 class="confirm-details-heading">Please confirm these details are correct:</h4>
 
-		{% with field=form.agree_with_win %}
-		<div class="pad-top {{ field.errors|yesno:'error,' }}">
+			{% with field=form.agree_with_win %}
+			<div class="pad-top {{ field.errors|yesno:'error,' }}">
 
 				{{ field.errors }}  
 
@@ -86,15 +86,14 @@
 						No, they&#39;re not correct
 					</label>
 				</div>
-		</div>
-		{% endwith %}
+			</div>
+			{% endwith %}
 
-		<div id="confirm-false-info">
-
-			<p>
-				Tell us about the changes required in the <a href="#id_comments">comment box</a> at the bottom of this form.
-			</p>
-		</div>
+			<div id="confirm-false-info">
+				<p>
+					Tell us about the changes required in the <a href="#id_comments">comment box</a> at the bottom of this form.
+				</p>
+			</div>
 
 
 		<h2 class="pad-top">Tell us what made a difference</h2>
