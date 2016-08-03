@@ -147,7 +147,7 @@
 			<h4>When did your company last export goods or services?</h4>
 
 			{% include "wins/partials/confirmation-radio.html" with value="1" label="We had not started exporting before this win" %}
-			{% include "wins/partials/confirmation-radio.html" with value="2" label="We’ve been exporting in the last 12 months" %}
+			{% include "wins/partials/confirmation-radio.html" with value="2" label="Apart from this win, we have exported in the last 12 months" %}
 			{% include "wins/partials/confirmation-radio.html" with value="3" label="We last exported 1 to 2 years ago" %}
 			{% include "wins/partials/confirmation-radio.html" with value="4" label="2 to 5 years ago" %}
 			{% include "wins/partials/confirmation-radio.html" with value="5" label="5 to 10 years ago" %}
@@ -162,7 +162,7 @@
 		{% include "wins/partials/confirmation-checkbox.html" with field=form.has_enabled_expansion_into_new_market label="It enabled you to expand into <strong>a new market</strong>" %}
 		{% include "wins/partials/confirmation-checkbox.html" with field=form.has_enabled_expansion_into_existing_market label="It enabled you to maintain or expand in <strong>an existing market</strong>" %}
 		{% include "wins/partials/confirmation-checkbox.html" with field=form.has_increased_exports_as_percent_of_turnover label="It enabled you to increase exports as a proportion of your turnover" %}
-		{% include "wins/partials/confirmation-checkbox.html" with field=form.company_was_at_risk_of_not_exporting label="If you hadn’t achieved this win, your company might have stopped exporting" %}
+		{% include "wins/partials/confirmation-checkbox.html" with field=form.company_was_at_risk_of_not_exporting label="If you hadn&#39;t achieved this win, your company might have stopped exporting" %}
 		{% include "wins/partials/confirmation-checkbox.html" with field=form.has_explicit_export_plans label="Apart from this win, you already have specific plans to export in the next 12 months" %}
 
 		<hr>
