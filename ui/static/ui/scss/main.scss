@@ -93,6 +93,10 @@ input::-webkit-inner-spin-button {
 
 @media( max-width:$screen-sm-min ){
 
+	img.logo {
+		height: 70px;
+	}
+
 	form .end-buttons .btn {
 		width: 100%;
 	}

@@ -103,7 +103,6 @@
 		</p>
 
 		{% include "wins/partials/confirmation-rate-buttons.html" with field=form.our_support label="Securing the win overall?" %}
-
 		{% include "wins/partials/confirmation-rate-buttons.html" with field=form.access_to_contacts label="Gaining access to contacts?" %}
 		{% include "wins/partials/confirmation-rate-buttons.html" with field=form.access_to_information label="Getting information or improved understanding of the country?" %}
 		{% include "wins/partials/confirmation-rate-buttons.html" with field=form.improved_profile label="Improving your profile or credibility in the country?" %}
@@ -117,7 +116,6 @@
 		<div class="pad-top {{ field.errors|yesno:'error,' }}">
 
 			{{ field.errors }}
-			name: {{ field.name }}
 
 			<h4>What value do you estimate you would have achieved without our support?</h4>
 
