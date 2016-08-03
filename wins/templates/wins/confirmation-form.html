@@ -54,7 +54,7 @@
 
 				{% if win.total_expected_non_export_value.value %}
 
-						<dt>Non-export value <a role="button" id="non-export-info" tabindex="0" data-toggle="popover" data-content="Non-exports are blah blah blah blah blah blah..."><span class="glyphicon glyphicon-question-sign more-info" ></span></a> expected over the next 5 years</dt>
+						<dt>Non-export value expected over the next 5 years</dt>
 						<dd>&pound;{{ win.total_expected_non_export_value.value|intcomma }}</dd>
 
 				{% endif %}
@@ -195,11 +195,6 @@
 				var $infoBox = $( '#confirm-false-info' );
 				var $agree = $( 'form input[name={{ form.agree_with_win.name }}]' );
 				var $confirmFalseComments = $( '#confirm-false-details' );
-
-				$( '#non-export-info' ).popover({
-					container: '.win-details-wrapper',
-					trigger: 'click'
-				});
 
 				//hide the comments box on load
 				if( !$agree[1].checked ) {
