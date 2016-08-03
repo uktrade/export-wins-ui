@@ -1,0 +1,16 @@
+.logo-row .col-xs-6 {
+	width: 41% !important;
+}
+
+.confirmation-form .btn-group label input {
+	visibility: hidden;
+}
+
+.confirmation-form .radio label input,
+.confirmation-form .checkbox label input {
+	top: 3px !important;
+}
+
+.confirmation-form .win-details dd {
+	width: 20% !important;
+}

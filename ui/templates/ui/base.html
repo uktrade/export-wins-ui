@@ -7,6 +7,7 @@
     <title>UKTI Export Wins</title>
     <link rel="stylesheet" href="{% static 'vendor/bootstrap/css/bootstrap.css' %}">
     <link rel="stylesheet" href="{% static 'ui/css/main.css' %}">
+    <!--[if lte IE 7]><link href="{% static 'ui/css/ie7.css' %}" media="screen" rel="stylesheet" /><![endif]-->
 
     {% block css %}{% endblock css %}
 
@@ -21,7 +22,7 @@
 
     <div class="content">
 
-      <div class="row">
+      <div class="row logo-row">
         <div class="col-xs-6">
           <img src="{% static 'ui/img/ukti-logo.png' %}" alt="logo" title="UK Trade &amp; Investment" height="100" class="img-responsive logo">
         </div>
