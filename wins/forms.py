@@ -47,15 +47,7 @@ class ConfirmationFormMetaclass(ReflectiveFormMetaclass):
 
         make_typed_choice = (
             "agree_with_win",
-            "involved_state_enterprise",
-            "interventions_were_prerequisite",
-            "support_improved_speed",
-            "company_was_at_risk_of_not_exporting",
-            "has_explicit_export_plans",
-            "has_enabled_expansion_into_new_market",
-            "has_increased_exports_as_percent_of_turnover",
-            "has_enabled_expansion_into_existing_market",
-            "case_study_willing",
+            "case_study_willing"
         )
         for name in make_typed_choice:
             form_field = forms.TypedChoiceField(

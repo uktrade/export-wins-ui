@@ -1,0 +1,91 @@
+.win-form table.advisors tr th { vertical-align: middle; }
+
+.win-form span.glyphicon { font-size: 1.4em; }
+
+.win-form .tooltip-inner { font-size: 1.2em; }
+
+.win-form .required { color: #d00; }
+
+.win-form #id_description { height: 9em; }
+
+.confirmation-form .more-info { font-size: 1.1em; position: relative; top: -2px; }
+
+.confirmation-form .form-group label { float: left; max-width: 80%; }
+
+.confirmation-form .tooltip-inner { font-size: 1.2em; }
+
+.confirmation-form #id_description { height: 9em; }
+
+.confirmation-form .help-text { clear: both; }
+
+.confirmation-form .pad-top { margin-top: 2em; }
+
+.confirmation-form .pad-text { padding: 1em; }
+
+.confirmation-form .win-details-wrapper { border: 1px solid #eee; border-radius: 0.25em; }
+
+.confirmation-form .win-details-wrapper .supported-header { font-size: 1em; margin: 0.5em 1em; font-weight: bold; }
+
+.confirmation-form .win-details { overflow: hidden; margin-bottom: 0; }
+
+.confirmation-form .win-details dt { width: 70%; float: left; text-align: left; padding: 0.25em 1em; clear: both; box-sizing: border-box; }
+
+.confirmation-form .win-details dd { float: left; width: 30%; padding: 0.25em 1em; margin-left: 0; box-sizing: border-box; }
+
+.confirmation-form .win-details dt:nth-of-type(even), .confirmation-form .win-details dd:nth-of-type(even) { background-color: #eee; }
+
+.confirmation-form .supported-details { padding: 0.25em 2em; }
+
+.confirmation-form .what-extent-heading { margin-top: 1.5em; }
+
+.confirmation-form .confirm-details-heading { margin-top: 1.5em; }
+
+.confirmation-form .radio label, .confirmation-form .checkbox label { border: 1px solid #ccc; border-radius: 0.25em; padding: 0.5em 0.7em 0.5em 2.4em; margin-bottom: 0.5em; }
+
+@media (max-width: 767px) { .confirmation-form .btn-group .btn { width: 100%; border-radius: 4px !important; margin-bottom: 1em; max-width: 100%; display: block; }
+  .confirmation-form .form-group .btn-group { float: none !important; width: 100%; }
+  .confirmation-form .radio label, .confirmation-form .checkbox label { width: 100%; } }
+
+.feedback-link { margin-right: 1em; }
+
+.content { max-width: 600px; margin: 25px auto; padding: 10px; }
+
+img.logo { margin-bottom: 1em; height: 100px; }
+
+hr { margin: 3em 1em; }
+
+h1 { margin-bottom: 1em; }
+
+h1 p, h2 p, h3 p, h4 p { font-size: 12pt; color: #666666; margin: 0.5em 0; }
+
+form .end-buttons { text-align: right; }
+
+form .end-buttons input { padding-left: 2em; padding-right: 2em; }
+
+.help-text { color: #666666; padding: 0.5em 0.5em 0.5em 0; }
+
+.form-group .alert { padding: 0.5em; }
+
+table tr th { text-align: center; }
+
+td.error input { background-color: #f2dede; }
+
+.form-group { margin: 2em 0; }
+
+.form-group.error { border: 1px solid #f2dede; border-radius: 0.5em; padding: 1em; }
+
+.form-group ul li label { white-space: nowrap; }
+
+.form-group ul { width: 20%; float: right; }
+
+.form-group ul li { display: inline; }
+
+/* Hide Firefox number field arrows */
+input[type='number'] { -moz-appearance: textfield; }
+
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; }
+
+@media (max-width: 768px) { img.logo { height: 70px; }
+  form .end-buttons .btn { width: 100%; } }
+
+/*# sourceMappingURL=main.css.map */

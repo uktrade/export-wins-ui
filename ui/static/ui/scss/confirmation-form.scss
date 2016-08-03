@@ -1,0 +1,113 @@
+.confirmation-form {
+
+	.more-info {
+		font-size: 1.1em;
+		position: relative;
+		top: -2px;
+	}
+
+	.form-group label {
+		float: left;
+		max-width: 80%;
+	}
+
+	.tooltip-inner {
+		font-size: 1.2em;
+	}
+
+	#id_description {
+		height: 9em;
+	}
+	.help-text {
+		clear: both;
+	}
+
+	.pad-top {
+		margin-top: 2em;
+	}
+
+	.pad-text {
+		padding: 1em;
+	}
+
+	.win-details-wrapper {
+
+		border: 1px solid #eee;
+		border-radius: 0.25em;
+	}
+
+	.win-details-wrapper .supported-header {
+
+		font-size: 1em;
+		margin: 0.5em 1em;
+		font-weight: bold;
+	}
+
+	.win-details {
+		overflow: hidden;
+		margin-bottom: 0;
+	}
+
+	.win-details dt {
+		width: 70%;
+		float:left;
+		text-align: left;
+		padding: 0.25em 1em;
+		clear: both;
+		box-sizing: border-box;
+	}
+
+	.win-details dd {
+		float:left;
+		width: 30%;
+		padding: 0.25em 1em;
+		margin-left: 0;
+		box-sizing: border-box;
+	}
+
+	.win-details dt:nth-of-type( even ),
+	.win-details dd:nth-of-type( even ) {
+		background-color: #eee;
+	}
+
+	.supported-details {
+		padding: 0.25em 2em;
+	}
+
+	.what-extent-heading {
+		margin-top: 1.5em;
+	}
+
+	.confirm-details-heading {
+		margin-top: 1.5em;
+	}
+
+	.radio label,
+	.checkbox label {
+		border: 1px solid #ccc;
+		border-radius: 0.25em;
+		padding: 0.5em 0.7em 0.5em 2.4em;
+		margin-bottom: 0.5em;
+	}
+
+	@media(max-width:767px){
+
+		.btn-group .btn {
+			width: 100%;
+			border-radius: 4px !important;
+			margin-bottom: 1em;
+			max-width: 100%;
+			display: block;
+		}
+
+		.form-group .btn-group {
+			float: none !important;
+			width: 100%;
+		}
+
+		.radio label,
+		.checkbox label {
+			width: 100%;
+		}
+	}
+}
