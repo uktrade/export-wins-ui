@@ -1,0 +1,133 @@
+{% extends 'ui/base.html' %}
+
+{% load staticfiles %}
+{% load humanize %}
+
+{% block title %} - Your export wins{% endblock title %}
+{% block header %}Your export wins{% endblock header %}
+
+{% block content %}
+
+{% comment %}
+<a href="{% url 'win-details' win.id %}">{{ win.company_name }}</a>
+<a href="{% url 'win-complete' win.id %}" class="btn btn-primary">send to customer</a>
+{% endcomment %}
+
+    <div class="my-wins">
+
+        {% if not unsent and not sent and not responded %}
+
+            <div class="text-center">
+
+                <p class="lead">You haven&#39;t yet created any wins yet.</p>
+
+                <a href="{% url 'new-win' %}" class="btn btn-primary btn-responsive btn-lg">Create new win</a>
+            </div>
+
+        {% else %}
+
+            <a href="{% url 'new-win' %}" class="btn btn-primary btn-responsive">Create new win</a>
+
+            <h3 class="my-wins-header">Unsent wins <span class="badge">{{ unsent | length }}</span></h3>
+
+             {% if not unsent %}
+
+                <p class="text-center well">You don&#39;t have any unsent wins.</p>
+
+            {% else %}
+
+                <table class="table table-striped">
+                    <tr>
+                        <th>UK Company</th>
+                        <th>Export to</th>
+                        <th>Overseas Contact</th>
+                        <th>Export amount (&pound;)</th>
+                        <th>Date won</th>
+                        <th>Last modified</th>
+                    </tr>
+                    {% for win in unsent %}
+                        <tr>
+                            <td><a href="{% url 'win-details' win.id %}">{{ win.company_name }}</a></td>
+                            <td>{{ win.country_name }}</td>
+                            <td>{{ win.customer_name }}</td>
+                            <td class="text-right">{{ win.total_expected_export_value | intcomma }}</td>
+                            <td>{{ win.date }}</td>
+                            <td>{% if win.updated %}{{ win.updated }}{% else %}{{ win.created }}{% endif %}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+
+            {% endif %}
+
+
+            <h3 class="my-wins-header">Sent to customer <span class="badge">{{ sent | length }}</span></h3>
+
+             {% if not sent %}
+
+                <p class="text-center well">You haven&#39;t sent any wins.</p>
+
+            {% else %}
+
+                <table class="table table-striped">
+
+                    <tr>
+                        <th>UK Company</th>
+                        <th>Export to</th>
+                        <th>Overseas Contact</th>
+                        <th>Export amount (&pound;)</th>
+                        <th>Date won</th>
+                        <th>Days since sent</th>
+                    </tr>
+                    {% for win in sent %}
+                        <tr>
+                           <td><a href="{% url 'win-details' win.id %}">{{ win.company_name }}</a></td>
+                           <td>{{ win.country_name }}</td>
+                           <td>{{ win.customer_name }}</td>
+                           <td class="text-right">{{ win.total_expected_export_value | intcomma }}</td>
+                           <td>{{ win.date }}</td>
+                           <td>{{ win.sent.0|timesince }}{# should this be first or last time it was sent? #}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+
+            {% endif %}
+
+
+            <h3 class="my-wins-header">Customer responded <span class="badge">{{ responded | length }}</span></h3>
+
+            {% if not responded %}
+
+                <p class="text-center well">You don&#39;t have any responses.</p>
+
+            {% else %}
+
+                <table class="table table-striped">
+                    <tr>
+                        <th>UK Company</th>
+                        <th>Export to</th>
+                        <th>Value attributed to our help</th>
+                        <th>Export amount (&pound;)</th>
+                        <th>Date won</th>
+                        <th>Date responded</th>
+                    </tr>
+                    {% for win in responded %}
+                        <tr>
+                            <td><a href="{% url 'win-details' win.id %}">{{ win.company_name }}</a></td>
+                            <td>{{ win.country_name }}</td>
+                            <td class="text-right">{{ win.responded.our_help }}</td>
+                            <td class="text-right">{{ win.total_expected_export_value | intcomma }}</td>
+                            <td>{{ win.date }}</td>
+                            <td>{{ win.responded.created }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+
+            {% endif %}
+
+            <a href="{% url 'new-win' %}" class="btn btn-primary btn-responsive new-win-bottom-btn">Create new win</a>
+
+        {% endif %}
+
+    </div>
+
+{% endblock content %}

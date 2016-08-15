@@ -1,0 +1,41 @@
+@import "bootstrap/variables";
+
+.success-page-content {
+	max-width: 700px;
+}
+
+.success-buttons {
+
+	font-size: 1.2em;
+}
+
+.success-feedback-message {
+	color: $gray-light;
+	margin-top: 2em;
+}
+
+.success-page-lead {
+	margin: 1.5em 0 2em 0;
+}
+
+.success-actions {
+
+	margin-bottom: 3em;
+
+	.btn {
+		margin-right: 1em;
+	}
+
+	.btn:last-of-type {
+		margin-right: 0;
+	}
+}
+
+.win-success {
+
+	margin-bottom: 3em;
+
+	.btn-lg {
+		margin: 1em 0 2em 0;
+	}
+}

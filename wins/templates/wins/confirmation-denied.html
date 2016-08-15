@@ -1,8 +1,16 @@
 {% extends 'ui/base.html' %}
 
+{% comment %}
+	Remove the site header as this is sent to a customer and they don't need the header or breadcrumbs
+{% endcomment %}
+{% block site-header %}{% endblock site-header %}
+
+{% block title %} - Error{% endblock title %}
+{% block header %}Error{% endblock header %}
+
 
 {% block content %}
 
-  <div class="alert alert-danger">{{ message }}</div>
+ 	<div class="alert alert-danger">{{ message }}</div>
 
 {% endblock content %}

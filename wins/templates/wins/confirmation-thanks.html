@@ -1,29 +1,16 @@
 {% extends 'ui/base.html' %}
 
-
 {% load staticfiles %}
 
-
-{% block css %}
-
-  {{ block.super }}
-
-  <style>
-    h2 {
-      margin: 50px auto;
-      text-align: center;
-      background-color: #be0048;
-      padding: 2em;
-      border-radius: 1em;
-      color: #ffffff;
-    }
-  </style>
-
-{% endblock css %}
-
+{% block title %} - Review submitted{% endblock title %}
+{% block header %}Thank you for your confirmation{% endblock %}
 
 {% block content %}
-  <h2>Thank you for your confirmation.</h2>
+
+  <p class="lead">
+    We appreciate you taking the time to confirm the export win.
+  </p>
+
   <div class="text-center">
     <a href="mailto:{{ FEEDBACK_EMAIL }}?subject=Export%20Wins%20Feedback" class="btn btn-primary">Provide Feedback</a>
   </div>

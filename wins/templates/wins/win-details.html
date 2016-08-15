@@ -1,0 +1,229 @@
+{% extends 'ui/base.html' %}
+
+{% load staticfiles %}
+{% load humanize %}
+
+{% block title %} - View win{% endblock %} 
+{% block header %}View win{% endblock header %}
+
+{% block content %}
+
+  <div class="win-details">
+
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="h4">Customer details</h3>
+        </div>
+        <div class="panel-body">
+          <p>
+            <span class="sr-only">Company:</span><span class="company-name">{{ win.company_name }}</span> <span class="small text-muted">(CDMS Id: {{ win.cdms_reference }})</span><br>
+            <span class="h5">Location:</span> {{ win.customer_location }}
+          </p>
+          <p>
+            <span class="sr-only">Name:</span><span class="customer-name">{{ win.customer_name }}</span>
+            <span class="sr-only">Job title:</span><span class="text-muted">({{ win.customer_job_title }})</span><br>
+            <span class="glyphicon glyphicon-envelope"></span><span class="sr-only">Email:</span>{{ win.customer_email_address }}
+          </p>
+        </div>
+      </div>
+
+    </div>
+    <div class="col-sm-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="h4">Lead officer details</h3>
+        </div>
+        <div class="panel-body">
+          <p>
+            <span class="sr-only">Name:</span><span class="customer-name">{{ win.lead_officer_name }}</span>
+
+            {% if win.lead_officer_email_address %}
+            <span class="officer-email">
+              <span class="glyphicon glyphicon-envelope"></span><span class="sr-only">Email:</span>{{ win.lead_officer_email_address }}
+            </span>
+            {% endif %}
+
+            {% if win.other_official_email_address %}
+            <span class="glyphicon glyphicon-envelope"></span><span class="sr-only">Other Email:</span>{{ win.other_official_email_address }}
+            {% endif %}
+          </p>
+
+          <p>
+            <span class="h5">Line manager:</span> {{ win.line_manager_name }} <br>
+            <span class="h5">Team:</span> {{ win.team_type }} <br>
+            <span class="h5">HQ Team/Region/Post:</span> {{ win.hq_team }} <br>
+            <span class="h5">Location:</span> {{ win.location }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <h3 class="section-heading">Contributing teams and advisers</h3>
+  <div class="section-content">
+
+    {% if win.advisors %}
+
+      <table class="table table-responsive">
+      <tr>
+        <th>Name</th>
+        <th>Team Type</th>
+        <th>HQ Team<br />Region or Post</th>
+        <th>Location</th>
+      </tr>
+      {% for advisor in win.advisors %}
+        <tr>
+          <td>{{ advisor.name }}</td>
+          <td>{{ advisor.team_type }}</td>
+          <td>{{ advisor.hq_team }}</td>
+          <td>{{ advisor.location }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+
+    {% else %}
+
+      <p class="text-center">
+        No contributing teams and advisers.
+      </p>
+
+    {% endif %}
+  </div>
+
+  <h3 class="section-heading">Details of Export Win</h3>
+
+  <div class="section-content">
+
+    <div class="row">
+      <div class="col-sm-6">
+        {% include "wins/partials/win-details-element.html" with name="Date won" val=win.date %}
+      </div>
+      <div class="col-sm-6">
+        {% include "wins/partials/win-details-element.html" with name="Country" val=win.country %}
+      </div>
+    </div>
+
+    {% include "wins/partials/win-details-element.html" with name="Business deal that best describes the win" val=win.business_type %}
+    {% include "wins/partials/win-details-element.html" with name="How the company was supported in achieving the win" val=win.description %}
+    {% include "wins/partials/win-details-element.html" with name="Name of overseas customer" val=win.name_of_customer %}
+    {% include "wins/partials/win-details-element.html" with name="Goods or services that are being exported" val=win.name_of_export %}
+
+  </div>
+
+
+  <h3 class="section-heading">Expected value of the win</h3>
+
+  <div class="section-content">
+
+    {% include "wins/partials/win-details-element.html" with name="Type" val=win.type %}
+    {% include "wins/partials/win-details-element.html" with name="Expected export value related to goods or services" val=win.goods_vs_services %}
+    {% include "wins/partials/win-details-element.html" with name="Sector" val=win.sector %}
+
+    <div class="row">
+      <div class="col-sm-6">
+
+        <h4>Export value</h4>
+
+        <p>
+          Total export value over the next 5 years.
+        </p>
+
+        <ol class="export-value-group">
+          <li class="export-value-item first">
+            <span class="export-year">{{ win.breakdowns.exports.0.year | default:"&nbsp;" }}</span>
+            <span class="export-year-value">&pound;{{ win.breakdowns.exports.0.value | intcomma | default:0 }}</span>
+          </li>
+          <li class="export-value-item">
+            <span class="export-year">{{ win.breakdowns.exports.1.year | default:"&nbsp;" }}</span>
+            <span class="export-year-value">&pound;{{ win.breakdowns.exports.1.value | intcomma | default:0 }}</span>
+          </li>
+          <li class="export-value-item">
+            <span class="export-year">{{ win.breakdowns.exports.2.year | default:"&nbsp;" }}</span>
+            <span class="export-year-value">&pound;{{ win.breakdowns.exports.2.value | intcomma | default:0 }}</span>
+          </li>
+          <li class="export-value-item">
+            <span class="export-year">{{ win.breakdowns.exports.3.year | default:"&nbsp;" }}</span>
+            <span class="export-year-value">&pound;{{ win.breakdowns.exports.3.value | intcomma | default:0 }}</span>
+          </li>
+          <li class="export-value-item">
+            <span class="export-year">{{ win.breakdowns.exports.4.year | default:"&nbsp;" }}</span>
+            <span class="export-year-value">&pound;{{ win.breakdowns.exports.4.value | intcomma | default:0 }}</span>
+          </li>
+          <li class="export-value-item last">
+            <span class="export-year">Total</span>
+            <span class="export-year-value">&pound;{{ win.total_expected_export_value | intcomma | default:0 }}</span>
+          </li>
+         </ol>
+      </div>
+
+      <div class="col-sm-6">
+        <h4 class="non-export-heading">Non-export value</h4>
+
+        <p>
+          Total non export value over the next 5 years.
+        </p>
+
+        {# this should show all 5 years even if we don't have data... #}
+
+        <ol class="export-value-group">
+          <li class="export-value-item first">
+            <span class="export-year">{{ win.breakdowns.nonexports.0.year | default:"&nbsp;" }}</span>
+            <span class="export-year-value">&pound;{{ win.breakdowns.nonexports.0.value | intcomma | default:0 }}</span>
+          </li>
+          <li class="export-value-item">
+            <span class="export-year">{{ win.breakdowns.nonexports.1.year | default:"&nbsp;" }}</span>
+            <span class="export-year-value">&pound;{{ win.breakdowns.nonexports.1.value | intcomma | default:0 }}</span>
+          </li>
+          <li class="export-value-item">
+            <span class="export-year">{{ win.breakdowns.nonexports.2.year | default:"&nbsp;" }}</span>
+            <span class="export-year-value">&pound;{{ win.breakdowns.nonexports.2.value | intcomma | default:0 }}</span>
+          </li>
+          <li class="export-value-item">
+            <span class="export-year">{{ win.breakdowns.nonexports.3.year | default:"&nbsp;" }}</span>
+            <span class="export-year-value">&pound;{{ win.breakdowns.nonexports.3.value | intcomma | default:0 }}</span>
+          </li>
+          <li class="export-value-item">
+            <span class="export-year">{{ win.breakdowns.nonexports.4.year | default:"&nbsp;" }}</span>
+            <span class="export-year-value">&pound;{{ win.breakdowns.nonexports.4.value | intcomma | default:0 }}</span>
+          </li>
+          <li class="export-value-item last">
+            <span class="export-year">Total</span>
+            <span class="export-year-value">&pound;{{ win.total_expected_non_export_value | intcomma | default:0 }}</span>
+          </li>
+         </ol>
+      </div>
+    </div>
+
+  </div>
+
+
+
+  <h3 class="section-heading">Support provided</h3>
+
+  <div class="section-content">
+    {% include "wins/partials/win-details-element.html" with name="HVO Programme, if applicable" val=win.hvo_programme required=False %}
+    {% include "wins/partials/win-details-element.html" with name="Have HVO Specialists been involved" val=win.has_hvo_specialist_involvement %}
+    {% include "wins/partials/win-details-element.html" with name="Is this win Prosperity Fund related" val=win.is_prosperity_fund_related %}
+    {% include "wins/partials/win-details-element.html" with name="Does the win relate to e-exporting" val=win.is_e_exported %}
+    {% include "wins/partials/win-details-element.html" with name="Type of support 1" val=win.type_of_support_1 %}
+    {% include "wins/partials/win-details-element.html" with name="Type of support 2" val=win.type_of_support_2 required=False %}
+    {% include "wins/partials/win-details-element.html" with name="Type of support 3" val=win.type_of_support_3 required=False %}
+    {% include "wins/partials/win-details-element.html" with name="Associated programme 1" val=win.associated_programme_1 required=False %}
+    {% include "wins/partials/win-details-element.html" with name="Associated programme 2" val=win.associated_programme_2 required=False %}
+    {% include "wins/partials/win-details-element.html" with name="Associated programme 3" val=win.associated_programme_3 required=False %}
+  </div>
+
+  <div class="section-content end-buttons">
+    {% if not win.complete %}
+    <a href="{% url 'win-complete' win.id %}" class="btn btn-primary">Review</a>
+    {% endif %}
+    <a href="{% url 'win-edit' win.id %}" class="btn btn-info">Edit</a>
+    <a href="{% url 'index' %}" class="btn btn-default">Cancel</a>
+  </div>
+
+</div>
+
+{% endblock content %}

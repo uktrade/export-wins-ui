@@ -2,6 +2,9 @@
 
 {% load staticfiles %}
 
+{% block title %} - Login{% endblock %}
+{% block header %}Login{% endblock %}
+
 {% block content %}
 
 	<div class="alert alert-info">
@@ -12,8 +15,6 @@
 		</p>
 	</div>
 
-	<h2>Login</h2>
-
 	{% if form.non_field_errors %}
 		<div class="alert alert-danger">{{ form.non_field_errors }}</div>
 	{% elif form.errors %}
@@ -22,7 +23,7 @@
 		</div>
 	{% endif %}
 
-	<form method="post">
+	<form method="post" class="restrict-width-sm">
 
 		<div class="form-group {{ form.email.errors|yesno:'error,' }}">
 			{{ form.email.errors }}

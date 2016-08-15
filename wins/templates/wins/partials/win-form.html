@@ -1,0 +1,393 @@
+{% extends 'ui/base.html' %}
+
+{% load humanize %}
+
+{% block content %}
+
+<div class="win-form">
+
+	{% if form.errors %}
+		<div class="alert alert-danger">
+			There were some errors with your submission.  Please see below.
+		</div>
+		{{ form.non_field_errors }}
+	{% endif %}
+
+	{% if win.complete %}
+
+	<p class="alert alert-warning">
+		This win has been sent to the customer for review and certain information cannot be edited any more.
+	</p>
+
+	{% endif %}
+
+	<p class="alert alert-info">The Lead officer should provide information for this form.</p>
+
+	<form method="post" id="win-form">
+
+    {% csrf_token %}
+
+		<h3>Lead officer's details</h3>
+		<div class="restrict-width-sm">
+		{% include "wins/partials/win-field.html" with field=form.lead_officer_name %}
+		{% include "wins/partials/win-field.html" with field=form.lead_officer_email_address help="You only need to provide this if you are completing this form on behalf of the lead officer" %}
+		{% include "wins/partials/win-field.html" with field=form.other_official_email_address help="You can provide an alternate email if someone else in your team needs to be notified about this Export Win" %}
+		{% include "wins/partials/win-field.html" with field=form.team_type %}
+		</div>
+		<div class="restrict-width">
+		{% include "wins/partials/win-field.html" with field=form.hq_team %}
+		</div>
+		<div class="restrict-width-sm">
+		{% include "wins/partials/win-field.html" with field=form.location %}
+		{% include "wins/partials/win-field.html" with field=form.line_manager_name %}
+		</div>
+
+		<h3>
+			Contributing teams and advisers
+		</h3>
+		<p>One individual or team per row.</p>
+
+		<table id="advisors" class="advisors table table-responsive">
+			<tr>
+				<th>Name</th>
+				<th>Team Type</th>
+				<th>HQ Team<br />Region or Post</th>
+				<th>Location</th>
+			</tr>
+			<tr>
+				<td class="advisor-name">{{ form.advisor_0_name }} <span style="display: none;">{{ form.advisor_0_id }}</span></td>
+				<td class="advistor-team-type">{{ form.advisor_0_team_type }}</td>
+				<td class="advistor-hq-team">{{ form.advisor_0_hq_team }}</td>
+				<td class="advisor-location">{{ form.advisor_0_location }}</td>
+			</tr>
+			<tr>
+				<td class="advisor-name">{{ form.advisor_1_name }} <span style="display: none;">{{ form.advisor_1_id }}</span></td>
+				<td class="advistor-team-type">{{ form.advisor_1_team_type }}</td>
+				<td class="advistor-hq-team">{{ form.advisor_1_hq_team }}</td>
+				<td class="advisor-location">{{ form.advisor_1_location }}</td>
+			</tr>
+			<tr>
+				<td class="advisor-name">{{ form.advisor_2_name }} <span style="display: none;">{{ form.advisor_2_id }}</span></td>
+				<td class="advistor-team-type">{{ form.advisor_2_team_type }}</td>
+				<td class="advistor-hq-team">{{ form.advisor_2_hq_team }}</td>
+				<td class="advisor-location">{{ form.advisor_2_location }}</td>
+			</tr>
+			<tr>
+				<td class="advisor-name">{{ form.advisor_3_name }} <span style="display: none;">{{ form.advisor_3_id }}</span></td>
+				<td class="advistor-team-type">{{ form.advisor_3_team_type }}</td>
+				<td class="advistor-hq-team">{{ form.advisor_3_hq_team }}</td>
+				<td class="advisor-location">{{ form.advisor_3_location }}</td>
+			</tr>
+			<tr>
+				<td class="advisor-name">{{ form.advisor_4_name }} <span style="display: none;">{{ form.advisor_4_id }}</span></td>
+				<td class="advistor-team-type">{{ form.advisor_4_team_type }}</td>
+				<td class="advistor-hq-team">{{ form.advisor_4_hq_team }}</td>
+				<td class="advisor-location">{{ form.advisor_4_location }}</td>
+			</tr>
+		</table>
+
+
+		<h3>Customer's details</h3>
+
+		<div class="restrict-width-sm">
+		{% include "wins/partials/win-field.html" with field=form.company_name %}
+		{% include "wins/partials/win-field.html" with field=form.cdms_reference %}
+		{% include "wins/partials/win-field.html" with field=form.customer_name %}
+		{% include "wins/partials/win-field.html" with field=form.customer_job_title %}
+		{% include "wins/partials/win-field.html" with field=form.customer_email_address %}
+		{% include "wins/partials/win-field.html" with field=form.customer_location %}
+		</div>
+
+		<h3>Details of Export Win</h3>
+
+		<p>
+			Your answers to these questions will be included in the details confirmed
+			by the customer.
+		</p>
+
+		<div class="restrict-width">
+		{% include "wins/partials/win-field.html" with field=form.name_of_customer class="restrict-width-sm" %}
+		{% include "wins/partials/win-field.html" with field=form.business_type help="e.g. export sales, contract, order, distributor, tender /competition win, joint venture, outward investment, etc." %}
+		{% include "wins/partials/win-field.html" with field=form.name_of_export %}
+
+	{% if win.complete %}
+
+		<div class="panel panel-info">
+			<p class="panel-heading">The win has been sent to the customer and these details cannot be edited.</p>
+			<div class="panel-body">
+
+
+				{% include "wins/partials/win-details-element.html" with name="How was the company supported in achieving this win?" val=win.description %}
+				{% include "wins/partials/win-details-element.html" with name="Date" val=win.date %}
+				{% include "wins/partials/win-details-element.html" with name="Country" val=win.country %}
+			</div>
+		</div>
+
+	{% else %}
+
+		{% include "wins/partials/win-field.html" with field=form.description help="Please provide details of any key products services provided, missions, initiatives, etc." %}
+		{% include "wins/partials/win-field.html" with field=form.date help="Enter month and year in the format MM/YYYY." class="restrict-width-sm" %}
+		{% include "wins/partials/win-field.html" with field=form.country class="restrict-width-sm" %}
+
+	{% endif %}
+
+		</div>
+
+		<h3>Expected value of the win</h3>
+
+		<div class="restrict-width">
+			<p>
+				These questions help us to understand the &pound; value of the customer's win
+				over a five year period. How much of that &pound; value is UK exports and how
+				much is non-export value. We will use these aggregated values to help
+				demonstrate the contribution to the Government's &pound;1 trillion by 2020
+				export target.
+				<br>
+				<br>
+				Please see guidance and FAQs.
+			</p>
+
+			{% include "wins/partials/win-field.html" with field=form.type class="restrict-width-sm" %}
+			{% include "wins/partials/win-field.html" with field=form.goods_vs_services class="restrict-width-sm" %}
+		</div>
+
+		<div class="restrict-width-lg">
+			{% include "wins/partials/win-field.html" with field=form.sector %}
+		</div>
+
+		<hr>
+
+		<h4>Export value</h4>
+
+		<p class="">
+			Enter whole numbers in &pound; e.g. for one-and-a-half-million, enter 1500000
+		</p>
+
+	{% if win.complete %}
+
+		<div class="panel panel-info">
+			<p class="panel-heading">The win has been sent to the customer and these details cannot be edited.</p>
+			<div class="panel-body">
+
+				<h4>Export value</h4>
+
+			   <p>
+			   	Total export value over the next 5 years.
+			   </p>
+
+				<table class="table table-responsive win-value-table">
+					<tr>
+						<th>{{ win.breakdowns.exports.0.year }}</th>
+						<th>{{ win.breakdowns.exports.1.year }}</th>
+						<th>{{ win.breakdowns.exports.2.year }}</th>
+						<th>{{ win.breakdowns.exports.3.year }}</th>
+						<th>{{ win.breakdowns.exports.4.year }}</th>
+					</tr>
+					<tr>
+						<td>&pound;{{ win.breakdowns.exports.0.value | intcomma }}</td>
+						<td>&pound;{{ win.breakdowns.exports.1.value | intcomma }}</td>
+						<td>&pound;{{ win.breakdowns.exports.2.value | intcomma }}</td>
+						<td>&pound;{{ win.breakdowns.exports.3.value | intcomma }}</td>
+						<td>&pound;{{ win.breakdowns.exports.4.value | intcomma }}</td>
+					</tr>
+				</table>
+
+				Total:
+				<span class="export-year-value">&pound;{{ win.total_expected_export_value | intcomma }}</span>
+
+
+				<hr>
+
+		      <h4>Non-export value</h4>
+
+		      <p>
+		      	Total non export value over the next 5 years.
+		      </p>
+
+				<table class="table table-responsive win-value-table">
+					<tr>
+						<th>{{ win.breakdowns.nonexports.0.year }}</th>
+						<th>{{ win.breakdowns.nonexports.1.year }}</th>
+						<th>{{ win.breakdowns.nonexports.2.year }}</th>
+						<th>{{ win.breakdowns.nonexports.3.year }}</th>
+						<th>{{ win.breakdowns.nonexports.4.year }}</th>
+					</tr>
+					<tr>
+						<td>&pound;{{ win.breakdowns.nonexports.0.value | intcomma }}</td>
+						<td>&pound;{{ win.breakdowns.nonexports.1.value | intcomma }}</td>
+						<td>&pound;{{ win.breakdowns.nonexports.2.value | intcomma }}</td>
+						<td>&pound;{{ win.breakdowns.nonexports.3.value | intcomma }}</td>
+						<td>&pound;{{ win.breakdowns.nonexports.4.value | intcomma }}</td>
+					</tr>
+				</table>
+
+				Total:
+			    <span class="export-year-value">&pound;{{ win.total_expected_non_export_value | intcomma }}</span>
+			</div>
+		</div>
+
+	{% else %}
+
+		<table class="table table-responsive win-value-table">
+			<tr>
+				<th>{{ form.breakdown_exports_0.label_tag }}</th>
+				<th>{{ form.breakdown_exports_1.label_tag }}</th>
+				<th>{{ form.breakdown_exports_2.label_tag }}</th>
+				<th>{{ form.breakdown_exports_3.label_tag }}</th>
+				<th>{{ form.breakdown_exports_4.label_tag }}</th>
+			</tr>
+			<tr>
+				<td {% if form.breakdown_exports_0.errors %} class="error"{% endif %}>{{ form.breakdown_exports_0 }}</td>
+				<td {% if form.breakdown_exports_1.errors %} class="error"{% endif %}>{{ form.breakdown_exports_1 }}</td>
+				<td {% if form.breakdown_exports_2.errors %} class="error"{% endif %}>{{ form.breakdown_exports_2 }}</td>
+				<td {% if form.breakdown_exports_3.errors %} class="error"{% endif %}>{{ form.breakdown_exports_3 }}</td>
+				<td {% if form.breakdown_exports_4.errors %} class="error"{% endif %}>{{ form.breakdown_exports_4 }}</td>
+			</tr>
+		</table>
+
+		<div class="restrict-width">
+		{% include "wins/partials/win-field.html" with field=form.total_expected_export_value help="The total expected value should be the sum of the annual values of the win." class="restrict-width-sm" %}
+		</div>
+
+		<hr>
+
+		<h4>Non-export value</h4>
+
+		<p>
+			Enter whole numbers in &pound; e.g. for one-and-a-half-million, enter 1500000
+		</p>
+
+		<table class="table table-responsive win-value-table">
+			<tr>
+				<th>{{ form.breakdown_non_exports_0.label_tag }}</th>
+				<th>{{ form.breakdown_non_exports_1.label_tag }}</th>
+				<th>{{ form.breakdown_non_exports_2.label_tag }}</th>
+				<th>{{ form.breakdown_non_exports_3.label_tag }}</th>
+				<th>{{ form.breakdown_non_exports_4.label_tag }}</th>
+			</tr>
+			<tr>
+				<td {% if form.breakdown_non_exports_0.errors %} class="error"{% endif %}>{{ form.breakdown_non_exports_0 }}</td>
+				<td {% if form.breakdown_non_exports_1.errors %} class="error"{% endif %}>{{ form.breakdown_non_exports_1 }}</td>
+				<td {% if form.breakdown_non_exports_2.errors %} class="error"{% endif %}>{{ form.breakdown_non_exports_2 }}</td>
+				<td {% if form.breakdown_non_exports_3.errors %} class="error"{% endif %}>{{ form.breakdown_non_exports_3 }}</td>
+				<td {% if form.breakdown_non_exports_4.errors %} class="error"{% endif %}>{{ form.breakdown_non_exports_4 }}</td>
+			</tr>
+		</table>
+
+		<div class="restrict-width">
+		{% include "wins/partials/win-field.html" with field=form.total_expected_non_export_value help="The total expected value should be the sum of the annual values of the win." class="restrict-width-sm" %}
+		</div>
+
+	{% endif %}
+
+
+		<h3>Support provided</h3>
+
+		<p>
+			How did we help the customer achieve this win?
+		</p>
+
+		<div class="restrict-width">
+		{% include "wins/partials/win-field.html" with field=form.hvo_programme %}
+		{% include "wins/partials/win-field.html" with field=form.has_hvo_specialist_involvement %}
+		{% include "wins/partials/win-field.html" with field=form.is_prosperity_fund_related %}
+		{% include "wins/partials/win-field.html" with field=form.is_e_exported %}
+		{% include "wins/partials/win-field.html" with field=form.type_of_support_1 %}
+		{% include "wins/partials/win-field.html" with field=form.type_of_support_2 %}
+		{% include "wins/partials/win-field.html" with field=form.type_of_support_3 %}
+		{% include "wins/partials/win-field.html" with field=form.associated_programme_1 %}
+		{% include "wins/partials/win-field.html" with field=form.associated_programme_2 %}
+		{% include "wins/partials/win-field.html" with field=form.associated_programme_3 %}
+		</div>
+		<hr>
+
+		{# these manually place the label before the field #}
+
+		<div class="form-group {{ form.is_personally_confirmed.errors|yesno:'error,' }}">
+			{{ form.is_personally_confirmed.errors }}
+			{{ form.is_personally_confirmed }}
+			{% if form.is_personally_confirmed.field.required %}<span class="required">*</span>{% endif %} {{ form.is_personally_confirmed.label_tag }}
+			{% if form.is_personally_confirmed.help_text %}<div class="help-text">{{ form.is_personally_confirmed.help_text }}</div>{% endif %}
+			<div class="clearfix"></div>
+		</div>
+
+		<div class="form-group {{ form.is_line_manager_confirmed.errors|yesno:'error,' }}">
+			{{ form.is_line_manager_confirmed.errors }}
+			{{ form.is_line_manager_confirmed }}
+			{% if form.is_line_manager_confirmed.field.required %}<span class="required">*</span>{% endif %} {{ form.is_line_manager_confirmed.label_tag }}
+			{% if form.is_line_manager_confirmed.help_text %}<div class="help-text">{{ form.is_line_manager_confirmed.help_text }}</div>{% endif %}
+			<div class="clearfix"></div>
+		</div>
+
+{% comment %}
+		{% if not win.complete %}
+		<p class="well restrict-width win-form-well">
+			Before sending this win to the customer, please review the details they will see. You can also save this win if you need to add or update information later.
+		</p>
+		{% endif %}
+{% endcomment %}
+
+		<div class="end-buttons">
+{% comment %}
+			{% if not win.complete %}
+				<input type="submit" name="send" value="Save and review" class="btn btn-primary">
+			{% endif %}
+{% endcomment %}
+			<input type="submit" name="save" value="Save" class="btn btn-primary">
+
+			<a href="{% url 'index' %}" class="btn btn-default">Cancel</a>
+		</div>
+
+	</form>
+</div>
+
+{% endblock content %}
+
+
+{% block js_footer %}
+	<script>
+	$(function() {
+
+{% comment %}
+		window.addEventListener( 'beforeunload', function( e ){
+
+			//console.log( formHasChanges( 'win-form' ) );
+
+			if( formHasChanges( 'win-form' ) ){
+				console.log( 'changes made' );
+				e.returnValue = 'You have unsaved edits, are you sure you want to leave?';
+			} else {
+				console.log( 'no changes' );
+			}
+
+		} );
+
+		// Initialise tooltips
+		/*
+		$('[data-toggle="tooltip"]').tooltip({
+				placement: 'top'
+		});
+		*/
+{% endcomment %}
+		// Auto filter the hq-team lists
+
+		// Officer
+		$("#id_team_type").on("change", function(){
+			var type = $(this).val();
+			$("#id_hq_team option").addClass("hidden");
+			$("#id_hq_team option[value^=" + type + "]").removeClass("hidden");
+			$("#id_hq_team").val($("#id_hq_team option[value^=" + type + "]").first().val());
+		});
+
+		// Advisor(s)
+		$("#advisors .advistor-team-type select").on("change", function(){
+			var $this = $(this);
+			var type = $this.val();
+			var i = $this.attr("id").replace("id_advisor_", "").replace("_team_type", "");
+			$("#id_advisor_" + i + "_hq_team option").addClass("hidden");
+			$("#id_advisor_" + i + "_hq_team option[value^=" + type + "]").removeClass("hidden");
+			$("#id_advisor_" + i + "_hq_team").val($("#id_advisor_" + i + "_hq_team option[value^=" + type + "]").first().val());
+		});
+	});
+	</script>
+{% endblock js_footer %}

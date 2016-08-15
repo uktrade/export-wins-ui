@@ -1,0 +1,52 @@
+{% extends "wins/partials/success.html" %}
+
+{% block title %} - Win saved{% endblock title %}
+{% block header %}Win saved{% endblock header %}
+
+{% comment %}
+	<div class="text-center success-actions">
+    	<a href="{% url 'win-details' win_id %}" class="btn btn-primary btn-lg btn-responsive">View details</a>
+		<a href="{% url 'win-complete' win_id %}" class="btn btn-primary btn-lg btn-responsive">Review win</a>
+		<a href="{% url 'win-edit' win_id %}" class="btn btn-primary btn-lg btn-responsive">Edit win</a>
+		<a href="{% url 'index' %}" class="btn btn-primary btn-responsive">My wins</a>
+		<a href="{% url 'new-win' %}" class="btn btn-default btn-responsive">Create new win</a>
+	</div>
+{% endcomment %}
+
+{% block lead-message %}
+
+	{% if win.responded %}
+
+		You&#39;ve updated this win. The customer has already responded and it&#39;s listed as complete, but you can still <a href="{% url 'win-edit' win_id %}">edit some details</a> at any time.
+
+	{% elif win.complete %}
+
+		This win is listed in your export wins as sent to customer. The win isn&#39;t complete until the customer has reviewed it.
+
+	{% else %}
+
+     	This win is listed in your export wins as an unsent win. The win isn&#39;t complete until you have sent it to the customer for review.
+
+	{% endif %}
+
+{% endblock %}
+
+{% block success-content %}
+
+	{% if not win.responded and not win.complete %}
+
+	<div class="win-success">
+		<p>
+			To send the win to the customer, you need to review the details they see first (you can edit it again before sending).
+		</p>
+
+		<a href="{% url 'win-complete' win_id %}" class="btn btn-primary btn-responsive btn-lg">Review win</a>
+
+		<p>
+			If you need to amend any details of the win you can <a href="{% url 'win-edit' win_id %}">edit it</a> at any time. {% if not win.complete %}After you have sent the win to the customer you will not be able to edit the customer details.{% endif %}
+		</p>
+	</div>
+
+	{% endif %}
+
+{% endblock %}

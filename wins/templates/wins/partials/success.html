@@ -1,0 +1,31 @@
+{% extends 'ui/base.html' %}
+
+{% load staticfiles %}
+
+{% block content %}
+
+  <div class="success-page-content">
+{% comment %}
+  <div class="alert alert-success success-page-alert">
+    <p>
+      {% block alert-message %}{% endblock %}
+    </p>
+  </div>
+{% endcomment %}
+  <p class="lead success-page-lead">
+    {% block lead-message %}{% endblock %}
+  </p>
+
+  {% block success-content %}{% endblock %}
+
+
+  <div class="success-buttons">
+    Return to <a href="{% url 'index' %}">your export wins</a> or <a href="{% url 'new-win' %}">create a new export win</a>.
+  </div>
+
+  <p class="success-feedback-message">
+    If you would like to send us some feedback on this service, please use the link at the top of the page.
+  </p>
+
+  </div>
+{% endblock content %}

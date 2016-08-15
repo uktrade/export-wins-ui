@@ -1,17 +1,66 @@
 .win-form {
-	table.advisors tr th {
-		vertical-align: middle;
+
+	form h3 {
+		margin-top: 3em;
 	}
+
+	table.advisors {
+
+		tr th {
+			vertical-align: middle;
+		}
+
+		.advisor-name {
+
+		}
+
+		.advistor-team-type {
+
+		}
+
+		.advistor-hq-team {
+
+		}
+
+		.advisor-location {
+
+		}
+	}
+
+	.win-value-table td {
+
+		width: 20%;
+	}
+
 	span.glyphicon {
 		font-size: 1.4em;
 	}
+
 	.tooltip-inner {
 		font-size: 1.2em;
 	}
+
 	.required {
 		color: #d00;
+		vertical-align: top;
 	}
+
 	#id_description {
 		height: 9em;
+	}
+
+	label {
+		max-width: 95%;
+	}
+
+	.help-text {
+
+		margin-top: 0;
+		color: #666666;
+		padding: 0 0.5em 0.5em 0;
+	}
+
+	.win-form-well {
+		margin-top: 3em;
 	}
 }

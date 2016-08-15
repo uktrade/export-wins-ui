@@ -1,12 +1,24 @@
+.win-form form h3 { margin-top: 3em; }
+
 .win-form table.advisors tr th { vertical-align: middle; }
+
+.win-form .win-value-table td { width: 20%; }
 
 .win-form span.glyphicon { font-size: 1.4em; }
 
 .win-form .tooltip-inner { font-size: 1.2em; }
 
-.win-form .required { color: #d00; }
+.win-form .required { color: #d00; vertical-align: top; }
 
 .win-form #id_description { height: 9em; }
+
+.win-form label { max-width: 95%; }
+
+.win-form .help-text { margin-top: 0; color: #666666; padding: 0 0.5em 0.5em 0; }
+
+.win-form .win-form-well { margin-top: 3em; }
+
+.confirmation-form { max-width: 650px; }
 
 .confirmation-form .more-info { font-size: 1.1em; position: relative; top: -2px; }
 
@@ -46,46 +58,133 @@
   .confirmation-form .form-group .btn-group { float: none !important; width: 100%; }
   .confirmation-form .radio label, .confirmation-form .checkbox label { width: 100%; } }
 
+.my-wins .new-win-bottom-btn { margin-top: 1em; }
+
+.my-wins .my-wins-header { margin-top: 2.5em; }
+
+.win-details .glyphicon { margin-right: 0.5em; }
+
+.win-details .company-name, .win-details .customer-name { font-size: 24px; }
+
+.win-details .officer-email { display: block; }
+
+.win-details .export-value-item { list-style: none; clear: left; }
+
+.win-details .export-value-item span { padding: 0.5em 1em; float: left; border: 1px solid #777777; border-bottom: 0; margin: 0; }
+
+.win-details .export-value-item .export-year { background-color: #eeeeee; width: 6em; }
+
+.win-details .export-value-item .export-year-value { border-left: 0; width: 10em; text-align: right; }
+
+.win-details .export-value-group { overflow: hidden; padding: 0; }
+
+.win-details .export-value-group .first .export-year { border-radius: 5px 0 0 0; }
+
+.win-details .export-value-group .first .export-year-value { border-radius: 0 5px 0 0; }
+
+.win-details .export-value-group .last span { border-top: 2px solid #777777; border-bottom: 1px solid #777777; font-weight: bold; }
+
+.win-details .export-value-group .last .export-year { border-radius: 0 0 0 5px; }
+
+.win-details .export-value-group .last .export-year-value { border-radius: 0 0 5px 0; }
+
+.win-details .field-name { font-weight: bold; margin-bottom: 0.5em; }
+
+.win-details .field-value { margin-bottom: 1.5em; }
+
+.success-page-content { max-width: 700px; }
+
+.success-buttons { font-size: 1.2em; }
+
+.success-feedback-message { color: #777777; margin-top: 2em; }
+
+.success-page-lead { margin: 1.5em 0 2em 0; }
+
+.success-actions { margin-bottom: 3em; }
+
+.success-actions .btn { margin-right: 1em; }
+
+.success-actions .btn:last-of-type { margin-right: 0; }
+
+.win-success { margin-bottom: 3em; }
+
+.win-success .btn-lg { margin: 1em 0 2em 0; }
+
+body { border-top: 5px solid #c81e53; padding-top: 2.5em; }
+
+.logo-row { margin-top: -10px; }
+
+.logo-row .logo { height: 100px; }
+
 .feedback-link { margin-right: 1em; }
 
-.content { max-width: 600px; margin: 25px auto; padding: 10px; }
+.site-heading { margin-bottom: 1em; padding-bottom: 1em; border-bottom: 3px solid #eeeeee; padding-left: 12px; }
 
-img.logo { margin-bottom: 1em; height: 100px; }
+.site-heading h1 { margin-bottom: 0; }
 
-hr { margin: 3em 1em; }
+.site-heading h1 a { color: inherit; }
+
+.site-heading p { color: #777777; }
+
+.page-heading { margin-bottom: 0.5em; }
+
+hr { margin: 2.5em 1em; }
 
 h1 { margin-bottom: 1em; }
 
-h1 p, h2 p, h3 p, h4 p { font-size: 12pt; color: #666666; margin: 0.5em 0; }
-
-form .end-buttons { text-align: right; }
-
-form .end-buttons input { padding-left: 2em; padding-right: 2em; }
-
-.help-text { color: #666666; padding: 0.5em 0.5em 0.5em 0; }
-
-.form-group .alert { padding: 0.5em; }
+form input { padding-left: 2em; padding-right: 2em; }
 
 table tr th { text-align: center; }
 
 td.error input { background-color: #f2dede; }
 
-.form-group { margin: 2em 0; }
+.form-group { margin: 1em 0; }
 
 .form-group.error { border: 1px solid #f2dede; border-radius: 0.5em; padding: 1em; }
 
-.form-group ul li label { white-space: nowrap; }
+.form-group .alert { padding: 0.5em; }
 
 .form-group ul { width: 20%; float: right; }
 
 .form-group ul li { display: inline; }
+
+.form-group ul li label { white-space: nowrap; }
+
+.alert, .restrict-width { max-width: 600px; }
+
+.restrict-width-xsm { max-width: 200px; }
+
+.restrict-width-sm { max-width: 400px; }
+
+.restrict-width-lg { max-width: 800px; }
 
 /* Hide Firefox number field arrows */
 input[type='number'] { -moz-appearance: textfield; }
 
 input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; }
 
-@media (max-width: 768px) { img.logo { height: 70px; }
-  form .end-buttons .btn { width: 100%; } }
+.footer { border-top: 3px solid #777777; margin-top: 4em; margin-bottom: 3em; padding-top: 4em; }
+
+.footer img { height: 100px; }
+
+.btn-responsive, .end-buttons .btn { width: auto; min-width: 120px; }
+
+.end-buttons { margin-top: 3em; }
+
+.end-buttons .btn { margin-right: 1em; }
+
+.end-buttons .btn:last-child { margin-right: 0; }
+
+.section-heading { background-color: #eeeeee; padding: 1em; }
+
+.section-content { padding: 1em 1.714em; }
+
+.win-complete-buttons, .separate-section-heading { margin-top: 3em; }
+
+.review-win-details-list span { display: block; font-weight: bold; padding-bottom: 0.25em; }
+
+@media (max-width: 768px) { .logo-row .logo { height: 70px; }
+  .btn-responsive, .end-buttons .btn, body .end-buttons .btn { width: 100%; margin-bottom: 1em; margin-left: 0 !important; margin-right: 0 !important; }
+  .non-export-heading { margin-top: 2em; } }
 
 /*# sourceMappingURL=main.css.map */

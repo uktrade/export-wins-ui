@@ -69,9 +69,13 @@ module.exports = function( grunt ){
 		},
 
 		watch: {
-			sass: {
+			main: {
 				files: '<%= src.scss %>/**/*.scss',
 				tasks: [ 'sass:main' ]
+			},
+			bootstrap: {
+				files: '<%= src.bootstrap %>/stylesheets/**/*.scss',
+				tasks: [ 'sass:bootstrap' ]
 			}
 		}
 	});

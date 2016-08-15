@@ -136,6 +136,7 @@ STATIC_URL = '/static/'
 # URLs for access points on the data server
 DATA_SERVER = os.getenv("DATA_SERVER")
 WINS_AP = "{}/wins/".format(DATA_SERVER)
+WIN_DETAILS_AP = "{}/details/".format(DATA_SERVER)
 LIMITED_WINS_AP = "{}/limited-wins/".format(DATA_SERVER)
 CONFIRMATIONS_AP = "{}/confirmations/".format(DATA_SERVER)
 BREAKDOWNS_AP = "{}/breakdowns/".format(DATA_SERVER)

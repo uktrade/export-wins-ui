@@ -1,0 +1,89 @@
+@import "bootstrap/variables";
+
+.win-details {
+
+	.glyphicon {
+		margin-right: 0.5em;
+	}
+
+	.company-name,
+	.customer-name {
+
+		font-size: $font-size-h3;
+	}
+
+	.officer-email {
+		display: block;
+	}
+
+	.export-value-item {
+
+		list-style: none;
+		clear: left;
+
+		span {
+			
+			padding: 0.5em 1em;
+			float: left;
+			border: 1px solid $gray-light;
+			border-bottom: 0;
+			margin: 0;
+		}
+
+		.export-year {
+			background-color: $gray-lighter;
+			width: 6em;
+		}
+		
+		.export-year-value {
+			border-left: 0;
+			width: 10em;
+			text-align: right;
+		}
+	}
+
+	.export-value-group {
+
+		overflow: hidden;
+		padding: 0;
+
+		.first {
+
+			.export-year {
+
+				border-radius: 5px 0 0 0;
+			}
+
+			.export-year-value {
+			
+				border-radius: 0 5px 0 0;
+			}
+		}
+
+		.last {
+
+			span {
+				border-top: 2px solid $gray-light;
+				border-bottom: 1px solid $gray-light;
+				font-weight: bold;
+			}
+
+			.export-year {
+				border-radius: 0 0 0 5px;
+			}
+
+			.export-year-value {
+				border-radius: 0 0 5px 0
+			}
+		}
+	}
+
+	.field-name {
+		font-weight: bold;
+		margin-bottom: 0.5em;
+	}
+
+	.field-value {
+		margin-bottom: 1.5em;
+	}
+}

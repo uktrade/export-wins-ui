@@ -33,6 +33,7 @@ class ReflectiveFormMetaclass(forms.forms.DeclarativeFieldsMetaclass):
         new_class._schema = fields
 
         for name, spec in fields.items():
+            # exclude fields specified in form's exclude metaclass
             if hasattr(new_class, "Meta"):
                 if hasattr(new_class.Meta, "exclude"):
                     if name in new_class.Meta.exclude:

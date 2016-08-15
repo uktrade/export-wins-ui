@@ -1,0 +1,9 @@
+{% extends "wins/partials/success.html" %}
+
+{% block title %} - Win completed{% endblock title %}
+{% block header %}Win completed{% endblock header %}
+
+
+{% block lead-message %}
+      Details of the win have been forwarded to the customer for confirmation, you can still <a href="{% url 'win-edit' win_id %}">edit some details</a> if required.
+{% endblock %}

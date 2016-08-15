@@ -9,12 +9,15 @@
 	</h1>
 {% endblock header %}
 
-{% block subheader %}{% endblock subheader %}
+{% comment %}
+	Remove the site header as this is sent to a customer and they don't need the header or breadcrumbs
+{% endcomment %}
+{% block site-header %}{% endblock site-header %}
 
 {% block content %}
 
 	<div class="confirmation-form">
-			
+
 		<p class="lead">
 			We&#39;re asking UK companies about our export support services to help us improve. Tell us how our support contributed to your export success.
 		</p>
@@ -29,39 +32,39 @@
 		<h2 class="pad-top">Details of your recent export success</h2>
 
 		<div class="win-details-wrapper">
-			
+
 			<dl class="dl-horizontal win-details">
 
 					<dt>Date business won</dt>
-					<dd>{{ win.date.value|date:'m/Y' }}</dd>
+					<dd>{{ win.date|date:'m/Y' }}</dd>
 
 					<dt>Country where the business was won</dt>
-					<dd>{{ win.country.value }}</dd>
+					<dd>{{ win.country }}</dd>
 
-				{% if win.business_type.value %}
+				{% if win.business_type %}
 
 						<dt>Business deal type</dt>
-						<dd>{{ win.business_type.value }}</dd>
+						<dd>{{ win.business_type }}</dd>
 
 				{% endif %}
 
-				{% if win.total_expected_export_value.value %}
+				{% if win.total_expected_export_value %}
 
 						<dt>Export value expected over the next 5 years</dt>
-						<dd>&pound;{{ win.total_expected_export_value.value|intcomma }}</dd>
+						<dd>&pound;{{ win.total_expected_export_value|intcomma }}</dd>
 
 				{% endif %}
 
-				{% if win.total_expected_non_export_value.value %}
+				{% if win.total_expected_non_export_value %}
 
 						<dt>Non-export value expected over the next 5 years</dt>
-						<dd>&pound;{{ win.total_expected_non_export_value.value|intcomma }}</dd>
+						<dd>&pound;{{ win.total_expected_non_export_value|intcomma }}</dd>
 
 				{% endif %}
 			</dl>
 
 			<h4 class="supported-header">How we supported you</h4>
-			<div class="supported-details">{{ win.description.value|linebreaks }}</div>
+			<div class="supported-details">{{ win.description|linebreaks }}</div>
 		</div>
 
 		<form method="post" action="{{ request.path }}" id="confirmation-form">
@@ -71,7 +74,7 @@
 			{% with field=form.agree_with_win %}
 			<div class="pad-top {{ field.errors|yesno:'error,' }}">
 
-				{{ field.errors }}  
+				{{ field.errors }}
 
 				<div class="radio">
 					<label for="{{ field.name }}-true">
@@ -142,7 +145,7 @@
 		{% with field=form.last_export %}
 		<div class="pad-top {{ field.errors|yesno:'error,' }}">
 
-			{{ field.errors }}  
+			{{ field.errors }}
 
 			<h4>When did your company last export goods or services?</h4>
 
@@ -166,7 +169,7 @@
 		{% include "wins/partials/confirmation-checkbox.html" with field=form.has_explicit_export_plans label="Apart from this win, you already have specific plans to export in the next 12 months" %}
 
 		<hr>
-	
+
 		{% include "wins/partials/confirmation-field.html" with field=form.name label="Your name:" reduced="true" %}
 
 		{% include "wins/partials/confirmation-buttons-right.html" with field=form.case_study_willing label="Would you be willing for UKTI / Exporting is GREAT to feature your success in marketing materials?" %}

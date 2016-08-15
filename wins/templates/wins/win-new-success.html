@@ -1,0 +1,24 @@
+{% extends "wins/partials/success.html" %}
+
+{% block title %} - Win saved{% endblock title %}
+{% block header %}Win saved{% endblock header %}
+
+{% block lead-message %}
+      This win is now listed in your export wins as an unsent win. The win isn't complete until you have sent it to the customer for review.
+{% endblock %}
+
+{% block success-content %}
+
+	<div class="win-success">
+		<p>
+			To send the win to the customer, you need to review the details they see first (you can edit it before sending).
+		</p>
+
+		<a href="{% url 'win-complete' win_id %}" class="btn btn-primary btn-responsive btn-lg">Review win</a>
+
+		<p>
+			If you need to amend any details of the win you can <a href="{% url 'win-edit' win_id %}">edit the win</a> at any time. After you have sent the win to the customer you will not be able to edit the details the customer sees.
+		</p>
+	</div>
+
+{% endblock %}

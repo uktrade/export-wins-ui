@@ -2,52 +2,70 @@
 @import "login";
 @import "win-form";
 @import "confirmation-form";
+@import "my-wins";
+@import "win-details";
+@import "success";
+
+$brand-color: #c81e53;
+
+
+body {
+	border-top: 5px solid $brand-color;
+	padding-top: 2.5em;
+}
+
+.logo-row {
+
+	margin-top: -10px;
+
+	.logo {
+		height: 100px;
+	}
+}
 
 .feedback-link {
 	margin-right: 1em;
 }
 
-.content {
-	max-width: 600px;
-	margin: 25px auto;
-	padding: 10px;
+.site-heading {
+
+	margin-bottom: 1em;
+	padding-bottom: 1em;
+	border-bottom: 3px solid $gray-lighter;
+	padding-left: 12px;
+
+	h1 {
+		margin-bottom: 0;
+
+		a {
+			color: inherit;
+		}
+	}
+
+	p {
+		color: $gray-light;
+	}
 }
 
-img.logo {
-	margin-bottom: 1em;
-	height: 100px;
+.page-heading {
+	margin-bottom: 0.5em;
 }
 
 hr {
-	margin: 3em 1em;
+	margin: 2.5em 1em;
 }
 
 h1 {
 	margin-bottom: 1em;
 }
 
-h1 p, h2 p, h3 p, h4 p {
-	font-size: 12pt;
-	color: #666666;
-	margin: 0.5em 0;
-}
 
-form .end-buttons {
-	text-align: right;
-}
+form {
 
-form .end-buttons input {
-	padding-left: 2em;
-	padding-right: 2em;
-}
-
-.help-text {
-	color: #666666;
-	padding: 0.5em 0.5em 0.5em 0;
-}
-
-.form-group .alert {
-	padding: 0.5em;
+	input {
+		padding-left: 2em;
+		padding-right: 2em;
+	}
 }
 
 table tr th {
@@ -58,28 +76,54 @@ td.error input {
 	background-color: #f2dede;
 }
 
+
 .form-group {
-	margin: 2em 0;
+	
+	margin: 1em 0;
+
+	&.error {
+		border: 1px solid #f2dede;
+		border-radius: 0.5em;
+		padding: 1em;
+	}
+
+	.alert {
+		padding: 0.5em;
+	}
+
+	ul {
+
+		width: 20%;
+		float: right;
+
+		li {
+			display: inline;
+
+			label {
+				white-space: nowrap;
+			}
+		}
+	}
 }
 
-.form-group.error {
-	border: 1px solid #f2dede;
-	border-radius: 0.5em;
-	padding: 1em;
+.alert,
+.restrict-width {
+	max-width: 600px;
 }
 
-.form-group ul li label {
-	white-space: nowrap;
+.restrict-width-xsm {
+	max-width: 200px;
 }
 
-.form-group ul {
-	width: 20%;
-	float: right;
+.restrict-width-sm {
+	max-width: 400px;
 }
 
-.form-group ul li {
-	display: inline;
+.restrict-width-lg {
+	max-width: 800px;
 }
+
+
 
 /* Hide Firefox number field arrows */
 input[type='number'] {
@@ -91,13 +135,78 @@ input::-webkit-inner-spin-button {
 	-webkit-appearance: none;
 }
 
+.footer {
+
+	border-top: 3px solid $gray-light;
+	margin-top: 4em;
+	margin-bottom: 3em;
+	padding-top: 4em;
+
+	img {
+		height: 100px;
+	}
+}
+
+.btn-responsive {
+
+	width: auto;
+	min-width: 120px;
+}
+
+.end-buttons {
+
+	margin-top: 3em;
+
+	.btn {
+
+		@extend .btn-responsive;
+		margin-right: 1em;
+
+		&:last-child {
+			margin-right: 0;
+		}
+	}
+}
+
+.section-heading {
+	background-color: $gray-lighter;
+	padding: 1em;
+}
+
+.section-content {
+	padding: 1em 1.714em;
+}
+
+.win-complete-buttons,
+.separate-section-heading {
+	margin-top: 3em;
+}
+
+.review-win-details-list {
+
+	span {
+		display: block;
+		font-weight: bold;
+		padding-bottom: 0.25em;
+	}
+}
+
+
 @media( max-width:$screen-sm-min ){
 
-	img.logo {
+	.logo-row .logo {
 		height: 70px;
 	}
 
-	form .end-buttons .btn {
+	.btn-responsive,
+	body .end-buttons .btn {
 		width: 100%;
+		margin-bottom: 1em;
+		margin-left: 0 !important;
+		margin-right: 0 !important;
+	}
+
+	.non-export-heading {
+		margin-top: 2em;
 	}
 }
