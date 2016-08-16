@@ -1,6 +1,7 @@
 import os
 
 from django.conf.urls import url
+from django.views.generic import TemplateView
 
 from ui.views import CSVView
 from users.views import LoginView, LogoutView
@@ -67,7 +68,7 @@ urlpatterns = [
     ),
     url(
         r"^wins/review/thanks/$",
-        WinTemplateView.as_view(template_name="wins/confirmation-thanks.html"),
+        TemplateView.as_view(template_name="wins/confirmation-thanks.html"),
         name="confirmation-thanks"
     ),
     url(

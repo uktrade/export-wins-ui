@@ -114,27 +114,16 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
         self._add_advisor_fields()
         self._add_advisor_initial(advisors)
 
-        # need to confirm these are correct
-        # not sure why some fields aren't in confirmation form
-        # also, think this should be used somewhere else???
+        # fields which are shown the customer, and so cannot be edited after
+        # customer has been invited to confirm
         non_editable_fields = [
             "description",
-            #"type",
             "date",
             "country",
             "customer_location",
             "total_expected_export_value",
             "total_expected_non_export_value",
-            #"goods_vs_services",
-            # these are in the same block of fields, but not included in response form
-            # 'name_of_export',
-            # 'business_type',
-            # 'name_of_customer',
-            # 'sector',
         ]
-
-        # if the form has been completed/sent, remove fields from form which
-        # can no longer be changed
         if self.completed:
             for field_name in non_editable_fields:
                 del self.fields[field_name]
@@ -176,7 +165,7 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
     def create(self):
         """ Push cleaned data to appropriate data server access points """
 
-        self.cleaned_data["complete"] = False  # not until user does it
+        self.cleaned_data["complete"] = False  # not until user reviews
 
         # This doesn't really matter, since the data server ignores this value
         # and substitutes the logged-in user id.  However, if you don't provide
@@ -189,6 +178,9 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
             rabbit.push(settings.BREAKDOWNS_AP, data, self.request)
 
         for data in self._get_advisor_data(win["id"]):
+            #  assume rows without name filled in are not to be recorded
+            if not data['name'].strip():
+                continue
             rabbit.push(settings.ADVISORS_AP, data, self.request)
 
         return win
@@ -196,7 +188,7 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
     def update(self, win_id):
         """ Push editable fields to data server for updating """
 
-        self.cleaned_data["user"] = self.request.user.pk  # (see above)
+        self.cleaned_data["user"] = self.request.user.pk
         rabbit.push(
             settings.WINS_AP + win_id + '/',
             self.cleaned_data,
@@ -216,10 +208,13 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
 
         for data in self._get_advisor_data(win_id):
             existing_advisor_id = data['id']
-            ignore_or_delete_advisor = not bool(data['name'])
-            # if it has an id already, update that advisor
+            ignore_or_delete_advisor = not bool(data['name'].strip())
+
+            # if has an id already, update that advisor
             if existing_advisor_id:
-                # if it does not have a name, but does have an id, delete it
+
+                # if does not have a name, but does have an id, delete it
+                # because user has blanked the name field to remove it
                 if ignore_or_delete_advisor:
                     rabbit.push(
                         settings.ADVISORS_AP + str(existing_advisor_id) + '/',
@@ -241,8 +236,8 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
         """ Create breakdown fields
 
         This assumes wins cannot be edited in the year after they are created
-        """
 
+        """
         now = datetime.utcnow()
         field_data = []
         for breakdown_type in ['exports', 'non_exports']:
@@ -351,9 +346,6 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
                 name: self.cleaned_data[field_name]
                 for name, field_name, _ in field_data
             }
-            # this may have some affect on editing,.........
-            if not instance_dict['name']:
-                continue
             instance_dict['win'] = win_id
             advisor_data.append(instance_dict)
         return advisor_data

@@ -187,14 +187,15 @@ class EditWinView(BaseWinFormView):
             self.request,
         )
 
-        # if win is complete was to staticly display, else edit
         breakdowns = get_win_breakdowns(
             self.kwargs['win_id'],
             self.request,
         )
+        # for a non-complete win, add breakdowns as form kwarg
         kwargs['breakdowns'] = breakdowns
 
-        # this is to match how they are given in detail page
+        # for a complete win, breakdown not editable, just statically displayed
+        # format data same as they are given in detail page for convenience
         exports = [
             {'value': b['value'], 'year': b['year']}
             for b in breakdowns if b['type'] == 1
@@ -242,7 +243,7 @@ class ConfirmationView(FormView):
     def dispatch(self, request, *args, **kwargs):
         """ Override dispatch to do some checks before displaying form """
 
-        # quick hack to show sample customer response form with a known test win
+        # quick hack to show sample customer response form with known test win
         if request.path.endswith('sample/'):
             kwargs['win_id'] = os.getenv('SAMPLE_WIN', 'notconfigured')
             self.kwargs['win_id'] = kwargs['win_id']
