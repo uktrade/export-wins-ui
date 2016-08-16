@@ -163,13 +163,23 @@ class EditWinView(BaseWinFormView):
 
     template_name = "wins/win-edit-form.html"
 
-    def get_initial(self):
-        # note: breakdowns and advisors get added to initial dict in __init__
-
-        # Save win on self for context data.
-        # Can't get in __init__ because self.kwargs gets set in `view`,
-        # created by `as_view`
+    def dispatch(self, *args, **kwargs):
         self.win = get_win(self.kwargs['win_id'], self.request)
+        if self.win['sent']:
+            sent = date_parser(self.win['sent'][0])
+            sent_delta = (timezone.now() - sent)  # tz doesn't really matter
+            if sent_delta.days >= 30:
+                return redirect(
+                    reverse(
+                        "edit-win-locked",
+                        kwargs={'win_id': self.kwargs['win_id']},
+                    )
+                )
+        return super().dispatch(*args, **kwargs)
+
+    def get_initial(self):
+        # note: breakdowns and advisors get added to initial dict in the
+        # form's __init__
         initial = self.win
         initial['date'] = date_parser(initial['date']).strftime('%m/%Y')
         return initial

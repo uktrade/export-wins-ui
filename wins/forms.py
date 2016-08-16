@@ -238,11 +238,11 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
         This assumes wins cannot be edited in the year after they are created
 
         """
-        now = datetime.utcnow()
+        base_year = 2016  # project is intended only to be used for 2016/17
         field_data = []
         for breakdown_type in ['exports', 'non_exports']:
             for i in range(0, 5):
-                year = (now + relativedelta(years=i)).year
+                year = (base_year + i)
                 field_name = 'breakdown_{}_{}'.format(breakdown_type, i)
                 field_data.append((field_name, year, breakdown_type))
                 label = "{}/{}".format(

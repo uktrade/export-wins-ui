@@ -60,6 +60,13 @@ urlpatterns = [
         name="complete-win-success"
     ),
 
+    url(
+        r"^wins/(?P<win_id>[a-z0-9\-]{36})/locked/$",
+        WinTemplateView.as_view(template_name="wins/win-edit-locked.html"),
+        name="edit-win-locked"
+    ),
+
+
     # review a win
     url(
         r"^wins/review/(?P<win_id>[a-z0-9\-]{36})/$",
