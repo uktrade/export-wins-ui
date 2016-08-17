@@ -165,6 +165,8 @@ EMAIL_BACKEND = os.getenv("EMAIL_BACKEND")  # The default is just fine
 
 ANALYTICS_ID = os.getenv("ANALYTICS_ID")
 
+EDIT_TIMEOUT_DAYS = int(os.getenv('EDIT_TIMEOUT_DAYS', 120))
+
 
 # Sentry
 

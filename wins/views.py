@@ -21,8 +21,17 @@ class WinTemplateView(TemplateView):
 
     """
     def get_context_data(self, **kwargs):
-        context = TemplateView.get_context_data(self, **kwargs)
+        context = super().get_context_data(**kwargs)
         context['win'] = get_win(kwargs['win_id'], self.request)
+        return context
+
+
+class LockedWinTemplateView(TemplateView):
+    """ For locked Wins """
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['edit_days'] = settings.EDIT_TIMEOUT_DAYS
         return context
 
 
@@ -99,6 +108,15 @@ def get_win_breakdowns(win_id, request):
         return resp.json()['results']
 
 
+def locked(win):
+    if not win['sent']:
+        return False
+
+    sent = date_parser(win['sent'][0])
+    sent_delta = (timezone.now() - sent)  # tz doesn't really matter
+    return sent_delta.days >= settings.EDIT_TIMEOUT_DAYS
+
+
 class WinView(LoginRequiredMixin, TemplateView):
     """ View details of a Win of logged in User """
 
@@ -110,6 +128,8 @@ class WinView(LoginRequiredMixin, TemplateView):
         if resp.status_code != 200:
             raise Http404
         context['win'] = resp.json()
+        context['locked'] = locked(context['win'])
+        context['edit_days'] = settings.EDIT_TIMEOUT_DAYS
         return context
 
 
@@ -165,16 +185,13 @@ class EditWinView(BaseWinFormView):
 
     def dispatch(self, *args, **kwargs):
         self.win = get_win(self.kwargs['win_id'], self.request)
-        if self.win['sent']:
-            sent = date_parser(self.win['sent'][0])
-            sent_delta = (timezone.now() - sent)  # tz doesn't really matter
-            if sent_delta.days >= 30:
-                return redirect(
-                    reverse(
-                        "edit-win-locked",
-                        kwargs={'win_id': self.kwargs['win_id']},
-                    )
+        if locked(self.win):
+            return redirect(
+                reverse(
+                    "edit-win-locked",
+                    kwargs={'win_id': self.kwargs['win_id']},
                 )
+            )
         return super().dispatch(*args, **kwargs)
 
     def get_initial(self):

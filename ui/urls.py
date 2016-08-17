@@ -6,8 +6,8 @@ from django.views.generic import TemplateView
 from ui.views import CSVView
 from users.views import LoginView, LogoutView
 from wins.views import (
-    ConfirmationView, EditWinView, MyWinsView, NewWinView, WinCompleteView,
-    WinTemplateView, WinView
+    ConfirmationView, EditWinView, LockedWinTemplateView, MyWinsView,
+    NewWinView, WinCompleteView, WinTemplateView, WinView
 )
 
 urlpatterns = [
@@ -62,7 +62,7 @@ urlpatterns = [
 
     url(
         r"^wins/(?P<win_id>[a-z0-9\-]{36})/locked/$",
-        WinTemplateView.as_view(template_name="wins/win-edit-locked.html"),
+        LockedWinTemplateView.as_view(template_name="wins/win-edit-locked.html"),
         name="edit-win-locked"
     ),
 

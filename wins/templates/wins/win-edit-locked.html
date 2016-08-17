@@ -1,0 +1,23 @@
+{% extends "wins/partials/success.html" %}
+
+{% block title %} - Win locked{% endblock title %}
+{% block header %}Win locked{% endblock header %}
+
+{% comment %}
+	<div class="text-center success-actions">
+    	<a href="{% url 'win-details' win_id %}" class="btn btn-primary btn-lg btn-responsive">View details</a>
+		<a href="{% url 'win-complete' win_id %}" class="btn btn-primary btn-lg btn-responsive">Review win</a>
+		<a href="{% url 'win-edit' win_id %}" class="btn btn-primary btn-lg btn-responsive">Edit win</a>
+		<a href="{% url 'index' %}" class="btn btn-primary btn-responsive">My wins</a>
+		<a href="{% url 'new-win' %}" class="btn btn-default btn-responsive">Create new win</a>
+	</div>
+{% endcomment %}
+
+{% block lead-message %}
+
+	This Win was completed more than {{ edit_days }} days ago, so is now locked and cannot be edited.
+
+{% endblock %}
+
+{% block success-content %}
+{% endblock %}

@@ -3,12 +3,19 @@
 {% load staticfiles %}
 {% load humanize %}
 
-{% block title %} - View win{% endblock %} 
+{% block title %} - View win{% endblock %}
 {% block header %}View win{% endblock header %}
 
 {% block content %}
 
+
   <div class="win-details">
+
+    {% if locked %}
+      <p class="alert alert-warning">
+        This Win was completed more than {{ edit_days }} days ago, so is now locked and cannot be edited.
+      </p>
+    {% endif %}
 
   <div class="row">
     <div class="col-sm-6">
@@ -220,8 +227,10 @@
     {% if not win.complete %}
     <a href="{% url 'win-complete' win.id %}" class="btn btn-primary">Review</a>
     {% endif %}
-    <a href="{% url 'win-edit' win.id %}" class="btn btn-info">Edit</a>
-    <a href="{% url 'index' %}" class="btn btn-default">Cancel</a>
+    {% if not locked %}
+      <a href="{% url 'win-edit' win.id %}" class="btn btn-info">Edit</a>
+    {% endif %}
+    <a href="{% url 'index' %}" class="btn btn-default">Back to My Wins</a>
   </div>
 
 </div>
