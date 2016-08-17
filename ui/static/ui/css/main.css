@@ -66,6 +66,8 @@
   .confirmation-form .form-group .btn-group { float: none !important; width: 100%; }
   .confirmation-form .radio label, .confirmation-form .checkbox label { width: 100%; } }
 
+.my-wins .badge { background-color: #00549F; margin-bottom: 0.25em; }
+
 .my-wins .new-win-bottom-btn { margin-top: 1em; }
 
 .my-wins .my-wins-header { margin-top: 2.5em; }
@@ -73,6 +75,18 @@
 .my-wins th, .my-wins td { text-align: left; }
 
 .my-wins .text-right { text-align: right; }
+
+.my-wins .company-name { width: 24%; }
+
+.my-wins .country-name { width: 25%; }
+
+.my-wins .customer-name { width: 15%; }
+
+.my-wins .export-value { width: 14%; }
+
+.my-wins .date { width: 10%; min-width: 4em; }
+
+.my-wins .response-date, .my-wins .last-modified { width: 12%; min-width: 6em; }
 
 .win-details .glyphicon { margin-right: 0.5em; }
 

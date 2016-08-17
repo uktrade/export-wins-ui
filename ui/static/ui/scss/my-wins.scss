@@ -1,4 +1,11 @@
+@import "bootstrap/variables";
+
 .my-wins {
+
+	.badge {
+		background-color: $brand-primary;
+		margin-bottom: 0.25em;
+	}
 
 	.new-win-bottom-btn {
 		margin-top: 1em;
@@ -15,5 +22,27 @@
 
 	.text-right {
 		text-align: right;
+	}
+
+	.company-name {
+		width: 24%;
+	}
+	.country-name {
+		width: 25%;
+	}
+	.customer-name {
+		width: 15%;
+	}
+	.export-value {
+		width: 14%;
+	}
+	.date {
+		width: 10%;
+		min-width: 4em;
+	}
+	.response-date,
+	.last-modified {
+		width: 12%;
+		min-width: 6em;
 	}
 }
