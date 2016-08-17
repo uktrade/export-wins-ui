@@ -52,7 +52,7 @@
                             <td>{{ win.customer_name }}</td>
                             <td class="text-right">{{ win.total_expected_export_value | intcomma }}</td>
                             <td>{{ win.date | date:'M Y' }}</td>
-                            <td>{% if win.updated %}{{ win.updated }}{% else %}{{ win.created }}{% endif %}</td>
+                            <td>{{ win.last_modified | date:"d M Y" }}</td>
                         </tr>
                     {% endfor %}
                 </table>
