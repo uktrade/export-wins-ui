@@ -42,6 +42,7 @@ class MyWinsView(LoginRequiredMixin, TemplateView):
         # parse dates
         for win in wins:
             win['created'] = date_parser(win['created'])
+            win['date'] = date_parser(win['date'])
             if win['updated']:
                 win['updated'] = date_parser(win['updated'])
             win['sent'] = [date_parser(d) for d in win['sent']]

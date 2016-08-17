@@ -7,4 +7,13 @@
 	.my-wins-header {
 		margin-top: 2.5em;
 	}
+
+	th,
+	td {
+		text-align: left;
+	}
+
+	.text-right {
+		text-align: right;
+	}
 }
