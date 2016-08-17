@@ -40,8 +40,8 @@
                     <tr>
                         <th>UK Company</th>
                         <th>Export to</th>
-                        <th>Overseas Contact</th>
-                        <th>Export amount (&pound;)</th>
+                        <th>Customer name</th>
+                        <th class="text-right">Export amount (&pound;)</th>
                         <th>Date won</th>
                         <th>Last modified</th>
                     </tr>
@@ -51,8 +51,8 @@
                             <td>{{ win.country_name }}</td>
                             <td>{{ win.customer_name }}</td>
                             <td class="text-right">{{ win.total_expected_export_value | intcomma }}</td>
-                            <td>{{ win.date }}</td>
-                            <td>{% if win.updated %}{{ win.updated }}{% else %}{{ win.created }}{% endif %}</td>
+                            <td>{{ win.date | date:'M Y' }}</td>
+                            <td>{{ win.last_modified | date:"d M Y" }}</td>
                         </tr>
                     {% endfor %}
                 </table>
@@ -73,10 +73,10 @@
                     <tr>
                         <th>UK Company</th>
                         <th>Export to</th>
-                        <th>Overseas Contact</th>
-                        <th>Export amount (&pound;)</th>
+                        <th>Customer name</th>
+                        <th class="text-right">Export amount (&pound;)</th>
                         <th>Date won</th>
-                        <th>Days since sent</th>
+                        <th>Date sent</th>
                     </tr>
                     {% for win in sent %}
                         <tr>
@@ -84,8 +84,8 @@
                            <td>{{ win.country_name }}</td>
                            <td>{{ win.customer_name }}</td>
                            <td class="text-right">{{ win.total_expected_export_value | intcomma }}</td>
-                           <td>{{ win.date }}</td>
-                           <td>{{ win.sent.0|timesince }}{# should this be first or last time it was sent? #}</td>
+                           <td>{{ win.date | date:'M Y' }}</td>
+                           <td>{{ win.sent.0 | date:'d M Y' }}{# should this be first or last time it was sent? #}</td>
                         </tr>
                     {% endfor %}
                 </table>
@@ -105,8 +105,8 @@
                     <tr>
                         <th>UK Company</th>
                         <th>Export to</th>
-                        <th>Value attributed to our help</th>
-                        <th>Export amount (&pound;)</th>
+                        <th class="text-right">Value attributed to our help</th>
+                        <th class="text-right">Export amount (&pound;)</th>
                         <th>Date won</th>
                         <th>Date responded</th>
                     </tr>
@@ -116,8 +116,8 @@
                             <td>{{ win.country_name }}</td>
                             <td class="text-right">{{ win.responded.our_help }}</td>
                             <td class="text-right">{{ win.total_expected_export_value | intcomma }}</td>
-                            <td>{{ win.date }}</td>
-                            <td>{{ win.responded.created }}</td>
+                            <td>{{ win.date | date:'M Y' }}</td>
+                            <td>{{ win.responded.created | date:"d M Y" }}</td>
                         </tr>
                     {% endfor %}
                 </table>

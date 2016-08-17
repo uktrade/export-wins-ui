@@ -51,6 +51,7 @@ class MyWinsView(LoginRequiredMixin, TemplateView):
         # parse dates
         for win in wins:
             win['created'] = date_parser(win['created'])
+            win['date'] = date_parser(win['date'])
             if win['updated']:
                 win['updated'] = date_parser(win['updated'])
             win['sent'] = [date_parser(d) for d in win['sent']]
@@ -58,6 +59,7 @@ class MyWinsView(LoginRequiredMixin, TemplateView):
                 win['responded']['created'] = (
                     date_parser(win['responded']['created'])
                 )
+            win['last_modified'] = win['updated'] or win['created']
 
         # split wins up for user
         context['unsent'] = [w for w in wins if not w['complete']]

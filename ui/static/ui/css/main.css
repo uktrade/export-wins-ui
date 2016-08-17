@@ -2,6 +2,14 @@
 
 .win-form table.advisors tr th { vertical-align: middle; }
 
+.win-form table.advisors .advisor-name { width: 15%; }
+
+.win-form table.advisors .advistor-team-type { width: 15%; }
+
+.win-form table.advisors .advistor-hq-team { width: 40%; }
+
+.win-form table.advisors .advisor-location { width: 15%; }
+
 .win-form .win-value-table td { width: 20%; }
 
 .win-form span.glyphicon { font-size: 1.4em; }
@@ -61,6 +69,10 @@
 .my-wins .new-win-bottom-btn { margin-top: 1em; }
 
 .my-wins .my-wins-header { margin-top: 2.5em; }
+
+.my-wins th, .my-wins td { text-align: left; }
+
+.my-wins .text-right { text-align: right; }
 
 .win-details .glyphicon { margin-right: 0.5em; }
 
