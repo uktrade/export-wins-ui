@@ -64,7 +64,7 @@ class MyWinsView(LoginRequiredMixin, TemplateView):
 
         # split wins up for user
         unsent = [w for w in wins if not w['complete']]
-        context['unsent'] = sorted(unsent, key=lambda w: w['updated'])
+        context['unsent'] = sorted(unsent, key=lambda w: w['last_modified'])
 
         sent = [
             w for w in wins
