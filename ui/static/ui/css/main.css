@@ -88,7 +88,16 @@
 
 .my-wins .response-date, .my-wins .last-modified { width: 12%; min-width: 6em; }
 
+.win-details { position: relative; }
+
 .win-details .glyphicon { margin-right: 0.5em; }
+
+.win-details .top-buttons { position: absolute; top: -3.6em; right: 0; z-index: 100; }
+
+@media (max-width: 768px) { .win-details .top-buttons { position: static; }
+  .win-details .top-buttons .btn { width: 100%; margin-bottom: 1.5em; } }
+
+.win-details .contributing-table th { text-align: left; }
 
 .win-details .company-name, .win-details .customer-name { font-size: 24px; }
 
@@ -212,6 +221,14 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-app
 .win-complete-buttons, .separate-section-heading { margin-top: 3em; }
 
 .review-win-details-list span { display: block; font-weight: bold; padding-bottom: 0.25em; }
+
+.link-below-buttons { margin-top: 2em; display: block; }
+
+.win-sending-details { font-size: 1.4em; margin: 3em 0 1em 0; }
+
+.win-sending-details .highlight { font-weight: 500; }
+
+.win-seding-edit-message { margin: 3em 0 -1em 0; }
 
 @media (max-width: 768px) { .logo-row .logo { height: 70px; }
   .btn-responsive, .end-buttons .btn, body .end-buttons .btn { width: 100%; margin-bottom: 1em; margin-left: 0 !important; margin-right: 0 !important; }

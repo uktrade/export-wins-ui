@@ -9,8 +9,16 @@
 
 {% block content %}
 
-
   <div class="win-details">
+
+    <div class="top-buttons">
+      {% if not win.complete %}
+      <a href="{% url 'win-complete' win.id %}" class="btn btn-primary" title="Check win and send">Check and send</a>
+      {% endif %}
+      {% if not locked %}
+        <a href="{% url 'win-edit' win.id %}" class="btn btn-info" title="Edit win">Edit</a>
+      {% endif %}
+    </div>
 
     {% if locked %}
       <p class="alert alert-warning">
@@ -75,11 +83,11 @@
 
     {% if win.advisors %}
 
-      <table class="table table-responsive">
+      <table class="table table-responsive contributing-table">
       <tr>
         <th>Name</th>
         <th>Team Type</th>
-        <th>HQ Team<br />Region or Post</th>
+        <th>HQ Team, Region or Post</th>
         <th>Location</th>
       </tr>
       {% for advisor in win.advisors %}
@@ -105,15 +113,8 @@
 
   <div class="section-content">
 
-    <div class="row">
-      <div class="col-sm-6">
-        {% include "wins/partials/win-details-element.html" with name="Date won" val=win.date %}
-      </div>
-      <div class="col-sm-6">
-        {% include "wins/partials/win-details-element.html" with name="Country" val=win.country %}
-      </div>
-    </div>
-
+    {% include "wins/partials/win-details-element.html" with name="Date won" val=win.date|date:"M Y" %}
+    {% include "wins/partials/win-details-element.html" with name="Country" val=win.country %}
     {% include "wins/partials/win-details-element.html" with name="Business deal that best describes the win" val=win.business_type %}
     {% include "wins/partials/win-details-element.html" with name="How the company was supported in achieving the win" val=win.description %}
     {% include "wins/partials/win-details-element.html" with name="Name of overseas customer" val=win.name_of_customer %}
@@ -224,16 +225,16 @@
     {% include "wins/partials/win-details-element.html" with name="Associated programme 3" val=win.associated_programme_3 required=False %}
   </div>
 
-  <div class="section-content end-buttons">
+  <div class="end-buttons">
     {% if not win.complete %}
-    <a href="{% url 'win-complete' win.id %}" class="btn btn-primary">Review</a>
+    <a href="{% url 'win-complete' win.id %}" class="btn btn-primary" title="Check win and send">Check and send</a>
     {% endif %}
     {% if not locked %}
-      <a href="{% url 'win-edit' win.id %}" class="btn btn-info">Edit</a>
+      <a href="{% url 'win-edit' win.id %}" class="btn btn-info" title="Edit win">Edit</a>
     {% endif %}
-    <a href="{% url 'index' %}" class="btn btn-default">Back to Your export wins</a>
   </div>
 
+  <a href="{% url 'index' %}" class="link-below-buttons" title="Go back to your export wins">Back to Your export wins</a>
 </div>
 
 {% endblock content %}

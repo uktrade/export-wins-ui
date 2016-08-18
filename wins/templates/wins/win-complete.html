@@ -14,49 +14,42 @@
   {% if win.complete %}
 
     <p class="alert alert-info">
-      This win has already been sent to the customer for review.
+      This win has already been sent to the customer to comfirm.
     </p>
 
     <div class="text-center success-buttons win-complete-buttons">
-      <a href="{% url 'index' %}" class="btn btn-default btn-responsive">My Wins</a>
-      <a href="{% url 'new-win' %}" class="btn btn-default btn-responsive">Record a New Export Win</a>
+      <a href="{% url 'index' %}" class="btn btn-default btn-responsive">Your export wins</a>
+      <a href="{% url 'new-win' %}" class="btn btn-default btn-responsive">Create new export win</a>
     </div>
 
   {% else %}
 
-    <p class="lead">
+    <p class="lead restrict-width">
 
-      Please review the details of your win below. If you are confident your
-      customer will agree, send the form to them to confirm the details.
+      If you are confident your customer will agree, send the form to them to confirm the details.
     </p>
 
     <p>
-      If you are unsure you may wish to contact the customer.
+      If you are unsure you may wish to <a href="mailto:{{win.customer_email_address}}" title="Send email to {{win.customer_name}}">contact the customer</a>.
     </p>
 
-    <h3 class="section-heading">Customer details</h3>
-    <p class="section-content">
-      <strong>Name:</strong> {{ win.customer_name }}<br>
-      <strong>Email:</strong> {{ win.customer_email_address }}
+
+    <p class="win-sending-details restrict-width">
+      <span class="highlight">To:</span> {{ win.customer_name }} - {{ win.customer_email_address }}
     </p>
 
-    <h3 class="section-heading separate-section-heading">{{ win.company_name }}</h3>
+    <ul class="list-group review-win-details-list restrict-width">
+      <li class="list-group-item"><span>Date won</span> {{ win.date | date:"M Y" }}</li>
+      <li class="list-group-item"><span>Country</span> {{ win.country_name }}</li>
+      <li class="list-group-item"><span>Company name</span> {{ win.company_name }}</li>
+      <li class="list-group-item"><span>Business type</span> {{ win.business_type }}</li>
+      <li class="list-group-item"><span>How the company was supported in achieving the win</span> {{ win.description }}</li>
+      <li class="list-group-item"><span>Export value</span> &pound;{{ win.total_expected_export_value | intcomma }}</li>
+      <li class="list-group-item"><span>Non-export value</span> &pound;{{ win.total_expected_non_export_value | intcomma }}</li>
+    </ul>
 
-    <div class="section-content">
-
-      <ul class="list-group review-win-details-list">
-        <li class="list-group-item"><span>Business type</span> {{ win.business_type }}</li>
-        <li class="list-group-item"><span>How the company was supported in achieving the win</span> {{ win.description }}</li>
-        <li class="list-group-item"><span>Export value</span> &pound;{{ win.total_expected_export_value | intcomma }}</li>
-        <li class="list-group-item"><span>Non-export value</span> &pound;{{ win.total_expected_non_export_value | intcomma }}</li>
-        <li class="list-group-item"><span>Country</span> {{ win.country_name }}</li>
-        <li class="list-group-item"><span>Date</span> {{ win.date }}</li>
-      </ul>
-
-    </div>
-
-    <p class="well">
-      You can <a href="{% url 'win-edit' win.id %}">edit these details</a> now, but once it has been sent to the customer, you will not be able to change these details.
+    <p class="win-seding-edit-message">
+      You can <a href="{% url 'win-edit' win.id %}" title="Edit win">edit these details</a> now, but once it has been sent to the customer, you will not be able to change these details.
     </p>
 
     <form method="post">
@@ -64,9 +57,10 @@
 
       <div class="end-buttons">
         <input type="submit" name="complete" value="Send to customer" class="btn btn-primary">
-        <a href="{% url 'index' %}" class="btn btn-default">Cancel</a>
       </div>
     </form>
+    
+    <a href="{% url 'index' %}" class="link-below-buttons">Back to your export wins</a>
 
   {% endif %}
 

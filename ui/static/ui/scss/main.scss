@@ -207,6 +207,25 @@ input::-webkit-inner-spin-button {
 	}
 }
 
+.link-below-buttons {
+	margin-top: 2em;
+	display: block;
+}
+
+.win-sending-details {
+
+	font-size: 1.4em;
+	margin: 3em 0 1em 0;
+
+	.highlight {
+		font-weight: 500;
+	}
+}
+
+.win-seding-edit-message {
+	margin: 3em 0 -1em 0;
+}
+
 
 @media( max-width:$screen-sm-min ){
 
