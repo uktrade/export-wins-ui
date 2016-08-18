@@ -23,7 +23,7 @@
 
       <div class="row logo-row">
         <div class="col-xs-5">
-          <img src="{% static 'ui/img/ukti-logo.png' %}" alt="logo" title="UK Trade &amp; Investment" height="100" class="logo">
+          <img src="{% static 'ui/img/dit-logo.png' %}" alt="logo" title="Department for International Trade" height="100" class="logo">
         </div>
         <div class="col-xs-7">
           <div class="hidden-print text-right">
@@ -40,10 +40,12 @@
           <h1 class="h2"><a href="{% url 'index' %}">Export Wins</a></h1>
       </div>
 
+      {% block breadcrumb %}
       <ol class="win-breadcrumb hidden-print">
         <li><a href="{% url 'index' %}">Your export wins</a><span class="separator">/</span></li>
         <li class="active">{% block breadcrumb-name %}{% endblock breadcrumb-name %}</li>
       </ol>
+      {% endblock breadcrumb %}
 
       {% endblock site-header %}
 
@@ -55,7 +57,7 @@
 
       <div class="row footer">
         <div class="col-xs-12 text-right">
-           <img src="{% static 'ui/img/exporting-is-great-logo_200.png' %}" alt="logo" title="UK Trade &amp; Investment Exporting is Great" height="70">
+           <img src="{% static 'ui/img/exporting-is-great-logo_200.png' %}" alt="logo" title="Department for International Trade Exporting is Great" height="70">
         </div>
       </div>
     </div>

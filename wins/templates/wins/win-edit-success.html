@@ -18,15 +18,15 @@
 
 	{% if win.responded %}
 
-		You&#39;ve updated this win. The customer has already responded and it&#39;s listed as complete, but you can still <a href="{% url 'win-edit' win_id %}">edit some details</a> at any time.
+		You&#39;ve updated this win. The customer has already responded and it&#39;s listed as complete, but you can still <a href="{% url 'win-edit' win_id %}" title="Edit win">edit some details</a> at any time.
 
 	{% elif win.complete %}
 
-		This win is listed in your export wins as sent to customer. The win isn&#39;t complete until the customer has reviewed it.
+		This win is listed in your export wins as sent to customer. The win isn&#39;t complete until the customer has confirmed it.
 
 	{% else %}
 
-     	This win is listed in your export wins as an unsent win. The win isn&#39;t complete until you have sent it to the customer for review.
+     	This win is listed in your export wins as an unsent win. The win isn&#39;t complete until you have sent it to the customer to confirm.
 
 	{% endif %}
 
@@ -38,13 +38,13 @@
 
 	<div class="win-success">
 		<p>
-			To send the win to the customer, you need to review the details they see first (you can edit it again before sending).
+			To send the win to the customer, you need to check the details they see first (you can edit it again before sending).
 		</p>
 
-		<a href="{% url 'win-complete' win_id %}" class="btn btn-primary btn-responsive btn-lg">Review win</a>
+		<a href="{% url 'win-complete' win_id %}" class="btn btn-primary btn-responsive btn-lg" title="Check win and send">Check and send</a>
 
 		<p>
-			If you need to amend any details of the win you can <a href="{% url 'win-edit' win_id %}">edit it</a> at any time. {% if not win.complete %}After you have sent the win to the customer you will not be able to edit the customer details.{% endif %}
+			If you need to amend any details of the win you can <a href="{% url 'win-edit' win_id %}" title="Edit win">edit it</a> at any time. {% if not win.complete %}After you have sent the win to the customer you will not be able to edit the details the customer has confirmed.{% endif %}
 		</p>
 	</div>
 

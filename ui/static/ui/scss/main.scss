@@ -6,7 +6,7 @@
 @import "win-details";
 @import "success";
 
-$brand-color: #c81e53;
+$brand-color: #cf102d;
 
 
 body {
@@ -33,7 +33,7 @@ body {
 	padding: 0.5em 1em;
 	background-color: $gray-lighter;
 	border-radius: 2px;
-	color: $gray-light;
+	color: $gray;
 	margin: 0 0 3em 0;
 	overflow: hidden;
 
@@ -43,7 +43,7 @@ body {
 		margin: 0;
 
 		.separator {
-			color: lighten( $gray-light, 20% );
+			color: $gray;
 			padding: 0 0.6em 0 0.6em;
 		}
 	}
@@ -52,7 +52,7 @@ body {
 .site-heading {
 
 	margin-bottom: 1em;
-	padding-left: 12px;
+	padding-left: 10px;
 
 	h1 {
 		margin-bottom: 0;
@@ -89,7 +89,7 @@ table tr th {
 }
 
 td.error input {
-	background-color: #f2dede;
+	background-color: $brand-danger;
 }
 
 
@@ -98,7 +98,7 @@ td.error input {
 	margin: 1em 0;
 
 	&.error {
-		border: 1px solid #f2dede;
+		border: 1px solid $brand-danger;
 		border-radius: 0.5em;
 		padding: 1em;
 	}
@@ -205,6 +205,25 @@ input::-webkit-inner-spin-button {
 		font-weight: bold;
 		padding-bottom: 0.25em;
 	}
+}
+
+.link-below-buttons {
+	margin-top: 2em;
+	display: block;
+}
+
+.win-sending-details {
+
+	font-size: 1.4em;
+	margin: 3em 0 1em 0;
+
+	.highlight {
+		font-weight: 500;
+	}
+}
+
+.win-seding-edit-message {
+	margin: 3em 0 -1em 0;
 }
 
 
