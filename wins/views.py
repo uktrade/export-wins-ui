@@ -23,6 +23,7 @@ class WinTemplateView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['win'] = get_win(kwargs['win_id'], self.request)
+        context['win']['date'] = date_parser(context['win']['date'])
         return context
 
 
@@ -62,12 +63,21 @@ class MyWinsView(LoginRequiredMixin, TemplateView):
             win['last_modified'] = win['updated'] or win['created']
 
         # split wins up for user
-        context['unsent'] = [w for w in wins if not w['complete']]
-        context['responded'] = [w for w in wins if w['responded']]
-        context['sent'] = [
+        unsent = [w for w in wins if not w['complete']]
+        context['unsent'] = sorted(unsent, key=lambda w: w['company_name'])
+
+        responded = [w for w in wins if w['responded']]
+        context['responded'] = sorted(
+            responded,
+            key=lambda w: w['responded']['created'],
+        )
+
+        sent = [
             w for w in wins
             if w['complete'] and w not in context['responded']
         ]
+        context['sent'] = sorted(sent, key=lambda w: w['sent'][0])
+
         return context
 
 
