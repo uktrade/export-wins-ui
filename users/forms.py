@@ -31,7 +31,7 @@ class LoginForm(BootstrappedForm):
             return cleaned_data
 
         self._login()
-        
+
         return self.cleaned_data
 
     def _login(self):

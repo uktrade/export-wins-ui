@@ -1,0 +1,13 @@
+{% extends 'ui/admin-form.html' %}
+
+{% block success %}
+    Success! An email has been sent to the customer email for win {{ win_id }}, and officers have been notified.<br><br>
+{% endblock %}
+
+{% block form %}
+    <h2>Change customer email address and send new email</h2>
+    <span class="help">This will change the email address of the customer attached to the win, and send an email to the customer, and will also notify the officer than an email has been sent to the customer</span>
+    Win ID: <input type="text" name="win_id" value="{% if win_id %}{{ win_id }}{% endif %}"> <br>
+    New customer email address <input type="text" name="email" value="{% if email %}{{ email }}{% endif %}"> <br>
+    <input type="submit" value="Change address and send customer email" class="btn btn-primary">
+{% endblock %}
