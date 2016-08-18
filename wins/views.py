@@ -142,6 +142,7 @@ class WinView(LoginRequiredMixin, TemplateView):
         context['win'] = resp.json()
         context['locked'] = locked(context['win'])
         context['edit_days'] = settings.EDIT_TIMEOUT_DAYS
+        context['win']['date'] = date_parser(context['win']['date'])
         return context
 
 

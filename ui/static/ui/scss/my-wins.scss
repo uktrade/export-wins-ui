@@ -20,6 +20,18 @@
 		text-align: left;
 	}
 
+	th {
+		position: relative;
+
+		.glyphicon {
+			position: absolute;
+			top: auto;
+			bottom: 0.9em;
+			right: -2px;
+			color: $gray-light;
+		}
+	}
+
 	.text-right {
 		text-align: right;
 	}

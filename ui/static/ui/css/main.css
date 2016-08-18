@@ -74,6 +74,10 @@
 
 .my-wins th, .my-wins td { text-align: left; }
 
+.my-wins th { position: relative; }
+
+.my-wins th .glyphicon { position: absolute; top: auto; bottom: 0.9em; right: -2px; color: #777777; }
+
 .my-wins .text-right { text-align: right; }
 
 .my-wins .company-name { width: 24%; }
