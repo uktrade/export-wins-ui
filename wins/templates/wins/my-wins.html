@@ -28,7 +28,7 @@
 
             <a href="{% url 'new-win' %}" class="btn btn-primary btn-responsive">Create new win</a>
 
-            <h3 class="my-wins-header">Unsent wins <span class="badge">{{ unsent | length }}</span></h3>
+            <h3 class="my-wins-header">Unsent wins <span class="header-count">({{ unsent | length }})</span></h3>
 
              {% if not unsent %}
 
@@ -39,12 +39,12 @@
                 <table class="table table-striped unsent-wins">
                     <thead>
                         <tr>
-                            <th>UK Company <span class="glyphicon glyphicon-option-vertical" aria-hidden="true" title="sorted by this field"></span><span class="sr-only">Sorted by this field</span></th>
+                            <th>UK Company</th>
                             <th>Export to</th>
                             <th>Customer name</th>
                             <th class="text-right">Export amount</th>
                             <th>Date won</th>
-                            <th>Last modified</th>
+                            <th>Last modified <span class="glyphicon glyphicon-option-vertical" aria-hidden="true" title="sorted by this field"></span><span class="sr-only">Sorted by this field</span></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -64,7 +64,7 @@
             {% endif %}
 
 
-            <h3 class="my-wins-header">Sent to customer <span class="badge">{{ sent | length }}</span></h3>
+            <h3 class="my-wins-header">Sent to customer <span class="header-count">({{ sent | length }})</span></h3>
 
              {% if not sent %}
 
@@ -100,7 +100,7 @@
             {% endif %}
 
 
-            <h3 class="my-wins-header">Customer responded <span class="badge">{{ responded | length }}</span></h3>
+            <h3 class="my-wins-header">Customer responded <span class="header-count">({{ responded | length }})</span></h3>
 
             {% if not responded %}
 
@@ -111,12 +111,12 @@
                 <table class="table table-striped responded-wins">
                     <thead>
                         <tr>
-                            <th>UK Company</th>
+                            <th>UK Company <span class="glyphicon glyphicon-option-vertical" aria-hidden="true" title="sorted by this field"></span><span class="sr-only">Sorted by this field</span></th>
                             <th>Export to</th>
-                            <th class="text-right">Value attributed to our help</th>
+                            <th class="text-right">Value attributed<br> to our help</th>
                             <th class="text-right">Export amount</th>
                             <th>Date won</th>
-                            <th>Date responded <span class="glyphicon glyphicon-option-vertical" aria-hidden="true" title="sorted by this field"></span><span class="sr-only">Sorted by this field</span></th>
+                            <th>Date responded</th>
                         </tr>
                     </thead>
                     <tbody>

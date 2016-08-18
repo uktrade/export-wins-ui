@@ -57,7 +57,8 @@ body {
 	h1 {
 		margin-bottom: 0;
 
-		a {
+		a,
+		a:visited {
 			color: inherit;
 		}
 	}
