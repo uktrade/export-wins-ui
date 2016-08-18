@@ -66,7 +66,7 @@
   .confirmation-form .form-group .btn-group { float: none !important; width: 100%; }
   .confirmation-form .radio label, .confirmation-form .checkbox label { width: 100%; } }
 
-.my-wins .badge { background-color: #00549F; margin-bottom: 0.25em; }
+.my-wins .badge { background-color: #4814a0; margin-bottom: 0.25em; }
 
 .my-wins .new-win-bottom-btn { margin-top: 1em; }
 
@@ -76,7 +76,7 @@
 
 .my-wins th { position: relative; }
 
-.my-wins th .glyphicon { position: absolute; top: auto; bottom: 0.9em; right: -2px; color: #777777; }
+.my-wins th .glyphicon { position: absolute; top: auto; bottom: 0.9em; right: -2px; color: #dcdcdc; }
 
 .my-wins .text-right { text-align: right; }
 
@@ -109,9 +109,9 @@
 
 .win-details .export-value-item { list-style: none; clear: left; }
 
-.win-details .export-value-item span { padding: 0.5em 1em; float: left; border: 1px solid #777777; border-bottom: 0; margin: 0; }
+.win-details .export-value-item span { padding: 0.5em 1em; float: left; border: 1px solid #dcdcdc; border-bottom: 0; margin: 0; }
 
-.win-details .export-value-item .export-year { background-color: #eeeeee; width: 6em; }
+.win-details .export-value-item .export-year { background-color: #e7e7e7; width: 6em; }
 
 .win-details .export-value-item .export-year-value { border-left: 0; width: 10em; text-align: right; }
 
@@ -121,7 +121,7 @@
 
 .win-details .export-value-group .first .export-year-value { border-radius: 0 5px 0 0; }
 
-.win-details .export-value-group .last span { border-top: 2px solid #777777; border-bottom: 1px solid #777777; font-weight: bold; }
+.win-details .export-value-group .last span { border-top: 2px solid #dcdcdc; border-bottom: 1px solid #dcdcdc; font-weight: bold; }
 
 .win-details .export-value-group .last .export-year { border-radius: 0 0 0 5px; }
 
@@ -135,7 +135,7 @@
 
 .success-buttons { font-size: 1.2em; }
 
-.success-feedback-message { color: #777777; margin-top: 2em; }
+.success-feedback-message { color: #dcdcdc; margin-top: 2em; }
 
 .success-page-lead { margin: 1.5em 0 2em 0; }
 
@@ -149,7 +149,7 @@
 
 .win-success .btn-lg { margin: 1em 0 2em 0; }
 
-body { border-top: 5px solid #c81e53; padding-top: 2.5em; }
+body { border-top: 5px solid #cf102d; padding-top: 2.5em; }
 
 .logo-row { margin-top: -10px; }
 
@@ -157,13 +157,13 @@ body { border-top: 5px solid #c81e53; padding-top: 2.5em; }
 
 .feedback-link { margin-right: 1em; }
 
-.win-breadcrumb { list-style: none; padding: 0.5em 1em; background-color: #eeeeee; border-radius: 2px; color: #777777; margin: 0 0 3em 0; overflow: hidden; }
+.win-breadcrumb { list-style: none; padding: 0.5em 1em; background-color: #e7e7e7; border-radius: 2px; color: #a7a7a7; margin: 0 0 3em 0; overflow: hidden; }
 
 .win-breadcrumb li { padding: 0; float: left; margin: 0; }
 
-.win-breadcrumb li .separator { color: #aaaaaa; padding: 0 0.6em 0 0.6em; }
+.win-breadcrumb li .separator { color: #a7a7a7; padding: 0 0.6em 0 0.6em; }
 
-.site-heading { margin-bottom: 1em; padding-left: 12px; }
+.site-heading { margin-bottom: 1em; padding-left: 10px; }
 
 .site-heading h1 { margin-bottom: 0; }
 
@@ -179,11 +179,11 @@ form input { padding-left: 2em; padding-right: 2em; }
 
 table tr th { text-align: center; }
 
-td.error input { background-color: #f2dede; }
+td.error input { background-color: #cf102d; }
 
 .form-group { margin: 1em 0; }
 
-.form-group.error { border: 1px solid #f2dede; border-radius: 0.5em; padding: 1em; }
+.form-group.error { border: 1px solid #cf102d; border-radius: 0.5em; padding: 1em; }
 
 .form-group .alert { padding: 0.5em; }
 
@@ -206,7 +206,7 @@ input[type='number'] { -moz-appearance: textfield; }
 
 input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; }
 
-.footer { border-top: 3px solid #777777; margin-top: 4em; margin-bottom: 3em; padding-top: 4em; }
+.footer { border-top: 3px solid #dcdcdc; margin-top: 4em; margin-bottom: 3em; padding-top: 4em; }
 
 .footer img { height: 100px; }
 
@@ -218,7 +218,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-app
 
 .end-buttons .btn:last-child { margin-right: 0; }
 
-.section-heading { background-color: #eeeeee; padding: 1em; }
+.section-heading { background-color: #e7e7e7; padding: 1em; }
 
 .section-content { padding: 1em 1.714em; }
 

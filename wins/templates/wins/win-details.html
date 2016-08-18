@@ -34,12 +34,12 @@
         </div>
         <div class="panel-body">
           <p>
-            <span class="sr-only">Company:</span><span class="company-name">{{ win.company_name }}</span> <span class="small text-muted">(CDMS Id: {{ win.cdms_reference }})</span><br>
+            <span class="sr-only">Company:</span><span class="company-name">{{ win.company_name }}</span> <span class="small">(CDMS Id: {{ win.cdms_reference }})</span><br>
             <span class="h5">Location:</span> {{ win.customer_location }}
           </p>
           <p>
-            <span class="sr-only">Name:</span><span class="customer-name">{{ win.customer_name }}</span>
-            <span class="sr-only">Job title:</span><span class="text-muted">({{ win.customer_job_title }})</span><br>
+            <span class="sr-only">Name:</span><span class="customer-name">{{ win.customer_name }}</span><br>
+            <span class="sr-only">Job title:</span>({{ win.customer_job_title }})<br>
             <span class="glyphicon glyphicon-envelope"></span><span class="sr-only">Email:</span>{{ win.customer_email_address }}
           </p>
         </div>

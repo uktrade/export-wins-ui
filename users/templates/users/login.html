@@ -2,8 +2,10 @@
 
 {% load staticfiles %}
 
+{# hide breadcrumb on login page #}
+{% block breadcrumb %}{% endblock %}
+
 {% block title %} - Login{% endblock %}
-{% block breadcrumb-name %}Login{% endblock %}
 {% block header %}Login{% endblock %}
 
 {% block content %}

@@ -70,3 +70,4 @@ db.sqlite3
 .direnv/
 
 node_modules
+.DS_Store
