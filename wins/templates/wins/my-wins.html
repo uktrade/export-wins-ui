@@ -3,8 +3,8 @@
 {% load staticfiles %}
 {% load humanize %}
 
-{% block title %} - Your export wins{% endblock title %}
-{% block header %}Your export wins{% endblock header %}
+{% block title %} - Your export wins{% endblock %}
+{% block header %}Your export wins{% endblock %}
 
 {% block content %}
 
@@ -36,23 +36,23 @@
 
             {% else %}
 
-                <table class="table table-striped">
+                <table class="table table-striped unsent-wins">
                     <tr>
                         <th>UK Company</th>
                         <th>Export to</th>
                         <th>Customer name</th>
-                        <th class="text-right">Export amount (&pound;)</th>
+                        <th class="text-right">Export amount</th>
                         <th>Date won</th>
                         <th>Last modified</th>
                     </tr>
                     {% for win in unsent %}
                         <tr>
-                            <td><a href="{% url 'win-details' win.id %}">{{ win.company_name }}</a></td>
-                            <td>{{ win.country_name }}</td>
-                            <td>{{ win.customer_name }}</td>
-                            <td class="text-right">{{ win.total_expected_export_value | intcomma }}</td>
-                            <td>{{ win.date | date:'M Y' }}</td>
-                            <td>{{ win.last_modified | date:"d M Y" }}</td>
+                            <td class="company-name"><a href="{% url 'win-details' win.id %}">{{ win.company_name }}</a></td>
+                            <td class="country-name">{{ win.country_name }}</td>
+                            <td class="customer-name">{{ win.customer_name }}</td>
+                            <td class="export-value text-right">&pound;{{ win.total_expected_export_value | intcomma }}</td>
+                            <td class="date">{{ win.date | date:'M Y' }}</td>
+                            <td class="last-modified">{{ win.last_modified | date:"d M Y" }}</td>
                         </tr>
                     {% endfor %}
                 </table>
@@ -68,24 +68,24 @@
 
             {% else %}
 
-                <table class="table table-striped">
+                <table class="table table-striped sent-to-customer-wins">
 
                     <tr>
                         <th>UK Company</th>
                         <th>Export to</th>
                         <th>Customer name</th>
-                        <th class="text-right">Export amount (&pound;)</th>
+                        <th class="text-right">Export amount</th>
                         <th>Date won</th>
                         <th>Date sent</th>
                     </tr>
                     {% for win in sent %}
                         <tr>
-                           <td><a href="{% url 'win-details' win.id %}">{{ win.company_name }}</a></td>
-                           <td>{{ win.country_name }}</td>
-                           <td>{{ win.customer_name }}</td>
-                           <td class="text-right">{{ win.total_expected_export_value | intcomma }}</td>
-                           <td>{{ win.date | date:'M Y' }}</td>
-                           <td>{{ win.sent.0 | date:'d M Y' }}{# should this be first or last time it was sent? #}</td>
+                           <td class="company-name"><a href="{% url 'win-details' win.id %}">{{ win.company_name }}</a></td>
+                           <td class="country-name">{{ win.country_name }}</td>
+                           <td class="customer-name">{{ win.customer_name }}</td>
+                           <td class="export-value text-right">&pound;{{ win.total_expected_export_value | intcomma }}</td>
+                           <td class="date">{{ win.date | date:'M Y' }}</td>
+                           <td class="date-sent">{{ win.sent.0 | date:'d M Y' }}{# should this be first or last time it was sent? #}</td>
                         </tr>
                     {% endfor %}
                 </table>
@@ -101,23 +101,23 @@
 
             {% else %}
 
-                <table class="table table-striped">
+                <table class="table table-striped responded-wins">
                     <tr>
                         <th>UK Company</th>
                         <th>Export to</th>
                         <th class="text-right">Value attributed to our help</th>
-                        <th class="text-right">Export amount (&pound;)</th>
+                        <th class="text-right">Export amount</th>
                         <th>Date won</th>
                         <th>Date responded</th>
                     </tr>
                     {% for win in responded %}
                         <tr>
-                            <td><a href="{% url 'win-details' win.id %}">{{ win.company_name }}</a></td>
-                            <td>{{ win.country_name }}</td>
-                            <td class="text-right">{{ win.responded.our_help }}</td>
-                            <td class="text-right">{{ win.total_expected_export_value | intcomma }}</td>
-                            <td>{{ win.date | date:'M Y' }}</td>
-                            <td>{{ win.responded.created | date:"d M Y" }}</td>
+                            <td class="company-name"><a href="{% url 'win-details' win.id %}">{{ win.company_name }}</a></td>
+                            <td class="country-name">{{ win.country_name }}</td>
+                            <td class="our-help text-right">{{ win.responded.our_help }}</td>
+                            <td class="export-value text-right">&pound;{{ win.total_expected_export_value | intcomma }}</td>
+                            <td class="date">{{ win.date | date:'M Y' }}</td>
+                            <td class="response-date">{{ win.responded.created | date:"d M Y" }}</td>
                         </tr>
                     {% endfor %}
                 </table>

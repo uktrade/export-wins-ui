@@ -66,6 +66,8 @@
   .confirmation-form .form-group .btn-group { float: none !important; width: 100%; }
   .confirmation-form .radio label, .confirmation-form .checkbox label { width: 100%; } }
 
+.my-wins .badge { background-color: #00549F; margin-bottom: 0.25em; }
+
 .my-wins .new-win-bottom-btn { margin-top: 1em; }
 
 .my-wins .my-wins-header { margin-top: 2.5em; }
@@ -73,6 +75,18 @@
 .my-wins th, .my-wins td { text-align: left; }
 
 .my-wins .text-right { text-align: right; }
+
+.my-wins .company-name { width: 24%; }
+
+.my-wins .country-name { width: 25%; }
+
+.my-wins .customer-name { width: 15%; }
+
+.my-wins .export-value { width: 14%; }
+
+.my-wins .date { width: 10%; min-width: 4em; }
+
+.my-wins .response-date, .my-wins .last-modified { width: 12%; min-width: 6em; }
 
 .win-details .glyphicon { margin-right: 0.5em; }
 
@@ -130,13 +144,17 @@ body { border-top: 5px solid #c81e53; padding-top: 2.5em; }
 
 .feedback-link { margin-right: 1em; }
 
-.site-heading { margin-bottom: 1em; padding-bottom: 1em; border-bottom: 3px solid #eeeeee; padding-left: 12px; }
+.win-breadcrumb { list-style: none; padding: 0.5em 1em; background-color: #eeeeee; border-radius: 2px; color: #777777; margin: 0 0 3em 0; overflow: hidden; }
+
+.win-breadcrumb li { padding: 0; float: left; margin: 0; }
+
+.win-breadcrumb li .separator { color: #aaaaaa; padding: 0 0.6em 0 0.6em; }
+
+.site-heading { margin-bottom: 1em; padding-left: 12px; }
 
 .site-heading h1 { margin-bottom: 0; }
 
 .site-heading h1 a { color: inherit; }
-
-.site-heading p { color: #777777; }
 
 .page-heading { margin-bottom: 0.5em; }
 
