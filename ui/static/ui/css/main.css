@@ -144,13 +144,17 @@ body { border-top: 5px solid #c81e53; padding-top: 2.5em; }
 
 .feedback-link { margin-right: 1em; }
 
-.site-heading { margin-bottom: 1em; padding-bottom: 1em; border-bottom: 3px solid #eeeeee; padding-left: 12px; }
+.win-breadcrumb { list-style: none; padding: 0.5em 1em; background-color: #eeeeee; border-radius: 2px; color: #777777; margin: 0 0 3em 0; overflow: hidden; }
+
+.win-breadcrumb li { padding: 0; float: left; margin: 0; }
+
+.win-breadcrumb li .separator { color: #aaaaaa; padding: 0 0.6em 0 0.6em; }
+
+.site-heading { margin-bottom: 1em; padding-left: 12px; }
 
 .site-heading h1 { margin-bottom: 0; }
 
 .site-heading h1 a { color: inherit; }
-
-.site-heading p { color: #777777; }
 
 .page-heading { margin-bottom: 0.5em; }
 

@@ -38,10 +38,12 @@
       {% block site-header %}
       <div class="site-heading">
           <h1 class="h2"><a href="{% url 'index' %}">Export Wins</a></h1>
-          <p>
-            This is a new service being developed with feedback from live user testing.
-          </p>
       </div>
+
+      <ol class="win-breadcrumb hidden-print">
+        <li><a href="{% url 'index' %}">Your export wins</a><span class="separator">/</span></li>
+        <li class="active">{% block breadcrumb-name %}{% endblock breadcrumb-name %}</li>
+      </ol>
 
       {% endblock site-header %}
 

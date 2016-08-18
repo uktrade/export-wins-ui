@@ -27,11 +27,31 @@ body {
 	margin-right: 1em;
 }
 
+.win-breadcrumb {
+
+	list-style: none;
+	padding: 0.5em 1em;
+	background-color: $gray-lighter;
+	border-radius: 2px;
+	color: $gray-light;
+	margin: 0 0 3em 0;
+	overflow: hidden;
+
+	li {
+		padding: 0;
+		float: left;
+		margin: 0;
+
+		.separator {
+			color: lighten( $gray-light, 20% );
+			padding: 0 0.6em 0 0.6em;
+		}
+	}
+}
+
 .site-heading {
 
 	margin-bottom: 1em;
-	padding-bottom: 1em;
-	border-bottom: 3px solid $gray-lighter;
 	padding-left: 12px;
 
 	h1 {
@@ -40,10 +60,6 @@ body {
 		a {
 			color: inherit;
 		}
-	}
-
-	p {
-		color: $gray-light;
 	}
 }
 

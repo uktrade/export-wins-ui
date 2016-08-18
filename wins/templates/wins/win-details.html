@@ -4,7 +4,8 @@
 {% load humanize %}
 
 {% block title %} - View win{% endblock %}
-{% block header %}View win{% endblock header %}
+{% block breadcrumb-name %}View win{% endblock %}
+{% block header %}View win{% endblock %}
 
 {% block content %}
 
@@ -230,7 +231,7 @@
     {% if not locked %}
       <a href="{% url 'win-edit' win.id %}" class="btn btn-info">Edit</a>
     {% endif %}
-    <a href="{% url 'index' %}" class="btn btn-default">Back to My Wins</a>
+    <a href="{% url 'index' %}" class="btn btn-default">Back to Your export wins</a>
   </div>
 
 </div>
