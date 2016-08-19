@@ -43,7 +43,7 @@ module.exports = function( grunt ){
 				src: [
 					'<%= src.js %>/ew.js',
 					'<%= src.js %>/pages/ew.pages.js',
-					'<%= src.js %>/**/*.js.js',
+					'<%= src.js %>/**/ew.*.js',
 				],
 				dest: '<%= dest.js %>/main.js'
 			}
