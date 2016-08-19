@@ -4,32 +4,21 @@
 		margin-top: 3em;
 	}
 
-	table.advisors {
+	.has-contributors {
+		margin-top: 3em;
+	}
 
-		tr th {
-			vertical-align: middle;
-		}
-
-		.advisor-name {
-			width: 15%;
-		}
-
-		.advistor-team-type {
-			width: 15%;
-		}
-
-		.advistor-hq-team {
-			width: 40%;
-		}
-
-		.advisor-location {
-			width: 15%;
-		}
+	.contributing-officer-team-group {
+		margin-bottom: 3em;
 	}
 
 	.win-value-table td {
 
 		width: 20%;
+	}
+
+	.radio {
+		margin: 1.5em 0;
 	}
 
 	span.glyphicon {

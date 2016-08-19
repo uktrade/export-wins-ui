@@ -1,5 +1,11 @@
 ew.pages.officerForm = (function(){
 
+	var HIDDEN_CLASS = 'hidden';
+
+	var $contributingTeamDetails;
+	var $someContributors;
+	var $noContributors;
+
 /*
 		window.addEventListener( 'beforeunload', function( e ){
 
@@ -15,25 +21,65 @@ ew.pages.officerForm = (function(){
 		} );
 */
 
-		return function officeFormPage(){
+	function leadOfficerTeamTypeChange(){
 
-			// Auto filter the hq-team lists
-			// Officer
-			$("#id_team_type").on("change", function(){
-				var type = $(this).val();
-				$("#id_hq_team option").addClass("hidden");
-				$("#id_hq_team option[value^=" + type + "]").removeClass("hidden");
-				$("#id_hq_team").val($("#id_hq_team option[value^=" + type + "]").first().val());
-			});
+		$( '#id_team_type' ).on( 'change', function(){
 
-			// Advisor(s)
-			$("#advisors .advistor-team-type select").on("change", function(){
-				var $this = $(this);
-				var type = $this.val();
-				var i = $this.attr("id").replace("id_advisor_", "").replace("_team_type", "");
-				$("#id_advisor_" + i + "_hq_team option").addClass("hidden");
-				$("#id_advisor_" + i + "_hq_team option[value^=" + type + "]").removeClass("hidden");
-				$("#id_advisor_" + i + "_hq_team").val($("#id_advisor_" + i + "_hq_team option[value^=" + type + "]").first().val());
-			});
-		};
+			var type = $( this ).val();
+			var $typeValues = $( '#id_hq_team option[value^=' + type + ']' );
+
+			$( '#id_hq_team option' ).addClass( HIDDEN_CLASS );
+			$typeValues.removeClass( HIDDEN_CLASS );
+			$( '#id_hq_team' ).val( $typeValues.first().val() );
+		});
+	}
+
+	function contributingOfficerTeamTypeChange(){
+
+		$( '.contributing-officer-team-group .contributing-team-type select' ).on( 'change', function(){
+
+			var $teamType = $( this );
+			var chosenType = $teamType.val();
+			var $team = $teamType.closest( '.row' ).find( '.contributing-team select' );
+			var $chosenTeam = $team.find( 'option[value^=' + chosenType + ']' );
+
+			$team.val( $chosenTeam.first().val() );
+			$team.find( 'option' ).addClass( HIDDEN_CLASS );
+			$chosenTeam.removeClass( HIDDEN_CLASS );
+		});
+	}
+
+	function toggleContributingDetails( e ){
+
+		if( $someContributors[ 0 ].checked ){
+
+			$contributingTeamDetails.show();
+
+		} else {
+
+			$contributingTeamDetails.hide();
+		}
+	}
+
+	function checkContributingDetails(){
+
+		if( !$someContributors[ 0 ].checked ){
+
+			$contributingTeamDetails.hide();
+		}
+
+		$someContributors.on( 'click', toggleContributingDetails );
+		$noContributors.on( 'click', toggleContributingDetails );
+	}
+
+	return function officeFormPage(){
+
+		$contributingTeamDetails = $( '#contributing-teams-details' );
+		$someContributors = $( '#some-contributors' );
+		$noContributors = $( '#no-contributors' );
+
+		leadOfficerTeamTypeChange();
+		contributingOfficerTeamTypeChange();
+		checkContributingDetails();
+	};
 }());

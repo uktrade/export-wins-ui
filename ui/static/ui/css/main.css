@@ -1,16 +1,12 @@
 .win-form form h3 { margin-top: 3em; }
 
-.win-form table.advisors tr th { vertical-align: middle; }
+.win-form .has-contributors { margin-top: 3em; }
 
-.win-form table.advisors .advisor-name { width: 15%; }
-
-.win-form table.advisors .advistor-team-type { width: 15%; }
-
-.win-form table.advisors .advistor-hq-team { width: 40%; }
-
-.win-form table.advisors .advisor-location { width: 15%; }
+.win-form .contributing-officer-team-group { margin-bottom: 3em; }
 
 .win-form .win-value-table td { width: 20%; }
+
+.win-form .radio { margin: 1.5em 0; }
 
 .win-form span.glyphicon { font-size: 1.4em; }
 

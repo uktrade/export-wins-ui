@@ -28,75 +28,59 @@
     {% csrf_token %}
 
 		<h3>Lead officer's details</h3>
-		<div class="restrict-width-sm">
-		{% include "wins/partials/win-field.html" with field=form.lead_officer_name %}
-		{% include "wins/partials/win-field.html" with field=form.lead_officer_email_address help="You only need to provide this if you are completing this form on behalf of the lead officer" %}
-		{% include "wins/partials/win-field.html" with field=form.other_official_email_address help="You can provide an alternate email if someone else in your team needs to be notified about this Export Win" %}
-		{% include "wins/partials/win-field.html" with field=form.team_type %}
+		{% include "wins/partials/win-field.html" with field=form.lead_officer_name class="restrict-width-sm" %}
+		<div class="row">
+			<div class="col-sm-4">
+				{% include "wins/partials/win-field.html" with field=form.team_type %}
+			</div>
+			<div class="col-sm-8">
+				{% include "wins/partials/win-field.html" with field=form.hq_team %}
+			</div>
 		</div>
-		<div class="restrict-width">
-		{% include "wins/partials/win-field.html" with field=form.hq_team %}
-		</div>
-		<div class="restrict-width-sm">
-		{% include "wins/partials/win-field.html" with field=form.location %}
-		{% include "wins/partials/win-field.html" with field=form.line_manager_name %}
+		{% include "wins/partials/win-field.html" with field=form.line_manager_name class="restrict-width-sm" %}
+		{% include "wins/partials/win-field.html" with field=form.lead_officer_email_address help="You only need to provide this if you are completing this form on behalf of the lead officer" class="restrict-width-sm" %}
+		{% include "wins/partials/win-field.html" with field=form.other_official_email_address help="You can provide an alternate email if someone else in your team needs to be notified about this Export Win" class="restrict-width-sm" %}
+
+		<div class="form-group has-contributors">
+	
+			<div class="radio">
+				<label for="no-contributors">
+					<input type="radio" id="no-contributors" name="has-contributors" value="no">
+					This was the only team that worked on this win
+				</label>
+			</div>
+
+			<div class="radio">
+				<label for="some-contributors">
+					<input type="radio" id="some-contributors" name="has-contributors" value="yes">
+					More than one team contributed to this win
+				</label>			
+			</div>
+
 		</div>
 
-		<h3>
-			Contributing teams and advisers
-		</h3>
-		<p>One individual or team per row.</p>
+		<div id="contributing-teams-details" class="contributing-teams-content">
+			<h3>
+				Contributing teams and advisers
+			</h3>			
+		
+			{% include "wins/partials/win-contributor.html" with name=form.advisor_0_name id=form.advisor_0_id team_type=form.advisor_0_team_type team=form.advisor_0_hq_team %}
+			{% include "wins/partials/win-contributor.html" with name=form.advisor_1_name id=form.advisor_1_id team_type=form.advisor_1_team_type team=form.advisor_1_hq_team %}
+			{% include "wins/partials/win-contributor.html" with name=form.advisor_2_name id=form.advisor_2_id team_type=form.advisor_2_team_type team=form.advisor_2_hq_team %}
+			{% include "wins/partials/win-contributor.html" with name=form.advisor_3_name id=form.advisor_3_id team_type=form.advisor_3_team_type team=form.advisor_3_hq_team %}
+			{% include "wins/partials/win-contributor.html" with name=form.advisor_4_name id=form.advisor_4_id team_type=form.advisor_4_team_type team=form.advisor_4_hq_team %}
 
-		<table id="advisors" class="advisors table table-responsive">
-			<tr>
-				<th>Name</th>
-				<th>Team Type</th>
-				<th>HQ Team, Region or Post</th>
-				<th>Location</th>
-			</tr>
-			<tr>
-				<td class="advisor-name">{{ form.advisor_0_name }} <span style="display: none;">{{ form.advisor_0_id }}</span></td>
-				<td class="advistor-team-type">{{ form.advisor_0_team_type }}</td>
-				<td class="advistor-hq-team">{{ form.advisor_0_hq_team }}</td>
-				<td class="advisor-location">{{ form.advisor_0_location }}</td>
-			</tr>
-			<tr>
-				<td class="advisor-name">{{ form.advisor_1_name }} <span style="display: none;">{{ form.advisor_1_id }}</span></td>
-				<td class="advistor-team-type">{{ form.advisor_1_team_type }}</td>
-				<td class="advistor-hq-team">{{ form.advisor_1_hq_team }}</td>
-				<td class="advisor-location">{{ form.advisor_1_location }}</td>
-			</tr>
-			<tr>
-				<td class="advisor-name">{{ form.advisor_2_name }} <span style="display: none;">{{ form.advisor_2_id }}</span></td>
-				<td class="advistor-team-type">{{ form.advisor_2_team_type }}</td>
-				<td class="advistor-hq-team">{{ form.advisor_2_hq_team }}</td>
-				<td class="advisor-location">{{ form.advisor_2_location }}</td>
-			</tr>
-			<tr>
-				<td class="advisor-name">{{ form.advisor_3_name }} <span style="display: none;">{{ form.advisor_3_id }}</span></td>
-				<td class="advistor-team-type">{{ form.advisor_3_team_type }}</td>
-				<td class="advistor-hq-team">{{ form.advisor_3_hq_team }}</td>
-				<td class="advisor-location">{{ form.advisor_3_location }}</td>
-			</tr>
-			<tr>
-				<td class="advisor-name">{{ form.advisor_4_name }} <span style="display: none;">{{ form.advisor_4_id }}</span></td>
-				<td class="advistor-team-type">{{ form.advisor_4_team_type }}</td>
-				<td class="advistor-hq-team">{{ form.advisor_4_hq_team }}</td>
-				<td class="advisor-location">{{ form.advisor_4_location }}</td>
-			</tr>
-		</table>
+		</div>
 
 
 		<h3>Customer's details</h3>
 
-		<div class="restrict-width-sm">
 		{% include "wins/partials/win-field.html" with field=form.company_name %}
 		{% include "wins/partials/win-field.html" with field=form.cdms_reference %}
 		{% include "wins/partials/win-field.html" with field=form.customer_name %}
 		{% include "wins/partials/win-field.html" with field=form.customer_job_title %}
 		{% include "wins/partials/win-field.html" with field=form.customer_email_address %}
 		{% include "wins/partials/win-field.html" with field=form.customer_location %}
-		</div>
 
 		<h3>Details of Export Win</h3>
 
@@ -105,8 +89,7 @@
 			by the customer.
 		</p>
 
-		<div class="restrict-width">
-		{% include "wins/partials/win-field.html" with field=form.name_of_customer class="restrict-width-sm" %}
+		{% include "wins/partials/win-field.html" with field=form.name_of_customer %}
 		{% include "wins/partials/win-field.html" with field=form.business_type help="e.g. export sales, contract, order, distributor, tender /competition win, joint venture, outward investment, etc." %}
 		{% include "wins/partials/win-field.html" with field=form.name_of_export %}
 
@@ -126,16 +109,14 @@
 	{% else %}
 
 		{% include "wins/partials/win-field.html" with field=form.description help="Please provide details of any key products services provided, missions, initiatives, etc." %}
-		{% include "wins/partials/win-field.html" with field=form.date help="Enter month and year in the format MM/YYYY." class="restrict-width-sm" %}
-		{% include "wins/partials/win-field.html" with field=form.country class="restrict-width-sm" %}
+		{% include "wins/partials/win-field.html" with field=form.date help="Enter month and year in the format MM/YYYY." %}
+		{% include "wins/partials/win-field.html" with field=form.country %}
 
 	{% endif %}
 
-		</div>
 
 		<h3>Expected value of the win</h3>
 
-		<div class="restrict-width">
 			<p>
 				These questions help us to understand the &pound; value of the customer's win
 				over a five year period. How much of that &pound; value is UK exports and how
@@ -147,13 +128,10 @@
 				Please see guidance and FAQs.
 			</p>
 
-			{% include "wins/partials/win-field.html" with field=form.type class="restrict-width-sm" %}
-			{% include "wins/partials/win-field.html" with field=form.goods_vs_services class="restrict-width-sm" %}
-		</div>
+			{% include "wins/partials/win-field.html" with field=form.type %}
+			{% include "wins/partials/win-field.html" with field=form.goods_vs_services %}
 
-		<div class="restrict-width-lg">
 			{% include "wins/partials/win-field.html" with field=form.sector %}
-		</div>
 
 		<hr>
 
@@ -245,9 +223,7 @@
 			</tr>
 		</table>
 
-		<div class="restrict-width">
-		{% include "wins/partials/win-field.html" with field=form.total_expected_export_value help="The total expected value should be the sum of the annual values of the win." class="restrict-width-sm" %}
-		</div>
+		{% include "wins/partials/win-field.html" with field=form.total_expected_export_value help="The total expected value should be the sum of the annual values of the win." %}
 
 		<hr>
 
@@ -274,9 +250,7 @@
 			</tr>
 		</table>
 
-		<div class="restrict-width">
-		{% include "wins/partials/win-field.html" with field=form.total_expected_non_export_value help="The total expected value should be the sum of the annual values of the win." class="restrict-width-sm" %}
-		</div>
+		{% include "wins/partials/win-field.html" with field=form.total_expected_non_export_value help="The total expected value should be the sum of the annual values of the win." %}
 
 	{% endif %}
 
@@ -287,7 +261,6 @@
 			How did we help the customer achieve this win?
 		</p>
 
-		<div class="restrict-width">
 		{% include "wins/partials/win-field.html" with field=form.hvo_programme %}
 		{% include "wins/partials/win-field.html" with field=form.has_hvo_specialist_involvement %}
 		{% include "wins/partials/win-field.html" with field=form.is_prosperity_fund_related %}
@@ -298,7 +271,6 @@
 		{% include "wins/partials/win-field.html" with field=form.associated_programme_1 %}
 		{% include "wins/partials/win-field.html" with field=form.associated_programme_2 %}
 		{% include "wins/partials/win-field.html" with field=form.associated_programme_3 %}
-		</div>
 		<hr>
 
 		{# these manually place the label before the field #}
