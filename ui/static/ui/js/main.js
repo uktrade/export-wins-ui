@@ -3,6 +3,52 @@ var ew = {
 		components: {}
 	}
 };
+ew.CustomEvent = (function(){
+
+	function CustomEvent(){
+
+		this.subscribers = [];
+	}
+
+	var proto = CustomEvent.prototype;
+
+	proto.subscribe = function( fn ){
+
+		this.subscribers.push( fn );
+	};
+
+	proto.unSubscribe = function( fn ){
+
+		var i = 0;
+		var l = this.subscribers.length;
+
+		for( ; i < l; i++ ) {
+
+			if( this.subscribers[ i ] === fn ){
+
+				this.subscribers.pop( i, 1 );
+
+				break;
+			}
+		}
+	};
+
+	proto.publish = function() {
+
+		var i = this.subscribers.length-1;
+
+		for( ; i >= 0; i-- ){
+
+			try {
+
+				this.subscribers[ i ].apply( this, arguments );
+
+			} catch( e ){}
+		}
+	};
+
+	return CustomEvent;
+}());
 ew.pages = {};
 ew.components = {};
 ew.components.AddContributors = (function(){
@@ -10,24 +56,97 @@ ew.components.AddContributors = (function(){
 	function AddContributorsComponent( opts ){
 
 		if( !opts ){ throw new Error( 'opts are required to create AddContributorsComponent' ); }
-		if( !opts.$addButton ){ throw new Error( '$addButton is required for AddContributorsComponent' ); }
-		if( !opts.$contributors ){ throw new Error( '$contributors is required for AddContributorsComponent' ); }
+		if( !opts.contributorsSelector ){ throw new Error( 'contributorsSelector is required for AddContributorsComponent' ); }
+		if( !opts.nameInputSelector ){ throw new Error( 'nameInputSelector is required for AddContributorsComponent'); }
 
-		this.$contributors = opts.$contributors;
-		this.$addButton = opts.$addButton;
+		var self = this;
+		this.$contributors = $( opts.contributorsSelector );
+		this.contributorsSelector = opts.contributorsSelector;
+		this.nameInputSelector = opts.nameInputSelector;
 
 		this.shownContributors = 0;
 		this.contributorsLength = this.$contributors.length;
 
-		this.$addButton.on( 'click', $.proxy( this.addContributor, this ) );
-
+		this.createAddButton();
 		this.hideContributingLines();
+		this.showCloseButton();
+
+		this.$contributors.on( 'click', '.close', function( e ){
+
+			self.removeContributor( e, this );
+		} );
 	}
+
+	AddContributorsComponent.prototype.focusOnFirstNameInput = function(){
+		
+		var $nameInput = $( this.$contributors[ 0 ] ).find( this.nameInputSelector );
+
+		if( !$nameInput.val() ){
+
+			$nameInput.focus();
+		}
+	};
+
+	AddContributorsComponent.prototype.showCloseButton = function(){
+		
+		var buttonHtml = '<button type="button" class="close" aria-label="Remove contributor" title="Remove contributor"><span aria-hidden="true">&times;</span></button>';
+
+		$( this.contributorsSelector + ':visible' ).last().prepend( buttonHtml );
+	};
+
+	AddContributorsComponent.prototype.removeCloseButton = function(){
+		
+		$( this.contributorsSelector + ' .close' ).remove();
+	};
+
+	AddContributorsComponent.prototype.updateCloseButton = function(){
+	
+		this.removeCloseButton();
+		this.showCloseButton();
+	};
+
+	AddContributorsComponent.prototype.createAddButton = function(){
+		
+		this.$addButton = $( '<button class="btn btn-default">Add another contributor</button>' );
+		this.$contributors.parent().append( this.$addButton );
+		this.$addButton.on( 'click', $.proxy( this.addContributor, this ) );
+	};
 
 	AddContributorsComponent.prototype.hideContributingLines = function(){
 
-		this.$contributors.hide();
-		$( this.$contributors[ 0 ] ).show();
+		var self = this;
+
+		self.$contributors.each( function( index ){
+
+			var $contributor = $( this );
+			var $nameInput;
+
+			//always show the first group
+			if( index === 0 ){
+
+				$contributor.show();
+
+			} else if( index > self.shownContributors ){
+
+				//if the name has some content, then we need to show it (edit mode)
+				$nameInput = $contributor.find( self.nameInputSelector );
+				
+				if( $nameInput.val().length > 0 ){
+
+					$contributor.show();
+					self.shownContributors++;
+
+				} else {
+
+					$contributor.hide();
+				}
+
+			} else {
+
+				//otherwise hide the group
+				$contributor.hide();
+			}
+		} );
 	};
 
 	AddContributorsComponent.prototype.addContributor = function( e ){
@@ -41,13 +160,34 @@ ew.components.AddContributors = (function(){
 			this.shownContributors++;
 			$currentContributor = $( this.$contributors[ this.shownContributors ] );
 			$currentContributor.show();
-			$currentContributor.find( '.contributing-officer-name input' ).focus();
+			$currentContributor.find( this.nameInputSelector ).focus();
+			this.updateCloseButton();
 
-			if( this.shownContributors === ( this.contributorsLength - 1 ) ){
-
-				this.$addButton[ 0 ].disabled = true;
-			}
+			this.checkAddButtonState();
 		}
+	};
+
+	AddContributorsComponent.prototype.checkAddButtonState = function(){
+
+		var isDisabled = ( this.shownContributors === ( this.contributorsLength - 1 ) );
+		
+		this.$addButton[ 0 ].disabled = isDisabled;
+	};
+
+	AddContributorsComponent.prototype.removeContributor = function( e, elem ){
+		
+		var $contributor = $( elem ).parent( this.contributorsSelector );
+
+		$contributor.hide();
+		$contributor.find( 'input' ).val( '' );
+		$contributor.find( 'select' ).each( function(){
+
+			this.selectedIndex = 0;
+		} );
+
+		this.shownContributors--;
+		this.updateCloseButton();
+		this.checkAddButtonState();
 	};
 
 	return AddContributorsComponent;
@@ -65,7 +205,12 @@ ew.components.ToggleContributors = (function(){
 		this.$someContributors = opts.$someContributors;
 		this.noContributorsSelector = opts.noContributorsSelector;
 
+		this.events = {
+			showDetails: new ew.CustomEvent()
+		};
+
 		this.checkContributingDetails();
+		this.createListeners();
 	}
 
 	ToggleContributorsComponent.prototype.toggleContributingDetails = function( e ){
@@ -73,6 +218,7 @@ ew.components.ToggleContributors = (function(){
 		if( this.$someContributors[ 0 ].checked ){
 
 			this.$contributingTeamDetails.show();
+			this.events.showDetails.publish();
 
 		} else {
 
@@ -80,18 +226,21 @@ ew.components.ToggleContributors = (function(){
 		}
 	};
 
-	ToggleContributorsComponent.prototype.checkContributingDetails = function(){
-
+	ToggleContributorsComponent.prototype.createListeners = function(){
+		
 		var $noContributors = $( this.noContributorsSelector );
 		var proxiedToggle = $.proxy( this.toggleContributingDetails, this );
+
+		this.$someContributors.on( 'click', proxiedToggle );
+		$noContributors.on( 'click', proxiedToggle );
+	};
+
+	ToggleContributorsComponent.prototype.checkContributingDetails = function(){
 
 		if( !this.$someContributors[ 0 ].checked ){
 
 			this.$contributingTeamDetails.hide();
 		}
-
-		this.$someContributors.on( 'click', proxiedToggle );
-		$noContributors.on( 'click', proxiedToggle );
 	};
 
 	return ToggleContributorsComponent;
@@ -169,19 +318,29 @@ ew.pages.officerForm = (function(){
 
 	return function officeFormPage(){
 		
+		var app = ew.application;
+		var appComponents = app.components;
+
 		leadOfficerTeamTypeChange();
 		contributingOfficerTeamTypeChange();
 		
-		ew.application.components.toggleContributors = new ew.components.ToggleContributors({
+		appComponents.toggleContributors = new ew.components.ToggleContributors({
 			$contributingTeamDetails: $( '#contributing-teams-details' ),
 			$someContributors: $( '#some-contributors' ),
 			noContributorsSelector: '#no-contributors'
 		});
 
-		ew.application.components.addContributors = new ew.components.AddContributors({
-			$addButton: $( '#add-contributor' ),
-			$contributors: $( '.contributing-officer-form-group' )
+		appComponents.addContributors = new ew.components.AddContributors({
+			contributorsSelector: '.contributing-officer-group',
+			nameInputSelector: '.contributing-officer-name input'
 		});
+
+		appComponents.toggleContributors.events.showDetails.subscribe( function(){
+
+			appComponents.addContributors.focusOnFirstNameInput();
+
+			appComponents.addContributors.updateCloseButton();
+		} );
 	};
 }());
 //# sourceMappingURL=main.js.map

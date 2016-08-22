@@ -11,7 +11,12 @@ ew.components.ToggleContributors = (function(){
 		this.$someContributors = opts.$someContributors;
 		this.noContributorsSelector = opts.noContributorsSelector;
 
+		this.events = {
+			showDetails: new ew.CustomEvent()
+		};
+
 		this.checkContributingDetails();
+		this.createListeners();
 	}
 
 	ToggleContributorsComponent.prototype.toggleContributingDetails = function( e ){
@@ -19,6 +24,7 @@ ew.components.ToggleContributors = (function(){
 		if( this.$someContributors[ 0 ].checked ){
 
 			this.$contributingTeamDetails.show();
+			this.events.showDetails.publish();
 
 		} else {
 
@@ -26,18 +32,21 @@ ew.components.ToggleContributors = (function(){
 		}
 	};
 
-	ToggleContributorsComponent.prototype.checkContributingDetails = function(){
-
+	ToggleContributorsComponent.prototype.createListeners = function(){
+		
 		var $noContributors = $( this.noContributorsSelector );
 		var proxiedToggle = $.proxy( this.toggleContributingDetails, this );
+
+		this.$someContributors.on( 'click', proxiedToggle );
+		$noContributors.on( 'click', proxiedToggle );
+	};
+
+	ToggleContributorsComponent.prototype.checkContributingDetails = function(){
 
 		if( !this.$someContributors[ 0 ].checked ){
 
 			this.$contributingTeamDetails.hide();
 		}
-
-		this.$someContributors.on( 'click', proxiedToggle );
-		$noContributors.on( 'click', proxiedToggle );
 	};
 
 	return ToggleContributorsComponent;

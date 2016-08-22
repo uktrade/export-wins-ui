@@ -46,18 +46,28 @@ ew.pages.officerForm = (function(){
 
 	return function officeFormPage(){
 		
+		var app = ew.application;
+		var appComponents = app.components;
+
 		leadOfficerTeamTypeChange();
 		contributingOfficerTeamTypeChange();
 		
-		ew.application.components.toggleContributors = new ew.components.ToggleContributors({
+		appComponents.toggleContributors = new ew.components.ToggleContributors({
 			$contributingTeamDetails: $( '#contributing-teams-details' ),
 			$someContributors: $( '#some-contributors' ),
 			noContributorsSelector: '#no-contributors'
 		});
 
-		ew.application.components.addContributors = new ew.components.AddContributors({
-			$addButton: $( '#add-contributor' ),
-			$contributors: $( '.contributing-officer-form-group' )
+		appComponents.addContributors = new ew.components.AddContributors({
+			contributorsSelector: '.contributing-officer-group',
+			nameInputSelector: '.contributing-officer-name input'
 		});
+
+		appComponents.toggleContributors.events.showDetails.subscribe( function(){
+
+			appComponents.addContributors.focusOnFirstNameInput();
+
+			appComponents.addContributors.updateCloseButton();
+		} );
 	};
 }());
