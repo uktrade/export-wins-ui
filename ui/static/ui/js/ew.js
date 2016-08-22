@@ -1,1 +1,5 @@
-var ew = {};
+var ew = {
+	application: {
+		components: {}
+	}
+};

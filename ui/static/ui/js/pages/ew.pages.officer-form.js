@@ -1,11 +1,6 @@
 ew.pages.officerForm = (function(){
 
 	var HIDDEN_CLASS = 'hidden';
-
-	var $contributingTeamDetails;
-	var $someContributors;
-	var $noContributors;
-
 /*
 		window.addEventListener( 'beforeunload', function( e ){
 
@@ -49,37 +44,20 @@ ew.pages.officerForm = (function(){
 		});
 	}
 
-	function toggleContributingDetails( e ){
-
-		if( $someContributors[ 0 ].checked ){
-
-			$contributingTeamDetails.show();
-
-		} else {
-
-			$contributingTeamDetails.hide();
-		}
-	}
-
-	function checkContributingDetails(){
-
-		if( !$someContributors[ 0 ].checked ){
-
-			$contributingTeamDetails.hide();
-		}
-
-		$someContributors.on( 'click', toggleContributingDetails );
-		$noContributors.on( 'click', toggleContributingDetails );
-	}
-
 	return function officeFormPage(){
-
-		$contributingTeamDetails = $( '#contributing-teams-details' );
-		$someContributors = $( '#some-contributors' );
-		$noContributors = $( '#no-contributors' );
-
+		
 		leadOfficerTeamTypeChange();
 		contributingOfficerTeamTypeChange();
-		checkContributingDetails();
+		
+		ew.application.components.toggleContributors = new ew.components.ToggleContributors({
+			$contributingTeamDetails: $( '#contributing-teams-details' ),
+			$someContributors: $( '#some-contributors' ),
+			noContributorsSelector: '#no-contributors'
+		});
+
+		ew.application.components.addContributors = new ew.components.AddContributors({
+			$addButton: $( '#add-contributor' ),
+			$contributors: $( '.contributing-officer-form-group' )
+		});
 	};
 }());
