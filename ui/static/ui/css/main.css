@@ -181,11 +181,11 @@ form input { padding-left: 2em; padding-right: 2em; }
 
 table tr th { text-align: center; }
 
-td.error input { background-color: #cf102d; }
+td.error input { background-color: #B10E1E; }
 
 .form-group { margin: 1em 0; }
 
-.form-group.error { border: 1px solid #cf102d; border-radius: 0.5em; padding: 1em; }
+.form-group.error { border: 1px solid #B10E1E; border-radius: 0.5em; padding: 1em; }
 
 .form-group .alert { padding: 0.5em; }
 
