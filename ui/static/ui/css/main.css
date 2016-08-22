@@ -1,5 +1,7 @@
 .win-form form h3 { margin-top: 3em; }
 
+.win-form .remove-contributor { float: right; }
+
 .win-form .has-contributors { margin-top: 3em; }
 
 .win-form .contributing-officer-team-group { margin-bottom: 3em; }

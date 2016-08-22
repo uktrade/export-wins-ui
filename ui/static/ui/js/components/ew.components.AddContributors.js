@@ -18,7 +18,7 @@ ew.components.AddContributors = (function(){
 		this.hideContributingLines();
 		this.showCloseButton();
 
-		this.$contributors.on( 'click', '.close', function( e ){
+		this.$contributors.on( 'click', '.remove-contributor', function( e ){
 
 			self.removeContributor( e, this );
 		} );
@@ -36,14 +36,18 @@ ew.components.AddContributors = (function(){
 
 	AddContributorsComponent.prototype.showCloseButton = function(){
 		
-		var buttonHtml = '<button type="button" class="close" aria-label="Remove contributor" title="Remove contributor"><span aria-hidden="true">&times;</span></button>';
+		var buttonHtml = '<button type="button" class="btn btn-xs btn-default remove-contributor" aria-label="Remove contributor" title="Remove contributor">Remove</button>';
+		var $lastVisible = $( this.contributorsSelector + ':visible' ).last();
 
-		$( this.contributorsSelector + ':visible' ).last().prepend( buttonHtml );
+		if( !$lastVisible.is( this.$contributors[ 0 ] ) ){
+		
+			$lastVisible.prepend( buttonHtml );
+		}
 	};
 
 	AddContributorsComponent.prototype.removeCloseButton = function(){
 		
-		$( this.contributorsSelector + ' .close' ).remove();
+		$( this.contributorsSelector + ' .remove-contributor' ).remove();
 	};
 
 	AddContributorsComponent.prototype.updateCloseButton = function(){
@@ -111,6 +115,10 @@ ew.components.AddContributors = (function(){
 			this.updateCloseButton();
 
 			this.checkAddButtonState();
+
+		} else {
+
+			alert( 'Sorry, the system can\'t add more than 5 contributing teams. Please choose teams that contributed the most.' );
 		}
 	};
 
