@@ -128,6 +128,11 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
             for field_name in non_editable_fields:
                 del self.fields[field_name]
 
+        # add the default for drop-downs
+        for name, field in self.fields.items():
+            if type(field) == forms.ChoiceField:
+                field.choices = [('', 'Please choose...')] + field.choices
+
     def clean_date(self):
         """ Validate date entered as a string and reformat for serializer """
 
