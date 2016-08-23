@@ -1,4 +1,4 @@
-ew.components.AddContributors = (function(){
+ew.components.AddContributors = (function( $ ){
 	
 	function AddContributorsComponent( opts ){
 
@@ -146,4 +146,5 @@ ew.components.AddContributors = (function(){
 	};
 
 	return AddContributorsComponent;
-}());
+
+}( jQuery ));

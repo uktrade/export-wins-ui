@@ -1,4 +1,4 @@
-ew.components.ToggleContributors = (function(){
+ew.components.ToggleContributors = (function( $ ){
 	
 	function ToggleContributorsComponent( opts ){
 
@@ -50,4 +50,5 @@ ew.components.ToggleContributors = (function(){
 	};
 
 	return ToggleContributorsComponent;
-}());	
+
+}( jQuery ));	

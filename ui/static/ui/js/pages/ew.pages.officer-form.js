@@ -63,10 +63,16 @@ ew.pages.officerForm = (function(){
 			nameInputSelector: '.contributing-officer-name input'
 		});
 
+		appComponents.descriptionWordCounter = new ew.components.WordCounter({
+			id: 'id_description',
+			limit: 600
+		});
+
+		//when the details are shown tell addContributors to focus on the first element
+		//and tell it to update the remove button position
 		appComponents.toggleContributors.events.showDetails.subscribe( function(){
 
 			appComponents.addContributors.focusOnFirstNameInput();
-
 			appComponents.addContributors.updateCloseButton();
 		} );
 	};

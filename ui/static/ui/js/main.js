@@ -1,4 +1,6 @@
 var ew = {
+	components: {},
+	pages: {},
 	application: {
 		components: {}
 	}
@@ -49,9 +51,7 @@ ew.CustomEvent = (function(){
 
 	return CustomEvent;
 }());
-ew.pages = {};
-ew.components = {};
-ew.components.AddContributors = (function(){
+ew.components.AddContributors = (function( $ ){
 	
 	function AddContributorsComponent( opts ){
 
@@ -199,8 +199,9 @@ ew.components.AddContributors = (function(){
 	};
 
 	return AddContributorsComponent;
-}());
-ew.components.ToggleContributors = (function(){
+
+}( jQuery ));
+ew.components.ToggleContributors = (function( $ ){
 	
 	function ToggleContributorsComponent( opts ){
 
@@ -252,7 +253,41 @@ ew.components.ToggleContributors = (function(){
 	};
 
 	return ToggleContributorsComponent;
-}());	
+
+}( jQuery ));	
+ew.components.WordCounter = (function( $ ){
+	
+	function WordCounterComponent( opts ){
+
+		if( !opts ){ throw new Error( 'opts is required for WordCounterComponent' ); }
+		if( !opts.limit ){ throw new Error( 'You need to specify a limit for WordCounterComponent' ); }
+		if( !opts.id ){ throw new Error( 'You need to provide an id for WordCounterComponent' ); }
+
+		this.limit = opts.limit;
+		this.$input = $( '#' + opts.id );
+
+		this.createCounter();
+		this.$input.on( 'keyup', $.proxy( this.handleKeyUp, this ) );
+	}
+
+	WordCounterComponent.prototype.createCounter = function(){
+		
+		this.$counter = $( '<span class="word-counter">0 characters</span>' );
+		this.$counter.insertAfter( this.$input );
+	};
+
+	WordCounterComponent.prototype.handleKeyUp = function(){
+
+		var val = this.$input.val();
+		var count = ( val ? val.length : 0 );
+		var text = ( count === 1 ? 'character' : 'characters' );
+		
+		this.$counter.text( count + ' ' + text );
+	};
+
+	return WordCounterComponent;
+
+}( jQuery ));
 ew.pages.confirmationForm = function confirmationFormPage( agreeWithWinName ){
 	
 	var $infoBox = $( '#confirm-false-info' );
@@ -343,10 +378,16 @@ ew.pages.officerForm = (function(){
 			nameInputSelector: '.contributing-officer-name input'
 		});
 
+		appComponents.descriptionWordCounter = new ew.components.WordCounter({
+			id: 'id_description',
+			limit: 600
+		});
+
+		//when the details are shown tell addContributors to focus on the first element
+		//and tell it to update the remove button position
 		appComponents.toggleContributors.events.showDetails.subscribe( function(){
 
 			appComponents.addContributors.focusOnFirstNameInput();
-
 			appComponents.addContributors.updateCloseButton();
 		} );
 	};
