@@ -135,7 +135,7 @@
 
 .success-page-content { max-width: 700px; }
 
-.success-links { list-style: none; font-size: 1.2em; padding: 0; }
+.success-links { list-style: none; font-size: 1.2em; padding: 0; margin-left: 0; }
 
 .success-links li { padding: 0; margin-bottom: 0.7em; }
 
@@ -155,7 +155,7 @@
 
 .win-success .primary-action { margin-bottom: 2em; }
 
-.win-success ul { padding: 0; list-style: none; }
+.win-success ul { padding: 0; margin-left: 0; list-style: none; }
 
 .win-success ul li { padding: 0; }
 
@@ -173,11 +173,11 @@ body { border-top: 5px solid #cf102d; padding-top: 2.5em; }
 
 .win-breadcrumb li .separator { color: #a7a7a7; padding: 0 0.6em 0 0.6em; }
 
-.site-heading { margin-bottom: 1em; padding-left: 10px; }
+.site-heading { margin-bottom: 1em; padding-left: 10px; color: #000; }
 
 .site-heading h1 { margin-bottom: 0; }
 
-.site-heading h1 a, .site-heading h1 a:visited { color: inherit; }
+.site-heading h1 a, .site-heading h1 a:visited { color: #000; }
 
 .page-heading { margin-bottom: 0.5em; }
 
