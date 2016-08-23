@@ -97,17 +97,17 @@
 		<div class="panel panel-info">
 			<p class="panel-heading">The win has been sent to the customer and these details cannot be edited.</p>
 			<div class="panel-body">
-				{% include "wins/partials/win-details-element.html" with name="Date" val=win.date %}
 				{% include "wins/partials/win-details-element.html" with name="Country" val=win.country_name %}
+				{% include "wins/partials/win-details-element.html" with name="Date" val=win.date %}
 				{% include "wins/partials/win-details-element.html" with name="How was the company supported in achieving this win?" val=win.description %}
 			</div>
 		</div>
 
 	{% else %}
 
-		{% include "wins/partials/win-field.html" with field=form.date help="Enter month and year in the format MM/YYYY." %}
-		{% include "wins/partials/win-field.html" with field=form.country %}
-		{% include "wins/partials/win-field.html" with field=form.description help="Please provide details of any key products services provided, missions, initiatives, etc." %}
+		{% include "wins/partials/win-field.html" with field=form.country class="restrict-width-sm" %}
+		{% include "wins/partials/win-field.html" with field=form.date help="Enter month and year in the format MM/YYYY." class="restrict-width-xsm" %}
+		{% include "wins/partials/win-field.html" with field=form.description help="Please provide details of any key products services provided, missions, initiatives, etc." class="restrict-width" %}
 
 	{% endif %}
 
