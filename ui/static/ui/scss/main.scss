@@ -201,9 +201,11 @@ input::-webkit-inner-spin-button {
 
 .review-win-details-list {
 
+	font-weight: bold;
+
 	span {
 		display: block;
-		font-weight: bold;
+		font-weight: normal;
 		padding-bottom: 0.25em;
 	}
 }
@@ -213,10 +215,16 @@ input::-webkit-inner-spin-button {
 	display: block;
 }
 
+.win-complete-end-buttons {
+	margin-bottom: 3em;
+}
+
 .win-sending-details {
 
 	font-size: 1.4em;
-	margin: 3em 0 1em 0;
+	margin: 3em 0 1.2em 0;
+	background-color: $gray-lighter;
+	padding: 15px;
 
 	.highlight {
 		font-weight: 500;

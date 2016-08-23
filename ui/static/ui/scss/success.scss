@@ -1,16 +1,25 @@
 @import "bootstrap/variables";
 
+$success-font-size: 1.2em;
+
 .success-page-content {
 	max-width: 700px;
 }
 
-.success-buttons {
+.success-links {
 
-	font-size: 1.2em;
+	list-style: none;
+	font-size: $success-font-size;
+	padding: 0;
+
+	li {
+		padding: 0;
+		margin-bottom: 0.7em;
+	}
 }
 
 .success-feedback-message {
-	color: $gray-light;
+	color: $gray;
 	margin-top: 2em;
 }
 
@@ -33,9 +42,25 @@
 
 .win-success {
 
-	margin-bottom: 3em;
-
 	.btn-lg {
 		margin: 1em 0 2em 0;
+	}
+
+	.success-link {
+		font-size: $success-font-size;
+	}
+
+	.primary-action {
+		margin-bottom: 2em;
+	}
+
+	ul {
+
+		padding: 0;
+		list-style: none;
+
+		li {
+			padding: 0;
+		}
 	}
 }
