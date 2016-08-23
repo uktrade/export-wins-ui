@@ -35,31 +35,33 @@
                 <p class="text-center well">You don&#39;t have any unsent wins.</p>
 
             {% else %}
-
-                <table class="table table-striped unsent-wins">
-                    <thead>
-                        <tr>
-                            <th>UK Company</th>
-                            <th>Export to</th>
-                            <th>Customer name</th>
-                            <th class="text-right">Export amount</th>
-                            <th>Date won</th>
-                            <th>Last modified <span class="glyphicon glyphicon-option-vertical" aria-hidden="true" title="Sorted by this field"></span><span class="sr-only">(Sorted by this field)</span></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {% for win in unsent %}
-                        <tr>
-                            <td class="company-name"><a href="{% url 'win-details' win.id %}" title="View win details">{{ win.company_name }}</a></td>
-                            <td class="country-name">{{ win.country_name }}</td>
-                            <td class="customer-name">{{ win.customer_name }}</td>
-                            <td class="export-value text-right">&pound;{{ win.total_expected_export_value | intcomma }}</td>
-                            <td class="date">{{ win.date | date:'M Y' }}</td>
-                            <td class="last-modified">{{ win.last_modified | date:"d M Y" }}</td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
+    
+                <div class="scroll-table">
+                    <table class="table table-striped unsent-wins">
+                        <thead>
+                            <tr>
+                                <th>UK Company</th>
+                                <th>Export to</th>
+                                <th>Customer name</th>
+                                <th class="text-right">Export amount</th>
+                                <th>Date won</th>
+                                <th>Last modified <span class="glyphicon glyphicon-option-vertical" aria-hidden="true" title="Sorted by this field"></span><span class="sr-only">(Sorted by this field)</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for win in unsent %}
+                            <tr>
+                                <td class="company-name"><a href="{% url 'win-details' win.id %}" title="View win details">{{ win.company_name }}</a></td>
+                                <td class="country-name">{{ win.country_name }}</td>
+                                <td class="customer-name">{{ win.customer_name }}</td>
+                                <td class="export-value text-right">&pound;{{ win.total_expected_export_value | intcomma }}</td>
+                                <td class="date">{{ win.date | date:'M Y' }}</td>
+                                <td class="last-modified">{{ win.last_modified | date:"d M Y" }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
 
             {% endif %}
 
@@ -72,30 +74,32 @@
 
             {% else %}
 
-                <table class="table table-striped sent-to-customer-wins">
-                    <thead>
-                        <tr>
-                            <th>UK Company</th>
-                            <th>Export to</th>
-                            <th>Customer name</th>
-                            <th class="text-right">Export amount</th>
-                            <th>Date won</th>
-                            <th>Date sent <span class="glyphicon glyphicon-option-vertical" aria-hidden="true" title="Sorted by this field"></span><span class="sr-only">(Sorted by this field)</span></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {% for win in sent %}
-                        <tr>
-                           <td class="company-name"><a href="{% url 'win-details' win.id %}" title="View win details">{{ win.company_name }}</a></td>
-                           <td class="country-name">{{ win.country_name }}</td>
-                           <td class="customer-name">{{ win.customer_name }}</td>
-                           <td class="export-value text-right">&pound;{{ win.total_expected_export_value | intcomma }}</td>
-                           <td class="date">{{ win.date | date:'M Y' }}</td>
-                           <td class="date-sent">{{ win.sent.0 | date:'d M Y' }}{# should this be first or last time it was sent? #}</td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
+                <div class="scroll-table">
+                    <table class="table table-striped sent-to-customer-wins">
+                        <thead>
+                            <tr>
+                                <th>UK Company</th>
+                                <th>Export to</th>
+                                <th>Customer name</th>
+                                <th class="text-right">Export amount</th>
+                                <th>Date won</th>
+                                <th>Date sent <span class="glyphicon glyphicon-option-vertical" aria-hidden="true" title="Sorted by this field"></span><span class="sr-only">(Sorted by this field)</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for win in sent %}
+                            <tr>
+                               <td class="company-name"><a href="{% url 'win-details' win.id %}" title="View win details">{{ win.company_name }}</a></td>
+                               <td class="country-name">{{ win.country_name }}</td>
+                               <td class="customer-name">{{ win.customer_name }}</td>
+                               <td class="export-value text-right">&pound;{{ win.total_expected_export_value | intcomma }}</td>
+                               <td class="date">{{ win.date | date:'M Y' }}</td>
+                               <td class="date-sent">{{ win.sent.0 | date:'d M Y' }}{# should this be first or last time it was sent? #}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
 
             {% endif %}
 
@@ -108,30 +112,32 @@
 
             {% else %}
 
-                <table class="table table-striped responded-wins">
-                    <thead>
-                        <tr>
-                            <th>UK Company <span class="glyphicon glyphicon-option-vertical" aria-hidden="true" title="Sorted by this field"></span><span class="sr-only">(Sorted by this field)</span></th>
-                            <th>Export to</th>
-                            <th class="text-right">Value attributed<br> to our help</th>
-                            <th class="text-right">Export amount</th>
-                            <th>Date won</th>
-                            <th>Date responded</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {% for win in responded %}
-                        <tr>
-                            <td class="company-name"><a href="{% url 'win-details' win.id %}" title="View win details">{{ win.company_name }}</a></td>
-                            <td class="country-name">{{ win.country_name }}</td>
-                            <td class="our-help text-right">{{ win.responded.our_help }}</td>
-                            <td class="export-value text-right">&pound;{{ win.total_expected_export_value | intcomma }}</td>
-                            <td class="date">{{ win.date | date:'M Y' }}</td>
-                            <td class="response-date">{{ win.responded.created | date:"d M Y" }}</td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
+                <div class="scroll-table">
+                    <table class="table table-striped responded-wins">
+                        <thead>
+                            <tr>
+                                <th>UK Company <span class="glyphicon glyphicon-option-vertical" aria-hidden="true" title="Sorted by this field"></span><span class="sr-only">(Sorted by this field)</span></th>
+                                <th>Export to</th>
+                                <th class="text-right">Value attributed<br> to our help</th>
+                                <th class="text-right">Export amount</th>
+                                <th>Date won</th>
+                                <th>Date responded</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for win in responded %}
+                            <tr>
+                                <td class="company-name"><a href="{% url 'win-details' win.id %}" title="View win details">{{ win.company_name }}</a></td>
+                                <td class="country-name">{{ win.country_name }}</td>
+                                <td class="our-help text-right">{{ win.responded.our_help }}</td>
+                                <td class="export-value text-right">&pound;{{ win.total_expected_export_value | intcomma }}</td>
+                                <td class="date">{{ win.date | date:'M Y' }}</td>
+                                <td class="response-date">{{ win.responded.created | date:"d M Y" }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
 
             {% endif %}
 
