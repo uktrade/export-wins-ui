@@ -62,7 +62,7 @@ module.exports = function( grunt ){
 			},
 			bootstrap: {
 				src: '<%= concat.bootstrap.dest %>',
-				dest: '<%= dest.vendor %>/bootstrap/js/bootstrap.min.js'
+				dest: '<%= dest.vendor %>/bootstrap/js/bootstrap_2016-08-23.min.js'
 			},
 			js: {
 				src: '<%= dest.js %>/main.js',
@@ -78,12 +78,12 @@ module.exports = function( grunt ){
 			},
 			bootstrap: {
 				files: {
-					'<%= dest.vendor %>/bootstrap/css/bootstrap.css': '<%= src.bootstrap %>/stylesheets/main.scss'
+					'<%= dest.vendor %>/bootstrap/css/bootstrap_2016-08-23.css': '<%= src.bootstrap %>/stylesheets/main.scss'
 				}
 			},
 			main: {
 				files: {
-					'<%= dest.css %>/main.css': '<%= src.scss %>/main.scss'
+					'<%= dest.css %>/main_2016-08-23.css': '<%= src.scss %>/main.scss'
 				}
 			}
 		},
