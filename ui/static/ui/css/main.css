@@ -133,9 +133,11 @@
 
 .success-page-content { max-width: 700px; }
 
-.success-buttons { font-size: 1.2em; }
+.success-links { list-style: none; font-size: 1.2em; padding: 0; margin-left: 0; }
 
-.success-feedback-message { color: #dcdcdc; margin-top: 2em; }
+.success-links li { padding: 0; margin-bottom: 0.7em; }
+
+.success-feedback-message { color: #a7a7a7; margin-top: 2em; }
 
 .success-page-lead { margin: 1.5em 0 2em 0; }
 
@@ -145,9 +147,15 @@
 
 .success-actions .btn:last-of-type { margin-right: 0; }
 
-.win-success { margin-bottom: 3em; }
-
 .win-success .btn-lg { margin: 1em 0 2em 0; }
+
+.win-success .success-link { font-size: 1.2em; }
+
+.win-success .primary-action { margin-bottom: 2em; }
+
+.win-success ul { padding: 0; margin-left: 0; list-style: none; }
+
+.win-success ul li { padding: 0; }
 
 body { border-top: 5px solid #cf102d; padding-top: 2.5em; }
 
@@ -163,11 +171,11 @@ body { border-top: 5px solid #cf102d; padding-top: 2.5em; }
 
 .win-breadcrumb li .separator { color: #a7a7a7; padding: 0 0.6em 0 0.6em; }
 
-.site-heading { margin-bottom: 1em; padding-left: 10px; }
+.site-heading { margin-bottom: 1em; padding-left: 10px; color: #000; }
 
 .site-heading h1 { margin-bottom: 0; }
 
-.site-heading h1 a, .site-heading h1 a:visited { color: inherit; }
+.site-heading h1 a, .site-heading h1 a:visited { color: #000; }
 
 .page-heading { margin-bottom: 0.5em; }
 
@@ -224,11 +232,15 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-app
 
 .win-complete-buttons, .separate-section-heading { margin-top: 3em; }
 
-.review-win-details-list span { display: block; font-weight: bold; padding-bottom: 0.25em; }
+.review-win-details-list { font-weight: bold; }
+
+.review-win-details-list span { display: block; font-weight: normal; padding-bottom: 0.25em; }
 
 .link-below-buttons { margin-top: 2em; display: block; }
 
-.win-sending-details { font-size: 1.4em; margin: 3em 0 1em 0; }
+.win-complete-end-buttons { margin-bottom: 3em; }
+
+.win-sending-details { font-size: 1.4em; margin: 3em 0 1.2em 0; background-color: #e7e7e7; padding: 15px; }
 
 .win-sending-details .highlight { font-weight: 500; }
 

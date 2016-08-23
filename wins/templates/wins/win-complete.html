@@ -26,11 +26,11 @@
 
     <p class="lead restrict-width">
 
-      If you are confident your customer will agree, send the form to them to confirm the details.
+      These are the details your customer will be asked to confirm.
     </p>
 
     <p>
-      If you are unsure you may wish to <a href="mailto:{{win.customer_email_address}}" title="Send email to {{win.customer_name}}">contact the customer</a>.
+      You won&#39;t be able to edit these details once sent. If you need to check them <a href="mailto:{{win.customer_email_address}}" title="Send email to {{win.customer_name}}">contact the customer</a>.
     </p>
 
 
@@ -48,19 +48,22 @@
       <li class="list-group-item"><span>Non-export value</span> &pound;{{ win.total_expected_non_export_value | intcomma }}</li>
     </ul>
 
-    <p class="win-seding-edit-message">
-      You can <a href="{% url 'win-edit' win.id %}" title="Edit win">edit these details</a> now, but once it has been sent to the customer, you will not be able to change them.
-    </p>
-
     <form method="post">
       {% csrf_token %}
 
-      <div class="end-buttons">
-        <input type="submit" name="complete" value="Send to customer" class="btn btn-primary">
+      <div class="end-buttons win-complete-end-buttons">
+        <input type="submit" name="complete" value="Send to customer" class="btn btn-primary btn-lg">
       </div>
     </form>
     
-    <a href="{% url 'index' %}" class="link-below-buttons">Back to your export wins</a>
+    <ul class="success-links">
+      <li>
+        <a href="{% url 'win-edit' win.id %}" title="Edit win details">Edit win</a>
+      </li>
+      <li>
+        <a href="{% url 'index' %}">Back to your export wins</a>
+      </li>
+    </ul>
 
   {% endif %}
 

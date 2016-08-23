@@ -20,13 +20,9 @@
 
 		You&#39;ve updated this win. The customer has already responded and it&#39;s listed as complete, but you can still <a href="{% url 'win-edit' win_id %}" title="Edit win">edit some details</a> at any time.
 
-	{% elif win.complete %}
-
-		This win is listed in your export wins as sent to customer. The win isn&#39;t complete until the customer has confirmed it.
-
 	{% else %}
 
-     	This win is listed in your export wins as an unsent win. The win isn&#39;t complete until you have sent it to the customer to confirm.
+     	The win isn&#39;t complete until you have sent it to the customer and they have confirmed the details.
 
 	{% endif %}
 
@@ -37,15 +33,16 @@
 	{% if not win.responded and not win.complete %}
 
 	<div class="win-success">
-		<p>
-			To send the win to the customer, you need to check the details they see first (you can edit it again before sending).
-		</p>
 
-		<a href="{% url 'win-complete' win_id %}" class="btn btn-primary btn-responsive btn-lg" title="Check win and send">Check and send</a>
+		<ul>
+			<li class="primary-action">
+				<a href="{% url 'win-complete' win_id %}" class="btn btn-primary btn-responsive btn-lg" title="Check win and send">Check and send</a>
+			</li>
+			<li class="success-link">
+				<a href="{% url 'win-edit' win_id %}">Back to edit win</a>
+			</li>
+		</ul>
 
-		<p>
-			If you need to amend any details of the win you can <a href="{% url 'win-edit' win_id %}" title="Edit win">edit it</a> at any time. {% if not win.complete %}After you have sent the win to the customer you will not be able to edit the details the customer has confirmed.{% endif %}
-		</p>
 	</div>
 
 	{% endif %}

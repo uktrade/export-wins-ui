@@ -633,7 +633,7 @@ td, th { padding: 0; }
 
 html { font-size: 10px; -webkit-tap-highlight-color: transparent; }
 
-body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 14px; line-height: 1.428571429; color: #646464; background-color: #fff; }
+body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 14px; line-height: 1.428571429; color: #404040; background-color: #fff; }
 
 input, button, select, textarea { font-family: inherit; font-size: inherit; line-height: inherit; }
 
@@ -1311,7 +1311,7 @@ textarea.input-lg, .input-group-lg > textarea.form-control, .input-group-lg > te
 
 .has-feedback label.sr-only ~ .form-control-feedback { top: 0; }
 
-.help-block { display: block; margin-top: 5px; margin-bottom: 10px; color: #a4a4a4; }
+.help-block { display: block; margin-top: 5px; margin-bottom: 10px; color: gray; }
 
 @media (min-width: 768px) { .form-inline .form-group { display: inline-block; margin-bottom: 0; vertical-align: middle; }
   .form-inline .form-control { display: inline-block; width: auto; vertical-align: middle; }
