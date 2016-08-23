@@ -88,9 +88,10 @@
 
 
 		<h3>Customer's details</h3>
-
+		<div class="restrict-width-lg">
+			{% include "wins/partials/win-field.html" with field=form.company_name %}
+		</div>
 		<div class="restrict-width-sm">
-		{% include "wins/partials/win-field.html" with field=form.company_name %}
 		{% include "wins/partials/win-field.html" with field=form.cdms_reference %}
 		{% include "wins/partials/win-field.html" with field=form.customer_name %}
 		{% include "wins/partials/win-field.html" with field=form.customer_job_title %}

@@ -50,3 +50,10 @@
 
 	</form>
 {% endblock content %}
+
+{# Have to do this with JS because it's not easy to add autofocus attribute to HTML element :-( #}
+{% block js_footer %}
+	<script type="text/javascript">
+		$( '#id_email' ).focus();
+	</script>
+{% endblock %}
