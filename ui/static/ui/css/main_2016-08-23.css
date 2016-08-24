@@ -1,3 +1,5 @@
+.win-form .radio-label { font-size: 1em; font-weight: bold; }
+
 .win-form form h3 { margin-top: 3em; }
 
 .win-form .remove-contributor { float: right; }
@@ -14,15 +16,21 @@
 
 .win-form .tooltip-inner { font-size: 1.2em; }
 
-.win-form .required { color: #d00; vertical-align: top; }
+.win-form .required { color: #B10E1E; vertical-align: top; font-size: 1.2em; }
 
 .win-form #id_description { height: 9em; }
 
 .win-form label { max-width: 95%; }
 
-.win-form .help-text { margin-top: 0; color: #666666; padding: 0 0.5em 0.5em 0; }
+.win-form .help-text { margin: -0.25em 0 0 0; color: #a7a7a7; padding: 0 0.5em 0.5em 0; }
+
+.win-form .field-message { margin: -0.5em 0 0.25em 0; padding: 0; }
 
 .win-form .win-form-well { margin-top: 3em; }
+
+.win-form .text-danger { color: #cf102d; }
+
+.win-form .win-values { margin-top: 3em; }
 
 .confirmation-form { max-width: 650px; }
 
@@ -247,6 +255,8 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-app
 .win-sending-details .highlight { font-weight: 500; }
 
 .win-seding-edit-message { margin: 3em 0 -1em 0; }
+
+.word-counter { color: #646464; }
 
 @media (max-width: 768px) { .logo-row .logo { height: 70px; }
   .btn-responsive, .end-buttons .btn, body .end-buttons .btn { width: 100%; margin-bottom: 1em; margin-left: 0 !important; margin-right: 0 !important; }

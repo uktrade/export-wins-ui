@@ -107,38 +107,27 @@
 
 		{% include "wins/partials/win-field.html" with field=form.country class="restrict-width-sm" %}
 		{% include "wins/partials/win-field.html" with field=form.date help="Enter month and year in the format MM/YYYY." class="restrict-width-xsm" %}
-		{% include "wins/partials/win-field.html" with field=form.description help="Give a brief description of the services provided." class="restrict-width" %}
+		{% include "wins/partials/win-field.html" with field=form.description help="Give a brief description of the services provided." class="restrict-width" message="600 characters maximum" %}
 
 	{% endif %}
 
 		{% include "wins/partials/win-field.html" with field=form.business_type help="e.g. export sales, contract, order, distributor, tender /competition win, joint venture, outward investment, etc." %}
 		{% include "wins/partials/win-field.html" with field=form.name_of_export %}
 
-		<h3>Expected value of the win</h3>
-
-			<p>
-				These questions help us to understand the &pound; value of the customer's win
-				over a five year period. How much of that &pound; value is UK exports and how
-				much is non-export value. We will use these aggregated values to help
-				demonstrate the contribution to the Government's &pound;1 trillion by 2020
-				export target.
-				<br>
-				<br>
-				Please see guidance and FAQs.
-			</p>
-
-			{% include "wins/partials/win-field.html" with field=form.type %}
-			{% include "wins/partials/win-field.html" with field=form.goods_vs_services %}
-
-			{% include "wins/partials/win-field.html" with field=form.sector %}
-
-		<hr>
-
-		<h4>Export value</h4>
-
-		<p class="">
-			Enter whole numbers in &pound; e.g. for one-and-a-half-million, enter 1500000
+{% comment %}
+		<p>
+			These questions help us to understand the &pound; value of the customer's win
+			over a five year period. How much of that &pound; value is UK exports and how
+			much is non-export value. We will use these aggregated values to help
+			demonstrate the contribution to the Government's &pound;1 trillion by 2020
+			export target.
+			<br>
+			<br>
+			Please see guidance and FAQs.
 		</p>
+{% endcomment %}
+
+		{% include "wins/partials/form-radio.html" with field=form.type %}
 
 	{% if win.complete %}
 
@@ -205,53 +194,61 @@
 
 	{% else %}
 
-		<table class="table table-responsive win-value-table">
-			<tr>
-				<th>{{ form.breakdown_exports_0.label_tag }}</th>
-				<th>{{ form.breakdown_exports_1.label_tag }}</th>
-				<th>{{ form.breakdown_exports_2.label_tag }}</th>
-				<th>{{ form.breakdown_exports_3.label_tag }}</th>
-				<th>{{ form.breakdown_exports_4.label_tag }}</th>
-			</tr>
-			<tr>
-				<td {% if form.breakdown_exports_0.errors %} class="error"{% endif %}>{{ form.breakdown_exports_0 }}</td>
-				<td {% if form.breakdown_exports_1.errors %} class="error"{% endif %}>{{ form.breakdown_exports_1 }}</td>
-				<td {% if form.breakdown_exports_2.errors %} class="error"{% endif %}>{{ form.breakdown_exports_2 }}</td>
-				<td {% if form.breakdown_exports_3.errors %} class="error"{% endif %}>{{ form.breakdown_exports_3 }}</td>
-				<td {% if form.breakdown_exports_4.errors %} class="error"{% endif %}>{{ form.breakdown_exports_4 }}</td>
-			</tr>
-		</table>
+		<div id="export-content" class="win-values">
 
-		{% include "wins/partials/win-field.html" with field=form.total_expected_export_value help="The total expected value should be the sum of the annual values of the win." %}
+			<h4>Export value over 5 years</h4>
+			<p class="help-text">(round to the nearest &pound;)</p>
 
-		<hr>
+			<table class="table table-responsive win-value-table">
+				<tr>
+					<th>{{ form.breakdown_exports_0.label_tag }}</th>
+					<th>{{ form.breakdown_exports_1.label_tag }}</th>
+					<th>{{ form.breakdown_exports_2.label_tag }}</th>
+					<th>{{ form.breakdown_exports_3.label_tag }}</th>
+					<th>{{ form.breakdown_exports_4.label_tag }}</th>
+				</tr>
+				<tr>
+					<td {% if form.breakdown_exports_0.errors %} class="error"{% endif %}>{{ form.breakdown_exports_0 }}</td>
+					<td {% if form.breakdown_exports_1.errors %} class="error"{% endif %}>{{ form.breakdown_exports_1 }}</td>
+					<td {% if form.breakdown_exports_2.errors %} class="error"{% endif %}>{{ form.breakdown_exports_2 }}</td>
+					<td {% if form.breakdown_exports_3.errors %} class="error"{% endif %}>{{ form.breakdown_exports_3 }}</td>
+					<td {% if form.breakdown_exports_4.errors %} class="error"{% endif %}>{{ form.breakdown_exports_4 }}</td>
+				</tr>
+			</table>
 
-		<h4>Non-export value</h4>
+			{% include "wins/partials/win-field.html" with field=form.total_expected_export_value help="The total expected value should be the sum of the annual values of the win." class="restrict-width-xsm" %}
+		</div>
 
-		<p>
-			Enter whole numbers in &pound; e.g. for one-and-a-half-million, enter 1500000
-		</p>
+		<div id="non-export-content" class="win-values">
 
-		<table class="table table-responsive win-value-table">
-			<tr>
-				<th>{{ form.breakdown_non_exports_0.label_tag }}</th>
-				<th>{{ form.breakdown_non_exports_1.label_tag }}</th>
-				<th>{{ form.breakdown_non_exports_2.label_tag }}</th>
-				<th>{{ form.breakdown_non_exports_3.label_tag }}</th>
-				<th>{{ form.breakdown_non_exports_4.label_tag }}</th>
-			</tr>
-			<tr>
-				<td {% if form.breakdown_non_exports_0.errors %} class="error"{% endif %}>{{ form.breakdown_non_exports_0 }}</td>
-				<td {% if form.breakdown_non_exports_1.errors %} class="error"{% endif %}>{{ form.breakdown_non_exports_1 }}</td>
-				<td {% if form.breakdown_non_exports_2.errors %} class="error"{% endif %}>{{ form.breakdown_non_exports_2 }}</td>
-				<td {% if form.breakdown_non_exports_3.errors %} class="error"{% endif %}>{{ form.breakdown_non_exports_3 }}</td>
-				<td {% if form.breakdown_non_exports_4.errors %} class="error"{% endif %}>{{ form.breakdown_non_exports_4 }}</td>
-			</tr>
-		</table>
+			<h4>Non-export value over 5 years</h4>
+			<p class="help-text">(round to the nearest &pound;)</p>
 
-		{% include "wins/partials/win-field.html" with field=form.total_expected_non_export_value help="The total expected value should be the sum of the annual values of the win." %}
+			<table class="table table-responsive win-value-table">
+				<tr>
+					<th>{{ form.breakdown_non_exports_0.label_tag }}</th>
+					<th>{{ form.breakdown_non_exports_1.label_tag }}</th>
+					<th>{{ form.breakdown_non_exports_2.label_tag }}</th>
+					<th>{{ form.breakdown_non_exports_3.label_tag }}</th>
+					<th>{{ form.breakdown_non_exports_4.label_tag }}</th>
+				</tr>
+				<tr>
+					<td {% if form.breakdown_non_exports_0.errors %} class="error"{% endif %}>{{ form.breakdown_non_exports_0 }}</td>
+					<td {% if form.breakdown_non_exports_1.errors %} class="error"{% endif %}>{{ form.breakdown_non_exports_1 }}</td>
+					<td {% if form.breakdown_non_exports_2.errors %} class="error"{% endif %}>{{ form.breakdown_non_exports_2 }}</td>
+					<td {% if form.breakdown_non_exports_3.errors %} class="error"{% endif %}>{{ form.breakdown_non_exports_3 }}</td>
+					<td {% if form.breakdown_non_exports_4.errors %} class="error"{% endif %}>{{ form.breakdown_non_exports_4 }}</td>
+				</tr>
+			</table>
+
+			{% include "wins/partials/win-field.html" with field=form.total_expected_non_export_value help="The total expected value should be the sum of the annual values of the win." class="restrict-width-xsm" %}
+		</div>
 
 	{% endif %}
+
+		{% include "wins/partials/win-field.html" with field=form.goods_vs_services %}
+
+		{% include "wins/partials/win-field.html" with field=form.sector %}
 
 
 		<h3>Support provided</h3>
@@ -317,6 +314,14 @@
 
 {% block js_footer %}
 	<script>
-		ew.pages.officerForm();
+		ew.pages.officerForm({
+			descriptionId: '{{ form.description.auto_id }}',
+			exportName: '{{ form.type.name }}',
+			exportContentId: 'export-content',
+			nonExportContentId: 'non-export-content',
+			exportValue: '{{ form.type.field.choices.0.0 }}', // name: '{{ form.type.field.choices.0.1 }}'
+			nonExportValue: '{{ form.type.field.choices.1.0 }}', //name: '{{ form.type.field.choices.1.1 }}'
+			bothValue: '{{ form.type.field.choices.2.0 }}' //name: '{{ form.type.field.choices.2.1 }}'
+		});
 	</script>
 {% endblock js_footer %}

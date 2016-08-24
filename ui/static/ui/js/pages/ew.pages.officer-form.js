@@ -44,7 +44,20 @@ ew.pages.officerForm = (function(){
 		});
 	}
 
-	return function officeFormPage(){
+	function errorMesage( field ){
+		return ( field + ' is required for officerFormPage' );
+	}
+
+	return function officerFormPage( opts ){
+
+		if( !opts ){ throw new Error( errorMesage( 'opts' ) ); }
+		if( !opts.descriptionId ){ throw new Error( errorMesage( 'opts.descriptionId' ) ); }
+		if( !opts.exportName ){ throw new Error( errorMesage( 'opts.exportName' ) ); }
+		if( !opts.exportContentId ){ throw new Error( errorMesage( 'opts.exportContentId' ) ); }
+		if( !opts.nonExportContentId ){ throw new Error( errorMesage( 'opts.nonExportContentId' ) ); }
+		if( !opts.exportValue ){ throw new Error( errorMesage( 'opts.exportValue' ) ); }
+		if( !opts.nonExportValue ){ throw new Error( errorMesage( 'opts.nonExportValue' ) ); }
+		if( !opts.bothValue ){ throw new Error( errorMesage( 'opts.bothValue' ) ); }
 		
 		var app = ew.application;
 		var appComponents = app.components;
@@ -64,8 +77,17 @@ ew.pages.officerForm = (function(){
 		});
 
 		appComponents.descriptionWordCounter = new ew.components.WordCounter({
-			id: 'id_description',
+			id: opts.descriptionId,
 			limit: 600
+		});
+
+		appComponents.exportValues = new ew.components.ToggleExportValue({
+			fieldName: opts.exportName,
+			exportValue: opts.exportValue,
+			nonExportValue: opts.nonExportValue,
+			bothValue: opts.bothValue,
+			exportId: opts.exportContentId,
+			nonExportId: opts.nonExportContentId
 		});
 
 		//when the details are shown tell addContributors to focus on the first element

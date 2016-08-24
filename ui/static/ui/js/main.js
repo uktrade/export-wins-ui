@@ -255,7 +255,68 @@ ew.components.ToggleContributors = (function( $ ){
 	return ToggleContributorsComponent;
 
 }( jQuery ));	
+ew.components.ToggleExportValue = (function( $ ){
+	
+	function errorMessage( label ){
+		return ( label + ' is required for ToggleExportValueComponent' );
+	}
+
+	function ToggleExportValueComponent( opts ){
+
+		if( !opts ){ throw new Error( errorMessage( 'opts' ) ); }
+		if( !opts.fieldName ){ throw new Error( errorMessage( 'opts.fieldName' ) ); }
+		if( !opts.exportValue ){ throw new Error( errorMessage( 'opts.exportValue' ) ); }
+		if( !opts.nonExportValue ){ throw new Error( errorMessage( 'opts.nonExportValue' ) ); }
+		if( !opts.bothValue ){ throw new Error( errorMessage( 'opts.bothValue' ) ); }
+		if( !opts.exportId ){ throw new Error( errorMessage( 'opts.exportId' ) ); }
+		if( !opts.nonExportId ){ throw new Error( errorMessage( 'opts.nonExportId' ) ); }
+
+		this.fieldName = opts.fieldName;
+		this.exportValue = opts.exportValue;
+		this.nonExportValue = opts.nonExportValue;
+		this.bothValue = opts.bothValue;
+
+		this.$exportContent = $( '#' + opts.exportId );
+		this.$nonExportContent = $( '#' + opts.nonExportId );
+		this.$field = $( 'input[ name=' + this.fieldName + ']' );
+
+		this.$field.on( 'change', $.proxy( this.showContent, this ) );
+
+		this.showContent();
+	}
+
+	ToggleExportValueComponent.prototype.showContent = function(){
+		
+		var currentVal = $( 'input[ name=' + this.fieldName + ']:checked' ).val();
+
+		switch( currentVal ){
+			case this.exportValue:
+				this.$exportContent.show();
+				this.$nonExportContent.hide();
+			break;
+
+			case this.nonExportValue:
+				this.$exportContent.hide();
+				this.$nonExportContent.show();
+			break;
+
+			case this.bothValue:
+				this.$exportContent.show();
+				this.$nonExportContent.show();
+			break;
+
+			default:
+				this.$exportContent.hide();
+				this.$nonExportContent.hide();
+		}
+	};
+
+	return ToggleExportValueComponent;
+
+}( jQuery ));
 ew.components.WordCounter = (function( $ ){
+
+	var DANGER_CLASS = 'text-danger';
 	
 	function WordCounterComponent( opts ){
 
@@ -267,22 +328,32 @@ ew.components.WordCounter = (function( $ ){
 		this.$input = $( '#' + opts.id );
 
 		this.createCounter();
-		this.$input.on( 'keyup', $.proxy( this.handleKeyUp, this ) );
+		this.$input.on( 'keyup', $.proxy( this.upateCharacterCount, this ) );
 	}
 
 	WordCounterComponent.prototype.createCounter = function(){
 		
 		this.$counter = $( '<span class="word-counter">0 characters</span>' );
 		this.$counter.insertAfter( this.$input );
+		this.upateCharacterCount();
 	};
 
-	WordCounterComponent.prototype.handleKeyUp = function(){
+	WordCounterComponent.prototype.upateCharacterCount = function(){
 
 		var val = this.$input.val();
 		var count = ( val ? val.length : 0 );
 		var text = ( count === 1 ? 'character' : 'characters' );
 		
 		this.$counter.text( count + ' ' + text );
+
+		if( count > this.limit ){
+			
+			this.$counter.addClass( DANGER_CLASS ) ;
+
+		} else {
+
+			this.$counter.removeClass( DANGER_CLASS );
+		}
 	};
 
 	return WordCounterComponent;
@@ -359,7 +430,20 @@ ew.pages.officerForm = (function(){
 		});
 	}
 
-	return function officeFormPage(){
+	function errorMesage( field ){
+		return ( field + ' is required for officerFormPage' );
+	}
+
+	return function officerFormPage( opts ){
+
+		if( !opts ){ throw new Error( errorMesage( 'opts' ) ); }
+		if( !opts.descriptionId ){ throw new Error( errorMesage( 'opts.descriptionId' ) ); }
+		if( !opts.exportName ){ throw new Error( errorMesage( 'opts.exportName' ) ); }
+		if( !opts.exportContentId ){ throw new Error( errorMesage( 'opts.exportContentId' ) ); }
+		if( !opts.nonExportContentId ){ throw new Error( errorMesage( 'opts.nonExportContentId' ) ); }
+		if( !opts.exportValue ){ throw new Error( errorMesage( 'opts.exportValue' ) ); }
+		if( !opts.nonExportValue ){ throw new Error( errorMesage( 'opts.nonExportValue' ) ); }
+		if( !opts.bothValue ){ throw new Error( errorMesage( 'opts.bothValue' ) ); }
 		
 		var app = ew.application;
 		var appComponents = app.components;
@@ -379,8 +463,17 @@ ew.pages.officerForm = (function(){
 		});
 
 		appComponents.descriptionWordCounter = new ew.components.WordCounter({
-			id: 'id_description',
+			id: opts.descriptionId,
 			limit: 600
+		});
+
+		appComponents.exportValues = new ew.components.ToggleExportValue({
+			fieldName: opts.exportName,
+			exportValue: opts.exportValue,
+			nonExportValue: opts.nonExportValue,
+			bothValue: opts.bothValue,
+			exportId: opts.exportContentId,
+			nonExportId: opts.nonExportContentId
 		});
 
 		//when the details are shown tell addContributors to focus on the first element

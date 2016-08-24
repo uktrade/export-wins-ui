@@ -240,6 +240,10 @@ input::-webkit-inner-spin-button {
 	margin: 3em 0 -1em 0;
 }
 
+.word-counter {
+	color: $gray-dark;
+}
+
 
 @media( max-width:$screen-sm-min ){
 

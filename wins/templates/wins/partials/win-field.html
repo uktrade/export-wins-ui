@@ -6,7 +6,8 @@
   
   {{ field.label_tag }}
   
-  {% if help %}<div class="help-text">{{ help }}</div>{% endif %}
+  {% if help %}<p class="help-text">{{ help }}</p>{% endif %}
+  {% if message %}<p class="field-message">{{ message }}</p>{% endif %}
 
   {% if class %}<div class="{{ class }}">{% endif %}
   {{ field }}

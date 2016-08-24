@@ -1,4 +1,11 @@
+@import "bootstrap/variables";
+
 .win-form {
+
+	.radio-label {
+		font-size: 1em;
+		font-weight: bold;
+	}
 
 	form h3 {
 		margin-top: 3em;
@@ -34,8 +41,9 @@
 	}
 
 	.required {
-		color: #d00;
+		color: $brand-danger;
 		vertical-align: top;
+		font-size: 1.2em;
 	}
 
 	#id_description {
@@ -48,12 +56,26 @@
 
 	.help-text {
 
-		margin-top: 0;
-		color: #666666;
+		margin: -0.25em 0 0 0;
+		color: $gray;
 		padding: 0 0.5em 0.5em 0;
 	}
 
+	.field-message {
+		margin: -0.5em 0 0.25em 0;
+		padding: 0;
+	}
+
 	.win-form-well {
+		margin-top: 3em;
+	}
+
+	.text-danger {
+		color: $state-danger-text;
+	}
+
+	.win-values {
+
 		margin-top: 3em;
 	}
 }

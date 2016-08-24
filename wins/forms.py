@@ -128,9 +128,13 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
             for field_name in non_editable_fields:
                 del self.fields[field_name]
 
+        not_dropdowns = [
+            'type'
+        ]
+
         # add the default for drop-downs
         for name, field in self.fields.items():
-            if type(field) == forms.ChoiceField:
+            if type(field) == forms.ChoiceField and name not in not_dropdowns:
                 field.choices = [('', 'Please choose...')] + field.choices
 
     def clean_date(self):
