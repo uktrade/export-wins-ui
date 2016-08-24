@@ -51,13 +51,23 @@ ew.pages.officerForm = (function(){
 	return function officerFormPage( opts ){
 
 		if( !opts ){ throw new Error( errorMesage( 'opts' ) ); }
+
 		if( !opts.descriptionId ){ throw new Error( errorMesage( 'opts.descriptionId' ) ); }
-		if( !opts.exportName ){ throw new Error( errorMesage( 'opts.exportName' ) ); }
+
+		if( !opts.exportType ){ throw new Error( errorMesage( 'opts.exportType' ) ); }
+		if( !opts.exportType.name ){ throw new Error( errorMesage( 'opts.exportType.name' ) ); }
+		if( !opts.exportType.exportValue ){ throw new Error( errorMesage( 'opts.exportType.exportValue' ) ); }
+		if( !opts.exportType.nonExportValue ){ throw new Error( errorMesage( 'opts.exportType.nonExportValue' ) ); }
+		if( !opts.exportType.bothValue ){ throw new Error( errorMesage( 'opts.exportType.bothValue' ) ); }
+
 		if( !opts.exportContentId ){ throw new Error( errorMesage( 'opts.exportContentId' ) ); }
 		if( !opts.nonExportContentId ){ throw new Error( errorMesage( 'opts.nonExportContentId' ) ); }
-		if( !opts.exportValue ){ throw new Error( errorMesage( 'opts.exportValue' ) ); }
-		if( !opts.nonExportValue ){ throw new Error( errorMesage( 'opts.nonExportValue' ) ); }
-		if( !opts.bothValue ){ throw new Error( errorMesage( 'opts.bothValue' ) ); }
+
+		if( !opts.exportValues || !opts.exportValues.length ){ throw new Error( errorMesage( 'opts.exportValue' ) ); }
+		if( !opts.exportTotal ){ throw new Error( errorMesage( 'opts.exportTotal' ) ); }
+
+		if( !opts.nonExportValues || !opts.nonExportValues.length ){ throw new Error( errorMesage( 'opts.nonExportValues' ) ); }
+		if( !opts.nonExportTotal ){ throw new Error( errorMesage( 'opts.nonExportTotal' ) ); }
 		
 		var app = ew.application;
 		var appComponents = app.components;
@@ -82,12 +92,22 @@ ew.pages.officerForm = (function(){
 		});
 
 		appComponents.exportValues = new ew.components.ToggleExportValue({
-			fieldName: opts.exportName,
-			exportValue: opts.exportValue,
-			nonExportValue: opts.nonExportValue,
-			bothValue: opts.bothValue,
+			fieldName: opts.exportType.name,
+			exportValue: opts.exportType.exportValue,
+			nonExportValue: opts.exportType.nonExportValue,
+			bothValue: opts.exportType.bothValue,
 			exportId: opts.exportContentId,
 			nonExportId: opts.nonExportContentId
+		});
+
+		appComponents.calculateExportValue = new ew.components.CalculateExportValue({
+			values: opts.exportValues,
+			total: opts.exportTotal
+		});
+
+		appComponents.calculateNonExportValue = new ew.components.CalculateExportValue({
+			values: opts.nonExportValues,
+			total: opts.nonExportTotal
 		});
 
 		//when the details are shown tell addContributors to focus on the first element

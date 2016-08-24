@@ -316,12 +316,30 @@
 	<script>
 		ew.pages.officerForm({
 			descriptionId: '{{ form.description.auto_id }}',
-			exportName: '{{ form.type.name }}',
+			exportType: {
+				name: '{{ form.type.name }}',
+				exportValue: '{{ form.type.field.choices.0.0 }}', // name: '{{ form.type.field.choices.0.1 }}'
+				nonExportValue: '{{ form.type.field.choices.1.0 }}', //name: '{{ form.type.field.choices.1.1 }}'
+				bothValue: '{{ form.type.field.choices.2.0 }}', //name: '{{ form.type.field.choices.2.1 }}'
+			},
 			exportContentId: 'export-content',
 			nonExportContentId: 'non-export-content',
-			exportValue: '{{ form.type.field.choices.0.0 }}', // name: '{{ form.type.field.choices.0.1 }}'
-			nonExportValue: '{{ form.type.field.choices.1.0 }}', //name: '{{ form.type.field.choices.1.1 }}'
-			bothValue: '{{ form.type.field.choices.2.0 }}' //name: '{{ form.type.field.choices.2.1 }}'
+			exportValues: [
+				'{{ form.breakdown_exports_0.auto_id }}',
+				'{{ form.breakdown_exports_1.auto_id }}',
+				'{{ form.breakdown_exports_2.auto_id }}',
+				'{{ form.breakdown_exports_3.auto_id }}',
+				'{{ form.breakdown_exports_4.auto_id }}'
+			],
+			exportTotal: '{{ form.total_expected_export_value.auto_id }}',
+			nonExportValues: [
+				'{{ form.breakdown_non_exports_0.auto_id }}',
+				'{{ form.breakdown_non_exports_1.auto_id }}',
+				'{{ form.breakdown_non_exports_2.auto_id }}',
+				'{{ form.breakdown_non_exports_3.auto_id }}',
+				'{{ form.breakdown_non_exports_4.auto_id }}'
+			],
+			nonExportTotal: '{{ form.total_expected_non_export_value.auto_id }}'
 		});
 	</script>
 {% endblock js_footer %}

@@ -32,6 +32,8 @@
 
 .win-form .win-values { margin-top: 3em; }
 
+.win-form .export-total { font-size: 1.3em; font-weight: bold; }
+
 .confirmation-form { max-width: 650px; }
 
 .confirmation-form .more-info { font-size: 1.1em; position: relative; top: -2px; }
