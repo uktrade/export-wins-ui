@@ -48,43 +48,7 @@ ew.pages.officerForm = (function(){
 		return ( field + ' is required for officerFormPage' );
 	}
 
-	return function officerFormPage( opts ){
-
-		if( !opts ){ throw new Error( errorMesage( 'opts' ) ); }
-
-		if( !opts.descriptionId ){ throw new Error( errorMesage( 'opts.descriptionId' ) ); }
-
-		if( !opts.exportType ){ throw new Error( errorMesage( 'opts.exportType' ) ); }
-		if( !opts.exportType.name ){ throw new Error( errorMesage( 'opts.exportType.name' ) ); }
-		if( !opts.exportType.exportValue ){ throw new Error( errorMesage( 'opts.exportType.exportValue' ) ); }
-		if( !opts.exportType.nonExportValue ){ throw new Error( errorMesage( 'opts.exportType.nonExportValue' ) ); }
-		if( !opts.exportType.bothValue ){ throw new Error( errorMesage( 'opts.exportType.bothValue' ) ); }
-
-		if( !opts.exportContentId ){ throw new Error( errorMesage( 'opts.exportContentId' ) ); }
-		if( !opts.nonExportContentId ){ throw new Error( errorMesage( 'opts.nonExportContentId' ) ); }
-
-		if( !opts.exportValues || !opts.exportValues.length ){ throw new Error( errorMesage( 'opts.exportValue' ) ); }
-		if( !opts.exportTotal ){ throw new Error( errorMesage( 'opts.exportTotal' ) ); }
-
-		if( !opts.nonExportValues || !opts.nonExportValues.length ){ throw new Error( errorMesage( 'opts.nonExportValues' ) ); }
-		if( !opts.nonExportTotal ){ throw new Error( errorMesage( 'opts.nonExportTotal' ) ); }
-		
-		var app = ew.application;
-		var appComponents = app.components;
-
-		leadOfficerTeamTypeChange();
-		contributingOfficerTeamTypeChange();
-		
-		appComponents.toggleContributors = new ew.components.ToggleContributors({
-			$contributingTeamDetails: $( '#contributing-teams-details' ),
-			$someContributors: $( '#some-contributors' ),
-			noContributorsSelector: '#no-contributors'
-		});
-
-		appComponents.addContributors = new ew.components.AddContributors({
-			contributorsSelector: '.contributing-officer-group',
-			nameInputSelector: '.contributing-officer-name input'
-		});
+	function createNonCompleteComponents( opts, appComponents ){
 
 		appComponents.descriptionWordCounter = new ew.components.WordCounter({
 			id: opts.descriptionId,
@@ -109,6 +73,20 @@ ew.pages.officerForm = (function(){
 			values: opts.nonExportValues,
 			total: opts.nonExportTotal
 		});
+	}
+
+	function createComponents( opts, appComponents ){
+
+		appComponents.toggleContributors = new ew.components.ToggleContributors({
+			$contributingTeamDetails: $( '#contributing-teams-details' ),
+			$someContributors: $( '#some-contributors' ),
+			noContributorsSelector: '#no-contributors'
+		});
+
+		appComponents.addContributors = new ew.components.AddContributors({
+			contributorsSelector: '.contributing-officer-group',
+			nameInputSelector: '.contributing-officer-name input'
+		});
 
 		//when the details are shown tell addContributors to focus on the first element
 		//and tell it to update the remove button position
@@ -117,5 +95,44 @@ ew.pages.officerForm = (function(){
 			appComponents.addContributors.focusOnFirstNameInput();
 			appComponents.addContributors.updateCloseButton();
 		} );
+	}
+
+	return function officerFormPage( opts ){
+
+		if( !opts ){ throw new Error( errorMesage( 'opts' ) ); }
+
+		if( typeof opts.complete === 'undefined' ){ throw new Error( errorMesage( 'opts.complete' ) ); }
+
+		if( !opts.complete ){
+
+			if( !opts.descriptionId ){ throw new Error( errorMesage( 'opts.descriptionId' ) ); }
+
+			if( !opts.exportType ){ throw new Error( errorMesage( 'opts.exportType' ) ); }
+			if( !opts.exportType.name ){ throw new Error( errorMesage( 'opts.exportType.name' ) ); }
+			if( !opts.exportType.exportValue ){ throw new Error( errorMesage( 'opts.exportType.exportValue' ) ); }
+			if( !opts.exportType.nonExportValue ){ throw new Error( errorMesage( 'opts.exportType.nonExportValue' ) ); }
+			if( !opts.exportType.bothValue ){ throw new Error( errorMesage( 'opts.exportType.bothValue' ) ); }
+
+			if( !opts.exportContentId ){ throw new Error( errorMesage( 'opts.exportContentId' ) ); }
+			if( !opts.nonExportContentId ){ throw new Error( errorMesage( 'opts.nonExportContentId' ) ); }
+
+			if( !opts.exportValues || !opts.exportValues.length ){ throw new Error( errorMesage( 'opts.exportValue' ) ); }
+			if( !opts.exportTotal ){ throw new Error( errorMesage( 'opts.exportTotal' ) ); }
+
+			if( !opts.nonExportValues || !opts.nonExportValues.length ){ throw new Error( errorMesage( 'opts.nonExportValues' ) ); }
+			if( !opts.nonExportTotal ){ throw new Error( errorMesage( 'opts.nonExportTotal' ) ); }
+		}
+		
+		var app = ew.application;
+		var appComponents = app.components;
+
+		leadOfficerTeamTypeChange();
+		contributingOfficerTeamTypeChange();
+		createComponents( opts, appComponents );
+
+		if( !opts.complete ){
+
+			createNonCompleteComponents( opts, appComponents );
+		}
 	};
 }());

@@ -32,7 +32,9 @@
 
 .win-form .win-values { margin-top: 3em; }
 
-.win-form .export-total { font-size: 1.3em; font-weight: bold; }
+.win-form .export-total, .win-form .export-year-value { font-size: 1.1em; font-weight: bold; margin-top: -1em; background-color: #e7e7e7; padding: 0.5em; }
+
+.win-form .non-export-heading { margin-top: 2em; }
 
 .confirmation-form { max-width: 650px; }
 
@@ -196,8 +198,6 @@ h1 { margin-bottom: 1em; }
 form input { padding-left: 2em; padding-right: 2em; }
 
 .scroll-table { overflow-x: auto; }
-
-table tr th { text-align: center; }
 
 td.error input { background-color: #B10E1E; }
 

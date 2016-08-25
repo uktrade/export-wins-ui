@@ -79,8 +79,16 @@
 		margin-top: 3em;
 	}
 
-	.export-total {
-		font-size: 1.3em;
+	.export-total,
+	.export-year-value {
+		font-size: 1.1em;
 		font-weight: bold;
+		margin-top: -1em;
+		background-color: $gray-lighter;
+		padding: 0.5em;
+	}
+
+	.non-export-heading {
+		margin-top: 2em;
 	}
 }

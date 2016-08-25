@@ -12,16 +12,16 @@
 		</div>
 		{{ form.non_field_errors }}
 	{% endif %}
+	
+	<p>The Lead officer should provide information for this form.</p>
 
 	{% if win.complete %}
 
-	<p class="alert alert-warning">
+	<p class="alert alert-info">
 		This win has been sent to the customer for review and certain information cannot be edited any more.
 	</p>
 
 	{% endif %}
-
-	<p class="alert alert-info">The Lead officer should provide information for this form.</p>
 
 	<form method="post" id="win-form">
 
@@ -90,7 +90,7 @@
 			by the customer.
 		</p>
 
-		{% include "wins/partials/win-field.html" with field=form.name_of_customer class="restrict-width-sm" %}
+		{% include "wins/partials/win-field.html" with field=form.name_of_customer class="restrict-width" %}
 
 	{% if win.complete %}
 
@@ -134,9 +134,9 @@
 
 				<h4>Export value</h4>
 
-			   <p>
-			   	Total export value over the next 5 years.
-			   </p>
+				<p>
+					Total export value over the next 5 years.
+				</p>
 
 				<table class="table table-responsive win-value-table">
 					<tr>
@@ -155,17 +155,13 @@
 					</tr>
 				</table>
 
-				Total:
-				<span class="export-year-value">&pound;{{ win.total_expected_export_value | intcomma }}</span>
+				<p class="export-year-value">Total: &pound;{{ win.total_expected_export_value | intcomma }}</p>
 
+				<h4 class="non-export-heading">Non-export value</h4>
 
-				<hr>
-
-		      <h4>Non-export value</h4>
-
-		      <p>
-		      	Total non export value over the next 5 years.
-		      </p>
+				<p>
+					Total non export value over the next 5 years.
+				</p>
 
 				<table class="table table-responsive win-value-table">
 					<tr>
@@ -184,8 +180,7 @@
 					</tr>
 				</table>
 
-				Total:
-			    <span class="export-year-value">&pound;{{ win.total_expected_non_export_value | intcomma }}</span>
+				<p class="export-year-value">Total: &pound;{{ win.total_expected_non_export_value | intcomma }}</p>
 			</div>
 		</div>
 
@@ -316,6 +311,7 @@
 {% block js_footer %}
 	<script>
 		ew.pages.officerForm({
+			complete: ( '{{ win.complete }}' === 'True' ),
 			descriptionId: '{{ form.description.auto_id }}',
 			exportType: {
 				name: '{{ form.type.name }}',
