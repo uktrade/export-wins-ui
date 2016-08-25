@@ -469,6 +469,7 @@ ew.components.ToggleExportValue = (function( $ ){
 	return ToggleExportValueComponent;
 
 }( jQuery ));
+/*
 ew.components.WordCounter = (function( $ ){
 
 	var DANGER_CLASS = 'text-danger';
@@ -518,6 +519,7 @@ ew.components.WordCounter = (function( $ ){
 	return WordCounterComponent;
 
 }( jQuery ));
+*/
 ew.pages.confirmationForm = function confirmationFormPage( agreeWithWinName ){
 	
 	var $infoBox = $( '#confirm-false-info' );
@@ -563,14 +565,27 @@ ew.pages.officerForm = (function(){
 
 	function leadOfficerTeamTypeChange(){
 
+		var selectElem = '#id_hq_team';
+		var selectOptions = selectElem + ' option';
+
 		$( '#id_team_type' ).on( 'change', function(){
 
 			var type = $( this ).val();
-			var $typeValues = $( '#id_hq_team option[value^=' + type + ']' );
+			var $typeValues;
 
-			$( '#id_hq_team option' ).addClass( HIDDEN_CLASS );
-			$typeValues.removeClass( HIDDEN_CLASS );
-			$( '#id_hq_team' ).val( $typeValues.first().val() );
+			if( type ){
+
+				$typeValues = $( '#id_hq_team option[value^=' + type + ']' );
+
+				$( selectOptions ).addClass( HIDDEN_CLASS );
+				$typeValues.removeClass( HIDDEN_CLASS );
+				$( selectElem ).val( $typeValues.first().val() );
+
+			} else {
+
+				$( selectOptions ).removeClass( HIDDEN_CLASS );
+				$( selectElem )[ 0 ].selectedIndex = 0;
+			}
 		});
 	}
 
@@ -581,11 +596,20 @@ ew.pages.officerForm = (function(){
 			var $teamType = $( this );
 			var chosenType = $teamType.val();
 			var $team = $teamType.closest( '.row' ).find( '.contributing-team select' );
-			var $chosenTeam = $team.find( 'option[value^=' + chosenType + ']' );
+			var $chosenTeam;
 
-			$team.val( $chosenTeam.first().val() );
-			$team.find( 'option' ).addClass( HIDDEN_CLASS );
-			$chosenTeam.removeClass( HIDDEN_CLASS );
+			if( chosenType ){
+
+				$chosenTeam = $team.find( 'option[value^=' + chosenType + ']' );
+				$team.val( $chosenTeam.first().val() );
+				$team.find( 'option' ).addClass( HIDDEN_CLASS );
+				$chosenTeam.removeClass( HIDDEN_CLASS );
+
+			} else {
+
+				$team.find( 'option' ).removeClass( HIDDEN_CLASS );
+				$team[ 0 ].selectedIndex = 0;
+			}
 		});
 	}
 
@@ -595,10 +619,10 @@ ew.pages.officerForm = (function(){
 
 	function createNonCompleteComponents( opts, appComponents ){
 
-		appComponents.descriptionWordCounter = new ew.components.WordCounter({
-			id: opts.descriptionId,
-			limit: 600
-		});
+		//appComponents.descriptionWordCounter = new ew.components.WordCounter({
+		//	id: opts.descriptionId,
+		//	limit: 600
+		//});
 
 		appComponents.exportValues = new ew.components.ToggleExportValue({
 			fieldName: opts.exportType.name,

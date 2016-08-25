@@ -1,3 +1,4 @@
+/*
 ew.components.WordCounter = (function( $ ){
 
 	var DANGER_CLASS = 'text-danger';
@@ -47,3 +48,4 @@ ew.components.WordCounter = (function( $ ){
 	return WordCounterComponent;
 
 }( jQuery ));
+*/

@@ -2,9 +2,18 @@
 
 .win-form {
 
+	.form-group {
+		 ul {
+		 	li {
+		 		margin: 0.5em 0;
+		 	}
+		 }
+	}
+
 	.radio-label {
 		font-size: 1em;
 		font-weight: bold;
+		margin-bottom: -0.5em;
 	}
 
 	form h3 {
@@ -19,13 +28,18 @@
 		margin-top: 3em;
 	}
 
-	.contributing-officer-team-group {
+	.contributing-location {
 		margin-bottom: 3em;
 	}
 
-	.win-value-table td {
+	.win-value-table {
 
-		width: 20%;
+		min-width: 500px;
+
+		 td {
+
+			width: 20%;
+		}
 	}
 
 	.radio {

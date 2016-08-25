@@ -64,11 +64,11 @@
 				Contributing teams and advisers
 			</h3>			
 		
-			{% include "wins/partials/win-contributor.html" with name=form.advisor_0_name id=form.advisor_0_id team_type=form.advisor_0_team_type team=form.advisor_0_hq_team %}
-			{% include "wins/partials/win-contributor.html" with name=form.advisor_1_name id=form.advisor_1_id team_type=form.advisor_1_team_type team=form.advisor_1_hq_team %}
-			{% include "wins/partials/win-contributor.html" with name=form.advisor_2_name id=form.advisor_2_id team_type=form.advisor_2_team_type team=form.advisor_2_hq_team %}
-			{% include "wins/partials/win-contributor.html" with name=form.advisor_3_name id=form.advisor_3_id team_type=form.advisor_3_team_type team=form.advisor_3_hq_team %}
-			{% include "wins/partials/win-contributor.html" with name=form.advisor_4_name id=form.advisor_4_id team_type=form.advisor_4_team_type team=form.advisor_4_hq_team %}
+			{% include "wins/partials/win-contributor.html" with name=form.advisor_0_name id=form.advisor_0_id team_type=form.advisor_0_team_type team=form.advisor_0_hq_team location=form.advisor_0_location %}
+			{% include "wins/partials/win-contributor.html" with name=form.advisor_1_name id=form.advisor_1_id team_type=form.advisor_1_team_type team=form.advisor_1_hq_team location=form.advisor_1_location %}
+			{% include "wins/partials/win-contributor.html" with name=form.advisor_2_name id=form.advisor_2_id team_type=form.advisor_2_team_type team=form.advisor_2_hq_team location=form.advisor_2_location %}
+			{% include "wins/partials/win-contributor.html" with name=form.advisor_3_name id=form.advisor_3_id team_type=form.advisor_3_team_type team=form.advisor_3_hq_team location=form.advisor_3_location %}
+			{% include "wins/partials/win-contributor.html" with name=form.advisor_4_name id=form.advisor_4_id team_type=form.advisor_4_team_type team=form.advisor_4_hq_team location=form.advisor_4_location %}
 
 		</div>
 
@@ -107,7 +107,7 @@
 
 		{% include "wins/partials/win-field.html" with field=form.country class="restrict-width-sm" %}
 		{% include "wins/partials/win-field.html" with field=form.date help="Enter month and year in the format MM/YYYY." class="restrict-width-xsm" %}
-		{% include "wins/partials/win-field.html" with field=form.description help="Give a brief description of the services provided." class="restrict-width" message="600 characters maximum" %}
+		{% include "wins/partials/win-field.html" with field=form.description help="Give a brief description of the services provided (in no more than about 50 words)." class="restrict-width" %}
 
 	{% endif %}
 
@@ -191,6 +191,7 @@
 			<h4>Export value over 5 years</h4>
 			<p class="help-text">(round to the nearest &pound;)</p>
 
+			<div class="scroll-table">
 			<table class="table table-responsive win-value-table">
 				<tr>
 					<th>{{ form.breakdown_exports_0.label_tag }}</th>
@@ -207,6 +208,7 @@
 					<td {% if form.breakdown_exports_4.errors %} class="error"{% endif %}>{{ form.breakdown_exports_4 }}</td>
 				</tr>
 			</table>
+			</div>
 
 			{% include "wins/partials/win-field.html" with field=form.total_expected_export_value help="The total expected value should be the sum of the annual values of the win." class="restrict-width-xsm" %}
 		</div>
@@ -216,6 +218,7 @@
 			<h4>Non-export value over 5 years</h4>
 			<p class="help-text">(round to the nearest &pound;)</p>
 
+			<div class="scroll-table">
 			<table class="table table-responsive win-value-table">
 				<tr>
 					<th>{{ form.breakdown_non_exports_0.label_tag }}</th>
@@ -232,6 +235,7 @@
 					<td {% if form.breakdown_non_exports_4.errors %} class="error"{% endif %}>{{ form.breakdown_non_exports_4 }}</td>
 				</tr>
 			</table>
+			</div>
 
 			{% include "wins/partials/win-field.html" with field=form.total_expected_non_export_value help="The total expected value should be the sum of the annual values of the win." class="restrict-width-xsm" %}
 		</div>
@@ -253,16 +257,16 @@
 			How did we help the customer achieve this win?
 		</p>
 
-		{% include "wins/partials/win-field.html" with field=form.hvo_programme %}
-		{% include "wins/partials/win-field.html" with field=form.has_hvo_specialist_involvement %}
-		{% include "wins/partials/win-field.html" with field=form.is_prosperity_fund_related %}
-		{% include "wins/partials/win-field.html" with field=form.is_e_exported %}
-		{% include "wins/partials/win-field.html" with field=form.type_of_support_1 %}
-		{% include "wins/partials/win-field.html" with field=form.type_of_support_2 %}
-		{% include "wins/partials/win-field.html" with field=form.type_of_support_3 %}
-		{% include "wins/partials/win-field.html" with field=form.associated_programme_1 %}
-		{% include "wins/partials/win-field.html" with field=form.associated_programme_2 %}
-		{% include "wins/partials/win-field.html" with field=form.associated_programme_3 %}
+		{% include "wins/partials/win-field.html" with field=form.hvo_programme class="restrict-width" %}
+		{% include "wins/partials/win-field.html" with field=form.has_hvo_specialist_involvement class="restrict-width" %}
+		{% include "wins/partials/win-field.html" with field=form.is_prosperity_fund_related class="restrict-width" %}
+		{% include "wins/partials/win-field.html" with field=form.is_e_exported class="restrict-width" %}
+		{% include "wins/partials/win-field.html" with field=form.type_of_support_1 class="restrict-width" %}
+		{% include "wins/partials/win-field.html" with field=form.type_of_support_2 class="restrict-width" %}
+		{% include "wins/partials/win-field.html" with field=form.type_of_support_3 class="restrict-width" %}
+		{% include "wins/partials/win-field.html" with field=form.associated_programme_1 class="restrict-width" %}
+		{% include "wins/partials/win-field.html" with field=form.associated_programme_2 class="restrict-width" %}
+		{% include "wins/partials/win-field.html" with field=form.associated_programme_3 class="restrict-width" %}
 		<hr>
 
 		{# these manually place the label before the field #}

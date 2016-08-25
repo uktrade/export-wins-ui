@@ -1,19 +1,25 @@
 <div class="contributing-officer-group">
 	<div class="form-group contributing-officer-name">
-		<label for="">Contributing officer name</label>
+		<label for="{{ name.auto_id }}">Contributing officer name</label>
 		<div class="restrict-width-sm">
 			{{ name }}
 		</div>
 		<span class="hidden">{{ id }}</span>
 	</div>
 	<div class="row contributing-officer-team-group">
-		<div class="col-sm-4 contributing-team-type">
-			<label for="">Team type</label>
+		<div class="col-md-3 contributing-team-type">
+			<label for="{{ team_type.auto_id }}">Team type</label>
 			{{ team_type }}
 		</div>
-		<div class="col-sm-8 contributing-team">
-			<label for="">HQ Team, Region or Post</label>
+		<div class="col-md-7 contributing-team">
+			<label for="{{ team.auto_id }}">HQ Team, Region or Post</label>
 			{{ team }}
+		</div>
+	</div>
+	<div class="form-group contributing-location">
+		<label for="{{ location.auto_id }}">Location</label>
+		<div class="restrict-width-sm">
+			{{ location }}
 		</div>
 	</div>
 </div>

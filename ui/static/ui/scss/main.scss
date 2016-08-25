@@ -110,17 +110,8 @@ td.error input {
 	}
 
 	ul {
-
-		width: 20%;
-		float: right;
-
-		li {
-			display: inline;
-
-			label {
-				white-space: nowrap;
-			}
-		}
+		list-style: none;
+		padding: 0;
 	}
 }
 

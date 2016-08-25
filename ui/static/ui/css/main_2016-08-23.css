@@ -1,4 +1,6 @@
-.win-form .radio-label { font-size: 1em; font-weight: bold; }
+.win-form .form-group ul li { margin: 0.5em 0; }
+
+.win-form .radio-label { font-size: 1em; font-weight: bold; margin-bottom: -0.5em; }
 
 .win-form form h3 { margin-top: 3em; }
 
@@ -6,7 +8,9 @@
 
 .win-form .has-contributors { margin-top: 3em; }
 
-.win-form .contributing-officer-team-group { margin-bottom: 3em; }
+.win-form .contributing-location { margin-bottom: 3em; }
+
+.win-form .win-value-table { min-width: 500px; }
 
 .win-form .win-value-table td { width: 20%; }
 
@@ -89,6 +93,8 @@
 .my-wins th { position: relative; }
 
 .my-wins th .glyphicon { position: absolute; top: auto; bottom: 0.85em; left: -0.3em; color: #dcdcdc; }
+
+.my-wins .unsent-wins, .my-wins .sent-to-customer-wins, .my-wins .responded-wins { min-width: 800px; }
 
 .my-wins .text-right { text-align: right; }
 
@@ -207,11 +213,7 @@ td.error input { background-color: #B10E1E; }
 
 .form-group .alert { padding: 0.5em; }
 
-.form-group ul { width: 20%; float: right; }
-
-.form-group ul li { display: inline; }
-
-.form-group ul li label { white-space: nowrap; }
+.form-group ul { list-style: none; padding: 0; }
 
 .alert, .restrict-width { max-width: 600px; }
 

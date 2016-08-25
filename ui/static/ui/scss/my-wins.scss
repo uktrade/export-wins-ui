@@ -37,6 +37,12 @@
 		}
 	}
 
+	.unsent-wins,
+	.sent-to-customer-wins,
+	.responded-wins {
+		min-width: 800px;
+	}
+
 	.text-right {
 		text-align: right;
 	}
