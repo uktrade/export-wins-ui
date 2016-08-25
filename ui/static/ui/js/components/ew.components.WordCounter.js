@@ -1,12 +1,16 @@
 ew.components.WordCounter = (function( $ ){
 
 	var DANGER_CLASS = 'text-danger';
+
+	function errorMessage( field ){
+		return ( field + 'is required for WordCounterComponent' );
+	}
 	
 	function WordCounterComponent( opts ){
 
-		if( !opts ){ throw new Error( 'opts is required for WordCounterComponent' ); }
-		if( !opts.limit ){ throw new Error( 'You need to specify a limit for WordCounterComponent' ); }
-		if( !opts.id ){ throw new Error( 'You need to provide an id for WordCounterComponent' ); }
+		if( !opts ){ throw new Error( errorMessage( 'opts' ) ); }
+		if( !opts.limit ){ throw new Error( errorMessage( 'opts.limit' ) ); }
+		if( !opts.id ){ throw new Error( errorMessage( 'opts.id' ) ); }
 
 		this.limit = opts.limit;
 		this.$input = $( '#' + opts.id );

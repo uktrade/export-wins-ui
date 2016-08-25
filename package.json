@@ -5,7 +5,7 @@
   "main": "Gruntfile.js",
   "scripts": {
     "build": "grunt build",
-    "watch": "grunt watch",
+    "watch": "grunt build; grunt watch",
     "sass": "grunt sass:main",
     "sass:bootstrap": "grunt sass:bootstrap"
   },

@@ -1,10 +1,14 @@
 ew.components.AddContributors = (function( $ ){
+
+	function errorMessage( field ){
+		return ( field + ' is required for AddContributorsComponent' );
+	}
 	
 	function AddContributorsComponent( opts ){
 
-		if( !opts ){ throw new Error( 'opts are required to create AddContributorsComponent' ); }
-		if( !opts.contributorsSelector ){ throw new Error( 'contributorsSelector is required for AddContributorsComponent' ); }
-		if( !opts.nameInputSelector ){ throw new Error( 'nameInputSelector is required for AddContributorsComponent'); }
+		if( !opts ){ throw new Error( errorMessage( 'opts' ) ); }
+		if( !opts.contributorsSelector ){ throw new Error( errorMessage( 'opts.contributorsSelector' ) ); }
+		if( !opts.nameInputSelector ){ throw new Error( errorMessage( 'opts.nameInputSelector' ) ); }
 
 		var self = this;
 		this.$contributors = $( opts.contributorsSelector );

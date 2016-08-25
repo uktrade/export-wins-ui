@@ -1,7 +1,6 @@
-ew.components.CalculateExportValue = (function( $ ){
+ew.components.CalculateExportValue = (function( $, toLocaleString ){
 
 	var zeros = /^0+$/;
-	//var supportsLocale = ( typeof Number.prototype.toLocaleString === 'function' );
 	
 	function errorMessage( field ){
 		return ( field + ' is required for CalculateExportValueComponent' );
@@ -84,15 +83,11 @@ ew.components.CalculateExportValue = (function( $ ){
 	CalculateExportValueComponent.prototype.handleBlur = function( $elem ){
 
 		var val = $elem.val();
-		
-		if( zeros.test( val ) ){
+
+		if( val === '' || zeros.test( val ) ){
 
 			$elem.val( 0 );
-
-		}// else if( supportsLocale ){
-
-		//	$elem[ 0 ].value = ( Number( val ).toLocaleString() );
-		//}
+		}
 	};
 
 	CalculateExportValueComponent.prototype.handleFocus = function( $elem ){
@@ -121,10 +116,10 @@ ew.components.CalculateExportValue = (function( $ ){
 		}
 
 		this.$totalYears.text( years + ( years === 1 ? ' year' : ' years' ) );
-		this.$totalValue.text( this.currency + total );
+		this.$totalValue.text( this.currency + toLocaleString( total ) );
 		this.$total.val( total );
 	};
 
 	return CalculateExportValueComponent;
 
-}( jQuery ));
+}( jQuery, ew.tools.toLocaleString ));

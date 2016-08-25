@@ -1,11 +1,15 @@
 ew.components.ToggleContributors = (function( $ ){
+
+	function errorMessage( field ){
+		return ( field + ' is required for ToggleContributorsComponent' );
+	}
 	
 	function ToggleContributorsComponent( opts ){
 
-		if( !opts ){ throw new Error( 'opts is required for ToggleContributorsComponent' ); }
-		if( !opts.$contributingTeamDetails ){ throw new Error( '$contributingTeamDetails is required for ToggleContributorsComponent' ); }
-		if( !opts.$someContributors ){ throw new Error( '$someContributors is required for ToggleContributorsComponent' ); }
-		if( !opts.noContributorsSelector ){ throw new Error( 'noContributorsSelector is required for ToggleContributorsComponent' ); }
+		if( !opts ){ throw new Error( errorMessage( 'opts' ) ); }
+		if( !opts.$contributingTeamDetails ){ throw new Error( errorMessage( 'opts.$contributingTeamDetails' ) ); }
+		if( !opts.$someContributors ){ throw new Error( errorMessage( 'opts.$someContributors' ) ); }
+		if( !opts.noContributorsSelector ){ throw new Error( errorMessage( 'opts.noContributorsSelector' ) ); }
 
 		this.$contributingTeamDetails = opts.$contributingTeamDetails;
 		this.$someContributors = opts.$someContributors;

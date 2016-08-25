@@ -43,6 +43,7 @@ module.exports = function( grunt ){
 				src: [
 					'<%= src.js %>/ew.js',
 					'<%= src.js %>/ew.CustomEvent.js',
+					'<%= src.js %>/tools/ew.*.js',
 					'<%= src.js %>/**/ew.*.js'
 				],
 				dest: '<%= dest.js %>/main.js'

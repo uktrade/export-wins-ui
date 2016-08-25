@@ -1,6 +1,7 @@
 var ew = {
 	components: {},
 	pages: {},
+	tools: {},
 	application: {
 		components: {}
 	}
@@ -51,13 +52,38 @@ ew.CustomEvent = (function(){
 
 	return CustomEvent;
 }());
+ew.tools.toLocaleString = function localeString( number, separator, grouping ){
+
+    separator = ( separator || ',' );
+    grouping = ( grouping === 0 ? grouping : 3);
+
+    var numberParts = ( '' + number ).split( '.' );
+    var i = numberParts[0].length;
+    var s = '';
+    var j;
+
+    while( i > grouping ){
+        j = i - grouping;
+        s = separator + numberParts[ 0 ].slice( j, i ) + s;
+        i = j;
+    }
+
+    s = numberParts[ 0 ].slice( 0, i ) + s;
+    numberParts[ 0 ] = s;
+    
+    return numberParts.join( '.' );
+};
 ew.components.AddContributors = (function( $ ){
+
+	function errorMessage( field ){
+		return ( field + ' is required for AddContributorsComponent' );
+	}
 	
 	function AddContributorsComponent( opts ){
 
-		if( !opts ){ throw new Error( 'opts are required to create AddContributorsComponent' ); }
-		if( !opts.contributorsSelector ){ throw new Error( 'contributorsSelector is required for AddContributorsComponent' ); }
-		if( !opts.nameInputSelector ){ throw new Error( 'nameInputSelector is required for AddContributorsComponent'); }
+		if( !opts ){ throw new Error( errorMessage( 'opts' ) ); }
+		if( !opts.contributorsSelector ){ throw new Error( errorMessage( 'opts.contributorsSelector' ) ); }
+		if( !opts.nameInputSelector ){ throw new Error( errorMessage( 'opts.nameInputSelector' ) ); }
 
 		var self = this;
 		this.$contributors = $( opts.contributorsSelector );
@@ -201,10 +227,9 @@ ew.components.AddContributors = (function( $ ){
 	return AddContributorsComponent;
 
 }( jQuery ));
-ew.components.CalculateExportValue = (function( $ ){
+ew.components.CalculateExportValue = (function( $, toLocaleString ){
 
 	var zeros = /^0+$/;
-	//var supportsLocale = ( typeof Number.prototype.toLocaleString === 'function' );
 	
 	function errorMessage( field ){
 		return ( field + ' is required for CalculateExportValueComponent' );
@@ -287,15 +312,11 @@ ew.components.CalculateExportValue = (function( $ ){
 	CalculateExportValueComponent.prototype.handleBlur = function( $elem ){
 
 		var val = $elem.val();
-		
-		if( zeros.test( val ) ){
+
+		if( val === '' || zeros.test( val ) ){
 
 			$elem.val( 0 );
-
-		}// else if( supportsLocale ){
-
-		//	$elem[ 0 ].value = ( Number( val ).toLocaleString() );
-		//}
+		}
 	};
 
 	CalculateExportValueComponent.prototype.handleFocus = function( $elem ){
@@ -324,21 +345,25 @@ ew.components.CalculateExportValue = (function( $ ){
 		}
 
 		this.$totalYears.text( years + ( years === 1 ? ' year' : ' years' ) );
-		this.$totalValue.text( this.currency + total );
+		this.$totalValue.text( this.currency + toLocaleString( total ) );
 		this.$total.val( total );
 	};
 
 	return CalculateExportValueComponent;
 
-}( jQuery ));
+}( jQuery, ew.tools.toLocaleString ));
 ew.components.ToggleContributors = (function( $ ){
+
+	function errorMessage( field ){
+		return ( field + ' is required for ToggleContributorsComponent' );
+	}
 	
 	function ToggleContributorsComponent( opts ){
 
-		if( !opts ){ throw new Error( 'opts is required for ToggleContributorsComponent' ); }
-		if( !opts.$contributingTeamDetails ){ throw new Error( '$contributingTeamDetails is required for ToggleContributorsComponent' ); }
-		if( !opts.$someContributors ){ throw new Error( '$someContributors is required for ToggleContributorsComponent' ); }
-		if( !opts.noContributorsSelector ){ throw new Error( 'noContributorsSelector is required for ToggleContributorsComponent' ); }
+		if( !opts ){ throw new Error( errorMessage( 'opts' ) ); }
+		if( !opts.$contributingTeamDetails ){ throw new Error( errorMessage( 'opts.$contributingTeamDetails' ) ); }
+		if( !opts.$someContributors ){ throw new Error( errorMessage( 'opts.$someContributors' ) ); }
+		if( !opts.noContributorsSelector ){ throw new Error( errorMessage( 'opts.noContributorsSelector' ) ); }
 
 		this.$contributingTeamDetails = opts.$contributingTeamDetails;
 		this.$someContributors = opts.$someContributors;
@@ -447,12 +472,16 @@ ew.components.ToggleExportValue = (function( $ ){
 ew.components.WordCounter = (function( $ ){
 
 	var DANGER_CLASS = 'text-danger';
+
+	function errorMessage( field ){
+		return ( field + 'is required for WordCounterComponent' );
+	}
 	
 	function WordCounterComponent( opts ){
 
-		if( !opts ){ throw new Error( 'opts is required for WordCounterComponent' ); }
-		if( !opts.limit ){ throw new Error( 'You need to specify a limit for WordCounterComponent' ); }
-		if( !opts.id ){ throw new Error( 'You need to provide an id for WordCounterComponent' ); }
+		if( !opts ){ throw new Error( errorMessage( 'opts' ) ); }
+		if( !opts.limit ){ throw new Error( errorMessage( 'opts.limit' ) ); }
+		if( !opts.id ){ throw new Error( errorMessage( 'opts.id' ) ); }
 
 		this.limit = opts.limit;
 		this.$input = $( '#' + opts.id );
