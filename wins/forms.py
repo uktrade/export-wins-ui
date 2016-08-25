@@ -129,7 +129,8 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
                 del self.fields[field_name]
 
         not_dropdowns = [
-            'type'
+            'type',
+            'goods_vs_services'
         ]
 
         # add the default for drop-downs

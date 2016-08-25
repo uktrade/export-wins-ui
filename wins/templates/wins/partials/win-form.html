@@ -111,9 +111,6 @@
 
 	{% endif %}
 
-		{% include "wins/partials/win-field.html" with field=form.business_type help="e.g. export sales, contract, order, distributor, tender /competition win, joint venture, outward investment, etc." %}
-		{% include "wins/partials/win-field.html" with field=form.name_of_export %}
-
 {% comment %}
 		<p>
 			These questions help us to understand the &pound; value of the customer's win
@@ -246,10 +243,14 @@
 
 	{% endif %}
 
-		{% include "wins/partials/win-field.html" with field=form.goods_vs_services %}
+		{% include "wins/partials/form-radio.html" with field=form.goods_vs_services %}
 
-		{% include "wins/partials/win-field.html" with field=form.sector %}
+		{% include "wins/partials/win-field.html" with field=form.name_of_export class="restrict-width" %}
 
+		{% include "wins/partials/win-field.html" with field=form.sector class="restrict-width-lg" %}
+
+		{% include "wins/partials/win-field.html" with field=form.business_type help="e.g. export sales, contract, order, distributor, tender /competition win, joint venture, outward investment, etc." class="restrict-width" %}
+		
 
 		<h3>Support provided</h3>
 

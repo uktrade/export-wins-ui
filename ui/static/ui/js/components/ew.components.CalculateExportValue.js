@@ -1,6 +1,7 @@
 ew.components.CalculateExportValue = (function( $ ){
 
 	var zeros = /^0+$/;
+	//var supportsLocale = ( typeof Number.prototype.toLocaleString === 'function' );
 	
 	function errorMessage( field ){
 		return ( field + ' is required for CalculateExportValueComponent' );
@@ -81,10 +82,17 @@ ew.components.CalculateExportValue = (function( $ ){
 	};
 
 	CalculateExportValueComponent.prototype.handleBlur = function( $elem ){
+
+		var val = $elem.val();
 		
-		if( zeros.test( $elem.val() ) ){
+		if( zeros.test( val ) ){
+
 			$elem.val( 0 );
-		}
+
+		}// else if( supportsLocale ){
+
+		//	$elem[ 0 ].value = ( Number( val ).toLocaleString() );
+		//}
 	};
 
 	CalculateExportValueComponent.prototype.handleFocus = function( $elem ){
