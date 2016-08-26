@@ -27,7 +27,7 @@
 
     {% csrf_token %}
 
-		<h3>Lead officer's details</h3>
+		<h3>Officer details</h3>
 		{% include "wins/partials/win-field.html" with field=form.lead_officer_name class="restrict-width-sm" %}
 		<div class="row">
 			<div class="col-sm-4">
@@ -73,13 +73,13 @@
 		</div>
 
 
-		<h3>Customer's details</h3>
+		<h3>Customer details</h3>
 
 		{% include "wins/partials/win-field.html" with field=form.company_name class="restrict-width-lg" %}
 		{% include "wins/partials/win-field.html" with field=form.cdms_reference class="restrict-width-sm" %}
 		{% include "wins/partials/win-field.html" with field=form.customer_name class="restrict-width-sm" %}
-		{% include "wins/partials/win-field.html" with field=form.customer_job_title class="restrict-width-sm" %}
 		{% include "wins/partials/win-field.html" with field=form.customer_email_address class="restrict-width-sm" %}
+		{% include "wins/partials/win-field.html" with field=form.customer_job_title class="restrict-width-sm" %}
 		{% include "wins/partials/win-field.html" with field=form.customer_location class="restrict-width-sm" %}
 
 
@@ -191,6 +191,10 @@
 			<h4>Export value over 5 years</h4>
 			<p class="help-text">(round to the nearest &pound;)</p>
 
+			{% if form.breakdown_exports_0.errors or form.breakdown_exports_1.errors or form.breakdown_exports_2.errors or form.breakdown_exports_.errors or form.breakdown_exports_4.errors %}
+				<p class="alert alert-danger">Please correct the values highlighted with red below. Whole numbers only (no separators etc).</p>
+			{% endif %}
+
 			<div class="scroll-table">
 			<table class="table table-responsive win-value-table">
 				<tr>
@@ -201,11 +205,11 @@
 					<th>{{ form.breakdown_exports_4.label_tag }}</th>
 				</tr>
 				<tr>
-					<td {% if form.breakdown_exports_0.errors %} class="error"{% endif %}>{{ form.breakdown_exports_0 }}</td>
-					<td {% if form.breakdown_exports_1.errors %} class="error"{% endif %}>{{ form.breakdown_exports_1 }}</td>
-					<td {% if form.breakdown_exports_2.errors %} class="error"{% endif %}>{{ form.breakdown_exports_2 }}</td>
-					<td {% if form.breakdown_exports_3.errors %} class="error"{% endif %}>{{ form.breakdown_exports_3 }}</td>
-					<td {% if form.breakdown_exports_4.errors %} class="error"{% endif %}>{{ form.breakdown_exports_4 }}</td>
+					{% include "wins/partials/export-value-cell.html" with field=form.breakdown_exports_0 %}
+					{% include "wins/partials/export-value-cell.html" with field=form.breakdown_exports_1 %}
+					{% include "wins/partials/export-value-cell.html" with field=form.breakdown_exports_2 %}
+					{% include "wins/partials/export-value-cell.html" with field=form.breakdown_exports_3 %}
+					{% include "wins/partials/export-value-cell.html" with field=form.breakdown_exports_4 %}
 				</tr>
 			</table>
 			</div>
@@ -218,6 +222,10 @@
 			<h4>Non-export value over 5 years</h4>
 			<p class="help-text">(round to the nearest &pound;)</p>
 
+			{% if form.breakdown_non_exports_0.errors or form.breakdown_non_exports_1.errors or form.breakdown_non_exports_2.errors or form.breakdown_non_exports_.errors or form.breakdown_non_exports_4.errors %}
+				<p class="alert alert-danger">Please correct the values highlighted with red below. Whole numbers only (no separators etc).</p>
+			{% endif %}
+
 			<div class="scroll-table">
 			<table class="table table-responsive win-value-table">
 				<tr>
@@ -228,11 +236,11 @@
 					<th>{{ form.breakdown_non_exports_4.label_tag }}</th>
 				</tr>
 				<tr>
-					<td {% if form.breakdown_non_exports_0.errors %} class="error"{% endif %}>{{ form.breakdown_non_exports_0 }}</td>
-					<td {% if form.breakdown_non_exports_1.errors %} class="error"{% endif %}>{{ form.breakdown_non_exports_1 }}</td>
-					<td {% if form.breakdown_non_exports_2.errors %} class="error"{% endif %}>{{ form.breakdown_non_exports_2 }}</td>
-					<td {% if form.breakdown_non_exports_3.errors %} class="error"{% endif %}>{{ form.breakdown_non_exports_3 }}</td>
-					<td {% if form.breakdown_non_exports_4.errors %} class="error"{% endif %}>{{ form.breakdown_non_exports_4 }}</td>
+					{% include "wins/partials/export-value-cell.html" with field=form.breakdown_non_exports_0 %}
+					{% include "wins/partials/export-value-cell.html" with field=form.breakdown_non_exports_1 %}
+					{% include "wins/partials/export-value-cell.html" with field=form.breakdown_non_exports_2 %}
+					{% include "wins/partials/export-value-cell.html" with field=form.breakdown_non_exports_3 %}
+					{% include "wins/partials/export-value-cell.html" with field=form.breakdown_non_exports_4 %}
 				</tr>
 			</table>
 			</div>
@@ -315,13 +323,13 @@
 {% block js_footer %}
 	<script>
 		ew.pages.officerForm({
-			complete: ( '{{ win.complete }}' === 'True' ),
+			isComplete: ( '{{ win.complete }}' === 'True' ),
 			descriptionId: '{{ form.description.auto_id }}',
 			exportType: {
 				name: '{{ form.type.name }}',
 				exportValue: '{{ form.type.field.choices.0.0 }}', // name: '{{ form.type.field.choices.0.1 }}'
 				nonExportValue: '{{ form.type.field.choices.1.0 }}', //name: '{{ form.type.field.choices.1.1 }}'
-				bothValue: '{{ form.type.field.choices.2.0 }}', //name: '{{ form.type.field.choices.2.1 }}'
+				bothValue: '{{ form.type.field.choices.2.0 }}' //name: '{{ form.type.field.choices.2.1 }}'
 			},
 			exportContentId: 'export-content',
 			nonExportContentId: 'non-export-content',

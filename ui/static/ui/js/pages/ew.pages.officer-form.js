@@ -66,10 +66,6 @@ ew.pages.officerForm = (function(){
 		});
 	}
 
-	function errorMesage( field ){
-		return ( field + ' is required for officerFormPage' );
-	}
-
 	function createNonCompleteComponents( opts, appComponents ){
 
 		//appComponents.descriptionWordCounter = new ew.components.WordCounter({
@@ -119,31 +115,39 @@ ew.pages.officerForm = (function(){
 		} );
 	}
 
+	function errorMessage( field ){
+		return ( field + ' is required for officerFormPage' );
+	}
+
 	return function officerFormPage( opts ){
 
-		if( !opts ){ throw new Error( errorMesage( 'opts' ) ); }
+		//alert( 'officer page start' );
 
-		if( typeof opts.complete === 'undefined' ){ throw new Error( errorMesage( 'opts.complete' ) ); }
+		if( !opts ){ throw new Error( errorMessage( 'opts' ) ); }
 
-		if( !opts.complete ){
+		if( typeof opts.isComplete === 'undefined' ){ throw new Error( errorMessage( 'opts.isComplete' ) ); }
 
-			if( !opts.descriptionId ){ throw new Error( errorMesage( 'opts.descriptionId' ) ); }
+		if( !opts.isComplete ){
 
-			if( !opts.exportType ){ throw new Error( errorMesage( 'opts.exportType' ) ); }
-			if( !opts.exportType.name ){ throw new Error( errorMesage( 'opts.exportType.name' ) ); }
-			if( !opts.exportType.exportValue ){ throw new Error( errorMesage( 'opts.exportType.exportValue' ) ); }
-			if( !opts.exportType.nonExportValue ){ throw new Error( errorMesage( 'opts.exportType.nonExportValue' ) ); }
-			if( !opts.exportType.bothValue ){ throw new Error( errorMesage( 'opts.exportType.bothValue' ) ); }
+			if( !opts.descriptionId ){ throw new Error( errorMessage( 'opts.descriptionId' ) ); }
 
-			if( !opts.exportContentId ){ throw new Error( errorMesage( 'opts.exportContentId' ) ); }
-			if( !opts.nonExportContentId ){ throw new Error( errorMesage( 'opts.nonExportContentId' ) ); }
+			if( !opts.exportType ){ throw new Error( errorMessage( 'opts.exportType' ) ); }
+			if( !opts.exportType.name ){ throw new Error( errorMessage( 'opts.exportType.name' ) ); }
+			if( !opts.exportType.exportValue ){ throw new Error( errorMessage( 'opts.exportType.exportValue' ) ); }
+			if( !opts.exportType.nonExportValue ){ throw new Error( errorMessage( 'opts.exportType.nonExportValue' ) ); }
+			if( !opts.exportType.bothValue ){ throw new Error( errorMessage( 'opts.exportType.bothValue' ) ); }
 
-			if( !opts.exportValues || !opts.exportValues.length ){ throw new Error( errorMesage( 'opts.exportValue' ) ); }
-			if( !opts.exportTotal ){ throw new Error( errorMesage( 'opts.exportTotal' ) ); }
+			if( !opts.exportContentId ){ throw new Error( errorMessage( 'opts.exportContentId' ) ); }
+			if( !opts.nonExportContentId ){ throw new Error( errorMessage( 'opts.nonExportContentId' ) ); }
 
-			if( !opts.nonExportValues || !opts.nonExportValues.length ){ throw new Error( errorMesage( 'opts.nonExportValues' ) ); }
-			if( !opts.nonExportTotal ){ throw new Error( errorMesage( 'opts.nonExportTotal' ) ); }
+			if( !opts.exportValues || !opts.exportValues.length ){ throw new Error( errorMessage( 'opts.exportValue' ) ); }
+			if( !opts.exportTotal ){ throw new Error( errorMessage( 'opts.exportTotal' ) ); }
+
+			if( !opts.nonExportValues || !opts.nonExportValues.length ){ throw new Error( errorMessage( 'opts.nonExportValues' ) ); }
+			if( !opts.nonExportTotal ){ throw new Error( errorMessage( 'opts.nonExportTotal' ) ); }
 		}
+
+		//alert( 'officer page ok' );
 		
 		var app = ew.application;
 		var appComponents = app.components;
@@ -152,7 +156,7 @@ ew.pages.officerForm = (function(){
 		contributingOfficerTeamTypeChange();
 		createComponents( opts, appComponents );
 
-		if( !opts.complete ){
+		if( !opts.isComplete ){
 
 			createNonCompleteComponents( opts, appComponents );
 		}

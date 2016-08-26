@@ -1,4 +1,4 @@
-ew.components.CalculateExportValue = (function( $, toLocaleString ){
+ew.components.CalculateExportValue = (function( doc, $, toLocaleString ){
 
 	var zeros = /^0+$/;
 	
@@ -28,18 +28,21 @@ ew.components.CalculateExportValue = (function( $, toLocaleString ){
 		var totalYearsClass = 'export-total-years';
 		var totalValueClass = 'export-total-value';
 		var $formGroup = this.$total.parents( '.form-group' );
+		var totalInfo = doc.createElement( 'p' );//create <p> with DOM API for IE7
 		
-		this.$total[ 0 ].type = 'hidden';
+		this.$total.hide();
 
 		$formGroup.find( '.help-text' ).hide();
 		$formGroup.find( 'label' ).hide();
 		$formGroup.find( '.required' ).hide();
-		
-		this.$totalInfo = $( '<p class="export-total">Totaling over <span class="'+ totalYearsClass +'"></span>: <span class="'+ totalValueClass +'"</span></p>' );
-		this.$totalYears = this.$totalInfo.find( '.' + totalYearsClass );
-		this.$totalValue = this.$totalInfo.find( '.' + totalValueClass );
 
-		$formGroup.prepend( this.$totalInfo );
+		totalInfo.className = 'export-total';
+		totalInfo.innerHTML = ( 'Totaling over <span class="'+ totalYearsClass +'"></span>: <span class="'+ totalValueClass +'"</span>' );
+
+		$formGroup[ 0 ].appendChild( totalInfo );
+
+		this.$totalYears = $formGroup.find( '.' + totalYearsClass );
+		this.$totalValue = $formGroup.find( '.' + totalValueClass );
 	};
 
 	CalculateExportValueComponent.prototype.getValueElems = function(){
@@ -103,14 +106,15 @@ ew.components.CalculateExportValue = (function( $, toLocaleString ){
 		var i = 0;
 		var years = 0;
 		var $value;
+		var yearAmount;
 
-		while( ( $value = this.$values[ i++] ) ){
+		while( ( $value = this.$values[ i++ ] ) ){
 
-			yearTotal = Number( $value.val() );
+			yearAmount = parseInt( $value.val(), 10 );
 
-			if( yearTotal > 0 ){
+			if( yearAmount > 0 ){
 
-				total += yearTotal;
+				total += yearAmount;
 				years++;
 			}
 		}
@@ -122,4 +126,4 @@ ew.components.CalculateExportValue = (function( $, toLocaleString ){
 
 	return CalculateExportValueComponent;
 
-}( jQuery, ew.tools.toLocaleString ));
+}( document, jQuery, ew.tools.toLocaleString ));

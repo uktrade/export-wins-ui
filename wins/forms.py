@@ -65,7 +65,7 @@ class ConfirmationFormMetaclass(ReflectiveFormMetaclass):
 class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
 
     # We're only caring about MM/YYYY formatted dates
-    date = forms.fields.CharField(max_length=7, label="Date business won")
+    date = forms.fields.CharField(max_length=7, label="Date won")
 
     # specify fields from the serializer to exclude from the form
     class Meta(object):
@@ -124,6 +124,7 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
             "total_expected_export_value",
             "total_expected_non_export_value",
         ]
+
         if self.completed:
             for field_name in non_editable_fields:
                 del self.fields[field_name]

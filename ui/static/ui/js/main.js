@@ -92,6 +92,7 @@ ew.components.AddContributors = (function( $ ){
 
 		this.shownContributors = 0;
 		this.contributorsLength = this.$contributors.length;
+		this.$removeButton = $( '<button type="button" class="btn btn-xs btn-default remove-contributor" aria-label="Remove contributor" title="Remove contributor">Remove</button>' );
 
 		this.createAddButton();
 		this.hideContributingLines();
@@ -114,25 +115,32 @@ ew.components.AddContributors = (function( $ ){
 	};
 
 	AddContributorsComponent.prototype.showCloseButton = function(){
-		
-		var buttonHtml = '<button type="button" class="btn btn-xs btn-default remove-contributor" aria-label="Remove contributor" title="Remove contributor">Remove</button>';
+
+		//TODO: Optimise this to track the last visible item so we don't need to use this expensive selector
+		// it will make it better for IE7
 		var $lastVisible = $( this.contributorsSelector + ':visible' ).last();
 
 		if( !$lastVisible.is( this.$contributors[ 0 ] ) ){
-		
-			$lastVisible.prepend( buttonHtml );
+
+			$lastVisible.prepend( this.$removeButton );
 		}
 	};
 
 	AddContributorsComponent.prototype.removeCloseButton = function(){
 		
-		$( this.contributorsSelector + ' .remove-contributor' ).remove();
+		this.$removeButton.remove();
 	};
 
 	AddContributorsComponent.prototype.updateCloseButton = function(){
 	
+		var self = this;
+
 		this.removeCloseButton();
-		this.showCloseButton();
+
+		//IE7 is VERY slow with showing the button, so let it paint before trying to update the position
+		window.setTimeout( function(){
+			self.showCloseButton();
+		}, 1 );
 	};
 
 	AddContributorsComponent.prototype.createAddButton = function(){
@@ -192,7 +200,6 @@ ew.components.AddContributors = (function( $ ){
 			$currentContributor.show();
 			$currentContributor.find( this.nameInputSelector ).focus();
 			this.updateCloseButton();
-
 			this.checkAddButtonState();
 
 		} else {
@@ -227,7 +234,7 @@ ew.components.AddContributors = (function( $ ){
 	return AddContributorsComponent;
 
 }( jQuery ));
-ew.components.CalculateExportValue = (function( $, toLocaleString ){
+ew.components.CalculateExportValue = (function( doc, $, toLocaleString ){
 
 	var zeros = /^0+$/;
 	
@@ -257,18 +264,21 @@ ew.components.CalculateExportValue = (function( $, toLocaleString ){
 		var totalYearsClass = 'export-total-years';
 		var totalValueClass = 'export-total-value';
 		var $formGroup = this.$total.parents( '.form-group' );
+		var totalInfo = doc.createElement( 'p' );//create <p> with DOM API for IE7
 		
-		this.$total[ 0 ].type = 'hidden';
+		this.$total.hide();
 
 		$formGroup.find( '.help-text' ).hide();
 		$formGroup.find( 'label' ).hide();
 		$formGroup.find( '.required' ).hide();
-		
-		this.$totalInfo = $( '<p class="export-total">Totaling over <span class="'+ totalYearsClass +'"></span>: <span class="'+ totalValueClass +'"</span></p>' );
-		this.$totalYears = this.$totalInfo.find( '.' + totalYearsClass );
-		this.$totalValue = this.$totalInfo.find( '.' + totalValueClass );
 
-		$formGroup.prepend( this.$totalInfo );
+		totalInfo.className = 'export-total';
+		totalInfo.innerHTML = ( 'Totaling over <span class="'+ totalYearsClass +'"></span>: <span class="'+ totalValueClass +'"</span>' );
+
+		$formGroup[ 0 ].appendChild( totalInfo );
+
+		this.$totalYears = $formGroup.find( '.' + totalYearsClass );
+		this.$totalValue = $formGroup.find( '.' + totalValueClass );
 	};
 
 	CalculateExportValueComponent.prototype.getValueElems = function(){
@@ -332,14 +342,15 @@ ew.components.CalculateExportValue = (function( $, toLocaleString ){
 		var i = 0;
 		var years = 0;
 		var $value;
+		var yearAmount;
 
-		while( ( $value = this.$values[ i++] ) ){
+		while( ( $value = this.$values[ i++ ] ) ){
 
-			yearTotal = Number( $value.val() );
+			yearAmount = parseInt( $value.val(), 10 );
 
-			if( yearTotal > 0 ){
+			if( yearAmount > 0 ){
 
-				total += yearTotal;
+				total += yearAmount;
 				years++;
 			}
 		}
@@ -351,7 +362,7 @@ ew.components.CalculateExportValue = (function( $, toLocaleString ){
 
 	return CalculateExportValueComponent;
 
-}( jQuery, ew.tools.toLocaleString ));
+}( document, jQuery, ew.tools.toLocaleString ));
 ew.components.ToggleContributors = (function( $ ){
 
 	function errorMessage( field ){
@@ -613,10 +624,6 @@ ew.pages.officerForm = (function(){
 		});
 	}
 
-	function errorMesage( field ){
-		return ( field + ' is required for officerFormPage' );
-	}
-
 	function createNonCompleteComponents( opts, appComponents ){
 
 		//appComponents.descriptionWordCounter = new ew.components.WordCounter({
@@ -666,31 +673,39 @@ ew.pages.officerForm = (function(){
 		} );
 	}
 
+	function errorMessage( field ){
+		return ( field + ' is required for officerFormPage' );
+	}
+
 	return function officerFormPage( opts ){
 
-		if( !opts ){ throw new Error( errorMesage( 'opts' ) ); }
+		//alert( 'officer page start' );
 
-		if( typeof opts.complete === 'undefined' ){ throw new Error( errorMesage( 'opts.complete' ) ); }
+		if( !opts ){ throw new Error( errorMessage( 'opts' ) ); }
 
-		if( !opts.complete ){
+		if( typeof opts.isComplete === 'undefined' ){ throw new Error( errorMessage( 'opts.isComplete' ) ); }
 
-			if( !opts.descriptionId ){ throw new Error( errorMesage( 'opts.descriptionId' ) ); }
+		if( !opts.isComplete ){
 
-			if( !opts.exportType ){ throw new Error( errorMesage( 'opts.exportType' ) ); }
-			if( !opts.exportType.name ){ throw new Error( errorMesage( 'opts.exportType.name' ) ); }
-			if( !opts.exportType.exportValue ){ throw new Error( errorMesage( 'opts.exportType.exportValue' ) ); }
-			if( !opts.exportType.nonExportValue ){ throw new Error( errorMesage( 'opts.exportType.nonExportValue' ) ); }
-			if( !opts.exportType.bothValue ){ throw new Error( errorMesage( 'opts.exportType.bothValue' ) ); }
+			if( !opts.descriptionId ){ throw new Error( errorMessage( 'opts.descriptionId' ) ); }
 
-			if( !opts.exportContentId ){ throw new Error( errorMesage( 'opts.exportContentId' ) ); }
-			if( !opts.nonExportContentId ){ throw new Error( errorMesage( 'opts.nonExportContentId' ) ); }
+			if( !opts.exportType ){ throw new Error( errorMessage( 'opts.exportType' ) ); }
+			if( !opts.exportType.name ){ throw new Error( errorMessage( 'opts.exportType.name' ) ); }
+			if( !opts.exportType.exportValue ){ throw new Error( errorMessage( 'opts.exportType.exportValue' ) ); }
+			if( !opts.exportType.nonExportValue ){ throw new Error( errorMessage( 'opts.exportType.nonExportValue' ) ); }
+			if( !opts.exportType.bothValue ){ throw new Error( errorMessage( 'opts.exportType.bothValue' ) ); }
 
-			if( !opts.exportValues || !opts.exportValues.length ){ throw new Error( errorMesage( 'opts.exportValue' ) ); }
-			if( !opts.exportTotal ){ throw new Error( errorMesage( 'opts.exportTotal' ) ); }
+			if( !opts.exportContentId ){ throw new Error( errorMessage( 'opts.exportContentId' ) ); }
+			if( !opts.nonExportContentId ){ throw new Error( errorMessage( 'opts.nonExportContentId' ) ); }
 
-			if( !opts.nonExportValues || !opts.nonExportValues.length ){ throw new Error( errorMesage( 'opts.nonExportValues' ) ); }
-			if( !opts.nonExportTotal ){ throw new Error( errorMesage( 'opts.nonExportTotal' ) ); }
+			if( !opts.exportValues || !opts.exportValues.length ){ throw new Error( errorMessage( 'opts.exportValue' ) ); }
+			if( !opts.exportTotal ){ throw new Error( errorMessage( 'opts.exportTotal' ) ); }
+
+			if( !opts.nonExportValues || !opts.nonExportValues.length ){ throw new Error( errorMessage( 'opts.nonExportValues' ) ); }
+			if( !opts.nonExportTotal ){ throw new Error( errorMessage( 'opts.nonExportTotal' ) ); }
 		}
+
+		//alert( 'officer page ok' );
 		
 		var app = ew.application;
 		var appComponents = app.components;
@@ -699,7 +714,7 @@ ew.pages.officerForm = (function(){
 		contributingOfficerTeamTypeChange();
 		createComponents( opts, appComponents );
 
-		if( !opts.complete ){
+		if( !opts.isComplete ){
 
 			createNonCompleteComponents( opts, appComponents );
 		}

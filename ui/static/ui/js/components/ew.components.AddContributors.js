@@ -17,6 +17,7 @@ ew.components.AddContributors = (function( $ ){
 
 		this.shownContributors = 0;
 		this.contributorsLength = this.$contributors.length;
+		this.$removeButton = $( '<button type="button" class="btn btn-xs btn-default remove-contributor" aria-label="Remove contributor" title="Remove contributor">Remove</button>' );
 
 		this.createAddButton();
 		this.hideContributingLines();
@@ -39,25 +40,32 @@ ew.components.AddContributors = (function( $ ){
 	};
 
 	AddContributorsComponent.prototype.showCloseButton = function(){
-		
-		var buttonHtml = '<button type="button" class="btn btn-xs btn-default remove-contributor" aria-label="Remove contributor" title="Remove contributor">Remove</button>';
+
+		//TODO: Optimise this to track the last visible item so we don't need to use this expensive selector
+		// it will make it better for IE7
 		var $lastVisible = $( this.contributorsSelector + ':visible' ).last();
 
 		if( !$lastVisible.is( this.$contributors[ 0 ] ) ){
-		
-			$lastVisible.prepend( buttonHtml );
+
+			$lastVisible.prepend( this.$removeButton );
 		}
 	};
 
 	AddContributorsComponent.prototype.removeCloseButton = function(){
 		
-		$( this.contributorsSelector + ' .remove-contributor' ).remove();
+		this.$removeButton.remove();
 	};
 
 	AddContributorsComponent.prototype.updateCloseButton = function(){
 	
+		var self = this;
+
 		this.removeCloseButton();
-		this.showCloseButton();
+
+		//IE7 is VERY slow with showing the button, so let it paint before trying to update the position
+		window.setTimeout( function(){
+			self.showCloseButton();
+		}, 1 );
 	};
 
 	AddContributorsComponent.prototype.createAddButton = function(){
@@ -117,7 +125,6 @@ ew.components.AddContributors = (function( $ ){
 			$currentContributor.show();
 			$currentContributor.find( this.nameInputSelector ).focus();
 			this.updateCloseButton();
-
 			this.checkAddButtonState();
 
 		} else {

@@ -92,6 +92,7 @@ form {
 
 td.error input {
 	background-color: $brand-danger;
+	color: #fff;
 }
 
 
@@ -107,6 +108,7 @@ td.error input {
 
 	.alert {
 		padding: 0.5em;
+		max-width: 100%;
 	}
 
 	ul {

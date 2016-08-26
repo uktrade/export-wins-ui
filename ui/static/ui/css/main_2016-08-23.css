@@ -36,6 +36,8 @@
 
 .win-form .win-values { margin-top: 3em; }
 
+.win-form .win-values .alert { max-width: 100%; }
+
 .win-form .export-total, .win-form .export-year-value { font-size: 1.1em; font-weight: bold; margin-top: -1em; background-color: #e7e7e7; padding: 0.5em; }
 
 .win-form .non-export-heading { margin-top: 2em; }
@@ -205,13 +207,13 @@ form input { padding-left: 2em; padding-right: 2em; }
 
 .scroll-table { overflow-x: auto; }
 
-td.error input { background-color: #B10E1E; }
+td.error input { background-color: #B10E1E; color: #fff; }
 
 .form-group { margin: 1em 0; }
 
 .form-group.error { border: 1px solid #B10E1E; border-radius: 0.5em; padding: 1em; }
 
-.form-group .alert { padding: 0.5em; }
+.form-group .alert { padding: 0.5em; max-width: 100%; }
 
 .form-group ul { list-style: none; padding: 0; }
 

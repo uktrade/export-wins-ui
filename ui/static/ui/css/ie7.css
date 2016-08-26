@@ -14,3 +14,17 @@
 .confirmation-form .win-details dd {
 	width: 20% !important;
 }
+
+td .input-group .input-group-addon {
+	float: left;
+	height: 20px;
+}
+
+td .input-group .form-control {
+	float: left;
+	width: 75%;
+}
+
+.form-control {
+	height: 20px;
+}
