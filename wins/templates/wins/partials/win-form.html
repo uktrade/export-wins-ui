@@ -265,10 +265,22 @@
 			How did we help the customer achieve this win?
 		</p>
 
-		{% include "wins/partials/win-field.html" with field=form.hvo_programme class="restrict-width" %}
-		{% include "wins/partials/win-field.html" with field=form.has_hvo_specialist_involvement class="restrict-width" %}
-		{% include "wins/partials/win-field.html" with field=form.is_prosperity_fund_related class="restrict-width" %}
-		{% include "wins/partials/win-field.html" with field=form.is_e_exported class="restrict-width" %}
+		<h4>This win was...</h4>
+
+		<div class="checkbox">
+			<label for="part-of-hvo">
+				<input name="part_of_hvo" id="part-of-hvo" type="checkbox" value="True"{% if form.has_hvo_specialist_involvement.value == 'True' or form.hvo_programme.value != '' %} checked{% endif %}>
+				Part of an HVO program
+			</label>
+		</div>
+
+		<div id="hvo-program-details" class="hvo-program-details">
+			{% include "wins/partials/win-field.html" with field=form.hvo_programme class="restrict-width" %}
+			{% include "wins/partials/form-checkbox.html" with field=form.has_hvo_specialist_involvement %}
+		</div>
+		{% include "wins/partials/form-checkbox.html" with field=form.is_prosperity_fund_related %}
+		{% include "wins/partials/form-checkbox.html" with field=form.is_e_exported %}
+
 		{% include "wins/partials/win-field.html" with field=form.type_of_support_1 class="restrict-width" %}
 		{% include "wins/partials/win-field.html" with field=form.type_of_support_2 class="restrict-width" %}
 		{% include "wins/partials/win-field.html" with field=form.type_of_support_3 class="restrict-width" %}
@@ -325,6 +337,10 @@
 		ew.pages.officerForm({
 			isComplete: ( '{{ win.complete }}' === 'True' ),
 			descriptionId: '{{ form.description.auto_id }}',
+			hvoProgram: {
+				checkboxId: '#part-of-hvo',
+				contentId: '#hvo-program-details'
+			},
 			exportType: {
 				name: '{{ form.type.name }}',
 				exportValue: '{{ form.type.field.choices.0.0 }}', // name: '{{ form.type.field.choices.0.1 }}'

@@ -1,0 +1,7 @@
+{{ field.errors }}
+<div class="checkbox">
+	<label for="{{ field.auto_id }}">
+		<input name="{{ field.name }}" id="{{ field.auto_id }}" type="checkbox" value="True"{% if field.value == True or field.value == 'True' %} checked{% endif %}>
+		{{ field.label }}
+	</label>
+</div>

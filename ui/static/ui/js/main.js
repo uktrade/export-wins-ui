@@ -363,6 +363,40 @@ ew.components.CalculateExportValue = (function( doc, $, toLocaleString ){
 	return CalculateExportValueComponent;
 
 }( document, jQuery, ew.tools.toLocaleString ));
+ew.components.ToggleContentCheckbox = (function( $ ){
+
+	function errorMessage( field ){
+		return ( field + ' is required for ToggleContentCheckboxComponent' );
+	}
+
+	function ToggleContentCheckboxComponent( opts ){
+
+		if( !opts ){ throw new Error( errorMessage( 'opts' ) ); }
+		if( !opts.checkboxId ){ throw new Error( errorMessage( 'opts.checkboxId' ) ); }
+		if( !opts.contentId ){ throw new Error( errorMessage( 'opts.contentId' ) ); }
+
+		this.$checkbox = $( opts.checkboxId );
+		this.$content = $( opts.contentId );
+
+		this.$checkbox.on( 'change', $.proxy( this.checkState, this ) );
+		this.checkState();
+	}
+
+	ToggleContentCheckboxComponent.prototype.checkState = function(){
+		
+		if( this.$checkbox[ 0 ].checked ){
+
+			this.$content.show();
+
+		} else {
+
+			this.$content.hide();
+		}
+	};
+
+	return ToggleContentCheckboxComponent;
+	
+}( jQuery ));
 ew.components.ToggleContributors = (function( $ ){
 
 	function errorMessage( field ){
@@ -664,6 +698,8 @@ ew.pages.officerForm = (function(){
 			nameInputSelector: '.contributing-officer-name input'
 		});
 
+		appComponents.toggleHvoProgram = new ew.components.ToggleContentCheckbox( opts.hvoProgram );
+
 		//when the details are shown tell addContributors to focus on the first element
 		//and tell it to update the remove button position
 		appComponents.toggleContributors.events.showDetails.subscribe( function(){
@@ -684,6 +720,8 @@ ew.pages.officerForm = (function(){
 		if( !opts ){ throw new Error( errorMessage( 'opts' ) ); }
 
 		if( typeof opts.isComplete === 'undefined' ){ throw new Error( errorMessage( 'opts.isComplete' ) ); }
+		
+		if( !opts.hvoProgram ){ throw new Error( errorMessage( 'opts.hvoProgram' ) ); }
 
 		if( !opts.isComplete ){
 

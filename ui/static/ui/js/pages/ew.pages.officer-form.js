@@ -106,6 +106,8 @@ ew.pages.officerForm = (function(){
 			nameInputSelector: '.contributing-officer-name input'
 		});
 
+		appComponents.toggleHvoProgram = new ew.components.ToggleContentCheckbox( opts.hvoProgram );
+
 		//when the details are shown tell addContributors to focus on the first element
 		//and tell it to update the remove button position
 		appComponents.toggleContributors.events.showDetails.subscribe( function(){
@@ -126,6 +128,8 @@ ew.pages.officerForm = (function(){
 		if( !opts ){ throw new Error( errorMessage( 'opts' ) ); }
 
 		if( typeof opts.isComplete === 'undefined' ){ throw new Error( errorMessage( 'opts.isComplete' ) ); }
+		
+		if( !opts.hvoProgram ){ throw new Error( errorMessage( 'opts.hvoProgram' ) ); }
 
 		if( !opts.isComplete ){
 

@@ -105,6 +105,11 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
         self.fields["total_expected_export_value"].initial = '0'
         self.fields["total_expected_non_export_value"].initial = '0'
 
+        # make checkboxes not required
+        self.fields["has_hvo_specialist_involvement"].required = False
+        self.fields["is_prosperity_fund_related"].required = False
+        self.fields["is_e_exported"].required = False
+
         if not self.completed:
             # cannot edit breakdowns once completed/sent
             self.breakdown_field_data = self._add_breakdown_fields()
