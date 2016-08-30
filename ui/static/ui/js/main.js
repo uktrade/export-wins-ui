@@ -395,6 +395,19 @@ ew.components.CalculateExportValue = (function( doc, $, toLocaleString ){
 		this.updateValue();
 	}
 
+	CalculateExportValueComponent.prototype.resetValues = function(){
+		
+		var $value;
+		var i = 0;
+
+		this.$total.val( 0 );
+
+		while( ( $value = this.$values[ i++ ] ) ){
+
+			$value.val( 0 );
+		}
+	};
+
 	CalculateExportValueComponent.prototype.updateHtml = function(){
 
 		var totalYearsClass = 'export-total-years';
@@ -595,7 +608,7 @@ ew.components.ToggleContributors = (function( $, CustomEvent ){
 	return ToggleContributorsComponent;
 
 }( jQuery, ew.CustomEvent ));	
-ew.components.ToggleExportValue = (function( $ ){
+ew.components.ToggleExportValue = (function( $, CustomEvent ){
 	
 	function errorMessage( label ){
 		return ( label + ' is required for ToggleExportValueComponent' );
@@ -616,6 +629,11 @@ ew.components.ToggleExportValue = (function( $ ){
 		this.nonExportValue = opts.nonExportValue;
 		this.bothValue = opts.bothValue;
 
+		this.events = {
+			hideExport: new CustomEvent(),
+			hideNonExport: new CustomEvent()
+		};
+
 		this.$exportContent = $( '#' + opts.exportId );
 		this.$nonExportContent = $( '#' + opts.nonExportId );
 		this.$field = $( 'input[ name=' + this.fieldName + ']' );
@@ -633,11 +651,13 @@ ew.components.ToggleExportValue = (function( $ ){
 			case this.exportValue:
 				this.$exportContent.show();
 				this.$nonExportContent.hide();
+				this.events.hideNonExport.publish();
 			break;
 
 			case this.nonExportValue:
 				this.$exportContent.hide();
 				this.$nonExportContent.show();
+				this.events.hideExport.publish();
 			break;
 
 			case this.bothValue:
@@ -648,12 +668,14 @@ ew.components.ToggleExportValue = (function( $ ){
 			default:
 				this.$exportContent.hide();
 				this.$nonExportContent.hide();
+				this.events.hideExport.publish();
+				this.events.hideNonExport.publish();
 		}
 	};
 
 	return ToggleExportValueComponent;
 
-}( jQuery ));
+}( jQuery, ew.CustomEvent ));
 
 ew.components.WordCounter = (function( $ ){
 
@@ -738,6 +760,33 @@ ew.controllers.Contributors = (function(){
 
 	return ContributorsController;
 	
+}());
+ew.controllers.ExportValue = (function(){
+	
+	function errorMessage( param ){
+
+		return ( param  + ' is required for ExportValueController' );
+	}
+
+	function ExportValueController( toggleExport, calculateExport, calculateNonExport ){
+
+		if( !toggleExport ){ throw new Error( errorMessage( 'toggleExport' ) ); }
+		if( !calculateExport ){ throw new Error( errorMessage( 'calculateExport' ) ); }
+		if( !calculateNonExport ){ throw new Error( errorMessage( 'calculateNonExport' ) ); }
+
+		toggleExport.events.hideExport.subscribe( function(){
+
+			calculateExport.resetValues();
+		} );
+
+		toggleExport.events.hideNonExport.subscribe( function(){
+
+			calculateNonExport.resetValues();
+		} );
+	}
+
+	return ExportValueController;
+
 }());
 ew.pages.confirmationForm = function confirmationFormPage( agreeWithWinName ){
 	
@@ -832,7 +881,7 @@ ew.pages.officerForm = (function(){
 		});
 	}
 
-	function createNonCompleteComponents( opts, appComponents ){
+	function createNonCompleteComponents( opts, appComponents, appControllers ){
 
 		appComponents.descriptionWordCounter = new ew.components.WordCounter({
 			id: opts.descriptionId,
@@ -857,6 +906,12 @@ ew.pages.officerForm = (function(){
 			values: opts.nonExportValues,
 			total: opts.nonExportTotal
 		});
+
+		appControllers.exportValue = new ew.controllers.ExportValue(
+			appComponents.exportValues,
+			appComponents.calculateExportValue,
+			appComponents.calculateNonExportValue
+		);
 	}
 
 	function createComponents( opts, appComponents, appControllers ){
@@ -927,7 +982,7 @@ ew.pages.officerForm = (function(){
 
 		if( !opts.isComplete ){
 
-			createNonCompleteComponents( opts, appComponents );
+			createNonCompleteComponents( opts, appComponents, appControllers );
 		}
 	};
 }());

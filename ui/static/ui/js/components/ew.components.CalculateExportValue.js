@@ -23,6 +23,19 @@ ew.components.CalculateExportValue = (function( doc, $, toLocaleString ){
 		this.updateValue();
 	}
 
+	CalculateExportValueComponent.prototype.resetValues = function(){
+		
+		var $value;
+		var i = 0;
+
+		this.$total.val( 0 );
+
+		while( ( $value = this.$values[ i++ ] ) ){
+
+			$value.val( 0 );
+		}
+	};
+
 	CalculateExportValueComponent.prototype.updateHtml = function(){
 
 		var totalYearsClass = 'export-total-years';

@@ -66,7 +66,7 @@ ew.pages.officerForm = (function(){
 		});
 	}
 
-	function createNonCompleteComponents( opts, appComponents ){
+	function createNonCompleteComponents( opts, appComponents, appControllers ){
 
 		appComponents.descriptionWordCounter = new ew.components.WordCounter({
 			id: opts.descriptionId,
@@ -91,6 +91,12 @@ ew.pages.officerForm = (function(){
 			values: opts.nonExportValues,
 			total: opts.nonExportTotal
 		});
+
+		appControllers.exportValue = new ew.controllers.ExportValue(
+			appComponents.exportValues,
+			appComponents.calculateExportValue,
+			appComponents.calculateNonExportValue
+		);
 	}
 
 	function createComponents( opts, appComponents, appControllers ){
@@ -161,7 +167,7 @@ ew.pages.officerForm = (function(){
 
 		if( !opts.isComplete ){
 
-			createNonCompleteComponents( opts, appComponents );
+			createNonCompleteComponents( opts, appComponents, appControllers );
 		}
 	};
 }());

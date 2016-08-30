@@ -1,4 +1,4 @@
-ew.components.ToggleExportValue = (function( $ ){
+ew.components.ToggleExportValue = (function( $, CustomEvent ){
 	
 	function errorMessage( label ){
 		return ( label + ' is required for ToggleExportValueComponent' );
@@ -19,6 +19,11 @@ ew.components.ToggleExportValue = (function( $ ){
 		this.nonExportValue = opts.nonExportValue;
 		this.bothValue = opts.bothValue;
 
+		this.events = {
+			hideExport: new CustomEvent(),
+			hideNonExport: new CustomEvent()
+		};
+
 		this.$exportContent = $( '#' + opts.exportId );
 		this.$nonExportContent = $( '#' + opts.nonExportId );
 		this.$field = $( 'input[ name=' + this.fieldName + ']' );
@@ -36,11 +41,13 @@ ew.components.ToggleExportValue = (function( $ ){
 			case this.exportValue:
 				this.$exportContent.show();
 				this.$nonExportContent.hide();
+				this.events.hideNonExport.publish();
 			break;
 
 			case this.nonExportValue:
 				this.$exportContent.hide();
 				this.$nonExportContent.show();
+				this.events.hideExport.publish();
 			break;
 
 			case this.bothValue:
@@ -51,9 +58,11 @@ ew.components.ToggleExportValue = (function( $ ){
 			default:
 				this.$exportContent.hide();
 				this.$nonExportContent.hide();
+				this.events.hideExport.publish();
+				this.events.hideNonExport.publish();
 		}
 	};
 
 	return ToggleExportValueComponent;
 
-}( jQuery ));
+}( jQuery, ew.CustomEvent ));
