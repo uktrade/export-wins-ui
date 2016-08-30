@@ -16,26 +16,6 @@ class WinReflectiveFormMetaclass(ReflectiveFormMetaclass):
 
     reflection_url = settings.WINS_AP
 
-    def __new__(mcs, name, bases, attrs):
-        new_class = ReflectiveFormMetaclass.__new__(mcs, name, bases, attrs)
-
-        make_typed_choice = (
-            "is_prosperity_fund_related",
-            "is_e_exported",
-            "has_hvo_specialist_involvement",
-        )
-        for name in make_typed_choice:
-            form_field = forms.TypedChoiceField(
-                coerce=lambda x: x == "True",
-                choices=((True, 'Yes'), (False, 'No')),
-                widget=forms.RadioSelect,
-                label=new_class._schema[name]["label"]
-            )
-            new_class.base_fields[name] = form_field
-            new_class.declared_fields[name] = form_field
-
-        return new_class
-
 
 class ConfirmationFormMetaclass(ReflectiveFormMetaclass):
 
