@@ -68,10 +68,10 @@ ew.pages.officerForm = (function(){
 
 	function createNonCompleteComponents( opts, appComponents ){
 
-		//appComponents.descriptionWordCounter = new ew.components.WordCounter({
-		//	id: opts.descriptionId,
-		//	limit: 600
-		//});
+		appComponents.descriptionWordCounter = new ew.components.WordCounter({
+			id: opts.descriptionId,
+			limit: 50
+		});
 
 		appComponents.exportValues = new ew.components.ToggleExportValue({
 			fieldName: opts.exportType.name,

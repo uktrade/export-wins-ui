@@ -1,4 +1,4 @@
-/*
+
 ew.components.WordCounter = (function( $ ){
 
 	var DANGER_CLASS = 'text-danger';
@@ -17,21 +17,26 @@ ew.components.WordCounter = (function( $ ){
 		this.$input = $( '#' + opts.id );
 
 		this.createCounter();
-		this.$input.on( 'keyup', $.proxy( this.upateCharacterCount, this ) );
+		this.$input.on( 'keyup', $.proxy( this.upateCount, this ) );
 	}
 
 	WordCounterComponent.prototype.createCounter = function(){
 		
-		this.$counter = $( '<span class="word-counter">0 characters</span>' );
+		this.$counter = $( '<span class="word-counter">0 words</span>' );
 		this.$counter.insertAfter( this.$input );
-		this.upateCharacterCount();
+		this.upateCount();
 	};
 
-	WordCounterComponent.prototype.upateCharacterCount = function(){
+	WordCounterComponent.prototype.getWordCount = function( val ){
+
+		return val.replace( /\s+$/, '' ).split( ' ' ).length;
+	};
+
+	WordCounterComponent.prototype.upateCount = function(){
 
 		var val = this.$input.val();
-		var count = ( val ? val.length : 0 );
-		var text = ( count === 1 ? 'character' : 'characters' );
+		var count = ( val ? this.getWordCount( val ) : 0 );
+		var text = ( count === 1 ? 'word' : 'words' );
 		
 		this.$counter.text( count + ' ' + text );
 
@@ -48,4 +53,3 @@ ew.components.WordCounter = (function( $ ){
 	return WordCounterComponent;
 
 }( jQuery ));
-*/
