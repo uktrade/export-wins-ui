@@ -1,4 +1,4 @@
-ew.components.ToggleContributors = (function( $ ){
+ew.components.ToggleContributors = (function( $, CustomEvent ){
 
 	function errorMessage( field ){
 		return ( field + ' is required for ToggleContributorsComponent' );
@@ -16,7 +16,8 @@ ew.components.ToggleContributors = (function( $ ){
 		this.noContributorsSelector = opts.noContributorsSelector;
 
 		this.events = {
-			showDetails: new ew.CustomEvent()
+			showDetails: new CustomEvent(),
+			hideDetails: new CustomEvent()
 		};
 
 		this.checkContributingDetails();
@@ -33,6 +34,7 @@ ew.components.ToggleContributors = (function( $ ){
 		} else {
 
 			this.$contributingTeamDetails.hide();
+			this.events.hideDetails.publish();
 		}
 	};
 
@@ -55,4 +57,4 @@ ew.components.ToggleContributors = (function( $ ){
 
 	return ToggleContributorsComponent;
 
-}( jQuery ));	
+}( jQuery, ew.CustomEvent ));	

@@ -2,8 +2,10 @@ var ew = {
 	components: {},
 	pages: {},
 	tools: {},
+	controllers: {},
 	application: {
-		components: {}
+		components: {},
+		controllers: {}
 	}
 };
 ew.CustomEvent = (function(){
@@ -216,17 +218,32 @@ ew.components.AddContributors = (function( $ ){
 		this.$addButton[ 0 ].disabled = isDisabled;
 	};
 
-	AddContributorsComponent.prototype.removeContributor = function( e, elem ){
-		
-		var $contributor = $( elem ).parent( this.contributorsSelector );
+	AddContributorsComponent.prototype.resetAll = function(){
 
-		$contributor.hide();
+		var self = this;
+		
+		this.$contributors.each( function(){
+
+			self.resetContributor( $( this ) );
+		} );
+	};
+
+	AddContributorsComponent.prototype.resetContributor = function( $contributor ){
+
 		$contributor.find( 'input' ).val( '' );
 		$contributor.find( 'select' ).each( function(){
 
 			this.selectedIndex = 0;
 		} );
+	};
 
+	AddContributorsComponent.prototype.removeContributor = function( e, elem ){
+		
+		var $contributor = $( elem ).parent( this.contributorsSelector );
+
+		$contributor.hide();
+
+		this.resetContributor( $contributor );
 		this.shownContributors--;
 		this.updateCloseButton();
 		this.checkAddButtonState();
@@ -518,7 +535,7 @@ ew.components.ToggleContentCheckbox = (function( $ ){
 	
 }( jQuery ));
 */
-ew.components.ToggleContributors = (function( $ ){
+ew.components.ToggleContributors = (function( $, CustomEvent ){
 
 	function errorMessage( field ){
 		return ( field + ' is required for ToggleContributorsComponent' );
@@ -536,7 +553,8 @@ ew.components.ToggleContributors = (function( $ ){
 		this.noContributorsSelector = opts.noContributorsSelector;
 
 		this.events = {
-			showDetails: new ew.CustomEvent()
+			showDetails: new CustomEvent(),
+			hideDetails: new CustomEvent()
 		};
 
 		this.checkContributingDetails();
@@ -553,6 +571,7 @@ ew.components.ToggleContributors = (function( $ ){
 		} else {
 
 			this.$contributingTeamDetails.hide();
+			this.events.hideDetails.publish();
 		}
 	};
 
@@ -575,7 +594,7 @@ ew.components.ToggleContributors = (function( $ ){
 
 	return ToggleContributorsComponent;
 
-}( jQuery ));	
+}( jQuery, ew.CustomEvent ));	
 ew.components.ToggleExportValue = (function( $ ){
 	
 	function errorMessage( label ){
@@ -691,6 +710,35 @@ ew.components.WordCounter = (function( $ ){
 
 }( jQuery ));
 
+ew.controllers.Contributors = (function(){
+
+	function errorMessage( param ){
+
+		return ( param + ' is a required parameter for ContributorsController' );
+	}
+	
+	function ContributorsController( toggleContributors, addContributors ){
+
+		if( !toggleContributors ){ throw new Error( errorMessage( 'toggleContributors' ) ); }
+		if( !addContributors ){ throw new Error( errorMessage( 'addContributors' ) ); }
+
+		//when the details are shown tell addContributors to focus on the first element
+		//and tell it to update the remove button position
+		toggleContributors.events.showDetails.subscribe( function(){
+
+			addContributors.focusOnFirstNameInput();
+			addContributors.updateCloseButton();
+		} );
+
+		toggleContributors.events.hideDetails.subscribe( function(){
+
+			addContributors.resetAll();
+		} );
+	}
+
+	return ContributorsController;
+	
+}());
 ew.pages.confirmationForm = function confirmationFormPage( agreeWithWinName ){
 	
 	var $infoBox = $( '#confirm-false-info' );
@@ -811,7 +859,7 @@ ew.pages.officerForm = (function(){
 		});
 	}
 
-	function createComponents( opts, appComponents ){
+	function createComponents( opts, appComponents, appControllers ){
 
 		appComponents.toggleContributors = new ew.components.ToggleContributors({
 			$contributingTeamDetails: $( '#contributing-teams-details' ),
@@ -826,13 +874,7 @@ ew.pages.officerForm = (function(){
 
 		//appComponents.toggleHvoProgram = new ew.components.ToggleContentCheckbox( opts.hvoProgram );
 
-		//when the details are shown tell addContributors to focus on the first element
-		//and tell it to update the remove button position
-		appComponents.toggleContributors.events.showDetails.subscribe( function(){
-
-			appComponents.addContributors.focusOnFirstNameInput();
-			appComponents.addContributors.updateCloseButton();
-		} );
+		appControllers.contributors = new ew.controllers.Contributors( appComponents.toggleContributors, appComponents.addContributors );
 
 		appComponents.supportSelects = new ew.components.AddSelect( opts.supportGroup );
 		appComponents.programmeSelects = new ew.components.AddSelect( opts.programmeGroup );
@@ -877,10 +919,11 @@ ew.pages.officerForm = (function(){
 		
 		var app = ew.application;
 		var appComponents = app.components;
+		var appControllers = app.controllers;
 
 		leadOfficerTeamTypeChange();
 		contributingOfficerTeamTypeChange();
-		createComponents( opts, appComponents );
+		createComponents( opts, appComponents, appControllers );
 
 		if( !opts.isComplete ){
 

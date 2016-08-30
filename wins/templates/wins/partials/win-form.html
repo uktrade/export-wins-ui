@@ -91,7 +91,6 @@
 			by the customer.
 		</p>
 
-		{% include "wins/partials/win-field.html" with field=form.name_of_customer class="restrict-width" %}
 
 	{% if win.complete %}
 
@@ -112,6 +111,9 @@
 
 	{% endif %}
 
+		{% include "wins/partials/win-field.html" with field=form.name_of_customer class="restrict-width" %}
+
+		{% include "wins/partials/win-field.html" with field=form.business_type help="e.g. export sales, contract, order, distributor, tender /competition win, joint venture, outward investment, etc." class="restrict-width" %}
 {% comment %}
 		<p>
 			These questions help us to understand the &pound; value of the customer's win
@@ -256,8 +258,6 @@
 		{% include "wins/partials/win-field.html" with field=form.name_of_export class="restrict-width" %}
 
 		{% include "wins/partials/win-field.html" with field=form.sector class="restrict-width-lg" %}
-
-		{% include "wins/partials/win-field.html" with field=form.business_type help="e.g. export sales, contract, order, distributor, tender /competition win, joint venture, outward investment, etc." class="restrict-width" %}
 		
 
 		<h3 class="form-section-heading">Support provided</h3>
@@ -343,7 +343,7 @@
 			programmeGroup: {
 				selector: '.programme-group select',
 				buttonText: 'Add an associate programme',
-				labelText: 'Was there an associate programme?',
+				labelText: 'Associated programme?',
 				minVisible: 0
 			},
 			exportType: {

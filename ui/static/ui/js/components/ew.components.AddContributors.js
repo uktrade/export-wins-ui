@@ -141,17 +141,32 @@ ew.components.AddContributors = (function( $ ){
 		this.$addButton[ 0 ].disabled = isDisabled;
 	};
 
-	AddContributorsComponent.prototype.removeContributor = function( e, elem ){
-		
-		var $contributor = $( elem ).parent( this.contributorsSelector );
+	AddContributorsComponent.prototype.resetAll = function(){
 
-		$contributor.hide();
+		var self = this;
+		
+		this.$contributors.each( function(){
+
+			self.resetContributor( $( this ) );
+		} );
+	};
+
+	AddContributorsComponent.prototype.resetContributor = function( $contributor ){
+
 		$contributor.find( 'input' ).val( '' );
 		$contributor.find( 'select' ).each( function(){
 
 			this.selectedIndex = 0;
 		} );
+	};
 
+	AddContributorsComponent.prototype.removeContributor = function( e, elem ){
+		
+		var $contributor = $( elem ).parent( this.contributorsSelector );
+
+		$contributor.hide();
+
+		this.resetContributor( $contributor );
 		this.shownContributors--;
 		this.updateCloseButton();
 		this.checkAddButtonState();

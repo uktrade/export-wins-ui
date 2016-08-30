@@ -93,7 +93,7 @@ ew.pages.officerForm = (function(){
 		});
 	}
 
-	function createComponents( opts, appComponents ){
+	function createComponents( opts, appComponents, appControllers ){
 
 		appComponents.toggleContributors = new ew.components.ToggleContributors({
 			$contributingTeamDetails: $( '#contributing-teams-details' ),
@@ -108,13 +108,7 @@ ew.pages.officerForm = (function(){
 
 		//appComponents.toggleHvoProgram = new ew.components.ToggleContentCheckbox( opts.hvoProgram );
 
-		//when the details are shown tell addContributors to focus on the first element
-		//and tell it to update the remove button position
-		appComponents.toggleContributors.events.showDetails.subscribe( function(){
-
-			appComponents.addContributors.focusOnFirstNameInput();
-			appComponents.addContributors.updateCloseButton();
-		} );
+		appControllers.contributors = new ew.controllers.Contributors( appComponents.toggleContributors, appComponents.addContributors );
 
 		appComponents.supportSelects = new ew.components.AddSelect( opts.supportGroup );
 		appComponents.programmeSelects = new ew.components.AddSelect( opts.programmeGroup );
@@ -159,10 +153,11 @@ ew.pages.officerForm = (function(){
 		
 		var app = ew.application;
 		var appComponents = app.components;
+		var appControllers = app.controllers;
 
 		leadOfficerTeamTypeChange();
 		contributingOfficerTeamTypeChange();
-		createComponents( opts, appComponents );
+		createComponents( opts, appComponents, appControllers );
 
 		if( !opts.isComplete ){
 
