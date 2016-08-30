@@ -1,3 +1,4 @@
+/*
 ew.components.ToggleContentCheckbox = (function( $ ){
 
 	function errorMessage( field ){
@@ -32,3 +33,4 @@ ew.components.ToggleContentCheckbox = (function( $ ){
 	return ToggleContentCheckboxComponent;
 	
 }( jQuery ));
+*/

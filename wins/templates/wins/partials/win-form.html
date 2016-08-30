@@ -266,19 +266,11 @@
 			How did we help the customer achieve this win?
 		</p>
 
+
+		{% include "wins/partials/win-field.html" with field=form.hvo_programme class="restrict-width" %}
+		{% include "wins/partials/form-checkbox.html" with field=form.has_hvo_specialist_involvement %}
+
 		<h4 class="form-label">This win was...</h4>
-
-		<div class="checkbox">
-			<label for="part-of-hvo">
-				<input name="part_of_hvo" id="part-of-hvo" type="checkbox" value="True"{% if form.has_hvo_specialist_involvement.value == 'True' or form.hvo_programme.value != '' %} checked{% endif %}>
-				Part of an HVO program
-			</label>
-		</div>
-
-		<div id="hvo-program-details" class="hvo-program-details">
-			{% include "wins/partials/win-field.html" with field=form.hvo_programme class="restrict-width" %}
-			{% include "wins/partials/form-checkbox.html" with field=form.has_hvo_specialist_involvement %}
-		</div>
 		{% include "wins/partials/form-checkbox.html" with field=form.is_prosperity_fund_related %}
 		{% include "wins/partials/form-checkbox.html" with field=form.is_e_exported %}
 
@@ -353,10 +345,6 @@
 				buttonText: 'Add an associate programme',
 				labelText: 'Was there an associate programme?',
 				minVisible: 0
-			},
-			hvoProgram: {
-				checkboxId: '#part-of-hvo',
-				contentId: '#hvo-program-details'
 			},
 			exportType: {
 				name: '{{ form.type.name }}',
