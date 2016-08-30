@@ -2,7 +2,9 @@
 
 .win-form .radio-label { font-size: 1em; font-weight: bold; margin-bottom: -0.5em; }
 
-.win-form form h3 { margin-top: 3em; }
+.win-form .form-section-heading { margin-top: 3em; }
+
+.win-form .form-label { font-size: 1em; font-weight: bold; margin-top: 2em; }
 
 .win-form .remove-contributor { float: right; }
 
@@ -10,7 +12,7 @@
 
 .win-form .contributing-location { margin-bottom: 3em; }
 
-.win-form .win-value-table { min-width: 500px; }
+.win-form .win-value-table { min-width: 750px; }
 
 .win-form .win-value-table td { width: 20%; }
 
@@ -35,6 +37,14 @@
 .win-form .win-form-well { margin-top: 3em; }
 
 .win-form .text-danger { color: #cf102d; }
+
+.win-form .add-select-group { margin-bottom: 3em; }
+
+.win-form .add-select-group .support-group, .win-form .add-select-group .programme-group { padding-right: 100px; position: relative; }
+
+.win-form .add-select-group .support-group .remove-select, .win-form .add-select-group .programme-group .remove-select { position: absolute; top: 0; right: 0; }
+
+.win-form h4 .required { padding-right: 0.25em; }
 
 .win-form .win-values { margin-top: 3em; }
 
@@ -264,7 +274,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-app
 
 .win-seding-edit-message { margin: 3em 0 -1em 0; }
 
-.word-counter { color: #646464; }
+.word-counter { color: #a7a7a7; }
 
 @media (max-width: 768px) { .logo-row .logo { height: 70px; }
   .btn-responsive, .end-buttons .btn, body .end-buttons .btn { width: 100%; margin-bottom: 1em; margin-left: 0 !important; margin-right: 0 !important; }

@@ -713,7 +713,7 @@ mark, .mark { background-color: #fce5dd; padding: .2em; }
 
 .text-capitalize { text-transform: capitalize; }
 
-.text-muted { color: #dcdcdc; }
+.text-muted { color: #a7a7a7; }
 
 .text-primary { color: #4814a0; }
 
@@ -1109,7 +1109,7 @@ pre code { padding: 0; font-size: inherit; color: inherit; white-space: pre-wrap
 
 table { background-color: transparent; }
 
-caption { padding-top: 8px; padding-bottom: 8px; color: #dcdcdc; text-align: left; }
+caption { padding-top: 8px; padding-bottom: 8px; color: #a7a7a7; text-align: left; }
 
 th { text-align: left; }
 

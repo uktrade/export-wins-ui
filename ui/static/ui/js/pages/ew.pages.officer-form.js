@@ -115,6 +115,9 @@ ew.pages.officerForm = (function(){
 			appComponents.addContributors.focusOnFirstNameInput();
 			appComponents.addContributors.updateCloseButton();
 		} );
+
+		appComponents.supportSelects = new ew.components.AddSelect( opts.supportGroup );
+		appComponents.programmeSelects = new ew.components.AddSelect( opts.programmeGroup );
 	}
 
 	function errorMessage( field ){
@@ -130,6 +133,8 @@ ew.pages.officerForm = (function(){
 		if( typeof opts.isComplete === 'undefined' ){ throw new Error( errorMessage( 'opts.isComplete' ) ); }
 		
 		if( !opts.hvoProgram ){ throw new Error( errorMessage( 'opts.hvoProgram' ) ); }
+		if( !opts.supportGroup ){ throw new Error( errorMessage( 'opts.supportGroup' ) ); }
+		if( !opts.programmeGroup ){ throw new Error( errorMessage( 'opts.programmeGroup' ) ); }
 
 		if( !opts.isComplete ){
 

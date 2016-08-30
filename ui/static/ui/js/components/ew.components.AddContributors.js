@@ -23,6 +23,8 @@ ew.components.AddContributors = (function( $ ){
 		this.hideContributingLines();
 		this.showCloseButton();
 
+		this.$addButton.on( 'click', $.proxy( this.addContributor, this ) );
+
 		this.$contributors.on( 'click', '.remove-contributor', function( e ){
 
 			self.removeContributor( e, this );
@@ -72,7 +74,6 @@ ew.components.AddContributors = (function( $ ){
 		
 		this.$addButton = $( '<button class="btn btn-default">Add another contributor</button>' );
 		this.$contributors.parent().append( this.$addButton );
-		this.$addButton.on( 'click', $.proxy( this.addContributor, this ) );
 	};
 
 	AddContributorsComponent.prototype.hideContributingLines = function(){

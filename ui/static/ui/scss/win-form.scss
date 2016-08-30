@@ -16,8 +16,14 @@
 		margin-bottom: -0.5em;
 	}
 
-	form h3 {
+	.form-section-heading {
 		margin-top: 3em;
+	}
+
+	.form-label {
+		font-size: 1em;
+		font-weight: bold;
+		margin-top: 2em;
 	}
 
 	.remove-contributor {
@@ -34,7 +40,7 @@
 
 	.win-value-table {
 
-		min-width: 500px;
+		min-width: 750px;
 
 		 td {
 
@@ -91,6 +97,28 @@
 
 	.text-danger {
 		color: $state-danger-text;
+	}
+
+	.add-select-group {
+
+		margin-bottom: 3em;
+
+		.support-group,
+		.programme-group {
+		
+			padding-right: 100px;
+			position: relative;
+
+			.remove-select {
+				position: absolute;
+				top: 0;
+				right: 0;
+			}
+		}
+	}
+
+	h4 .required {
+		padding-right: 0.25em;
 	}
 
 	.win-values {

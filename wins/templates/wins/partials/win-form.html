@@ -27,7 +27,7 @@
 
     {% csrf_token %}
 
-		<h3>Officer details</h3>
+		<h3 class="form-section-heading">Officer details</h3>
 		{% include "wins/partials/win-field.html" with field=form.lead_officer_name class="restrict-width-sm" %}
 		<div class="row">
 			<div class="col-sm-4">
@@ -60,9 +60,10 @@
 		</div>
 
 		<div id="contributing-teams-details" class="contributing-teams-content">
-			<h3>
-				Contributing teams and advisers
-			</h3>			
+			<h4>Contributing teams and advisors</h4>
+			<p class="text-muted">
+				Up to 5 teams and advisors can be added, please choose the teams that contributed the most.
+			</p>
 		
 			{% include "wins/partials/win-contributor.html" with name=form.advisor_0_name id=form.advisor_0_id team_type=form.advisor_0_team_type team=form.advisor_0_hq_team location=form.advisor_0_location %}
 			{% include "wins/partials/win-contributor.html" with name=form.advisor_1_name id=form.advisor_1_id team_type=form.advisor_1_team_type team=form.advisor_1_hq_team location=form.advisor_1_location %}
@@ -73,7 +74,7 @@
 		</div>
 
 
-		<h3>Customer details</h3>
+		<h3 class="form-section-heading">Customer details</h3>
 
 		{% include "wins/partials/win-field.html" with field=form.company_name class="restrict-width-lg" %}
 		{% include "wins/partials/win-field.html" with field=form.cdms_reference class="restrict-width-sm" %}
@@ -83,7 +84,7 @@
 		{% include "wins/partials/win-field.html" with field=form.customer_location class="restrict-width-sm" %}
 
 
-		<h3>Export win details</h3>
+		<h3 class="form-section-heading">Export win details</h3>
 
 		<p>
 			Your answers to these questions will be included in the details confirmed
@@ -259,13 +260,13 @@
 		{% include "wins/partials/win-field.html" with field=form.business_type help="e.g. export sales, contract, order, distributor, tender /competition win, joint venture, outward investment, etc." class="restrict-width" %}
 		
 
-		<h3>Support provided</h3>
+		<h3 class="form-section-heading">Support provided</h3>
 
 		<p>
 			How did we help the customer achieve this win?
 		</p>
 
-		<h4>This win was...</h4>
+		<h4 class="form-label">This win was...</h4>
 
 		<div class="checkbox">
 			<label for="part-of-hvo">
@@ -281,13 +282,17 @@
 		{% include "wins/partials/form-checkbox.html" with field=form.is_prosperity_fund_related %}
 		{% include "wins/partials/form-checkbox.html" with field=form.is_e_exported %}
 
-		{% include "wins/partials/win-field.html" with field=form.type_of_support_1 class="restrict-width" %}
-		{% include "wins/partials/win-field.html" with field=form.type_of_support_2 class="restrict-width" %}
-		{% include "wins/partials/win-field.html" with field=form.type_of_support_3 class="restrict-width" %}
-		{% include "wins/partials/win-field.html" with field=form.associated_programme_1 class="restrict-width" %}
-		{% include "wins/partials/win-field.html" with field=form.associated_programme_2 class="restrict-width" %}
-		{% include "wins/partials/win-field.html" with field=form.associated_programme_3 class="restrict-width" %}
-		<hr>
+		<div class="add-select-group">
+			{% include "wins/partials/win-field.html" with field=form.type_of_support_1 class="restrict-width support-group" %}
+			{% include "wins/partials/win-field.html" with field=form.type_of_support_2 class="restrict-width support-group" %}
+			{% include "wins/partials/win-field.html" with field=form.type_of_support_3 class="restrict-width support-group" %}
+		</div>
+		
+		<div class="add-select-group">
+			{% include "wins/partials/win-field.html" with field=form.associated_programme_1 class="restrict-width programme-group" %}
+			{% include "wins/partials/win-field.html" with field=form.associated_programme_2 class="restrict-width programme-group" %}
+			{% include "wins/partials/win-field.html" with field=form.associated_programme_3 class="restrict-width programme-group" %}
+		</div>
 
 		{# these manually place the label before the field #}
 
@@ -337,6 +342,18 @@
 		ew.pages.officerForm({
 			isComplete: ( '{{ win.complete }}' === 'True' ),
 			descriptionId: '{{ form.description.auto_id }}',
+			supportGroup: {
+				selector: '.support-group select',
+				required: true,
+				buttonText: 'Add support type',
+				labelText: 'What type of support was given?'
+			},
+			programmeGroup: {
+				selector: '.programme-group select',
+				buttonText: 'Add an associate programme',
+				labelText: 'Was there an associate programme?',
+				minVisible: 0
+			},
 			hvoProgram: {
 				checkboxId: '#part-of-hvo',
 				contentId: '#hvo-program-details'
