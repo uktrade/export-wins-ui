@@ -281,6 +281,7 @@ ew.components.AddSelect = (function( $ ){
 		this.$addButton = $( '<button class="btn btn-default">' + this.buttonText + '</button>' );
 		this.$removeButton = $( '<button class="btn btn-default remove-select">Remove</button>' );
 
+		this.ensureSeqential();
 		this.hideOthers();
 		this.createLabel();
 		this.$addButton.appendTo( this.$group );
@@ -317,6 +318,36 @@ ew.components.AddSelect = (function( $ ){
 		}
 
 		this.updateRemoveButton();
+	};
+
+	AddSelectComponent.prototype.ensureSeqential = function(){
+
+		var total = this.count - 1;
+		var $selects = this.$selects;
+		
+		$selects.each( function( i ){
+
+			if( i < total ){
+
+				var next;
+				var nextIndex = ( i + 1 );
+
+				next = $selects[ nextIndex ];
+
+				//find the next select with a value
+				while( nextIndex <= total && next && next.selectedIndex === 0 ){
+
+					next = $selects[ nextIndex ];
+					nextIndex++;
+				}
+
+				if( this.selectedIndex === 0 && next.selectedIndex > 0 ){
+
+					this.selectedIndex = next.selectedIndex;
+					next.selectedIndex = 0;
+				}
+			}
+		} );
 	};
 
 	AddSelectComponent.prototype.hideOthers = function(){

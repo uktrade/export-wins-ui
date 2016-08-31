@@ -215,7 +215,7 @@ h1 { margin-bottom: 1em; }
 
 form input { padding-left: 2em; padding-right: 2em; }
 
-.scroll-table { overflow-x: auto; }
+.scroll-table { overflow-x: auto; margin-bottom: 20px; }
 
 td.error input { background-color: #B10E1E; color: #fff; }
 

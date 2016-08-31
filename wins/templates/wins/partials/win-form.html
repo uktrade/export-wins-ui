@@ -141,7 +141,8 @@
 					Total export value over the next 5 years.
 				</p>
 
-				<table class="table table-responsive win-value-table">
+				<div class="scroll-table">
+				<table class="table table-responsive">
 					<tr>
 						<th>{{ win.breakdowns.exports.0.year }}</th>
 						<th>{{ win.breakdowns.exports.1.year }}</th>
@@ -157,6 +158,7 @@
 						<td>&pound;{{ win.breakdowns.exports.4.value | intcomma }}</td>
 					</tr>
 				</table>
+				</div>
 
 				<p class="export-year-value">Total: &pound;{{ win.total_expected_export_value | intcomma }}</p>
 
@@ -165,8 +167,9 @@
 				<p>
 					Total non export value over the next 5 years.
 				</p>
-
-				<table class="table table-responsive win-value-table">
+	
+				<div class="scroll-table">
+				<table class="table table-responsive">
 					<tr>
 						<th>{{ win.breakdowns.nonexports.0.year }}</th>
 						<th>{{ win.breakdowns.nonexports.1.year }}</th>
@@ -182,6 +185,7 @@
 						<td>&pound;{{ win.breakdowns.nonexports.4.value | intcomma }}</td>
 					</tr>
 				</table>
+				</div>
 
 				<p class="export-year-value">Total: &pound;{{ win.total_expected_non_export_value | intcomma }}</p>
 			</div>
