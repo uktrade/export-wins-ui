@@ -42,7 +42,15 @@
 		{% include "wins/partials/win-field.html" with field=form.lead_officer_email_address help="You only need to provide this if you are completing this form on behalf of the lead officer" class="restrict-width-sm" %}
 		{% include "wins/partials/win-field.html" with field=form.other_official_email_address help="If another officer from your team should be kept notified, provide their email address" class="restrict-width-sm" %}
 
+
 		<div class="form-group has-contributors">
+			<h3>
+				Credit for this win
+			</h3>
+
+			<h4 class="radio-label">
+				<span class="required">*</span>Did any other teams help with this win?
+			</h4>
 	
 			<div class="radio">
 				<label for="no-contributors">
