@@ -14,7 +14,7 @@
 		<div class="radio{% if class %} {{ class }}{% endif %}">
 			<label for="{{ field.name }}-{{ value }}">
 				{# hack here to turn the field.value into a number by adding 0 with the add filter - will break for string values that aren't numbers #}
-				<input type="radio" id="{{ field.name }}-{{ value }}" name="{{ field.name }}" value="{{ value }}"{% if field.value|add:"0" = value %} checked{% endif %}>
+				<input type="radio" id="{{ field.name }}-{{ value }}" name="{{ field.name }}" value="{{ value }}"{% if field.value|add:"0" = value %} checked{% endif %}{%if disabled %} disabled{% endif %}>
 				{{ text }}
 			</label>
 		</div>

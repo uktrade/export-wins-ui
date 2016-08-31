@@ -127,13 +127,13 @@
 		</p>
 {% endcomment %}
 
-		{% include "wins/partials/form-radio.html" with field=form.type %}
-
 	{% if win.complete %}
 
 		<div class="panel panel-info">
 			<p class="panel-heading">The win has been sent to the customer and these details cannot be edited.</p>
 			<div class="panel-body">
+
+				{% include "wins/partials/form-radio.html" with field=form.type disabled=True %}
 
 				<h4>Export value</h4>
 
@@ -192,6 +192,8 @@
 		</div>
 
 	{% else %}
+
+		{% include "wins/partials/form-radio.html" with field=form.type %}
 
 		<div id="export-content" class="win-values">
 
