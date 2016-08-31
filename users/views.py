@@ -18,6 +18,8 @@ class LoginView(FormView):
 
     def form_valid(self, form):
         response = FormView.form_valid(self, form)
+        # note, secret varies between UI server and admin server, so have to
+        # login separetely to both
         response.set_cookie(
             "alice",
             value=jwt.encode(
