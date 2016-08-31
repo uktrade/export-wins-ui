@@ -109,27 +109,16 @@
     {% endif %}
   </div>
 
-  <h3 class="section-heading">Details of Export Win</h3>
+  <h3 class="section-heading">Export win details</h3>
 
   <div class="section-content">
 
-    {% include "wins/partials/win-details-element.html" with name="Date won" val=win.date|date:"M Y" %}
     {% include "wins/partials/win-details-element.html" with name="Country" val=win.country %}
-    {% include "wins/partials/win-details-element.html" with name="Business deal that best describes the win" val=win.business_type %}
+    {% include "wins/partials/win-details-element.html" with name="Date won" val=win.date|date:"M Y" %}
     {% include "wins/partials/win-details-element.html" with name="How the company was supported in achieving the win" val=win.description %}
-    {% include "wins/partials/win-details-element.html" with name="Name of overseas customer" val=win.name_of_customer %}
-    {% include "wins/partials/win-details-element.html" with name="Goods or services that are being exported" val=win.name_of_export %}
-
-  </div>
-
-
-  <h3 class="section-heading">Expected value of the win</h3>
-
-  <div class="section-content">
-
+    {% include "wins/partials/win-details-element.html" with name="Overseas customer" val=win.name_of_customer %}
+    {% include "wins/partials/win-details-element.html" with name="Business deal that best describes the win" val=win.business_type %}
     {% include "wins/partials/win-details-element.html" with name="Type" val=win.type %}
-    {% include "wins/partials/win-details-element.html" with name="Expected export value related to goods or services" val=win.goods_vs_services %}
-    {% include "wins/partials/win-details-element.html" with name="Sector" val=win.sector %}
 
     <div class="row">
       <div class="col-sm-6">
@@ -206,6 +195,12 @@
       </div>
     </div>
 
+    {% include "wins/partials/win-details-element.html" with name="Expected export value related to goods or services" val=win.goods_vs_services %}
+    
+    {% include "wins/partials/win-details-element.html" with name="Goods or services that are being exported" val=win.name_of_export %}
+
+    {% include "wins/partials/win-details-element.html" with name="Sector" val=win.sector %}
+
   </div>
 
 
@@ -213,7 +208,7 @@
   <h3 class="section-heading">Support provided</h3>
 
   <div class="section-content">
-    {% include "wins/partials/win-details-element.html" with name="HVO Programme, if applicable" val=win.hvo_programme required=False %}
+    {% include "wins/partials/win-details-element.html" with name="HVO Programme, if applicable" val=win.hvo_programme|default:"None" required=False %}
     {% include "wins/partials/win-details-element.html" with name="Have HVO Specialists been involved" val=win.has_hvo_specialist_involvement %}
     {% include "wins/partials/win-details-element.html" with name="Is this win Prosperity Fund related" val=win.is_prosperity_fund_related %}
     {% include "wins/partials/win-details-element.html" with name="Does the win relate to e-exporting" val=win.is_e_exported %}
