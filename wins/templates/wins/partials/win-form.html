@@ -13,7 +13,7 @@
 		{{ form.non_field_errors }}
 	{% endif %}
 	
-	<p>The Lead officer should provide information for this form.</p>
+	<p>The Lead officer should provide the information for this form.</p>
 
 	{% if win.complete %}
 
@@ -79,7 +79,7 @@
 		{% include "wins/partials/win-field.html" with field=form.company_name class="restrict-width-lg" %}
 		{% include "wins/partials/win-field.html" with field=form.cdms_reference class="restrict-width-sm" %}
 		{% include "wins/partials/win-field.html" with field=form.customer_name class="restrict-width-sm" %}
-		{% include "wins/partials/win-field.html" with field=form.customer_email_address class="restrict-width-sm" help="An email will be sent to this address to ask the customer to confirm the win details." %}
+		{% include "wins/partials/win-field.html" with field=form.customer_email_address class="restrict-width-sm" help="We will send the customer form to this address to enable them to confirm the win details." %}
 		{% include "wins/partials/win-field.html" with field=form.customer_job_title class="restrict-width-sm" %}
 		{% include "wins/partials/win-field.html" with field=form.customer_location class="restrict-width-sm" %}
 
@@ -87,8 +87,7 @@
 		<h3 class="form-section-heading">Export win details</h3>
 
 		<p>
-			Your answers to these questions will be included in the details confirmed
-			by the customer.
+			Your customer will be asked to confirm this information.
 		</p>
 
 
@@ -107,13 +106,13 @@
 
 		{% include "wins/partials/win-field.html" with field=form.country class="restrict-width-sm" %}
 		{% include "wins/partials/win-field.html" with field=form.date help="Enter month and year in the format MM/YYYY." class="restrict-width-xsm" %}
-		{% include "wins/partials/win-field.html" with field=form.description help="Give a brief description of the services provided (in no more than about 50 words)." class="restrict-width" %}
+		{% include "wins/partials/win-field.html" with field=form.description help="Describe the support that had the most impact, or would be the most memorable for the customer, in 50 words or fewer." class="restrict-width" %}
 
 	{% endif %}
 
-		{% include "wins/partials/win-field.html" with field=form.name_of_customer class="restrict-width" %}
+		{% include "wins/partials/win-field.html" with field=form.name_of_customer class="restrict-width" help="Write &#39;Confidential&#39; if your customer has specified this." %}
 
-		{% include "wins/partials/win-field.html" with field=form.business_type help="e.g. export sales, contract, order, distributor, tender /competition win, joint venture, outward investment, etc." class="restrict-width" %}
+		{% include "wins/partials/win-field.html" with field=form.business_type help="Examples: export sales, contract, order, distributor, tender/competition win, joint venture, outward investment etc." class="restrict-width" %}
 {% comment %}
 		<p>
 			These questions help us to understand the &pound; value of the customer's win
@@ -197,8 +196,8 @@
 
 		<div id="export-content" class="win-values">
 
-			<h4>Export value over 5 years</h4>
-			<p class="help-text">(round to the nearest &pound;)</p>
+			<h4>Export value over next 5 years</h4>
+			<p class="help-text">(round to nearest &pound;)</p>
 
 			{% if form.breakdown_exports_0.errors or form.breakdown_exports_1.errors or form.breakdown_exports_2.errors or form.breakdown_exports_.errors or form.breakdown_exports_4.errors %}
 				<p class="alert alert-danger">Please correct the values highlighted with red below. Whole numbers only (no separators etc).</p>
@@ -228,8 +227,8 @@
 
 		<div id="non-export-content" class="win-values">
 
-			<h4>Non-export value over 5 years</h4>
-			<p class="help-text">(round to the nearest &pound;)</p>
+			<h4>Non-export value over next 5 years</h4>
+			<p class="help-text">(round to nearest &pound;)</p>
 
 			{% if form.breakdown_non_exports_0.errors or form.breakdown_non_exports_1.errors or form.breakdown_non_exports_2.errors or form.breakdown_non_exports_.errors or form.breakdown_non_exports_4.errors %}
 				<p class="alert alert-danger">Please correct the values highlighted with red below. Whole numbers only (no separators etc).</p>
@@ -269,14 +268,12 @@
 		<h3 class="form-section-heading">Support provided</h3>
 
 		<p>
-			How did we help the customer achieve this win?
+			Did any of these help the customer achieve this win?
 		</p>
 
 
 		{% include "wins/partials/win-field.html" with field=form.hvo_programme class="restrict-width" %}
 		{% include "wins/partials/form-checkbox.html" with field=form.has_hvo_specialist_involvement %}
-
-		<h4 class="form-label">This win was...</h4>
 		{% include "wins/partials/form-checkbox.html" with field=form.is_prosperity_fund_related %}
 		{% include "wins/partials/form-checkbox.html" with field=form.is_e_exported %}
 
@@ -343,13 +340,13 @@
 			supportGroup: {
 				selector: '.support-group select',
 				required: true,
-				buttonText: 'Add support type',
+				buttonText: 'Add a support type',
 				labelText: 'What type of support was given?'
 			},
 			programmeGroup: {
 				selector: '.programme-group select',
 				buttonText: 'Add an associated programme',
-				labelText: 'Associated programme?',
+				labelText: 'Was there an associated programme?',
 				minVisible: 0
 			},
 			exportType: {

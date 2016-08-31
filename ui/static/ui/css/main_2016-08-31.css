@@ -1,6 +1,6 @@
 .win-form .form-group ul li { margin: 0.5em 0; }
 
-.win-form .radio-label { font-size: 1em; font-weight: bold; margin-bottom: -0.5em; }
+.win-form .radio-label { font-size: 1em; font-weight: bold; margin-bottom: -0.6em; margin-top: 2em; }
 
 .win-form .form-section-heading { margin-top: 3em; }
 
@@ -16,7 +16,9 @@
 
 .win-form .win-value-table td { width: 20%; }
 
-.win-form .radio, .win-form .checkbox { margin: 1.5em 0; }
+.win-form .radio-group { margin-bottom: 1.5em; }
+
+.win-form .radio, .win-form .checkbox { margin: 1.25em 0; }
 
 .win-form span.glyphicon { font-size: 1.4em; }
 
@@ -104,7 +106,7 @@
 
 .my-wins th { position: relative; }
 
-.my-wins th .glyphicon { position: absolute; top: auto; bottom: 0.85em; left: -0.3em; color: #dcdcdc; }
+.my-wins th .glyphicon { position: absolute; top: auto; bottom: 0.85em; left: -0.3em; color: #646464; }
 
 .my-wins .unsent-wins, .my-wins .sent-to-customer-wins, .my-wins .responded-wins { min-width: 800px; }
 

@@ -248,7 +248,7 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
                 widget = forms.fields.NumberInput(
                     attrs={
                         "class": "form-control",
-                        "placeholder": "£GBP"
+                        "placeholder": "GBP"
                     }
                 )
                 self.fields[field_name] = forms.fields.IntegerField(

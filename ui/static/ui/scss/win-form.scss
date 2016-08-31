@@ -13,7 +13,8 @@
 	.radio-label {
 		font-size: 1em;
 		font-weight: bold;
-		margin-bottom: -0.5em;
+		margin-bottom: -0.6em;
+		margin-top: 2em;
 	}
 
 	.form-section-heading {
@@ -48,9 +49,13 @@
 		}
 	}
 
+	.radio-group {
+		margin-bottom: 1.5em;
+	}
+
 	.radio,
 	.checkbox {
-		margin: 1.5em 0;
+		margin: 1.25em 0;
 	}
 
 	span.glyphicon {
