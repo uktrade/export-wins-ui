@@ -3,7 +3,10 @@ import os
 from django.conf.urls import url
 from django.views.generic import TemplateView
 
-from ui.views import CSVView
+from ui.views import (
+    AdminView, AddUserView, ChangeCustomerEmailView, CSVView,
+    NewPassView, SendCustomerEmailView
+)
 from users.views import LoginView, LogoutView
 from wins.views import (
     ConfirmationView, EditWinView, LockedWinTemplateView, MyWinsView,
@@ -94,6 +97,14 @@ urlpatterns = [
         LogoutView.as_view(),
         name="logout",
     ),
+
+    url(r"^admin$", AdminView.as_view(), name="admin-index"),
+    url(r"^add-user$", AddUserView.as_view(), name="add-user"),
+    url(r"^new-password$", NewPassView.as_view(), name="new-password"),
+    url(r"^send-customer-email$", SendCustomerEmailView.as_view(),
+        name="send-customer-email"),
+    url(r"^change-customer-email$", ChangeCustomerEmailView.as_view(),
+        name="change-customer-email"),
 
 ]
 

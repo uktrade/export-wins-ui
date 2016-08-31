@@ -1,0 +1,44 @@
+{% extends 'ui/base.html' %}
+
+
+{% load staticfiles %}
+
+
+{% block css %}
+
+  {{ block.super }}
+
+  <style>
+  .success {
+    font-weight: bold;
+  }
+  .error {
+   font-weight: bold;
+  }
+  </style>
+
+{% endblock css %}
+
+
+{% block content %}
+
+<a href="/admin"><h1>Export Wins Admin</h1></a>
+
+{% if success %}
+    <span class="success">{% block success %}Success!{% endblock %}</span>
+{% elif error %}
+    <span class="error">
+        Error: {{ error }}
+    </span>
+{% endif %}
+
+<form method="post">
+
+{% block form %}
+{% endblock %}
+
+{% csrf_token %}
+</form>
+
+
+{% endblock %}

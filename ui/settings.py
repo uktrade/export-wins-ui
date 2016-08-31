@@ -145,7 +145,13 @@ NOTIFICATIONS_AP = "{}/notifications/".format(DATA_SERVER)
 LOGIN_AP = "{}/auth/login/".format(DATA_SERVER)
 LOGOUT_AP = "{}/auth/logout/".format(DATA_SERVER)
 CSV_AP = "{}/csv/".format(DATA_SERVER)
+ADD_USER_AP = "{}/admin/add-user/".format(DATA_SERVER)
+NEW_PASSWORD_AP = "{}/admin/new-password/".format(DATA_SERVER)
+SEND_CUSTOMER_EMAIL_AP = "{}/admin/send-customer-email/".format(DATA_SERVER)
+CHANGE_CUSTOMER_EMAIL_AP = "{}/admin/change-customer-email/".format(DATA_SERVER)
 
+# For UI server should match UI_SECRET in data server, for admin server should
+# match ADMIN_SECRET in data server.
 UI_SECRET = os.getenv("UI_SECRET")
 
 
