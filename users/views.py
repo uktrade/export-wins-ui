@@ -12,14 +12,23 @@ from .forms import LoginForm
 
 
 class LoginView(FormView):
+    """ Login via data server and set JWT cookie
+
+    When user put their details into the form, the form passes them to the data
+    server, which creates and manages a session for the user.
+
+    """
 
     form_class = LoginForm
     template_name = "users/login.html"
 
     def form_valid(self, form):
         response = FormView.form_valid(self, form)
-        # note, secret varies between UI server and admin server, so have to
-        # login separetely to both
+        # Save dict of user data given by data server API into JWT cookie.
+        # Also save session id of session from data server, for use when making
+        # requests to data server via Rabbit.
+        # Note UI_SECRET varies between UI server and Admin server, so have to
+        # login to both seperately. But both can co-exist.
         response.set_cookie(
             "alice",
             value=jwt.encode(
