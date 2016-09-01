@@ -20,6 +20,10 @@
 
 		You&#39;ve updated this win. The customer has already responded and it&#39;s listed as complete, but you can still <a href="{% url 'win-edit' win_id %}" title="Edit win">edit some details</a> at any time.
 
+	{% elif win.complete %}
+
+		You&#39;ve updated this win. It&#39;s already been sent to the customer, but they haven&#39;t confirmed the details.
+
 	{% else %}
 
      	The win isn&#39;t complete until you have sent it to the customer and they have confirmed the details.

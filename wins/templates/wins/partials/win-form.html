@@ -141,7 +141,8 @@
 			<p class="panel-heading">The win has been sent to the customer and these details cannot be edited.</p>
 			<div class="panel-body">
 
-				{% include "wins/partials/form-radio.html" with field=form.type disabled=True %}
+				{# TODO: this should be disabled or shown as plain text, but backend requires sending it at the moment - otherwise it fails validation #}
+				{% include "wins/partials/form-radio.html" with field=form.type %}
 
 				<h4>Export value</h4>
 
