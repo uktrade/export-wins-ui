@@ -5,7 +5,12 @@
 {% block css %}
 
 	<style>
-		.list-group-item {
+
+		h2 {
+			margin-bottom: 1em;
+		}
+
+		.nav li {
 			font-size: 1.2em;
 		}
 	</style>
@@ -16,17 +21,17 @@
 
 	<h2>Admin tools</h2>
 
-	<ul class="list-group">
-		<li class="list-group-item">
+	<ul class="nav nav-pills nav-stacked restrict-width">
+		<li>
 			<a href="{% url "add-user" %}">Add a new user</a>
 		</li>
-		<li class="list-group-item">
+		<li>
 			<a href="{% url "new-password" %}">Issue a new password to an existing user</a>
 		</li>
-		<li class="list-group-item">
+		<li>
 			<a href="{% url "send-customer-email" %}">Resend customer email</a>
 		</li>
-		<li class="list-group-item">
+		<li>
 			<a href="{% url "change-customer-email" %}">Change customer email address and send email</a>
 		</li>
 	</ul>
