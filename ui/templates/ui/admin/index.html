@@ -1,0 +1,34 @@
+{% extends 'ui//admin/base.html' %}
+
+{% load staticfiles %}
+
+{% block css %}
+
+	<style>
+		.list-group-item {
+			font-size: 1.2em;
+		}
+	</style>
+
+{% endblock %}
+
+{% block admin-content %}
+
+	<h2>Admin tools</h2>
+
+	<ul class="list-group">
+		<li class="list-group-item">
+			<a href="{% url "add-user" %}">Add a new user</a>
+		</li>
+		<li class="list-group-item">
+			<a href="{% url "new-password" %}">Issue a new password to an existing user</a>
+		</li>
+		<li class="list-group-item">
+			<a href="{% url "send-customer-email" %}">Resend customer email</a>
+		</li>
+		<li class="list-group-item">
+			<a href="{% url "change-customer-email" %}">Change customer email address and send email</a>
+		</li>
+	</ul>
+
+{% endblock %}

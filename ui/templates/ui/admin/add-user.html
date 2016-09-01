@@ -1,0 +1,34 @@
+{% extends 'ui/admin/form.html' %}
+
+{% block success %}
+    Success! User has been created for {{ name }} and password email sent to {{ email }}.
+{% endblock %}
+
+{% block breadcrumb-name %}Add user{% endblock %}
+{% block admin-title %}Add new user{% endblock %}
+
+{% block form %}
+
+	<p class="lead restrict-width">
+		The user will get an email with their password.
+	</p>
+
+	<div class="form-group">
+    	<label for="name" class="col-sm-2 control-label">Officer name:</label>
+    	<div class="col-sm-10 restrict-width-sm">
+    		<input class="form-control" type="text" id="name" value="{% if error %}{{ name }}{% endif %}" name="name">
+    	</div>
+	</div>
+
+	<div class="form-group">
+		<label for="email" class="col-sm-2 control-label">Email:</label>
+		<div class="col-sm-10 restrict-width-sm">
+    		<input class="form-control" type="text" value="{% if error %}{{ email }}{% endif %}" name="email">
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-5">
+    		<input type="submit" value="Add new user" class="btn btn-primary">
+		</div>
+	</div>
+{% endblock %}

@@ -56,32 +56,32 @@ class BaseAdminView(LoginRequiredMixin, StaffRequiredMixin, TemplateView):
 
 
 class AdminView(BaseAdminView):
-    template_name = 'ui/admin-index.html'
+    template_name = 'ui/admin/index.html'
 
 
 class AddUserView(BaseAdminView):
     """ Enter an email address, adds the user and sends them password email """
 
     endpoint = settings.ADD_USER_AP
-    template_name = 'ui/admin-add-user.html'
+    template_name = 'ui/admin/add-user.html'
 
 
 class NewPassView(BaseAdminView):
     """ Enter an email address, sends them new password email """
 
     endpoint = settings.NEW_PASSWORD_AP
-    template_name = 'ui/admin-new-password.html'
+    template_name = 'ui/admin/new-password.html'
 
 
 class SendCustomerEmailView(BaseAdminView):
     """ Enter Win ID, send email to customer and officer """
 
     endpoint = settings.SEND_CUSTOMER_EMAIL_AP
-    template_name = 'ui/admin-send-customer-email.html'
+    template_name = 'ui/admin/send-customer-email.html'
 
 
 class ChangeCustomerEmailView(BaseAdminView):
     """ Enter Win ID & email address, change's customer address & emails """
 
     endpoint = settings.CHANGE_CUSTOMER_EMAIL_AP
-    template_name = 'ui/admin-change-customer-email.html'
+    template_name = 'ui/admin/change-customer-email.html'

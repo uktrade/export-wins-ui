@@ -1,0 +1,39 @@
+{% extends 'ui/admin/base.html' %}
+
+{% load staticfiles %}
+
+{% block css %}
+
+	<style>
+		.admin-form {
+			margin-bottom: 3em;
+		}
+	</style>
+
+{% endblock css %}
+
+
+{% block admin-content %}
+
+	<h2>
+		{%block admin-title %}{% endblock %}
+	</h2>
+
+	{% if success %}
+
+			<p class="alert alert-success" role="alert">{% block success %}Success!{% endblock %}</p>
+
+	{% elif error %}
+
+			<p class="alert alert-danger" role="alert">Error: {{ error }}</p>
+
+	{% endif %}
+
+	<form method="post" class="admin-form form-horizontal">
+
+		{% block form %}{% endblock %}
+
+		{% csrf_token %}
+	</form>
+
+{% endblock %}

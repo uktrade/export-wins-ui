@@ -1,0 +1,16 @@
+{% extends 'ui/base.html' %}
+
+{% block breadcrumb %}
+
+	<ol class="win-breadcrumb hidden-print">
+		<li><a href="/admin">Admin tools</a><span class="separator">/</span></li>
+		<li class="active">{% block breadcrumb-name %}{% endblock breadcrumb-name %}</li>
+	</ol>
+
+{% endblock %}
+
+{% block content %}
+
+	{% block admin-content %}{% endblock %}
+
+{% endblock %}

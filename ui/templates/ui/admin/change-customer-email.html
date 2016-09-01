@@ -1,0 +1,34 @@
+{% extends 'ui/admin/form.html' %}
+
+{% block success %}
+    Success! An email has been sent to the customer email for win {{ win_id }}, and officers have been notified.
+{% endblock %}
+
+{% block breadcrumb-name %}Change customer email{% endblock %}
+{% block admin-title %}Change customer email and resend email{% endblock %}
+
+{% block form %}
+    <p class="lead restrict-width">
+    	This will change the email address of the customer for the win, resend the email and will notify the officer a new email has been sent.
+    </p>
+
+    <div class="form-group">
+    	<label for="win-id" class="col-sm-2 control-label">Win ID:</label>
+		<div class="col-sm-6 restrict-width-sm">
+    		<input class="form-control" id="win-id" type="text" name="win_id" value="{% if win_id %}{{ win_id }}{% endif %}">
+		</div>    	
+    </div>
+
+    <div class="form-group">
+    	<label for="email" class="col-sm-2 control-label">Customer email:</label>
+     	<div class="col-sm-6 restrict-width-sm">
+     		<input class="form-control" id="email" type="text" name="email" value="{% if email %}{{ email }}{% endif %}">
+     	</div>
+    </div>
+
+	<div class="form-group">
+	    <div class="col-sm-offset-2 col-sm-5">
+	    	<input type="submit" value="Change email and resend" class="btn btn-primary">
+	    </div>
+	</div>
+{% endblock %}
