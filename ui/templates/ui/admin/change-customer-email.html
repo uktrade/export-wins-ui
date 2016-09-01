@@ -15,14 +15,14 @@
     <div class="form-group">
     	<label for="win-id" class="col-sm-2 control-label">Win ID:</label>
 		<div class="col-sm-10 restrict-width-sm">
-    		<input class="form-control" id="win-id" type="text" name="win_id" value="{% if win_id %}{{ win_id }}{% endif %}">
-		</div>    	
+    		<input class="form-control" id="win-id" type="text" name="win_id" value="{% if error %}{{ win_id }}{% endif %}">
+		</div>
     </div>
 
     <div class="form-group">
     	<label for="email" class="col-sm-2 control-label">Customer email:</label>
      	<div class="col-sm-10 restrict-width-sm">
-     		<input class="form-control" id="email" type="text" name="email" value="{% if email %}{{ email }}{% endif %}">
+     		<input class="form-control" id="email" type="text" name="email" value="{% if error %}{{ email }}{% endif %}">
      	</div>
     </div>
 
