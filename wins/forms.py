@@ -108,6 +108,7 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
             "customer_location",
             "total_expected_export_value",
             "total_expected_non_export_value",
+            "type",
         ]
 
         if self.completed:

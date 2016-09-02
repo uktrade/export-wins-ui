@@ -12,7 +12,7 @@
 		</div>
 		{{ form.non_field_errors }}
 	{% endif %}
-	
+
 	<p>The Lead officer should provide the information for this form.</p>
 
 	{% if win.complete %}
@@ -51,7 +51,7 @@
 			<h4 class="radio-label">
 				<span class="required">*</span>Did any other teams help with this win?
 			</h4>
-	
+
 			<div class="radio">
 				<label for="no-contributors">
 					<input type="radio" id="no-contributors" name="has-contributors" value="no">
@@ -63,7 +63,7 @@
 				<label for="some-contributors">
 					<input type="radio" id="some-contributors" name="has-contributors" value="yes" {% if form.advisor_0_name.value %} checked{% endif %}>
 					More than one team contributed to this win
-				</label>			
+				</label>
 			</div>
 
 		</div>
@@ -73,7 +73,7 @@
 			<p class="text-muted">
 				Up to 5 teams and advisors can be added, please choose the teams that contributed the most.
 			</p>
-		
+
 			{% include "wins/partials/win-contributor.html" with name=form.advisor_0_name id=form.advisor_0_id team_type=form.advisor_0_team_type team=form.advisor_0_hq_team location=form.advisor_0_location %}
 			{% include "wins/partials/win-contributor.html" with name=form.advisor_1_name id=form.advisor_1_id team_type=form.advisor_1_team_type team=form.advisor_1_hq_team location=form.advisor_1_location %}
 			{% include "wins/partials/win-contributor.html" with name=form.advisor_2_name id=form.advisor_2_id team_type=form.advisor_2_team_type team=form.advisor_2_hq_team location=form.advisor_2_location %}
@@ -141,8 +141,8 @@
 			<p class="panel-heading">The win has been sent to the customer and these details cannot be edited.</p>
 			<div class="panel-body">
 
-				{# TODO: this should be disabled or shown as plain text, but backend requires sending it at the moment - otherwise it fails validation #}
-				{% include "wins/partials/form-radio.html" with field=form.type %}
+				{% include "wins/partials/win-details-element.html" with name="Win type" val=win.type_display %}
+				<br>
 
 				<h4>Export value</h4>
 
@@ -176,7 +176,7 @@
 				<p>
 					Total non export value over the next 5 years.
 				</p>
-	
+
 				<div class="scroll-table">
 				<table class="table table-responsive">
 					<tr>
@@ -273,7 +273,7 @@
 		{% include "wins/partials/win-field.html" with field=form.name_of_export class="restrict-width" %}
 
 		{% include "wins/partials/win-field.html" with field=form.sector class="restrict-width-lg" %}
-		
+
 
 		<h3 class="form-section-heading">Support provided</h3>
 
@@ -292,7 +292,7 @@
 			{% include "wins/partials/win-field.html" with field=form.type_of_support_2 class="restrict-width support-group" %}
 			{% include "wins/partials/win-field.html" with field=form.type_of_support_3 class="restrict-width support-group" %}
 		</div>
-		
+
 		<div class="add-select-group">
 			{% include "wins/partials/win-field.html" with field=form.associated_programme_1 class="restrict-width programme-group" %}
 			{% include "wins/partials/win-field.html" with field=form.associated_programme_2 class="restrict-width programme-group" %}
