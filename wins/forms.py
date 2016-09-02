@@ -56,6 +56,7 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
             "responded",
             "sent",
             "country_name",
+            "type_display",
         )
 
     def __init__(self, *args, **kwargs):
@@ -108,6 +109,7 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
             "customer_location",
             "total_expected_export_value",
             "total_expected_non_export_value",
+            "type",
         ]
 
         if self.completed:

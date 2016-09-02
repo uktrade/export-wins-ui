@@ -51,10 +51,14 @@ class LoginForm(BootstrappedForm):
             forms.ValidationError(
                 "There was a problem logging in.  Please try again later.")
 
+        # save user data from data server API, and session cookie created by
+        # data server onto self for use in login view
         self.user = response.json()
         self.session_cookie = self._get_cookie(response.cookies)
 
     def _get_cookie(self, cookies):
+        """ Get the session cookie from the data server """
+
         for cookie in cookies:
             if cookie.name == "sessionid":
                 return cookie
