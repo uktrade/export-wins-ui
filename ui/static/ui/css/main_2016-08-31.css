@@ -219,6 +219,16 @@ form input { padding-left: 2em; padding-right: 2em; }
 
 .scroll-table { overflow-x: auto; margin-bottom: 20px; }
 
+.scroll-table::-webkit-scrollbar { width: 5px; }
+
+.scroll-table::-webkit-scrollbar-track { -webkit-border-radius: 5px; border-radius: 5px; background: rgba(0, 0, 0, 0.1); }
+
+.scroll-table::-webkit-scrollbar-thumb { -webkit-border-radius: 5px; border-radius: 5px; background: rgba(0, 0, 0, 0.2); }
+
+.scroll-table::-webkit-scrollbar-thumb:hover { background: rgba(0, 0, 0, 0.4); }
+
+.scroll-table::-webkit-scrollbar-thumb:window-inactive { background: rgba(0, 0, 0, 0.05); }
+
 td.error input { background-color: #B10E1E; color: #fff; }
 
 .form-group { margin: 1em 0; }
