@@ -736,15 +736,21 @@ ew.components.UpdateSelect = (function( $ ){
 
 		if( !self.$options.length ){ throw new Error( 'Select contains no options' ); }
 
+		self.chooseTeamMessage();
+
 		self.$firstSelect.on( 'change', function(){
 
 			self.handleChange( this );
 		} );
 	}
 
-	UpdateSelectComponent.prototype.handleChange = function( opt ){
+	UpdateSelectComponent.prototype.chooseTeamMessage = function(){
+
+		this.$secondSelect.empty().append( '<option>Please choose a team type first</option>' );
+	};
+
+	UpdateSelectComponent.prototype.updateOptions = function( val ){
 		
-		var val = opt.value;
 		var $options = this.$options.clone();
 		var match = ( val + this.delimiter );
 		var matchLength = match.length;
@@ -761,6 +767,21 @@ ew.components.UpdateSelect = (function( $ ){
 
 		//add back in our cloned <option>s
 		$newOptions.appendTo( this.$secondSelect );
+
+	};
+
+	UpdateSelectComponent.prototype.handleChange = function( opt ){
+		
+		var val = opt.value;
+
+		if( val ){
+
+			this.updateOptions( val );
+
+		} else {
+
+			this.chooseTeamMessage();
+		}
 
 		//select the first option
 		this.$secondSelect[ 0 ].selectedIndex = 0;

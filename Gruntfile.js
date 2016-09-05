@@ -65,7 +65,7 @@ module.exports = function( grunt ){
 			},
 			js: {
 				src: '<%= dest.js %>/main.js',
-				dest: '<%= dest.js %>/main_2016-08-31.min.js'
+				dest: '<%= dest.js %>/main_2016-09-05.min.js'
 			}
 		},
 
