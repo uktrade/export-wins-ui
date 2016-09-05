@@ -736,13 +736,32 @@ ew.components.UpdateSelect = (function( $ ){
 
 		if( !self.$options.length ){ throw new Error( 'Select contains no options' ); }
 
-		self.chooseTeamMessage();
-
 		self.$firstSelect.on( 'change', function(){
 
 			self.handleChange( this );
 		} );
+
+		self.setInitialState();
 	}
+
+	UpdateSelectComponent.prototype.setInitialState = function(){
+		
+		var val = this.$firstSelect.val();
+
+		this.setOptions( val );
+	};
+
+	UpdateSelectComponent.prototype.setOptions = function( val ){
+
+		if( val ){
+
+			this.updateOptions( val );
+
+		} else {
+
+			this.chooseTeamMessage();
+		}
+	};
 
 	UpdateSelectComponent.prototype.chooseTeamMessage = function(){
 
@@ -774,14 +793,7 @@ ew.components.UpdateSelect = (function( $ ){
 		
 		var val = opt.value;
 
-		if( val ){
-
-			this.updateOptions( val );
-
-		} else {
-
-			this.chooseTeamMessage();
-		}
+		this.setOptions( val );
 
 		//select the first option
 		this.$secondSelect[ 0 ].selectedIndex = 0;
