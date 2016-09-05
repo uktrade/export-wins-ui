@@ -56,7 +56,20 @@ ew.components.UpdateSelect = (function( $ ){
 
 	UpdateSelectComponent.prototype.chooseTeamMessage = function(){
 
-		this.$secondSelect.empty().append( '<option>Please choose a team type first</option>' );
+		//For some reason the below doesn't work
+		//this.$secondSelect.empty().append( '<option>Please choose a team type first</option>' );
+
+
+		//so having to pull out the original select value and change the text in it
+		var $options = this.$options.clone();
+		var $newOptions = $options.filter( function(){
+
+			return this.value === '';
+		} );
+
+		$newOptions.text( 'Please choose a team type first' );
+
+		this.$secondSelect.empty().append( $newOptions );
 	};
 
 	UpdateSelectComponent.prototype.updateOptions = function( val ){
