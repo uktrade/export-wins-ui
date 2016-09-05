@@ -1,6 +1,5 @@
 ew.pages.officerForm = (function(){
 
-	var HIDDEN_CLASS = 'hidden';
 /*
 		window.addEventListener( 'beforeunload', function( e ){
 
@@ -16,59 +15,21 @@ ew.pages.officerForm = (function(){
 		} );
 */
 
-	function leadOfficerTeamTypeChange(){
+	function createContributingTeams(){
 
-		var selectElem = '#id_hq_team';
-		var selectOptions = selectElem + ' option';
-		var $selectElem = $( selectElem );
+		var teams = [];
 
-		$( '#id_team_type' ).on( 'change', function(){
+		$( '.contributing-officer-team-group' ).each( function(){
 
-			var type = $( this ).val();
-			var $typeValues;
-			var $selectOptions = $( selectOptions );
+			var $group = $( this );
 
-			if( type ){
+			teams.push( new ew.components.UpdateSelect({
+				firstSelect: $group.find( '.contributing-team-type select' )[ 0 ],
+				secondSelect: $group.find( '.contributing-team select' )[ 0 ]
+			}) );
+		} );
 
-				$typeValues = $( '#id_hq_team option[value^=' + type + ']' );
-
-				$selectOptions.addClass( HIDDEN_CLASS );
-				$typeValues.removeClass( HIDDEN_CLASS );
-				$( $selectOptions[ 0 ] ).removeClass( HIDDEN_CLASS );
-
-			} else {
-
-				$selectOptions.removeClass( HIDDEN_CLASS );
-			}
-
-			$selectElem[ 0 ].selectedIndex = 0;
-		});
-	}
-
-	function contributingOfficerTeamTypeChange(){
-
-		$( '.contributing-officer-team-group .contributing-team-type select' ).on( 'change', function(){
-
-			var $teamType = $( this );
-			var chosenType = $teamType.val();
-			var $team = $teamType.closest( '.row' ).find( '.contributing-team select' );
-			var $chosenTeam;
-			var $teamOptions = $team.find( 'option' );
-
-			if( chosenType ){
-
-				$chosenTeam = $team.find( 'option[value^=' + chosenType + ']' );
-				//$team.val( $chosenTeam.first().val() );
-				$teamOptions.addClass( HIDDEN_CLASS );
-				$chosenTeam.removeClass( HIDDEN_CLASS );
-				$( $teamOptions[ 0 ] ).removeClass( HIDDEN_CLASS );
-
-			} else {
-
-				$teamOptions.removeClass( HIDDEN_CLASS );
-			}
-			$team[ 0 ].selectedIndex = 0;
-		});
+		return teams;
 	}
 
 	function createNonCompleteComponents( opts, appComponents, appControllers ){
@@ -105,6 +66,13 @@ ew.pages.officerForm = (function(){
 	}
 
 	function createComponents( opts, appComponents, appControllers ){
+
+		appComponents.leadOfficerTeam = new ew.components.UpdateSelect({
+			firstSelect: '#id_team_type',
+			secondSelect: '#id_hq_team'
+		});
+
+		appComponents.contributingOfficerTeams = createContributingTeams();
 
 		appComponents.toggleContributors = new ew.components.ToggleContributors({
 			$contributingTeamDetails: $( '#contributing-teams-details' ),
@@ -166,8 +134,6 @@ ew.pages.officerForm = (function(){
 		var appComponents = app.components;
 		var appControllers = app.controllers;
 
-		leadOfficerTeamTypeChange();
-		contributingOfficerTeamTypeChange();
 		createComponents( opts, appComponents, appControllers );
 
 		if( !opts.isComplete ){
