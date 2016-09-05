@@ -70,7 +70,6 @@
             <span class="h5">Line manager:</span> {{ win.line_manager_name }} <br>
             <span class="h5">Team:</span> {{ win.team_type }} <br>
             <span class="h5">HQ Team/Region/Post:</span> {{ win.hq_team }} <br>
-            <span class="h5">Location:</span> {{ win.location }}
           </p>
         </div>
       </div>
@@ -88,14 +87,12 @@
         <th>Name</th>
         <th>Team Type</th>
         <th>HQ Team, Region or Post</th>
-        <th>Location</th>
       </tr>
       {% for advisor in win.advisors %}
         <tr>
           <td>{{ advisor.name }}</td>
           <td>{{ advisor.team_type }}</td>
           <td>{{ advisor.hq_team }}</td>
-          <td>{{ advisor.location }}</td>
         </tr>
       {% endfor %}
     </table>
@@ -196,7 +193,7 @@
     </div>
 
     {% include "wins/partials/win-details-element.html" with name="Expected export value related to goods or services" val=win.goods_vs_services %}
-    
+
     {% include "wins/partials/win-details-element.html" with name="Goods or services that are being exported" val=win.name_of_export %}
 
     {% include "wins/partials/win-details-element.html" with name="Sector" val=win.sector %}

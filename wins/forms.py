@@ -57,6 +57,7 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
             "sent",
             "country_name",
             "type_display",
+            "location",
         )
 
     def __init__(self, *args, **kwargs):
