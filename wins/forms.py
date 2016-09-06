@@ -107,7 +107,6 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
             "description",
             "date",
             "country",
-            "customer_location",
             "total_expected_export_value",
             "total_expected_non_export_value",
             "type",
