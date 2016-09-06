@@ -543,6 +543,38 @@ ew.components.CalculateExportValue = (function( doc, $, toLocaleString ){
 	return CalculateExportValueComponent;
 
 }( document, jQuery, ew.tools.toLocaleString ));
+ew.components.DisableMultiSubmit = (function( $ ){
+	
+	function DisableMultiSubmitComponent( formId, savingText ){
+
+		if( !formId ){ throw new Error( 'formId is required for DisableMultiSubmitComponent' ); }
+
+		this.$form = $( '#' + formId );
+		this.savingText = ( savingText || 'Saving...' );
+		this.$submitButton = this.$form.find( 'input[type=submit]' );
+
+		this.submitInProgress = false;
+		this.$form.on( 'submit', $.proxy( this.handleSubmit, this ) );
+	}
+
+	DisableMultiSubmitComponent.prototype.handleSubmit = function( e ){
+		
+		if( this.submitInProgress ){
+
+			e.preventDefault();
+
+		} else {
+
+			this.submitInProgress = true;
+
+			this.$submitButton.attr( 'disabled', true );
+			this.$submitButton.val( this.savingText );
+		}
+	};
+
+	return DisableMultiSubmitComponent;
+
+}( jQuery ));
 /*
 ew.components.ToggleContentCheckbox = (function( $ ){
 
@@ -927,31 +959,42 @@ ew.controllers.ExportValue = (function(){
 	return ExportValueController;
 
 }());
-ew.pages.confirmationForm = function confirmationFormPage( agreeWithWinName ){
+ew.pages.confirmationForm = (function(){
+
+	function setupConfirmToggle( agreeWithWinName ){
 	
-	var $infoBox = $( '#confirm-false-info' );
-	var $agree = $( 'form input[name='+ agreeWithWinName + ']' );
-	var $confirmFalseComments = $( '#confirm-false-details' );
+		var $infoBox = $( '#confirm-false-info' );
+		var $agree = $( 'form input[name='+ agreeWithWinName + ']' );
 
-	//hide the comments box on load
-	if( !$agree[ 1 ].checked ) {
-
-		$infoBox.hide();
-	}
-
-	//Toggle the comments box when the value of the radio changes
-	$agree.on( 'change', function( e ){
-
-		if( $agree[ 0 ].checked ){
+		//hide the box on load
+		if( !$agree[ 1 ].checked ) {
 
 			$infoBox.hide();
-
-		} else {
-
-			$infoBox.show();
 		}
-	} );
-};
+
+		//Toggle the box when the value of the radio changes
+		$agree.on( 'change', function( e ){
+
+			if( $agree[ 0 ].checked ){
+
+				$infoBox.hide();
+
+			} else {
+
+				$infoBox.show();
+			}
+		} );
+	}
+	
+	function confirmationFormPage( formId, agreeWithWinName ){
+
+		setupConfirmToggle( agreeWithWinName );
+
+		ew.application.components.stopConfirmationFormSubmit = new ew.components.DisableMultiSubmit( formId );
+	}
+
+	return confirmationFormPage;
+}());
 ew.pages.officerForm = (function(){
 
 /*
@@ -1039,6 +1082,8 @@ ew.pages.officerForm = (function(){
 			nameInputSelector: '.contributing-officer-name input'
 		});
 
+		appComponents.stopWinFormSubmit = new ew.components.DisableMultiSubmit( opts.formId );
+
 		//appComponents.toggleHvoProgram = new ew.components.ToggleContentCheckbox( opts.hvoProgram );
 
 		appControllers.contributors = new ew.controllers.Contributors( appComponents.toggleContributors, appComponents.addContributors );
@@ -1059,6 +1104,7 @@ ew.pages.officerForm = (function(){
 
 		if( typeof opts.isComplete === 'undefined' ){ throw new Error( errorMessage( 'opts.isComplete' ) ); }
 		
+		if( !opts.formId ){ throw new Error( errorMessage( 'opts.formId' ) ); }
 		if( !opts.supportGroup ){ throw new Error( errorMessage( 'opts.supportGroup' ) ); }
 		if( !opts.programmeGroup ){ throw new Error( errorMessage( 'opts.programmeGroup' ) ); }
 
@@ -1096,4 +1142,8 @@ ew.pages.officerForm = (function(){
 		}
 	};
 }());
+ew.pages.winComplete = function winComplete( formId ){
+
+	ew.application.components.stopWinCompleteForm = new ew.components.DisableMultiSubmit( formId, 'Sending win...' );
+};
 //# sourceMappingURL=main.js.map

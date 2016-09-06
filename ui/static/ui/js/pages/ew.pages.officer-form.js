@@ -85,6 +85,8 @@ ew.pages.officerForm = (function(){
 			nameInputSelector: '.contributing-officer-name input'
 		});
 
+		appComponents.stopWinFormSubmit = new ew.components.DisableMultiSubmit( opts.formId );
+
 		//appComponents.toggleHvoProgram = new ew.components.ToggleContentCheckbox( opts.hvoProgram );
 
 		appControllers.contributors = new ew.controllers.Contributors( appComponents.toggleContributors, appComponents.addContributors );
@@ -105,6 +107,7 @@ ew.pages.officerForm = (function(){
 
 		if( typeof opts.isComplete === 'undefined' ){ throw new Error( errorMessage( 'opts.isComplete' ) ); }
 		
+		if( !opts.formId ){ throw new Error( errorMessage( 'opts.formId' ) ); }
 		if( !opts.supportGroup ){ throw new Error( errorMessage( 'opts.supportGroup' ) ); }
 		if( !opts.programmeGroup ){ throw new Error( errorMessage( 'opts.programmeGroup' ) ); }
 

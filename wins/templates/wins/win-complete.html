@@ -48,7 +48,7 @@
       <li class="list-group-item"><span>Non-export value</span> &pound;{{ win.total_expected_non_export_value | intcomma }}</li>
     </ul>
 
-    <form method="post">
+    <form method="post" id="win-complete-form">
       {% csrf_token %}
 
       <div class="end-buttons win-complete-end-buttons">
@@ -68,3 +68,9 @@
   {% endif %}
 
 {% endblock content %}
+
+{% block js_footer %}
+  <script>
+    ew.pages.winComplete( 'win-complete-form' );
+  </script>
+{% endblock %}
