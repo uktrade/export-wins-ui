@@ -37,7 +37,6 @@
 				{% include "wins/partials/win-field.html" with field=form.hq_team %}
 			</div>
 		</div>
-		{% include "wins/partials/win-field.html" with field=form.location class="restrict-width-sm" %}
 		{% include "wins/partials/win-field.html" with field=form.line_manager_name class="restrict-width-sm" %}
 		{% include "wins/partials/win-field.html" with field=form.lead_officer_email_address help="You only need to provide this if you are completing this form on behalf of the lead officer" class="restrict-width-sm" %}
 		{% include "wins/partials/win-field.html" with field=form.other_official_email_address help="If another officer from your team should be kept notified, provide their email address" class="restrict-width-sm" %}
@@ -74,11 +73,11 @@
 				Up to 5 teams and advisors can be added, please choose the teams that contributed the most.
 			</p>
 
-			{% include "wins/partials/win-contributor.html" with name=form.advisor_0_name id=form.advisor_0_id team_type=form.advisor_0_team_type team=form.advisor_0_hq_team location=form.advisor_0_location %}
-			{% include "wins/partials/win-contributor.html" with name=form.advisor_1_name id=form.advisor_1_id team_type=form.advisor_1_team_type team=form.advisor_1_hq_team location=form.advisor_1_location %}
-			{% include "wins/partials/win-contributor.html" with name=form.advisor_2_name id=form.advisor_2_id team_type=form.advisor_2_team_type team=form.advisor_2_hq_team location=form.advisor_2_location %}
-			{% include "wins/partials/win-contributor.html" with name=form.advisor_3_name id=form.advisor_3_id team_type=form.advisor_3_team_type team=form.advisor_3_hq_team location=form.advisor_3_location %}
-			{% include "wins/partials/win-contributor.html" with name=form.advisor_4_name id=form.advisor_4_id team_type=form.advisor_4_team_type team=form.advisor_4_hq_team location=form.advisor_4_location %}
+			{% include "wins/partials/win-contributor.html" with name=form.advisor_0_name id=form.advisor_0_id team_type=form.advisor_0_team_type team=form.advisor_0_hq_team %}
+			{% include "wins/partials/win-contributor.html" with name=form.advisor_1_name id=form.advisor_1_id team_type=form.advisor_1_team_type team=form.advisor_1_hq_team %}
+			{% include "wins/partials/win-contributor.html" with name=form.advisor_2_name id=form.advisor_2_id team_type=form.advisor_2_team_type team=form.advisor_2_hq_team %}
+			{% include "wins/partials/win-contributor.html" with name=form.advisor_3_name id=form.advisor_3_id team_type=form.advisor_3_team_type team=form.advisor_3_hq_team %}
+			{% include "wins/partials/win-contributor.html" with name=form.advisor_4_name id=form.advisor_4_id team_type=form.advisor_4_team_type team=form.advisor_4_hq_team %}
 
 		</div>
 
