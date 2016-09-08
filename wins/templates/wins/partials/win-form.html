@@ -196,12 +196,19 @@
 				</div>
 
 				<p class="export-year-value">Total: &pound;{{ win.total_expected_non_export_value | intcomma }}</p>
+
 			</div>
 		</div>
 
 	{% else %}
 
 		{% include "wins/partials/form-radio.html" with field=form.type %}
+
+		{# quick hack using non_field_errors here, since this is the only area which has non-field errors #}
+		{% if form.non_field_errors %}
+			<div class="form-group error">
+				{{ form.non_field_errors }}
+		{% endif %}
 
 		<div id="export-content" class="win-values">
 
@@ -263,7 +270,12 @@
 			</div>
 
 			{% include "wins/partials/win-field.html" with field=form.total_expected_non_export_value help="The total expected value should be the sum of the annual values of the win." class="restrict-width-xsm" %}
+
+		{% if form.non_field_errors %}
+			</div>
+		{% endif %}
 		</div>
+
 
 	{% endif %}
 
