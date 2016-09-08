@@ -76,7 +76,11 @@ class MyWinsView(LoginRequiredMixin, TemplateView):
             w for w in wins
             if w['complete'] and w not in context['responded']
         ]
-        context['sent'] = sorted(sent, key=lambda w: w['sent'][0])
+        context['sent'] = sorted(
+            sent,
+            key=lambda w: w['sent'][0],
+            reverse=True,
+        )
 
         return context
 
