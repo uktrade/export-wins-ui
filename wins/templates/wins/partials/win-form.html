@@ -10,7 +10,7 @@
 		<div class="alert alert-danger">
 			There were some errors with your submission.  Please see below.
 		</div>
-		{{ form.non_field_errors }}
+		{# note, not field errors are used below {{ form.non_field_errors }} #}
 	{% endif %}
 
 	<p>The Lead officer should provide the information for this form.</p>
