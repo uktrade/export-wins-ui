@@ -188,7 +188,6 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
             ]
 
             if not export_value and not non_export_value:
-                raise
                 raise forms.ValidationError(
                     """Wins must have total expected export or non-export value
                        of more than £0.
