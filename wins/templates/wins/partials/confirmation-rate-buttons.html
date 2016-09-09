@@ -2,7 +2,7 @@
 
   {{ field.errors }}
   
-  <h4 class="h5">{{ label }}</h4>
+  <h4 class="h5">{% if label %}{{ label }}{% else %}{{ field.label }}{% endif %}</h4>
 
   <div class="btn-group" data-toggle="buttons">
     <label for="{{ field.name }}-1" class="btn btn-default{% if field.value == '1' %} active{% endif %}"{% if field.value == '1' %} aria-pressed="true"{% endif %}>
