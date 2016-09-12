@@ -148,6 +148,11 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
 
         days_delta = (datetime.now() - date).days
 
+        if date < datetime(day=1, month=1, year=2016):
+            raise forms.ValidationError(
+                'This system is only for Wins won after 1st January 2016'
+            )
+
         if days_delta > 365:
             raise forms.ValidationError('Cannot record wins over 1 year old')
 
