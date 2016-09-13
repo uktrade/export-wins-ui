@@ -178,7 +178,9 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
 
         # Breakdowns and totals are not editable once a win is marked complete
         # so should only be validated if win is not completed.
-        if not self.completed:
+        # They should also only be validated if no other errors since they
+        # depend on the various value fields not having errors.
+        if not self.errors and not self.completed:
             export_value = cleaned.get("total_expected_export_value")
             non_export_value = cleaned.get("total_expected_non_export_value")
 
