@@ -10,7 +10,7 @@ from ui.views import (
 from users.views import LoginView, LogoutView
 from wins.views import (
     ConfirmationView, EditWinView, LockedWinTemplateView, MyWinsView,
-    NewWinView, WinCompleteView, WinTemplateView, WinView
+    NewWinView, WinCompleteView, WinTemplateView, WinView, test500
 )
 
 urlpatterns = [
@@ -105,6 +105,8 @@ urlpatterns = [
         name="send-customer-email"),
     url(r"^change-customer-email$", ChangeCustomerEmailView.as_view(),
         name="change-customer-email"),
+
+    url(r"^500$", test500),
 
 ]
 
