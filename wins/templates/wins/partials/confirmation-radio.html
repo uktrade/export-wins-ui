@@ -1,6 +1,17 @@
-<div class="radio">
-	<label for="{{ field.name }}-{{ value }}">
-		<input type="radio" id="{{ field.name }}-{{ value }}" name="{{ field.name }}" value="{{ value }}"{% if field.value == value %} checked{% endif %}>
-		{{ label }}
-	</label>
+<div class="pad-top {{ field.errors|yesno:'error,' }}">
+
+	{{ field.errors }}
+
+	<h4>{{ field.label }}</h4>
+
+	{% for value, label in field.field.choices %}
+		<div class="radio">
+			<label for="{{ field.name }}-{{ value }}">
+				<input type="radio" id="{{ field.name }}-{{ value }}" name="{{ field.name }}" value="{{ value }}"{% if field.value == value %} checked{% endif %}>
+				{{ label }}
+			</label>
+		</div>
+	{% endfor %}
+
+	<div class="clearfix"></div>
 </div>

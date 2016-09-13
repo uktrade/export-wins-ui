@@ -146,6 +146,19 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
             raise forms.ValidationError(
                 'Invalid date. Please use {}'.format(self.date_format))
 
+        days_delta = (datetime.now() - date).days
+
+        if date < datetime(day=1, month=1, year=2016):
+            raise forms.ValidationError(
+                'This system is only for Wins won after 1st January 2016'
+            )
+
+        if days_delta > 365:
+            raise forms.ValidationError('Cannot record wins over 1 year old')
+
+        if days_delta < 0:
+            raise forms.ValidationError('Invalid date, must be in the past')
+
         return date.strftime('%Y-%m-%d')  # serializer expects YYYY-MM-DD
 
     def clean_is_personally_confirmed(self):
@@ -159,6 +172,45 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
         if not r:
             raise forms.ValidationError("This is a required field")
         return r
+
+    def clean(self):
+        cleaned = super().clean()
+
+        # Breakdowns and totals are not editable once a win is marked complete
+        # so should only be validated if win is not completed.
+        if not self.completed:
+            export_value = cleaned.get("total_expected_export_value")
+            non_export_value = cleaned.get("total_expected_non_export_value")
+
+            export_breakdowns = [
+                cleaned.get("breakdown_exports_{}".format(i))
+                for i in range(5)
+            ]
+
+            non_export_breakdowns = [
+                cleaned.get("breakdown_non_exports_{}".format(i))
+                for i in range(5)
+            ]
+
+            if not export_value and not non_export_value:
+                raise forms.ValidationError(
+                    """Wins must have total expected export or non-export value
+                       of more than £0.
+                    """
+                )
+
+            if sum(export_breakdowns) != export_value:
+                raise forms.ValidationError(
+                    "Value of export breakdowns over 5 years must equal total"
+                )
+
+            if sum(non_export_breakdowns) != non_export_value:
+                raise forms.ValidationError(
+                    """Value of non-export breakdowns over 5 years must equal
+                       total"""
+                )
+
+        return cleaned
 
     def create(self):
         """ Push cleaned data to appropriate data server access points """

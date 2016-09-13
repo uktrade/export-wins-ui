@@ -69,9 +69,11 @@
 
 		<form method="post" action="{{ request.path }}" id="confirmation-form">
 
-			<h4 class="confirm-details-heading">Please confirm these details are correct:</h4>
-
 			{% with field=form.agree_with_win %}
+			
+
+			<h4 class="confirm-details-heading">{{ form.agree_with_win.label }}:</h4>
+
 			<div class="pad-top {{ field.errors|yesno:'error,' }}">
 
 				{{ field.errors }}
@@ -99,93 +101,64 @@
 			</div>
 
 
-		<h2 class="pad-top">Tell us what made a difference</h2>
+			<h2 class="pad-top">Tell us what made a difference</h2>
 
-		<p class="h4 what-extent-heading"><!-- match h3 heading style -->
-			To what extent did our support help in:
-		</p>
+			<p class="h4 what-extent-heading">
+				To what extent did our support help in:
+			</p>
 
-		{% include "wins/partials/confirmation-rate-buttons.html" with field=form.our_support label="Securing the win overall?" %}
-		{% include "wins/partials/confirmation-rate-buttons.html" with field=form.access_to_contacts label="Gaining access to contacts?" %}
-		{% include "wins/partials/confirmation-rate-buttons.html" with field=form.access_to_information label="Getting information or improved understanding of the country?" %}
-		{% include "wins/partials/confirmation-rate-buttons.html" with field=form.improved_profile label="Improving your profile or credibility in the country?" %}
-		{% include "wins/partials/confirmation-rate-buttons.html" with field=form.gained_confidence label="Having confidence to explore or expand in the country?" %}
-		{% include "wins/partials/confirmation-rate-buttons.html" with field=form.developed_relationships label="Developing or nurturing critical relationships?" %}
-		{% include "wins/partials/confirmation-rate-buttons.html" with field=form.overcame_problem label="Overcoming a problem in the country (eg legal, regulatory, commercial)?" %}
+			{% include "wins/partials/confirmation-rate-buttons.html" with field=form.our_support %}
+			{% include "wins/partials/confirmation-rate-buttons.html" with field=form.access_to_contacts %}
+			{% include "wins/partials/confirmation-rate-buttons.html" with field=form.access_to_information %}
+			{% include "wins/partials/confirmation-rate-buttons.html" with field=form.improved_profile %}
+			{% include "wins/partials/confirmation-rate-buttons.html" with field=form.gained_confidence %}
+			{% include "wins/partials/confirmation-rate-buttons.html" with field=form.developed_relationships %}
+			{% include "wins/partials/confirmation-rate-buttons.html" with field=form.overcame_problem %}
 
-		<h3 class="pad-top">About this export win</h3>
 
-		{% with field=form.expected_portion_without_help %}
-		<div class="pad-top {{ field.errors|yesno:'error,' }}">
+			<h3 class="pad-top">About this export win</h3>
 
-			{{ field.errors }}
+			{% include "wins/partials/confirmation-radio.html" with field=form.expected_portion_without_help %}
 
-			<h4>What value do you estimate you would have achieved without our support?</h4>
 
-			{% include "wins/partials/confirmation-radio.html" with value="1" label="No value without our help" %}
-			{% include "wins/partials/confirmation-radio.html" with value="2" label="Up to 20% of the total expected value without our help" %}
-			{% include "wins/partials/confirmation-radio.html" with value="3" label="Up to 40%" %}
-			{% include "wins/partials/confirmation-radio.html" with value="4" label="Up to 60%" %}
-			{% include "wins/partials/confirmation-radio.html" with value="5" label="Up to 80%" %}
-			{% include "wins/partials/confirmation-radio.html" with value="6" label="More than 80%" %}
-			{% include "wins/partials/confirmation-radio.html" with value="7" label="You could have won the entire value or similar without our help" %}
+			<h4>Please tick any that apply to this win:</h4>
 
-			<div class="clearfix"></div>
-		</div>
-		{% endwith %}
+			{% include "wins/partials/confirmation-checkbox.html" with field=form.involved_state_enterprise %}
+			{% include "wins/partials/confirmation-checkbox.html" with field=form.interventions_were_prerequisite %}
+			{% include "wins/partials/confirmation-checkbox.html" with field=form.support_improved_speed %}
 
-		<h4>Please tick any that apply to this win:</h4>
 
-		{% include "wins/partials/confirmation-checkbox.html" with field=form.involved_state_enterprise label="The win involved a foreign government or state-owned enterprise (eg as an intermediary or facilitator)" %}
-		{% include "wins/partials/confirmation-checkbox.html" with field=form.interventions_were_prerequisite label="Our support was a prerequisite to generate this export value" %}
-		{% include "wins/partials/confirmation-checkbox.html" with field=form.support_improved_speed label="Our support helped you achieve this win more quickly" %}
+			<h3 class="pad-top">Your export experience</h3>
 
-		<h3 class="pad-top">Your export experience</h3>
+			{% include "wins/partials/confirmation-radio.html" with field=form.last_export %}
+			
 
-		{% with field=form.last_export %}
-		<div class="pad-top {{ field.errors|yesno:'error,' }}">
+			<h4>Tick any that apply to this win:</h4>
 
-			{{ field.errors }}
+			{% include "wins/partials/confirmation-checkbox.html" with field=form.has_enabled_expansion_into_new_market label="It enabled you to expand into <strong>a new market</strong>" %}
+			{% include "wins/partials/confirmation-checkbox.html" with field=form.has_enabled_expansion_into_existing_market label="It enabled you to maintain or expand in <strong>an existing market</strong>" %}
+			{% include "wins/partials/confirmation-checkbox.html" with field=form.has_increased_exports_as_percent_of_turnover %}
+			{% include "wins/partials/confirmation-checkbox.html" with field=form.company_was_at_risk_of_not_exporting %}
+			{% include "wins/partials/confirmation-checkbox.html" with field=form.has_explicit_export_plans %}
 
-			<h4>When did your company last export goods or services?</h4>
+			<hr>
 
-			{% include "wins/partials/confirmation-radio.html" with value="1" label="We had not started exporting before this win" %}
-			{% include "wins/partials/confirmation-radio.html" with value="2" label="Apart from this win, we have exported in the last 12 months" %}
-			{% include "wins/partials/confirmation-radio.html" with value="3" label="We last exported 1 to 2 years ago" %}
-			{% include "wins/partials/confirmation-radio.html" with value="4" label="2 to 5 years ago" %}
-			{% include "wins/partials/confirmation-radio.html" with value="5" label="5 to 10 years ago" %}
-			{% include "wins/partials/confirmation-radio.html" with value="6" label="More than 10 years ago" %}
+			{% include "wins/partials/confirmation-field.html" with field=form.name reduced="true" %}
 
-			<div class="clearfix"></div>
-		</div>
-		{% endwith %}
+			{% include "wins/partials/confirmation-buttons-right.html" with field=form.case_study_willing %}
 
-		<h4>Tick any that apply to this win:</h4>
+			{% include "wins/partials/confirmation-field.html" with field=form.comments help="Your comments may be shared with the individuals and teams who have supported you."%}
 
-		{% include "wins/partials/confirmation-checkbox.html" with field=form.has_enabled_expansion_into_new_market label="It enabled you to expand into <strong>a new market</strong>" %}
-		{% include "wins/partials/confirmation-checkbox.html" with field=form.has_enabled_expansion_into_existing_market label="It enabled you to maintain or expand in <strong>an existing market</strong>" %}
-		{% include "wins/partials/confirmation-checkbox.html" with field=form.has_increased_exports_as_percent_of_turnover label="It enabled you to increase exports as a proportion of your turnover" %}
-		{% include "wins/partials/confirmation-checkbox.html" with field=form.company_was_at_risk_of_not_exporting label="If you hadn&#39;t achieved this win, your company might have stopped exporting" %}
-		{% include "wins/partials/confirmation-checkbox.html" with field=form.has_explicit_export_plans label="Apart from this win, you already have specific plans to export in the next 12 months" %}
+			{{ form.win }}
 
-		<hr>
+			{% csrf_token %}
 
-		{% include "wins/partials/confirmation-field.html" with field=form.name label="Your name:" reduced="true" %}
+			<div class="end-buttons">
+				<input type="submit" name="s" value="Submit" class="btn btn-primary">
+			</div>
 
-		{% include "wins/partials/confirmation-buttons-right.html" with field=form.case_study_willing label="Would you be willing for UKTI / Exporting is GREAT to feature your success in marketing materials?" %}
-
-		{% include "wins/partials/confirmation-field.html" with field=form.comments label="Other comments or changes to the export details:" help="Your comments may be shared with the individuals and teams who have supported you."%}
-
-		{{ form.win }}
-
-		{% csrf_token %}
-
-		<div class="end-buttons">
-			<input type="submit" name="s" value="Submit" class="btn btn-primary">
-		</div>
-
-	</form>
-</div>
+		</form>
+	</div>
 
 {% endblock content %}
 
