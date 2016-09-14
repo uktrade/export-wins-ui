@@ -1,11 +1,11 @@
 from django.conf import settings
 from django.contrib.auth import REDIRECT_FIELD_NAME
-from django.utils.encoding import force_text
-
 from django.http import HttpResponseRedirect, QueryDict
 from django.shortcuts import resolve_url
+from django.utils.encoding import force_text
 from django.utils.six.moves.urllib.parse import urlparse, urlunparse
 
+from alice.helpers import rabbit
 
 class LoginRequiredMixin(object):
     """
@@ -18,7 +18,10 @@ class LoginRequiredMixin(object):
     """
 
     def dispatch(self, request, *args, **kwargs):
-        if not request.alice_id:
+
+        response = rabbit.get(settings.IS_LOGGED_IN_AP, request=request)
+        is_logged_in = response.json()
+        if not request.alice_id or not is_logged_in:
             return self.redirect_to_login(
                 self.request.get_full_path(),
                 force_text(settings.LOGIN_URL)

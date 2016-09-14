@@ -24,11 +24,11 @@ class LoginView(FormView):
 
     def form_valid(self, form):
         response = FormView.form_valid(self, form)
-        # Save dict of user data given by data server API into JWT cookie.
-        # Also save session id of session from data server, for use when making
-        # requests to data server via Rabbit.
-        # Note UI_SECRET varies between UI server and Admin server, so have to
-        # login to both seperately. But both can co-exist.
+
+        # After successful login, save dict of user data given by data server
+        # API into JWT cookie. Also save session id of session from data
+        # server, for use when making requests to data server via Rabbit.
+        # Note UI server and admin server have different secrets and domains.
         response.set_cookie(
             "alice",
             value=jwt.encode(
