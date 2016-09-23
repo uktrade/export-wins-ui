@@ -73,11 +73,11 @@
 				Up to 5 teams and advisors can be added, please choose the teams that contributed the most.
 			</p>
 
-			{% include "wins/partials/win-contributor.html" with name=form.advisor_0_name id=form.advisor_0_id team_type=form.advisor_0_team_type team=form.advisor_0_hq_team %}
-			{% include "wins/partials/win-contributor.html" with name=form.advisor_1_name id=form.advisor_1_id team_type=form.advisor_1_team_type team=form.advisor_1_hq_team %}
-			{% include "wins/partials/win-contributor.html" with name=form.advisor_2_name id=form.advisor_2_id team_type=form.advisor_2_team_type team=form.advisor_2_hq_team %}
-			{% include "wins/partials/win-contributor.html" with name=form.advisor_3_name id=form.advisor_3_id team_type=form.advisor_3_team_type team=form.advisor_3_hq_team %}
-			{% include "wins/partials/win-contributor.html" with name=form.advisor_4_name id=form.advisor_4_id team_type=form.advisor_4_team_type team=form.advisor_4_hq_team %}
+			{% include "wins/partials/win-contributor.html" with name=form.advisor_0_name id=form.advisor_0_id team_type=form.advisor_0_team_type team=form.advisor_0_hq_team team_error=form.advisor_0_hq_team.errors %}
+			{% include "wins/partials/win-contributor.html" with name=form.advisor_1_name id=form.advisor_1_id team_type=form.advisor_1_team_type team=form.advisor_1_hq_team team_error=form.advisor_1_hq_team.errors %}
+			{% include "wins/partials/win-contributor.html" with name=form.advisor_2_name id=form.advisor_2_id team_type=form.advisor_2_team_type team=form.advisor_2_hq_team team_error=form.advisor_2_hq_team.errors %}
+			{% include "wins/partials/win-contributor.html" with name=form.advisor_3_name id=form.advisor_3_id team_type=form.advisor_3_team_type team=form.advisor_3_hq_team team_error=form.advisor_3_hq_team.errors %}
+			{% include "wins/partials/win-contributor.html" with name=form.advisor_4_name id=form.advisor_4_id team_type=form.advisor_4_team_type team=form.advisor_4_hq_team team_error=form.advisor_4_hq_team.errors %}
 
 		</div>
 
@@ -215,7 +215,7 @@
 			<h4>Export value over next 5 years</h4>
 			<p class="help-text">(round to nearest &pound;)</p>
 
-			{% if form.breakdown_exports_0.errors or form.breakdown_exports_1.errors or form.breakdown_exports_2.errors or form.breakdown_exports_.errors or form.breakdown_exports_4.errors %}
+			{% if form.breakdown_exports_0.errors or form.breakdown_exports_1.errors or form.breakdown_exports_2.errors or form.breakdown_exports_3.errors or form.breakdown_exports_4.errors %}
 				<p class="alert alert-danger">Please correct the values highlighted with red below. Whole numbers only (no separators etc).</p>
 			{% endif %}
 

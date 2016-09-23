@@ -176,6 +176,22 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
     def clean(self):
         cleaned = super().clean()
 
+        # If you add an advisor name, you should also select their team
+        for i in range(5):
+            name_field_name = 'advisor_{}_name'.format(i)
+            if not self.cleaned_data[name_field_name]:
+                continue
+
+            team_type_field_name = 'advisor_{}_team_type'.format(i)
+            team_field_name = 'advisor_{}_hq_team'.format(i)
+            msg = """Please choose a team type and a specific team for all
+                     named contributing officers"""
+            if not self.cleaned_data[team_type_field_name]:
+                # attach message to hq team for template simplicity
+                self._errors[team_field_name] = self.error_class([msg])
+            if not self.cleaned_data[team_field_name]:
+                self._errors[team_field_name] = self.error_class([msg])
+
         # Breakdowns and totals are not editable once a win is marked complete
         # so should only be validated if win is not completed.
         # They should also only be validated if no other errors since they

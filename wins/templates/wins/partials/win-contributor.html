@@ -1,4 +1,5 @@
-<div class="contributing-officer-group">
+<div class="contributing-officer-group form-group {{ team_error|yesno:'error,' }}">
+	{{ team_error }}
 	<div class="form-group contributing-officer-name">
 		<label for="{{ name.auto_id }}">Contributing officer name</label>
 		<div class="restrict-width-sm">
