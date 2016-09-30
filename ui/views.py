@@ -85,3 +85,10 @@ class ChangeCustomerEmailView(BaseAdminView):
 
     endpoint = settings.CHANGE_CUSTOMER_EMAIL_AP
     template_name = 'ui/admin/change-customer-email.html'
+
+
+class SoftDeleteWinView(BaseAdminView):
+    """ Enter Win ID, gets marked deleted in DB """
+
+    endpoint = settings.SOFT_DELETE_AP
+    template_name = 'ui/admin/soft-delete.html'
