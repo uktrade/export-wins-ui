@@ -230,11 +230,16 @@ ew.components.AddContributors = (function( $ ){
 
 	AddContributorsComponent.prototype.resetContributor = function( $contributor ){
 
+		//Reset the values back to empty
 		$contributor.find( 'input' ).val( '' );
 		$contributor.find( 'select' ).each( function(){
 
 			this.selectedIndex = 0;
 		} );
+
+		//If there is an error message being displayed, remove it and the main error class
+		$contributor.find( '.alert-danger' ).remove();
+		$contributor.removeClass( 'error' );
 	};
 
 	AddContributorsComponent.prototype.removeContributor = function( e, elem ){

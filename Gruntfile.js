@@ -6,6 +6,17 @@ module.exports = function( grunt ){
 
 	grunt.initConfig({
 
+		files: {
+			
+			css: 'main_2016-10-04.css',
+			js: 'main_2016-10-04.min.js',
+
+			bootstrap: {
+				css: 'bootstrap_2016-08-31.css',
+				js: 'bootstrap_2016-08-31.min.js'
+			}
+		},
+
 		src: {
 			bootstrap: 'bootstrap-sass-3.3.7/assets',
 			scss: 'ui/static/ui/scss',
@@ -61,11 +72,11 @@ module.exports = function( grunt ){
 			},
 			bootstrap: {
 				src: '<%= concat.bootstrap.dest %>',
-				dest: '<%= dest.vendor %>/bootstrap/js/bootstrap_2016-08-31.min.js'
+				dest: '<%= dest.vendor %>/bootstrap/js/<%= files.bootstrap.js %>'
 			},
 			js: {
 				src: '<%= dest.js %>/main.js',
-				dest: '<%= dest.js %>/main_2016-09-05.min.js'
+				dest: '<%= dest.js %>/<%= files.js %>'
 			}
 		},
 
@@ -77,12 +88,12 @@ module.exports = function( grunt ){
 			},
 			bootstrap: {
 				files: {
-					'<%= dest.vendor %>/bootstrap/css/bootstrap_2016-08-31.css': '<%= src.bootstrap %>/stylesheets/main.scss'
+					'<%= dest.vendor %>/bootstrap/css/<%= files.bootstrap.css %>': '<%= src.bootstrap %>/stylesheets/main.scss'
 				}
 			},
 			main: {
 				files: {
-					'<%= dest.css %>/main_2016-08-31.css': '<%= src.scss %>/main.scss'
+					'<%= dest.css %>/<%= files.css %>': '<%= src.scss %>/main.scss'
 				}
 			}
 		},
