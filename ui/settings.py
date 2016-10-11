@@ -150,6 +150,7 @@ ADD_USER_AP = "{}/admin/add-user/".format(DATA_SERVER)
 NEW_PASSWORD_AP = "{}/admin/new-password/".format(DATA_SERVER)
 SEND_CUSTOMER_EMAIL_AP = "{}/admin/send-customer-email/".format(DATA_SERVER)
 CHANGE_CUSTOMER_EMAIL_AP = "{}/admin/change-customer-email/".format(DATA_SERVER)
+SOFT_DELETE_AP = "{}/admin/soft-delete/".format(DATA_SERVER)
 
 # For UI server should match UI_SECRET in data server, for admin server should
 # match ADMIN_SECRET in data server.
