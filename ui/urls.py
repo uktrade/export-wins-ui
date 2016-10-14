@@ -5,7 +5,8 @@ from django.views.generic import TemplateView
 
 from ui.views import (
     AdminView, AddUserView, ChangeCustomerEmailView, CSVView,
-    NewPassView, SendCustomerEmailView, SoftDeleteWinView
+    NewPassView, SendAdminCustomerEmailView, SendCustomerEmailView,
+    SoftDeleteWinView,
 )
 from users.views import LoginView, LogoutView
 from wins.views import (
@@ -103,6 +104,8 @@ urlpatterns = [
     url(r"^new-password$", NewPassView.as_view(), name="new-password"),
     url(r"^send-customer-email$", SendCustomerEmailView.as_view(),
         name="send-customer-email"),
+    url(r"^send-admin-customer-email$", SendAdminCustomerEmailView.as_view(),
+        name="send-admin-customer-email"),
     url(r"^change-customer-email$", ChangeCustomerEmailView.as_view(),
         name="change-customer-email"),
     url(r"^delete$", SoftDeleteWinView.as_view(),
