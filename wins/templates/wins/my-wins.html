@@ -35,7 +35,7 @@
                 <p class="text-center well">You don&#39;t have any unsent wins.</p>
 
             {% else %}
-    
+
                 <div class="scroll-table">
                     <table class="table table-striped unsent-wins">
                         <thead>
@@ -83,7 +83,8 @@
                                 <th>Customer name</th>
                                 <th class="text-right">Export amount</th>
                                 <th>Date won</th>
-                                <th>Date sent <span class="glyphicon glyphicon-option-vertical" aria-hidden="true" title="Sorted by this field"></span><span class="sr-only">(Sorted by this field)</span></th>
+                                <th>Date first sent <span class="glyphicon glyphicon-option-vertical" aria-hidden="true" title="Sorted by this field"></span><span class="sr-only">(Sorted by this field)</span></th>
+                                <th>Date last sent</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -94,7 +95,8 @@
                                <td class="customer-name">{{ win.customer_name }}</td>
                                <td class="export-value text-right">&pound;{{ win.total_expected_export_value | intcomma }}</td>
                                <td class="date">{{ win.date | date:'M Y' }}</td>
-                               <td class="date-sent">{{ win.sent.0 | date:'d M Y' }}{# should this be first or last time it was sent? #}</td>
+                               <td class="date-sent">{{ win.sent.0 | date:'d M Y' }}<td>
+                               <td class="date-last-sent">{{ win.sent|last| date:'d M Y' }}</td>
                             </tr>
                         {% endfor %}
                         </tbody>
