@@ -80,6 +80,13 @@ class SendCustomerEmailView(BaseAdminView):
     template_name = 'ui/admin/send-customer-email.html'
 
 
+class SendAdminCustomerEmailView(BaseAdminView):
+    """ Enter Win ID, send customer email to admin """
+
+    endpoint = settings.SEND_ADMIN_CUSTOMER_EMAIL_AP
+    template_name = 'ui/admin/send-admin-customer-email.html'
+
+
 class ChangeCustomerEmailView(BaseAdminView):
     """ Enter Win ID & email address, change's customer address & emails """
 
