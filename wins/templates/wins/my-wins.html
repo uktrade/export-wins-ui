@@ -78,13 +78,13 @@
                     <table class="table table-striped sent-to-customer-wins">
                         <thead>
                             <tr>
-                                <th>UK Company</th>
-                                <th>Export to</th>
-                                <th>Customer name</th>
-                                <th class="text-right">Export amount</th>
-                                <th>Date won</th>
-                                <th>Date first sent <span class="glyphicon glyphicon-option-vertical" aria-hidden="true" title="Sorted by this field"></span><span class="sr-only">(Sorted by this field)</span></th>
-                                <th>Date last sent</th>
+                                <th class="company-name">UK Company</th>
+                                <th class="country-name">Export to</th>
+                                <th class="customer-name">Customer name</th>
+                                <th class="export-value text-right">Export amount</th>
+                                <th class="date">Date won</th>
+                                <th class="date-sent">Date<br> first sent <span class="glyphicon glyphicon-option-vertical" aria-hidden="true" title="Sorted by this field"></span><span class="sr-only">(Sorted by this field)</span></th>
+                                <th class="date-last-sent">Date<br> last sent</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -95,8 +95,8 @@
                                <td class="customer-name">{{ win.customer_name }}</td>
                                <td class="export-value text-right">&pound;{{ win.total_expected_export_value | intcomma }}</td>
                                <td class="date">{{ win.date | date:'M Y' }}</td>
-                               <td class="date-sent">{{ win.sent.0 | date:'d M Y' }}<td>
-                               <td class="date-last-sent">{{ win.sent|last| date:'d M Y' }}</td>
+                               <td class="date-sent">{{ win.sent.0 | date:'d M Y' }}</td>
+                               <td class="date-last-sent">{{ win.sent | last | date:'d M Y' }}</td>
                             </tr>
                         {% endfor %}
                         </tbody>

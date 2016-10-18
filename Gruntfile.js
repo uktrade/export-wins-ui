@@ -8,7 +8,7 @@ module.exports = function( grunt ){
 
 		files: {
 			
-			css: 'main_2016-10-04.css',
+			css: 'main_2016-10-18.css',
 			js: 'main_2016-10-04.min.js',
 
 			bootstrap: {
