@@ -205,6 +205,7 @@
   <h3 class="section-heading">Support provided</h3>
 
   <div class="section-content">
+    {% include "wins/partials/win-details-element.html" with name="HVC code, if applicable" val=win.hvc|default:"None" required=False %}
     {% include "wins/partials/win-details-element.html" with name="HVO Programme, if applicable" val=win.hvo_programme|default:"None" required=False %}
     {% include "wins/partials/win-details-element.html" with name="Have HVO Specialists been involved" val=win.has_hvo_specialist_involvement %}
     {% include "wins/partials/win-details-element.html" with name="Is this win Prosperity Fund related" val=win.is_prosperity_fund_related %}
