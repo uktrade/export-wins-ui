@@ -121,10 +121,16 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
             'goods_vs_services'
         ]
 
-        # add the default for drop-downs
+        # add the default for drop-downs: "Please choose..."
+        # note: fields which are choices with blank=True get an empty field
+        # inserted at the beginning, so replace this with "Please choose..."
+        default_choice = [('', 'Please choose...')]
         for name, field in self.fields.items():
             if type(field) == forms.ChoiceField and name not in not_dropdowns:
-                field.choices = [('', 'Please choose...')] + field.choices
+                if field.choices[0][0] == '':
+                    field.choices = default_choice + field.choices[1:]
+                else:
+                    field.choices = default_choice + field.choices
 
     def clean_date(self):
         """ Validate date entered as a string and reformat for serializer """
