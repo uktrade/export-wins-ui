@@ -68,4 +68,28 @@
 		width: 12%;
 		min-width: 6em;
 	}
+
+	.sent-to-customer-wins {
+
+		min-width: 940px;
+
+		.company-name {
+			width: 20%;
+		}
+		.country-name {
+			width: 18%;
+		}
+		.customer-name {
+			width: 16%;
+		}
+		.export-value {
+			width: 13%;
+		}
+		.date,
+		.date-sent,
+		.date-last-sent {
+			width: 11%;
+			min-width: 4em;
+		}
+	}
 }
