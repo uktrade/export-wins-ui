@@ -124,8 +124,14 @@ class Rabbit(object):
 
         if response.status_code == 403:
             raise RabbitException(
-                "Data server access is failing for {} requests to {} with error {}.".format(
-                    method, str(path, "utf-8"), response.content,
+                """ Data server access is failing for {} requests to {}
+                    with error {}. request: {}. alice_id {}
+                """.format(
+                    method,
+                    str(path, "utf-8"),
+                    response.content,
+                    request,
+                    request.alice_id if request else None,
                 )
             )
 
