@@ -1101,6 +1101,24 @@ ew.pages.officerForm = (function(){
 		return ( field + ' is required for officerFormPage' );
 	}
 
+	function removeCountry( opts ){
+
+		var $options;
+
+		if( opts.value !== opts.remove ){
+
+			$options = $( '#' + opts.id + ' option' );
+			$options.each( function( i, option ){
+
+				if( option.value === opts.remove ){
+
+					$( option ).remove();
+					return false;
+				}
+			} );
+		}
+	}
+
 	return function officerFormPage( opts ){
 
 		//alert( 'officer page start' );
@@ -1131,6 +1149,10 @@ ew.pages.officerForm = (function(){
 
 			if( !opts.nonExportValues || !opts.nonExportValues.length ){ throw new Error( errorMessage( 'opts.nonExportValues' ) ); }
 			if( !opts.nonExportTotal ){ throw new Error( errorMessage( 'opts.nonExportTotal' ) ); }
+
+			if( opts.country ){
+				removeCountry( opts.country );
+			}
 		}
 
 		//alert( 'officer page ok' );
