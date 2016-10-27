@@ -60,6 +60,8 @@
 
 .confirmation-form .more-info { font-size: 1.1em; position: relative; top: -2px; }
 
+.confirmation-form .form-group { clear: both; }
+
 .confirmation-form .form-group label { float: left; max-width: 80%; }
 
 .confirmation-form .tooltip-inner { font-size: 1.2em; }
@@ -89,6 +91,14 @@
 .confirmation-form .what-extent-heading { margin-top: 1.5em; }
 
 .confirmation-form .confirm-details-heading { margin-top: 1.5em; }
+
+.confirmation-form .buttons-right .btn-group { margin-right: -10px; min-width: 100px; }
+
+.confirmation-form .buttons-right .btn-group input { outline: none; }
+
+.confirmation-form .survey-buttons .btn-group { width: 100%; }
+
+.confirmation-form .survey-buttons .btn-group input { outline: none; }
 
 .confirmation-form .radio label, .confirmation-form .checkbox label { border: 1px solid #ccc; border-radius: 0.25em; padding: 0.5em 0.7em 0.5em 2.4em; margin-bottom: 0.5em; }
 
@@ -304,4 +314,4 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-app
   .btn-responsive, .end-buttons .btn, body .end-buttons .btn { width: 100%; margin-bottom: 1em; margin-left: 0 !important; margin-right: 0 !important; }
   .non-export-heading { margin-top: 2em; } }
 
-/*# sourceMappingURL=main_2016-10-18.css.map */
+/*# sourceMappingURL=main_2016-10-27.css.map */

@@ -8,9 +8,14 @@
 		top: -2px;
 	}
 
-	.form-group label {
-		float: left;
-		max-width: 80%;
+	.form-group {
+
+		clear: both;
+
+		label {
+			float: left;
+			max-width: 80%;
+		}
 	}
 
 	.tooltip-inner {
@@ -82,6 +87,29 @@
 
 	.confirm-details-heading {
 		margin-top: 1.5em;
+	}
+
+	// Fix strange IE bug - needs a width to keep the buttons on one line
+	.buttons-right .btn-group {
+
+		margin-right: -10px;
+		min-width: 100px;
+
+		input {
+			//IE 8 seems to show an outline
+			outline: none;
+		}
+	}
+
+	// Fix strange IE bug - needs a width to keep the buttons on one line
+	.survey-buttons .btn-group {
+
+		width: 100%;
+
+		input {
+			//IE 8 seems to show an outline
+			outline: none;
+		}
 	}
 
 	.radio label,
