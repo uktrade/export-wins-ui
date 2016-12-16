@@ -12,9 +12,12 @@ ew.components.CleanPastedInput = (function(){
 		this.elem.value = this.elem.value.replace( /^\s+|\s+$/g, '' );
 	};
 
-	CleanPastedInput.prototype.handlePaste = function( e ){
+	CleanPastedInput.prototype.handlePaste = function(){
 		
-		setTimeout( $.proxy( this.cleanValue, this ), 1 );
+		if( this.elem ){
+
+			setTimeout( $.proxy( this.cleanValue, this ), 1 );
+		}
 	};
 
 	return CleanPastedInput;

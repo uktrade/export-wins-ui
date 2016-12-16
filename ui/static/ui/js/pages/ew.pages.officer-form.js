@@ -95,6 +95,8 @@ ew.pages.officerForm = (function(){
 		appComponents.programmeSelects = new ew.components.AddSelect( opts.programmeGroup );
 
 		appComponents.contactEmailCleaner = new ew.components.CleanPastedInput( $( '#id_customer_email_address' ) );
+		appComponents.leadOfficerEmailCleaner = new ew.components.CleanPastedInput( $( '#id_lead_officer_email_address' ) );
+		appComponents.secondaryEmailCleaner = new ew.components.CleanPastedInput( $( '#id_other_official_email_address' ) );
 	}
 
 	function errorMessage( field ){
