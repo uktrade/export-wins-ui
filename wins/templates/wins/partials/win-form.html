@@ -360,6 +360,11 @@
 			isComplete: ( '{{ win.complete }}' === 'True' ),
 			formId: 'win-form',
 			descriptionId: '{{ form.description.auto_id }}',
+			country: {
+				remove: 'GB',
+				id: '{{ form.country.auto_id }}',
+				value: '{{ form.country.value }}'
+			},
 			supportGroup: {
 				selector: '.support-group select',
 				required: true,
