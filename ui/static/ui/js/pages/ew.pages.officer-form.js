@@ -93,6 +93,8 @@ ew.pages.officerForm = (function(){
 
 		appComponents.supportSelects = new ew.components.AddSelect( opts.supportGroup );
 		appComponents.programmeSelects = new ew.components.AddSelect( opts.programmeGroup );
+
+		appComponents.contactEmailCleaner = new ew.components.CleanPastedInput( $( '#id_customer_email_address' ) );
 	}
 
 	function errorMessage( field ){

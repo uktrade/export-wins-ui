@@ -6,6 +6,7 @@
   "scripts": {
     "build": "grunt build",
     "watch": "grunt build; grunt watch",
+    "env": "grunt -v",
     "sass": "grunt sass:main",
     "sass:bootstrap": "grunt sass:bootstrap"
   },
@@ -21,6 +22,7 @@
   "homepage": "https://github.com/UKTradeInvestment/export-wins-ui#readme",
   "devDependencies": {
     "grunt": "^1.0.1",
+    "grunt-cli": "1.2.0",
     "grunt-contrib-concat": "^1.0.1",
     "grunt-contrib-uglify": "^2.0.0",
     "grunt-contrib-watch": "^1.0.0",

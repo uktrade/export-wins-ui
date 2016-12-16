@@ -8,8 +8,8 @@ module.exports = function( grunt ){
 
 		files: {
 			
-			css: 'main_2016-10-18.css',
-			js: 'main_2016-10-04.min.js',
+			css: 'main_2016-10-27.css',
+			js: 'main_2016-12-16.min.js',
 
 			bootstrap: {
 				css: 'bootstrap_2016-08-31.css',

@@ -548,6 +548,27 @@ ew.components.CalculateExportValue = (function( doc, $, toLocaleString ){
 	return CalculateExportValueComponent;
 
 }( document, jQuery, ew.tools.toLocaleString ));
+ew.components.CleanPastedInput = (function(){
+	
+	function CleanPastedInput( $elem ){
+
+		this.$elem = $elem;
+		this.elem = $elem[ 0 ];
+		this.$elem.on( 'paste', $.proxy( this.handlePaste, this ) );
+	}
+
+	CleanPastedInput.prototype.cleanValue = function(){
+		
+		this.elem.value = this.elem.value.replace( /^\s+|\s+$/g, '' );
+	};
+
+	CleanPastedInput.prototype.handlePaste = function( e ){
+		
+		setTimeout( $.proxy( this.cleanValue, this ), 1 );
+	};
+
+	return CleanPastedInput;
+}());
 ew.components.DisableMultiSubmit = (function( $ ){
 	
 	function DisableMultiSubmitComponent( formId, savingText ){
@@ -1095,6 +1116,8 @@ ew.pages.officerForm = (function(){
 
 		appComponents.supportSelects = new ew.components.AddSelect( opts.supportGroup );
 		appComponents.programmeSelects = new ew.components.AddSelect( opts.programmeGroup );
+
+		appComponents.contactEmailCleaner = new ew.components.CleanPastedInput( $( '#id_customer_email_address' ) );
 	}
 
 	function errorMessage( field ){
