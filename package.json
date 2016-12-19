@@ -21,6 +21,7 @@
   "homepage": "https://github.com/UKTradeInvestment/export-wins-ui#readme",
   "devDependencies": {
     "grunt": "^1.0.1",
+    "grunt-cli": "1.2.0",
     "grunt-contrib-concat": "^1.0.1",
     "grunt-contrib-uglify": "^2.0.0",
     "grunt-contrib-watch": "^1.0.0",
