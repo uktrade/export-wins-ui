@@ -6,7 +6,6 @@
   "scripts": {
     "build": "grunt build",
     "watch": "grunt build; grunt watch",
-    "env": "grunt -v",
     "sass": "grunt sass:main",
     "sass:bootstrap": "grunt sass:bootstrap"
   },
