@@ -42,7 +42,8 @@ class LoginView(FormView):
                 form.session_cookie.expires
             ).strftime('%a, %d %b %Y %H:%M:%S'),
             secure=settings.SESSION_COOKIE_SECURE,
-            httponly=True
+            httponly=True,
+            domain='.exportwins.service.trade.gov.uk',
         )
         return response
 
