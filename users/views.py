@@ -29,25 +29,27 @@ class LoginView(FormView):
         # API into JWT cookie. Also save session id of session from data
         # server, for use when making requests to data server via Rabbit.
         # Note UI server and admin server have different secrets and domains.
-        kwargs = {}
+        jwt_val = jwt.encode(
+            {
+                "user": form.user,
+                "session": form.session_cookie.value
+            },
+            settings.COOKIE_SECRET,
+        )
+        expires = datetime.fromtimestamp(form.session_cookie.expires)\
+                          .strftime('%a, %d %b %Y %H:%M:%S')
+        kwargs = {
+            'value': jwt_val,
+            'expires': expires,
+            'secure': settings.SESSION_COOKIE_SECURE,
+            'httponly': True,
+        }
+
+        # in production, we want to share cookies across exportwins subdomains
         if not settings.DEBUG:
             kwargs['domain'] = '.exportwins.service.trade.gov.uk'
-        response.set_cookie(
-            "alice",
-            value=jwt.encode(
-                {
-                    "user": form.user,
-                    "session": form.session_cookie.value
-                },
-                settings.UI_SECRET
-            ),
-            expires=datetime.fromtimestamp(
-                form.session_cookie.expires
-            ).strftime('%a, %d %b %Y %H:%M:%S'),
-            secure=settings.SESSION_COOKIE_SECURE,
-            httponly=True,
-            **kwargs,
-        )
+
+        response.set_cookie("alice", **kwargs)
         return response
 
     def get_success_url(self):

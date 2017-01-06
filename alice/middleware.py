@@ -15,7 +15,7 @@ class AliceMiddleware(object):
         request.user = User(is_authenticated=False)
 
         try:
-            token = jwt.decode(alice, settings.UI_SECRET)
+            token = jwt.decode(alice, settings.COOKIE_SECRET)
             # alice id is given to data server as session id for authentication
             # via Rabbit
             request.alice_id = token["session"]
