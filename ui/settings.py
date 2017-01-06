@@ -31,36 +31,27 @@ DEBUG = bool(os.getenv("DEBUG", False))
 ALLOWED_HOSTS = ['*']
 
 
-# Application definition
-
 INSTALLED_APPS = [
-
-    # 'django.contrib.admin',
-    # 'django.contrib.auth',
+    # django
     'django.contrib.contenttypes',
     'django.contrib.humanize',
-    # 'django.contrib.sessions',
-    # 'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # third party
     "django_extensions",
     "raven.contrib.django.raven_compat",
 
+    # project apps
     "ui",
     "users",
     "wins",
-
 ]
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
     'ui.middleware.SSLRedirectMiddleware',
-    # 'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    # 'django.contrib.auth.middleware.AuthenticationMiddleware',
-    # 'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
-    # 'django.contrib.messages.middleware.MessageMiddleware',
     "alice.middleware.AliceMiddleware",
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -76,8 +67,6 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
-                # 'django.contrib.auth.context_processors.auth',
-                # 'django.contrib.messages.context_processors.messages',
                 "ui.context_processors.handy",
             ],
         },
@@ -104,7 +93,6 @@ DATABASES = {
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
@@ -115,15 +103,10 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
-
 LANGUAGE_CODE = 'en-gb'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
 
 
@@ -153,9 +136,14 @@ SEND_ADMIN_CUSTOMER_EMAIL_AP = "{}/admin/send-admin-customer-email/".format(DATA
 CHANGE_CUSTOMER_EMAIL_AP = "{}/admin/change-customer-email/".format(DATA_SERVER)
 SOFT_DELETE_AP = "{}/admin/soft-delete/".format(DATA_SERVER)
 
+
 # For UI server should match UI_SECRET in data server, for admin server should
 # match ADMIN_SECRET in data server.
 UI_SECRET = os.getenv("UI_SECRET")
+
+
+# for JWT
+COOKIE_SECRET = os.getenv("COOKIE_SECRET")
 
 
 # Mail stuffs
@@ -172,24 +160,24 @@ EMAIL_SSL_KEYFILE = os.getenv("EMAIL_SSL_KEYFILE")
 EMAIL_SSL_CERTFILE = os.getenv("EMAIL_SSL_CERTFILE")
 EMAIL_BACKEND = os.getenv("EMAIL_BACKEND")  # The default is just fine
 
+
+# Google Analytics
 ANALYTICS_ID = os.getenv("ANALYTICS_ID")
 
+
+# how long you can edit a win
 EDIT_TIMEOUT_DAYS = int(os.getenv('EDIT_TIMEOUT_DAYS', 120))
 
 
 # Sentry
-
 RAVEN_CONFIG = {
     "dsn": os.getenv("SENTRY_DSN"),
-    # If you are using git, you can also automatically configure the
-    # release based on the git info.
-    # 'release': raven.fetch_git_sha(os.path.dirname(__file__)),
 }
+
 
 # Security stuff
 SECURE_HSTS_SECONDS = 60 * 60 * 24 * 365
 SECURE_BROWSER_XSS_FILTER = True
-
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 if DEBUG:
