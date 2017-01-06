@@ -11,6 +11,14 @@ from alice.helpers import rabbit
 from .forms import LoginForm
 
 
+def cookie_domain():
+    # in production, we want to share cookies across exportwins subdomains
+    if not settings.DEBUG and not settings.STAGING:
+        return '.exportwins.service.trade.gov.uk'
+    # otherwise None just uses whatever domain the page is loaded from
+    return None
+
+
 class LoginView(FormView):
     """ Login via data server and set JWT cookie
 
@@ -43,11 +51,8 @@ class LoginView(FormView):
             'expires': expires,
             'secure': settings.SESSION_COOKIE_SECURE,
             'httponly': True,
+            'domain': cookie_domain(),
         }
-
-        # in production, we want to share cookies across exportwins subdomains
-        if not settings.DEBUG and not settings.STAGING:
-            kwargs['domain'] = '.exportwins.service.trade.gov.uk'
 
         response.set_cookie("alice", **kwargs)
         return response
@@ -67,5 +72,5 @@ class LogoutView(RedirectView):
     def get(self, request, *args, **kwargs):
         rabbit.get(settings.LOGOUT_AP, request=request)  # Data server log out
         response = RedirectView.get(self, request, *args, **kwargs)
-        response.delete_cookie("alice")
+        response.delete_cookie("alice", domain=cookie_domain())
         return response
