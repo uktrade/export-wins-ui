@@ -46,7 +46,7 @@ class LoginView(FormView):
         }
 
         # in production, we want to share cookies across exportwins subdomains
-        if not settings.DEBUG:
+        if not settings.DEBUG and not settings.STAGING:
             kwargs['domain'] = '.exportwins.service.trade.gov.uk'
 
         response.set_cookie("alice", **kwargs)
