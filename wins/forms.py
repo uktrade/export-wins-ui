@@ -152,17 +152,21 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
             raise forms.ValidationError(
                 'Invalid date. Please use {}'.format(self.date_format))
 
-        days_delta = (datetime.now() - date).days
-
         if date < datetime(day=1, month=1, year=2016):
             raise forms.ValidationError(
                 'This system is only for Wins won after 1st January 2016'
             )
 
-        if days_delta > 365:
+        now = datetime.now()
+        current_year = now.year
+        current_month = now.month
+        win_months_ce = (12 * year) + month
+        current_months_ce = (12 * current_year) + current_month
+
+        if (win_months_ce < current_months_ce - 12):
             raise forms.ValidationError('Cannot record wins over 1 year old')
 
-        if days_delta < 0:
+        if win_months_ce > current_months_ce:
             raise forms.ValidationError('Invalid date, must be in the past')
 
         return date.strftime('%Y-%m-%d')  # serializer expects YYYY-MM-DD
