@@ -84,8 +84,12 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
             {"placeholder": "£GBP"})
         self.fields["total_expected_non_export_value"].widget.attrs.update(
             {"placeholder": "£GBP"})
+        self.fields["total_expected_odi_value"].widget.attrs.update(
+            {"placeholder": "£GBP"})
+
         self.fields["total_expected_export_value"].initial = '0'
         self.fields["total_expected_non_export_value"].initial = '0'
+        self.fields["total_expected_odi_value"].initial = '0'
 
         # make checkboxes not required
         self.fields["has_hvo_specialist_involvement"].required = False
@@ -209,6 +213,7 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
         if not self.errors and not self.completed:
             export_value = cleaned.get("total_expected_export_value")
             non_export_value = cleaned.get("total_expected_non_export_value")
+            odi_value = cleaned.get("total_expected_odi_value")
 
             export_breakdowns = [
                 cleaned.get("breakdown_exports_{}".format(i))

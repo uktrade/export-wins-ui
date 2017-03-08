@@ -61,6 +61,13 @@
 						<dd>&pound;{{ win.total_expected_non_export_value|intcomma }}</dd>
 
 				{% endif %}
+
+				{% if win.total_expected_odi_value %}
+
+						<dt>ODI value expected over the next 5 years</dt>
+						<dd>&pound;{{ win.total_expected_odi_value|intcomma }}</dd>
+
+				{% endif %}
 			</dl>
 
 			<h4 class="supported-header">How we supported you</h4>
@@ -70,7 +77,7 @@
 		<form method="post" action="{{ request.path }}" id="confirmation-form">
 
 			{% with field=form.agree_with_win %}
-			
+
 
 			<h4 class="confirm-details-heading">{{ form.agree_with_win.label }}:</h4>
 
@@ -131,7 +138,7 @@
 			<h3 class="pad-top">Your export experience</h3>
 
 			{% include "wins/partials/confirmation-radio.html" with field=form.last_export %}
-			
+
 
 			<h4>Tick any that apply to this win:</h4>
 
