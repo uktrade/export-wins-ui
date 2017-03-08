@@ -321,9 +321,9 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
         This assumes wins cannot be edited in the year after they are created
 
         """
-        base_year = 2016  # project is intended only to be used for 2016/17
+        base_year = 2016  # project is intended only to be used for 2016/17 TODO
         field_data = []
-        for breakdown_type in ['exports', 'non_exports']:
+        for breakdown_type in ['exports', 'non_exports', 'odi']:
             for i in range(0, 5):
                 year = (base_year + i)
                 field_name = 'breakdown_{}_{}'.format(breakdown_type, i)
@@ -347,6 +347,16 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
                 )
         return field_data
 
+    def _breakdown_typenum(self, name):
+        if name == 'exports':
+            return '1'
+        elif name == 'non_exports':
+            return 2
+        elif name == 'odi':
+            return 3
+        else:
+            raise Exception('unexpected breakdown name')
+
     def _add_breakdown_initial(self, breakdowns):
         """ Add breakdown data to `initial` """
 
@@ -356,7 +366,7 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
             for b in breakdowns
         }
         for field_name, year, breakdown_type in self.breakdown_field_data:
-            breakdown_typenum = "1" if breakdown_type == "exports" else "2"
+            breakdown_typenum = self._breakdown_typenum(breakdown_type)
             breakdown = self.year_type_to_breakdown.get(
                 '{}-{}'.format(year, breakdown_typenum)
             )
@@ -369,7 +379,7 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
         retval = []
         for field_name, year, breakdown_type in self.breakdown_field_data:
             value = self.cleaned_data.get(field_name)
-            breakdown_typenum = "1" if breakdown_type == "exports" else "2"
+            breakdown_typenum = self._breakdown_typenum(breakdown_type)
             breakdown = self.year_type_to_breakdown.get(
                 '{}-{}'.format(year, breakdown_typenum)
             )
