@@ -195,7 +195,34 @@
 				</table>
 				</div>
 
-				<p class="export-year-value">Total: &pound;{{ win.total_expected_non_export_value | intcomma }}</p>
+				<p class="export-year-value">Total: &pound;{{ win.total_expected_odi_value | intcomma }}</p>
+
+				<h4 class="non-export-heading">ODI value</h4>
+
+				<p>
+					Total ODI value over the next 5 years.
+				</p>
+
+				<div class="scroll-table">
+				<table class="table table-responsive">
+					<tr>
+						<th>{{ win.breakdowns.odi.0.year }}</th>
+						<th>{{ win.breakdowns.odi.1.year }}</th>
+						<th>{{ win.breakdowns.odi.2.year }}</th>
+						<th>{{ win.breakdowns.odi.3.year }}</th>
+						<th>{{ win.breakdowns.odi.4.year }}</th>
+					</tr>
+					<tr>
+						<td>&pound;{{ win.breakdowns.odi.0.value | intcomma }}</td>
+						<td>&pound;{{ win.breakdowns.odi.1.value | intcomma }}</td>
+						<td>&pound;{{ win.breakdowns.odi.2.value | intcomma }}</td>
+						<td>&pound;{{ win.breakdowns.odi.3.value | intcomma }}</td>
+						<td>&pound;{{ win.breakdowns.odi.4.value | intcomma }}</td>
+					</tr>
+				</table>
+				</div>
+
+				<p class="export-year-value">Total: &pound;{{ win.total_expected_odi_value | intcomma }}</p>
 
 			</div>
 		</div>
@@ -270,6 +297,38 @@
 			</div>
 
 			{% include "wins/partials/win-field.html" with field=form.total_expected_non_export_value help="The total expected value should be the sum of the annual values of the win." class="restrict-width-xsm" %}
+		</div>
+
+		<div id="odi-content" class="win-values">
+
+			<h4>ODI value over next 5 years</h4>
+			<p class="help-text">(round to nearest &pound;)</p>
+
+			{% if form.breakdown_odi_0.errors or form.breakdown_odi_1.errors or form.breakdown_odi_2.errors or form.breakdown_odi_.errors or form.breakdown_odi_4.errors %}
+				<p class="alert alert-danger">Please correct the values highlighted with red below. Whole numbers only (no separators etc).</p>
+			{% endif %}
+
+			<div class="scroll-table">
+			<table class="table table-responsive win-value-table">
+				<tr>
+					<th>{{ form.breakdown_odi_0.label_tag }}</th>
+					<th>{{ form.breakdown_odi_1.label_tag }}</th>
+					<th>{{ form.breakdown_odi_2.label_tag }}</th>
+					<th>{{ form.breakdown_odi_3.label_tag }}</th>
+					<th>{{ form.breakdown_odi_4.label_tag }}</th>
+				</tr>
+				<tr>
+					{% include "wins/partials/export-value-cell.html" with field=form.breakdown_odi_0 %}
+					{% include "wins/partials/export-value-cell.html" with field=form.breakdown_odi_1 %}
+					{% include "wins/partials/export-value-cell.html" with field=form.breakdown_odi_2 %}
+					{% include "wins/partials/export-value-cell.html" with field=form.breakdown_odi_3 %}
+					{% include "wins/partials/export-value-cell.html" with field=form.breakdown_odi_4 %}
+				</tr>
+			</table>
+			</div>
+
+			{% include "wins/partials/win-field.html" with field=form.total_expected_odi_value help="The total expected value should be the sum of the annual values of the win." class="restrict-width-xsm" %}
+		</div>
 
 		{% if form.non_field_errors %}
 			</div>
@@ -385,6 +444,7 @@
 			},
 			exportContentId: 'export-content',
 			nonExportContentId: 'non-export-content',
+			odiContentId: 'odi-content',
 			exportValues: [
 				'{{ form.breakdown_exports_0.auto_id }}',
 				'{{ form.breakdown_exports_1.auto_id }}',
@@ -401,6 +461,14 @@
 				'{{ form.breakdown_non_exports_4.auto_id }}'
 			],
 			nonExportTotal: '{{ form.total_expected_non_export_value.auto_id }}'
+			odiValues: [
+				'{{ form.breakdown_odi_0.auto_id }}',
+				'{{ form.breakdown_odi_1.auto_id }}',
+				'{{ form.breakdown_odi_2.auto_id }}',
+				'{{ form.breakdown_odi_3.auto_id }}',
+				'{{ form.breakdown_odi_4.auto_id }}'
+			],
+			odiTotal: '{{ form.total_expected_odi_value.auto_id }}'
 		});
 	</script>
 {% endblock js_footer %}

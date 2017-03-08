@@ -248,9 +248,14 @@ class EditWinView(BaseWinFormView):
             {'value': b['value'], 'year': b['year']}
             for b in breakdowns if b['type'] == 2
         ]
+        odi = [
+            {'value': b['value'], 'year': b['year']}
+            for b in breakdowns if b['type'] == 3
+        ]
         self.win['breakdowns'] = {
             'exports': exports,
             'nonexports': nonexports,
+            'odi': odi,
         }
 
         return kwargs
