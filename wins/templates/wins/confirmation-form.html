@@ -19,7 +19,7 @@
 	<div class="confirmation-form">
 
 		<p class="lead">
-			We&#39;re asking UK companies about our export support services to help us improve. Tell us how our support contributed to your export success.
+			We&#39;re asking UK companies about our support services to help us improve. Tell us how our support contributed to your success.
 		</p>
 
 	{% if form.errors %}
@@ -29,7 +29,7 @@
 		{{ form.non_field_errors }}
 	{% endif %}
 
-		<h2 class="pad-top">Details of your recent export success</h2>
+		<h2 class="pad-top">Details of your recent success</h2>
 
 		<div class="win-details-wrapper">
 
@@ -123,7 +123,7 @@
 			{% include "wins/partials/confirmation-rate-buttons.html" with field=form.overcame_problem %}
 
 
-			<h3 class="pad-top">About this export win</h3>
+			<h3 class="pad-top">About this win</h3>
 
 			{% include "wins/partials/confirmation-radio.html" with field=form.expected_portion_without_help %}
 

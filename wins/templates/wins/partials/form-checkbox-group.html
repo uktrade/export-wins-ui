@@ -1,0 +1,22 @@
+<div class="form-group checkbox-group {{ field.errors|yesno:'error,' }}">
+
+	{{ field.errors }}
+
+	<h4 class="radio-label">
+		{% if field.field.required %}<span class="required">*</span>{% endif %}
+		{{ field.label }}:
+	</h4>
+
+	{% if help %}<p class="help-text">{{ help }}</p>{% endif %}
+	{% if message %}<p class="field-message">{{ message }}</p>{% endif %}
+
+	{% for value, text in field.field.choices %}
+		<div class="checkbox{% if class %} {{ class }}{% endif %}">
+			<label for="{{ field.name }}-{{ value }}">
+				{# hack here to turn the field.value into a number by adding 0 with the add filter - will break for string values that aren't numbers #}
+				<input type="checkbox" id="{{ field.name }}-{{ value }}" name="{{ field.name }}" value="{{ value }}"{% if field.value|add:"0" = value %} checked{% endif %}{%if disabled %} disabled{% endif %}>
+				{{ text }}
+			</label>
+		</div>
+	{% endfor %}
+</div>
