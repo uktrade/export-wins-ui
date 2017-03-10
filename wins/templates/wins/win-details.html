@@ -106,7 +106,7 @@
     {% endif %}
   </div>
 
-  <h3 class="section-heading">Export win details</h3>
+  <h3 class="section-heading">Win details</h3>
 
   <div class="section-content">
 
@@ -192,10 +192,10 @@
       </div>
 
       <div class="col-sm-6">
-        <h4 class="odi-heading">ODI value</h4>
+        <h4 class="odi-heading">Outward Direct Investment value</h4>
 
         <p>
-          Total ODI value over the next 5 years.
+          Total Outward Direct Investment value over the next 5 years.
         </p>
 
         {# this should show all 5 years even if we don't have data... #}
@@ -230,7 +230,7 @@
 
     </div>
 
-    {% include "wins/partials/win-details-element.html" with name="Expected export value related to goods or services" val=win.goods_vs_services %}
+    {% include "wins/partials/win-details-element.html" with name="Expected value related to goods or services" val=win.goods_vs_services %}
 
     {% include "wins/partials/win-details-element.html" with name="Goods or services that are being exported" val=win.name_of_export %}
 

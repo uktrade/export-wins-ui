@@ -64,7 +64,7 @@
 
 				{% if win.total_expected_odi_value %}
 
-						<dt>ODI value expected over the next 5 years</dt>
+						<dt>Outward Direct Investment value expected over the next 5 years</dt>
 						<dd>&pound;{{ win.total_expected_odi_value|intcomma }}</dd>
 
 				{% endif %}
@@ -134,19 +134,16 @@
 			{% include "wins/partials/confirmation-checkbox.html" with field=form.interventions_were_prerequisite %}
 			{% include "wins/partials/confirmation-checkbox.html" with field=form.support_improved_speed %}
 
-
-			<h3 class="pad-top">Your export experience</h3>
-
-			{% include "wins/partials/confirmation-radio.html" with field=form.last_export %}
-
-
-			<h4>Tick any that apply to this win:</h4>
-
 			{% include "wins/partials/confirmation-checkbox.html" with field=form.has_enabled_expansion_into_new_market label="It enabled you to expand into <strong>a new market</strong>" %}
 			{% include "wins/partials/confirmation-checkbox.html" with field=form.has_enabled_expansion_into_existing_market label="It enabled you to maintain or expand in <strong>an existing market</strong>" %}
 			{% include "wins/partials/confirmation-checkbox.html" with field=form.has_increased_exports_as_percent_of_turnover %}
 			{% include "wins/partials/confirmation-checkbox.html" with field=form.company_was_at_risk_of_not_exporting %}
 			{% include "wins/partials/confirmation-checkbox.html" with field=form.has_explicit_export_plans %}
+
+
+			<h3 class="pad-top">Your export experience</h3>
+
+			{% include "wins/partials/confirmation-radio.html" with field=form.last_export %}
 
 			<hr>
 
