@@ -10,7 +10,6 @@
 		<div class="alert alert-danger">
 			There were some errors with your submission.  Please see below.
 		</div>
-		{{ form.errors }}
 		{# note, not field errors are used below {{ form.non_field_errors }} #}
 	{% endif %}
 
@@ -439,7 +438,7 @@
 				name: '{{ form.type.name }}',
 				exportValue: '{{ form.type.field.choices.0.0 }}', // name: '{{ form.type.field.choices.0.1 }}'
 				nonExportValue: '{{ form.type.field.choices.1.0 }}', //name: '{{ form.type.field.choices.1.1 }}'
-				bothValue: '{{ form.type.field.choices.2.0 }}' //name: '{{ form.type.field.choices.2.1 }}'
+				odiValue: '{{ form.type.field.choices.2.0 }}' //name: '{{ form.type.field.choices.2.1 }}'
 			},
 			exportContentId: 'export-content',
 			nonExportContentId: 'non-export-content',

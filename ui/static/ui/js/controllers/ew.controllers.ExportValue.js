@@ -5,23 +5,27 @@ ew.controllers.ExportValue = (function(){
 		return ( param  + ' is required for ExportValueController' );
 	}
 
-	function ExportValueController( toggleExport, calculateExport, calculateNonExport ){
+	function ExportValueController( fields ){
 
-		if( !toggleExport ){ throw new Error( errorMessage( 'toggleExport' ) ); }
-		if( !calculateExport ){ throw new Error( errorMessage( 'calculateExport' ) ); }
-		if( !calculateNonExport ){ throw new Error( errorMessage( 'calculateNonExport' ) ); }
+		if( !fields.exportValue ){ throw new Error( errorMessage( 'fields.exportValue' ) ); }
+		if( !fields.nonExportValue ){ throw new Error( errorMessage( 'fields.nonExportValue' ) ); }
+		if( !fields.odiValue ){ throw new Error( errorMessage( 'fields.odiValue' ) ); }
 
-		toggleExport.events.hideExport.subscribe( function(){
+		fields.exportValue.toggler.events.hide.subscribe( function(){
 
-			calculateExport.resetValues();
+			fields.exportValue.calculator.resetValues();
 		} );
 
-		toggleExport.events.hideNonExport.subscribe( function(){
+		fields.nonExportValue.toggler.events.hide.subscribe( function(){
 
-			calculateNonExport.resetValues();
+			fields.nonExportValue.calculator.resetValues();
+		} );
+
+		fields.odiValue.toggler.events.hide.subscribe( function(){
+
+			fields.odiValue.calculator.resetValues();
 		} );
 	}
 
 	return ExportValueController;
-
 }());
