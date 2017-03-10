@@ -254,7 +254,7 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
                     """Value of ODI breakdowns over 5 years must equal
                        total"""
                 )
-        raise
+
         return cleaned
 
     def create(self):
