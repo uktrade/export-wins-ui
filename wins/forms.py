@@ -113,6 +113,7 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
             "country",
             "total_expected_export_value",
             "total_expected_non_export_value",
+            "total_expected_odi_value",
             "type",
         ]
 
@@ -225,10 +226,15 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
                 for i in range(5)
             ]
 
-            if not export_value and not non_export_value:
+            odi_breakdowns = [
+                cleaned.get("breakdown_odi_{}".format(i))
+                for i in range(5)
+            ]
+
+            if not export_value and not non_export_value and not odi_value:
                 raise forms.ValidationError(
-                    """Wins must have total expected export or non-export value
-                       of more than £0.
+                    """Wins must have total expected export, non-export
+                        or ODI value of more than £0.
                     """
                 )
 
@@ -243,6 +249,12 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
                        total"""
                 )
 
+            if sum(odi_breakdowns) != odi_value:
+                raise forms.ValidationError(
+                    """Value of ODI breakdowns over 5 years must equal
+                       total"""
+                )
+        raise
         return cleaned
 
     def create(self):

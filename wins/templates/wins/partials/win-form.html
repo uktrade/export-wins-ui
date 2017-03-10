@@ -229,7 +229,7 @@
 
 	{% else %}
 
-		{% include "wins/partials/form-checkbox-group.html" with field=form.type %}
+		{% include "wins/partials/form-checkbox-group.html" with field=form.type help="Tick all that apply." %}
 
 		{# quick hack using non_field_errors here, since this is the only area which has non-field errors #}
 		{% if form.non_field_errors %}
