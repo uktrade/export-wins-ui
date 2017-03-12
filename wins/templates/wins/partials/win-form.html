@@ -242,28 +242,7 @@
 			<h4>Export value over next 5 years</h4>
 			<p class="help-text">(round to nearest &pound;)</p>
 
-			{% if form.breakdown_exports_0.errors or form.breakdown_exports_1.errors or form.breakdown_exports_2.errors or form.breakdown_exports_3.errors or form.breakdown_exports_4.errors %}
-				<p class="alert alert-danger">Please correct the values highlighted with red below. Whole numbers only (no separators etc).</p>
-			{% endif %}
-
-			<div class="scroll-table">
-			<table class="table table-responsive win-value-table">
-				<tr>
-					<th>{{ form.breakdown_exports_0.label_tag }}</th>
-					<th>{{ form.breakdown_exports_1.label_tag }}</th>
-					<th>{{ form.breakdown_exports_2.label_tag }}</th>
-					<th>{{ form.breakdown_exports_3.label_tag }}</th>
-					<th>{{ form.breakdown_exports_4.label_tag }}</th>
-				</tr>
-				<tr>
-					{% include "wins/partials/export-value-cell.html" with field=form.breakdown_exports_0 %}
-					{% include "wins/partials/export-value-cell.html" with field=form.breakdown_exports_1 %}
-					{% include "wins/partials/export-value-cell.html" with field=form.breakdown_exports_2 %}
-					{% include "wins/partials/export-value-cell.html" with field=form.breakdown_exports_3 %}
-					{% include "wins/partials/export-value-cell.html" with field=form.breakdown_exports_4 %}
-				</tr>
-			</table>
-			</div>
+			{% include "wins/partials/win-value-table.html" with field_0=form.breakdown_exports_0 field_1=form.breakdown_exports_1 field_2=form.breakdown_exports_2 field_3=form.breakdown_exports_3 field_4=form.breakdown_exports_4 %}
 
 			{% include "wins/partials/win-field.html" with field=form.total_expected_export_value help="The total expected value should be the sum of the annual values of the win." class="restrict-width-xsm" %}
 		</div>
@@ -273,28 +252,7 @@
 			<h4>Non-export value over next 5 years</h4>
 			<p class="help-text">(round to nearest &pound;)</p>
 
-			{% if form.breakdown_non_exports_0.errors or form.breakdown_non_exports_1.errors or form.breakdown_non_exports_2.errors or form.breakdown_non_exports_.errors or form.breakdown_non_exports_4.errors %}
-				<p class="alert alert-danger">Please correct the values highlighted with red below. Whole numbers only (no separators etc).</p>
-			{% endif %}
-
-			<div class="scroll-table">
-			<table class="table table-responsive win-value-table">
-				<tr>
-					<th>{{ form.breakdown_non_exports_0.label_tag }}</th>
-					<th>{{ form.breakdown_non_exports_1.label_tag }}</th>
-					<th>{{ form.breakdown_non_exports_2.label_tag }}</th>
-					<th>{{ form.breakdown_non_exports_3.label_tag }}</th>
-					<th>{{ form.breakdown_non_exports_4.label_tag }}</th>
-				</tr>
-				<tr>
-					{% include "wins/partials/export-value-cell.html" with field=form.breakdown_non_exports_0 %}
-					{% include "wins/partials/export-value-cell.html" with field=form.breakdown_non_exports_1 %}
-					{% include "wins/partials/export-value-cell.html" with field=form.breakdown_non_exports_2 %}
-					{% include "wins/partials/export-value-cell.html" with field=form.breakdown_non_exports_3 %}
-					{% include "wins/partials/export-value-cell.html" with field=form.breakdown_non_exports_4 %}
-				</tr>
-			</table>
-			</div>
+			{% include "wins/partials/win-value-table.html" with field_0=form.breakdown_non_exports_0 field_1=form.breakdown_non_exports_1 field_2=form.breakdown_non_exports_2 field_3=form.breakdown_non_exports_3 field_4=form.breakdown_non_exports_4 %}
 
 			{% include "wins/partials/win-field.html" with field=form.total_expected_non_export_value help="The total expected value should be the sum of the annual values of the win." class="restrict-width-xsm" %}
 		</div>
@@ -304,28 +262,7 @@
 			<h4>Outward Direct Investment value over next 5 years</h4>
 			<p class="help-text">(round to nearest &pound;)</p>
 
-			{% if form.breakdown_odi_0.errors or form.breakdown_odi_1.errors or form.breakdown_odi_2.errors or form.breakdown_odi_3.errors or form.breakdown_odi_4.errors %}
-				<p class="alert alert-danger">Please correct the values highlighted with red below. Whole numbers only (no separators etc).</p>
-			{% endif %}
-
-			<div class="scroll-table">
-			<table class="table table-responsive win-value-table">
-				<tr>
-					<th>{{ form.breakdown_odi_0.label_tag }}</th>
-					<th>{{ form.breakdown_odi_1.label_tag }}</th>
-					<th>{{ form.breakdown_odi_2.label_tag }}</th>
-					<th>{{ form.breakdown_odi_3.label_tag }}</th>
-					<th>{{ form.breakdown_odi_4.label_tag }}</th>
-				</tr>
-				<tr>
-					{% include "wins/partials/export-value-cell.html" with field=form.breakdown_odi_0 %}
-					{% include "wins/partials/export-value-cell.html" with field=form.breakdown_odi_1 %}
-					{% include "wins/partials/export-value-cell.html" with field=form.breakdown_odi_2 %}
-					{% include "wins/partials/export-value-cell.html" with field=form.breakdown_odi_3 %}
-					{% include "wins/partials/export-value-cell.html" with field=form.breakdown_odi_4 %}
-				</tr>
-			</table>
-			</div>
+			{% include "wins/partials/win-value-table.html" with field_0=form.breakdown_odi_0 field_1=form.breakdown_odi_1 field_2=form.breakdown_odi_2 field_3=form.breakdown_odi_3 field_4=form.breakdown_odi_4 %}
 
 			{% include "wins/partials/win-field.html" with field=form.total_expected_odi_value help="The total expected value should be the sum of the annual values of the win." class="restrict-width-xsm" %}
 		</div>

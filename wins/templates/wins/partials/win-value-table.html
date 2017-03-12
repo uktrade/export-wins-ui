@@ -1,0 +1,22 @@
+{% if field_0.errors or field_1.errors or field_2.errors or field_3.errors or field_4.errors %}
+	<p class="alert alert-danger">Please correct the values highlighted with red below. Whole numbers only (no separators etc).</p>
+{% endif %}
+
+<div class="scroll-table">
+<table class="table table-responsive win-value-table">
+	<tr>
+		<th>{{ field_0.label_tag }}</th>
+		<th>{{ field_1.label_tag }}</th>
+		<th>{{ field_2.label_tag }}</th>
+		<th>{{ field_3.label_tag }}</th>
+		<th>{{ field_4.label_tag }}</th>
+	</tr>
+	<tr>
+		{% include "wins/partials/export-value-cell.html" with field=field_0 %}
+		{% include "wins/partials/export-value-cell.html" with field=field_1 %}
+		{% include "wins/partials/export-value-cell.html" with field=field_2 %}
+		{% include "wins/partials/export-value-cell.html" with field=field_3 %}
+		{% include "wins/partials/export-value-cell.html" with field=field_4 %}
+	</tr>
+</table>
+</div>
