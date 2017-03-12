@@ -37,8 +37,8 @@ ew.components.WinDate = (function( $, CustomEvent ){
 
 	WinDateComponent.prototype.checkYear = function( oldDate, newDate ){
 	
-		var oldYear = oldDate.substr( 3 );
-		var newYear = newDate.substr( 3 );
+		var oldYear = oldDate.substr( -4 );
+		var newYear = newDate.substr( -4 );
 
 		if( oldYear !== newYear ){
 

@@ -5,11 +5,11 @@
 <div class="scroll-table">
 <table class="table table-responsive win-value-table">
 	<tr>
-		<th>{{ field_0.label_tag }}</th>
-		<th>{{ field_1.label_tag }}</th>
-		<th>{{ field_2.label_tag }}</th>
-		<th>{{ field_3.label_tag }}</th>
-		<th>{{ field_4.label_tag }}</th>
+		<th><label for="{{ field_0.auto_id }}" id="{{ field_0.auto_id }}-label">{{ field_0.label }}</label></th>
+		<th><label for="{{ field_1.auto_id }}" id="{{ field_1.auto_id }}-label">{{ field_1.label }}</label></th>
+		<th><label for="{{ field_2.auto_id }}" id="{{ field_2.auto_id }}-label">{{ field_2.label }}</label></th>
+		<th><label for="{{ field_3.auto_id }}" id="{{ field_3.auto_id }}-label">{{ field_3.label }}</label></th>
+		<th><label for="{{ field_4.auto_id }}" id="{{ field_4.auto_id }}-label">{{ field_4.label }}</label></th>
 	</tr>
 	<tr>
 		{% include "wins/partials/export-value-cell.html" with field=field_0 %}

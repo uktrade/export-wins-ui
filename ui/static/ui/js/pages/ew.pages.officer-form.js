@@ -73,6 +73,12 @@ ew.pages.officerForm = (function(){
 			total: opts.odiTotal
 		});
 
+		appComponents.winDate = new ew.components.WinDate( { id: opts.winDate } );
+
+		appComponents.exportValueLabels = new ew.components.WinValueLabels( { valueIds: opts.exportValues } );
+		appComponents.nonExportValueLabels = new ew.components.WinValueLabels( { valueIds: opts.nonExportValues } );
+		appComponents.odiValueLabels = new ew.components.WinValueLabels( { valueIds: opts.odiValues } );
+
 		appControllers.exportValue = new ew.controllers.ExportValue({
 			exportValue: {
 				toggler: appComponents.exportValue,
@@ -86,12 +92,14 @@ ew.pages.officerForm = (function(){
 				toggler: appComponents.odiValue,
 				calculator: appComponents.calculateOdiValue
 			}			
+		}, {
+			winDate: appComponents.winDate,
+			labels: [
+				appComponents.exportValueLabels,
+				appComponents.nonExportValueLabels,
+				appComponents.odiValueLabels
+			]
 		});
-
-		appComponents.winDate = new ew.components.WinDate( { id: opts.winDate } );
-		appComponents.winDate.events.yearChange.subscribe( function( year ){
-			console.log( year );
-		} );
 	}
 
 	function createComponents( opts, appComponents, appControllers ){
