@@ -87,6 +87,11 @@ ew.pages.officerForm = (function(){
 				calculator: appComponents.calculateOdiValue
 			}			
 		});
+
+		appComponents.winDate = new ew.components.WinDate( { id: opts.winDate } );
+		appComponents.winDate.events.yearChange.subscribe( function( year ){
+			console.log( year );
+		} );
 	}
 
 	function createComponents( opts, appComponents, appControllers ){
