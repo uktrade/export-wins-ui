@@ -37,8 +37,14 @@ ew.components.WinDate = (function( $, CustomEvent ){
 
 	WinDateComponent.prototype.checkYear = function( oldDate, newDate ){
 	
-		var oldYear = oldDate.substr( -4 );
-		var newYear = newDate.substr( -4 );
+		var oldMonth = Number( oldDate.substr( 0, 2 ) );
+		var oldYear = Number( oldDate.substr( -4 ) );
+
+		var newYear = Number( newDate.substr( -4 ) );
+		var newMonth = Number( newDate.substr( 0, 2 ) );
+
+		if( oldMonth < 4 ){ oldYear--; }//financial year
+		if( newMonth < 4 ){ newYear--; }//financial year
 
 		if( oldYear !== newYear ){
 
