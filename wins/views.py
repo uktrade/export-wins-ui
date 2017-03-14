@@ -188,12 +188,14 @@ class NewWinView(LoginRequiredMixin, TemplateView):
 
 
 class NewWinYearView(BaseWinFormView):
-    """ Create a new Win """
+    """ Create a new Win for a specific Financial Year
+
+
+    The form takes `base_year` kwarg, which validates that the Win was won in
+    that year, and makes changes to ODI & breakdown handling
+    """
 
     template_name = "wins/win-form.html"
-
-    # todo!!! validate year - first that the year in url is valud
-    # then make sure the entered data matches accordingly
 
     def _handle_year(self, year):
         if year not in "2016 2017":
