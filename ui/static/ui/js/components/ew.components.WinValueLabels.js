@@ -1,4 +1,4 @@
-
+/*
 ew.components.WinValueLabels = (function( $ ){
 
 	function errorMessage( field ){
@@ -46,3 +46,4 @@ ew.components.WinValueLabels = (function( $ ){
 	return WinValueLabelsComponent;
 
 }( jQuery ));
+*/

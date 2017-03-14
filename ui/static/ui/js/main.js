@@ -848,7 +848,7 @@ ew.components.UpdateSelect = (function( $ ){
 	return UpdateSelectComponent;
 
 }( jQuery ));
-
+/*
 ew.components.WinDate = (function( $, CustomEvent ){
 
 	var isDate = /^[0-9]{2}\/[0-9]{4}/;
@@ -905,8 +905,8 @@ ew.components.WinDate = (function( $, CustomEvent ){
 	return WinDateComponent;
 
 }( jQuery, ew.CustomEvent ));
-
-
+*/
+/*
 ew.components.WinValueLabels = (function( $ ){
 
 	function errorMessage( field ){
@@ -954,7 +954,7 @@ ew.components.WinValueLabels = (function( $ ){
 	return WinValueLabelsComponent;
 
 }( jQuery ));
-
+*/
 
 ew.components.WordCounter = (function( $ ){
 
@@ -1053,11 +1053,11 @@ ew.controllers.ExportValue = (function(){
 		if( !fields.nonExportValue ){ throw new Error( errorMessage( 'fields.nonExportValue' ) ); }
 		if( !fields.odiValue ){ throw new Error( errorMessage( 'fields.odiValue' ) ); }
 
-		if( !dates.winDate ){ throw new Error( errorMessage( 'dates.winDate' ) ); }
-		if( !dates.labels ){ throw new Error( errorMessage( 'dates.labels' ) ); }
+		//if( !dates.winDate ){ throw new Error( errorMessage( 'dates.winDate' ) ); }
+		//if( !dates.labels ){ throw new Error( errorMessage( 'dates.labels' ) ); }
 
 		this.setupFields( fields );
-		this.setupDates( dates );
+		//this.setupDates( dates );
 	}
 
 	ExportValueController.prototype.setupFields = function( fields ){
@@ -1077,7 +1077,7 @@ ew.controllers.ExportValue = (function(){
 			fields.odiValue.calculator.resetValues();
 		} );
 	};
-
+/*
 	ExportValueController.prototype.setupDates = function( dates ){
 
 		var labels = dates.labels;
@@ -1092,7 +1092,7 @@ ew.controllers.ExportValue = (function(){
 			}
 		} );
 	};
-
+*/
 	return ExportValueController;
 }());
 ew.pages.confirmationForm = (function(){
@@ -1206,11 +1206,11 @@ ew.pages.officerForm = (function(){
 			total: opts.odiTotal
 		});
 
-		appComponents.winDate = new ew.components.WinDate( { id: opts.winDate } );
+		//appComponents.winDate = new ew.components.WinDate( { id: opts.winDate } );
 
-		appComponents.exportValueLabels = new ew.components.WinValueLabels( { valueIds: opts.exportValues } );
-		appComponents.nonExportValueLabels = new ew.components.WinValueLabels( { valueIds: opts.nonExportValues } );
-		appComponents.odiValueLabels = new ew.components.WinValueLabels( { valueIds: opts.odiValues } );
+		//appComponents.exportValueLabels = new ew.components.WinValueLabels( { valueIds: opts.exportValues } );
+		//appComponents.nonExportValueLabels = new ew.components.WinValueLabels( { valueIds: opts.nonExportValues } );
+		//appComponents.odiValueLabels = new ew.components.WinValueLabels( { valueIds: opts.odiValues } );
 
 		appControllers.exportValue = new ew.controllers.ExportValue({
 			exportValue: {
@@ -1225,14 +1225,14 @@ ew.pages.officerForm = (function(){
 				toggler: appComponents.odiValue,
 				calculator: appComponents.calculateOdiValue
 			}			
-		}, {
+		}/*, {
 			winDate: appComponents.winDate,
 			labels: [
 				appComponents.exportValueLabels,
 				appComponents.nonExportValueLabels,
 				appComponents.odiValueLabels
 			]
-		});
+		}*/);
 	}
 
 	function createComponents( opts, appComponents, appControllers ){
