@@ -181,10 +181,37 @@ class BaseWinFormView(LoginRequiredMixin, FormView):
         return kwargs
 
 
-class NewWinView(BaseWinFormView):
+class NewWinView(LoginRequiredMixin, TemplateView):
+    """ View a list of all Wins of logged in User """
+
+    template_name = 'wins/new-win-which-year.html'
+
+
+class NewWinYearView(BaseWinFormView):
     """ Create a new Win """
 
     template_name = "wins/win-form.html"
+
+    # todo!!! validate year - first that the year in url is valud
+    # then make sure the entered data matches accordingly
+
+    def _handle_year(self, year):
+        if year not in "2016 2017":
+            raise Http404
+        self.year = year
+
+    def get(self, request, *args, **kwargs):
+        self._handle_year(kwargs['year'])
+        return super().get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        self._handle_year(kwargs['year'])
+        return super().post(request, *args, **kwargs)
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['base_year'] = self.year
+        return kwargs
 
     def form_valid(self, form):
         """ If form is valid, create on data server """
@@ -376,7 +403,3 @@ class ConfirmationView(FormView):
             )
 
         return win_dict
-
-
-def test500(request):
-    raise Exception('test error')

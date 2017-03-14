@@ -64,6 +64,7 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
 
         self.request = kwargs.pop("request")
         self.completed = kwargs.pop('completed', False)
+        self.base_year = int(kwargs.pop('base_year'))
         breakdowns = kwargs.pop('breakdowns', [])
         advisors = kwargs.pop('advisors', [])
 
@@ -137,10 +138,23 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
                 else:
                     field.choices = default_choice + field.choices
 
+    def _get_financial_year(self, month_year_str):
+        month, year = month_year_str.split('/')
+        month, year = int(month), int(year)
+        return year if month >= 4 else year - 1
+
     def clean_date(self):
         """ Validate date entered as a string and reformat for serializer """
 
         date_str = self.cleaned_data.get("date")
+
+        # check won date is within chosen financial year
+        input_fy = self._get_financial_year(date_str)
+        if self.base_year != input_fy:
+            raise forms.ValidationError(
+                """You have chosen to enter a Win for financial year
+                   {}/{}, the business must have been won in that year
+                   """.format(self.base_year, self.base_year + 1))
 
         m = re.match(r"^(?P<month>\d\d)/(?P<year>\d\d\d\d)$", date_str)
         if not m:
@@ -333,11 +347,11 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
         This assumes wins cannot be edited in the year after they are created
 
         """
-        base_year = 2016  # project is intended only to be used for 2016/17 TODO
+
         field_data = []
         for breakdown_type in ['exports', 'non_exports', 'odi']:
             for i in range(0, 5):
-                year = (base_year + i)
+                year = (self.base_year + i)
                 field_name = 'breakdown_{}_{}'.format(breakdown_type, i)
                 field_data.append((field_name, year, breakdown_type))
                 label = "{}/{}".format(
