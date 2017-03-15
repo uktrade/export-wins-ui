@@ -254,6 +254,8 @@ class EditWinView(BaseWinFormView):
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
+        kwargs['editing'] = True
+        kwargs['base_year'] = WinForm._get_financial_year(self.win['date'])
         kwargs['completed'] = self.win['complete']
         kwargs['advisors'] = get_win_advisors(
             self.kwargs['win_id'],

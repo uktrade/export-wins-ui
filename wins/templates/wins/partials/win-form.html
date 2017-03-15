@@ -168,7 +168,7 @@
 
 	{% else %}
 
-		{% include "wins/partials/form-checkbox-group.html" with field=form.type help="Tick all that apply." %}
+		{% include "wins/partials/form-checkbox-group.html" with field=form.type form=form help="Tick all that apply." %}
 
 		{# quick hack using non_field_errors here, since this is the only area which has non-field errors #}
 		{% if form.non_field_errors %}
@@ -288,9 +288,9 @@
 			},
 			exportType: {
 				name: '{{ form.type.name }}',
-				exportValue: '{{ form.type.field.choices.0.0 }}', // name: '{{ form.type.field.choices.0.1 }}'
-				nonExportValue: '{{ form.type.field.choices.1.0 }}', //name: '{{ form.type.field.choices.1.1 }}'
-				odiValue: '{{ form.type.field.choices.2.0 }}' //name: '{{ form.type.field.choices.2.1 }}'
+				exportValue: 'type_export', // name: '{{ form.type.field.choices.0.1 }}'
+				nonExportValue: 'type_non_export', //name: '{{ form.type.field.choices.1.1 }}'
+				odiValue: 'type_odi' //name: '{{ form.type.field.choices.2.1 }}'
 			},
 			exportContentId: 'export-content',
 			nonExportContentId: 'non-export-content',

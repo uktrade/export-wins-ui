@@ -46,6 +46,10 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
 
     # We're only caring about MM/YYYY formatted dates
     date = forms.fields.CharField(max_length=7, label="Date won")
+    type_export = forms.fields.BooleanField(required=False, label="Export")
+    type_non_export = forms.fields.BooleanField(required=False, label="Non-export")
+    type_odi = forms.fields.BooleanField(required=False, label="Overseas Direct Investment")
+    type = forms.fields.BooleanField(required=False)  ## eeeermrmrmrm - this is just used to show error message...
 
     # specify fields from the serializer to exclude from the form
     class Meta(object):
@@ -63,6 +67,7 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
     def __init__(self, *args, **kwargs):
 
         self.request = kwargs.pop("request")
+        self.editing = kwargs.pop('editing', False)
         self.completed = kwargs.pop('completed', False)
         self.base_year = int(kwargs.pop('base_year'))
         breakdowns = kwargs.pop('breakdowns', [])
@@ -138,7 +143,8 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
                 else:
                     field.choices = default_choice + field.choices
 
-    def _get_financial_year(self, month_year_str):
+    @classmethod
+    def _get_financial_year(cls, month_year_str):
         month, year = month_year_str.split('/')
         month, year = int(month), int(year)
         return year if month >= 4 else year - 1
@@ -151,10 +157,16 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
         # check won date is within chosen financial year
         input_fy = self._get_financial_year(date_str)
         if self.base_year != input_fy:
-            raise forms.ValidationError(
-                """You have chosen to enter a Win for financial year
-                   {}/{}, the business must have been won in that year
-                   """.format(self.base_year, self.base_year + 1))
+            if self.editing:
+                raise forms.ValidationError("""
+                    You cannot change the financial year of an already saved
+                    win - the business must have been won in the year ({}/{})
+                       """.format(self.base_year, self.base_year + 1))
+            else:
+                raise forms.ValidationError("""
+                    You have chosen to enter a Win for financial year
+                    {}/{}, the business must have been one in that year
+                    """.format(self.base_year, self.base_year + 1))
 
         m = re.match(r"^(?P<month>\d\d)/(?P<year>\d\d\d\d)$", date_str)
         if not m:
@@ -204,6 +216,10 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
 
     def clean(self):
         cleaned = super().clean()
+
+        # have to have checked at least one type of win
+        if not cleaned.get('type_export') and not cleaned.get('type_non_export') and not cleaned.get('type_odi'):
+            self._errors['type'] = self.error_class(["You must choose at least one of Export, Non-export and ODI"])
 
         # If you add an advisor name, you should also select their team
         for i in range(5):
