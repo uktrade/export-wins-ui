@@ -1167,27 +1167,23 @@ ew.pages.officerForm = (function(){
 
 	function createNonCompleteComponents( opts, appComponents, appControllers ){
 
-		function createExportId( val ){
-			return ( opts.exportType.name + '-' + val );
-		}
-
 		appComponents.descriptionWordCounter = new ew.components.WordCounter({
 			id: opts.descriptionId,
 			limit: 50
 		});
 
 		appComponents.exportValue = new ew.components.ToggleExportValue({
-			fieldId: createExportId( opts.exportType.exportValue ),
+			fieldId: opts.exportType.exportValue,
 			contentId: opts.exportContentId
 		});
 
 		appComponents.nonExportValue = new ew.components.ToggleExportValue({
-			fieldId: createExportId( opts.exportType.nonExportValue ),
+			fieldId: opts.exportType.nonExportValue,
 			contentId: opts.nonExportContentId
 		});
 
 		appComponents.odiValue = new ew.components.ToggleExportValue({
-			fieldId: createExportId( opts.exportType.odiValue ),
+			fieldId: opts.exportType.odiValue,
 			contentId: opts.odiContentId
 		});
 
@@ -1308,7 +1304,6 @@ ew.pages.officerForm = (function(){
 			if( !opts.descriptionId ){ throw new Error( errorMessage( 'opts.descriptionId' ) ); }
 
 			if( !opts.exportType ){ throw new Error( errorMessage( 'opts.exportType' ) ); }
-			if( !opts.exportType.name ){ throw new Error( errorMessage( 'opts.exportType.name' ) ); }
 			if( !opts.exportType.exportValue ){ throw new Error( errorMessage( 'opts.exportType.exportValue' ) ); }
 			if( !opts.exportType.nonExportValue ){ throw new Error( errorMessage( 'opts.exportType.nonExportValue' ) ); }
 			if( !opts.exportType.odiValue ){ throw new Error( errorMessage( 'opts.exportType.odiValue' ) ); }

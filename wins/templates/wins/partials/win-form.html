@@ -168,7 +168,29 @@
 
 	{% else %}
 
-		{% include "wins/partials/form-checkbox-group.html" with field=form.type form=form help="Tick all that apply." %}
+		<div class="form-group checkbox-group {{ form.type.errors|yesno:'error,' }}">
+
+			{% comment %}
+				Using type field just to get this done quickly
+			{% endcomment %}
+			{{ form.type.errors }}
+
+			<h4 class="radio-label">
+				<span class="required">*</span>
+				{{ form.type.label }}:
+			</h4>
+
+			<p class="help-text" style="padding-top: 10px">Tick all that apply.</p>
+
+			{% comment %}
+				Using manual checkboxes just for UX, don't get saved in model
+			{% endcomment %}
+			{% include "wins/partials/form-checkbox.html" with field=form.type_export %}
+			{% include "wins/partials/form-checkbox.html" with field=form.type_non_export %}
+			{% include "wins/partials/form-checkbox.html" with field=form.type_odi %}
+
+		</div>
+
 
 		{# quick hack using non_field_errors here, since this is the only area which has non-field errors #}
 		{% if form.non_field_errors %}
@@ -287,10 +309,9 @@
 				minVisible: 0
 			},
 			exportType: {
-				name: '{{ form.type.name }}',
-				exportValue: 'type_export', // name: '{{ form.type.field.choices.0.1 }}'
-				nonExportValue: 'type_non_export', //name: '{{ form.type.field.choices.1.1 }}'
-				odiValue: 'type_odi' //name: '{{ form.type.field.choices.2.1 }}'
+				exportValue: '{{ form.type_export.auto_id }}',
+				nonExportValue: '{{ form.type_non_export.auto_id }}',
+				odiValue: '{{ form.type_odi.auto_id }}'
 			},
 			exportContentId: 'export-content',
 			nonExportContentId: 'non-export-content',
