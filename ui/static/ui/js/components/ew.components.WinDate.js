@@ -1,4 +1,4 @@
-
+/*
 ew.components.WinDate = (function( $, CustomEvent ){
 
 	var isDate = /^[0-9]{2}\/[0-9]{4}/;
@@ -55,3 +55,4 @@ ew.components.WinDate = (function( $, CustomEvent ){
 	return WinDateComponent;
 
 }( jQuery, ew.CustomEvent ));
+*/
