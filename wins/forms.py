@@ -337,7 +337,7 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
                     label=label,
                     widget=widget,
                     initial='0',
-                    max_value=2000000000,
+                    max_value=100000000000,
                     label_suffix="",
                 )
         return field_data
