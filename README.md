@@ -72,7 +72,7 @@ python manage.py runserver 127.0.0.1:8001
 ```
 
 
-# IE7
+# IE 7
 
 We have several users that seem to be stuck with IE 7, so we therefore need to support it.
 
