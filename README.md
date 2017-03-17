@@ -72,8 +72,8 @@ python manage.py runserver 127.0.0.1:8001
 ```
 
 
-# IE7
+# IE 7
 
-We have several users that seem to be stuck with IE7, so we therefore need to support it.
+We have several users that seem to be stuck with IE 7, so we therefore need to support it.
 
 To try and enable support of IE 7 to Bootstrap, an [ie7.css has been included](https://github.com/coliff/bootstrap-ie7.), with a [box-sizing polyfill](https://github.com/Schepp/box-sizing-polyfill)
