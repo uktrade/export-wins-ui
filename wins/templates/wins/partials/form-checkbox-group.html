@@ -1,0 +1,20 @@
+<div class="form-group checkbox-group {{ field.errors|yesno:'error,' }}">
+
+	{{ field.errors }}
+
+	<h4 class="radio-label">
+		{% if field.field.required %}<span class="required">*</span>{% endif %}
+		{{ field.label }}:
+	</h4>
+
+	{% if help %}<p class="help-text" style="padding-top: 10px">{{ help }}</p>{% endif %}
+	{% if message %}<p class="field-message">{{ message }}</p>{% endif %}
+
+	{% comment %}
+		Using manual checkboxes just for UX, don't get saved in model
+	{% endcomment %}
+	{% include "wins/partials/form-checkbox.html" with field=form.type_export %}
+	{% include "wins/partials/form-checkbox.html" with field=form.type_non_export %}
+	{% include "wins/partials/form-checkbox.html" with field=form.type_odi %}
+
+</div>

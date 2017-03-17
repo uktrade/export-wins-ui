@@ -210,6 +210,11 @@ class NewWinYearView(BaseWinFormView):
         self._handle_year(kwargs['year'])
         return super().post(request, *args, **kwargs)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['financial_year'] = '{}/{}'.format(self.year, int(self.year) + 1)
+        return context
+
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         kwargs['base_year'] = self.year

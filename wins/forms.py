@@ -46,10 +46,10 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
 
     # We're only caring about MM/YYYY formatted dates
     date = forms.fields.CharField(max_length=7, label="Date won")
+    types_all = forms.fields.BooleanField(required=False)  # just used to hang error on
     type_export = forms.fields.BooleanField(required=False, label="Export")
     type_non_export = forms.fields.BooleanField(required=False, label="Non-export")
-    type_odi = forms.fields.BooleanField(required=False, label="Overseas Direct Investment")
-    type = forms.fields.BooleanField(required=False)  ## eeeermrmrmrm - this is just used to show error message...
+    type_odi = forms.fields.BooleanField(required=False, label="Outward Direct Investment")
 
     # specify fields from the serializer to exclude from the form
     class Meta(object):
@@ -62,6 +62,7 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
             "country_name",
             "type_display",
             "location",
+            "type",
         )
 
     def __init__(self, *args, **kwargs):
@@ -77,8 +78,24 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
 
         self.date_format = 'MM/YYYY'  # the format the date field expects
 
+        # when editing an existing win, pre-check the type checkboxes as
+        # appropriate to the values entered
+        if self.editing:
+            self.fields["type_export"].initial = bool(
+                kwargs['initial']['total_expected_export_value']
+            )
+            self.fields["type_non_export"].initial = bool(
+                kwargs['initial']['total_expected_non_export_value']
+            )
+            self.fields["type_odi"].initial = bool(
+                kwargs['initial']['total_expected_odi_value']
+            )
+
         self.fields["date"].widget.attrs.update(
             {"placeholder": self.date_format})
+        self.fields["date"].label = """
+            Date won (within {}/{} financial year)
+            """.format(self.base_year, self.base_year + 1)
 
         self.fields["is_personally_confirmed"].required = True
         self.fields["is_personally_confirmed"].label_suffix = ""
@@ -120,7 +137,6 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
             "total_expected_export_value",
             "total_expected_non_export_value",
             "total_expected_odi_value",
-            "type",
         ]
 
         if self.completed:
@@ -218,8 +234,28 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
         cleaned = super().clean()
 
         # have to have checked at least one type of win
-        if not cleaned.get('type_export') and not cleaned.get('type_non_export') and not cleaned.get('type_odi'):
-            self._errors['type'] = self.error_class(["You must choose at least one of Export, Non-export and ODI"])
+        value_types_names = [
+            ('type_export', 'Export'),
+            ('type_non_export', 'Non-export'),
+            ('type_odi', 'Outward Direct Investment'),
+        ]
+        if not any(cleaned.get(v) for v, n in value_types_names):
+            self._errors['types_all'] = self.error_class([
+                """You must choose at least one of Export, Non-export and
+                Outward Direct Investment"""
+            ])
+
+        # have to have value for any checkbox you have ticked
+        for value_type, value_name in value_types_names:
+            if not cleaned.get(value_type):
+                continue
+            type_key = value_type[5:]
+            value = cleaned.get("total_expected_{}_value".format(type_key))
+            if not value:
+                self._errors[value_type] = self.error_class([
+                    """If you check {0}, you must enter at least one
+                       corresponding {0} value below""".format(value_name)
+                ])
 
         # If you add an advisor name, you should also select their team
         for i in range(5):
@@ -500,6 +536,16 @@ class ConfirmationForm(BootstrappedForm, metaclass=ConfirmationFormMetaclass):
 
     def send_notifications(self, win_id):
         pass
+
+    def clean(self):
+        cleaned = super().clean()
+
+        if (cleaned.get('agree_with_win') is False and
+                not cleaned.get('comments')):
+            self._errors['comments'] = self.error_class([
+                """Please enter a comment explaining why you these details
+                   are not correct"""
+            ])
 
     def save(self):
 
