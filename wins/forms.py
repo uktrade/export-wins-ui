@@ -46,10 +46,10 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
 
     # We're only caring about MM/YYYY formatted dates
     date = forms.fields.CharField(max_length=7, label="Date won")
+    types_all = forms.fields.BooleanField(required=False)  # just used to hang error on
     type_export = forms.fields.BooleanField(required=False, label="Export")
     type_non_export = forms.fields.BooleanField(required=False, label="Non-export")
     type_odi = forms.fields.BooleanField(required=False, label="Outward Direct Investment")
-    type = forms.fields.BooleanField(required=False)  ## eeeermrmrmrm - this is just used to show error message... should probably get rid of it entirely
 
     # specify fields from the serializer to exclude from the form
     class Meta(object):
@@ -62,6 +62,7 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
             "country_name",
             "type_display",
             "location",
+            "type",
         )
 
     def __init__(self, *args, **kwargs):
@@ -81,13 +82,13 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
         # appropriate to the values entered
         if self.editing:
             self.fields["type_export"].initial = bool(
-                kwargs['initial']['total_export_value']
+                kwargs['initial']['total_expected_export_value']
             )
             self.fields["type_non_export"].initial = bool(
-                kwargs['initial']['total_non_export_value']
+                kwargs['initial']['total_expected_non_export_value']
             )
             self.fields["type_odi"].initial = bool(
-                kwargs['initial']['total_odi_value']
+                kwargs['initial']['total_expected_odi_value']
             )
 
         self.fields["date"].widget.attrs.update(
@@ -129,8 +130,6 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
 
         # fields which are shown the customer, and so cannot be edited after
         # customer has been invited to confirm
-        # TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO - need to update this to handle new checkboxes?
-        # also, need to change edit page win type bit - maybe remove it?
         non_editable_fields = [
             "description",
             "date",
@@ -138,7 +137,6 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
             "total_expected_export_value",
             "total_expected_non_export_value",
             "total_expected_odi_value",
-            "type",
         ]
 
         if self.completed:
@@ -236,18 +234,19 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
         cleaned = super().clean()
 
         # have to have checked at least one type of win
-        value_types = [
+        value_types_names = [
             ('type_export', 'Export'),
             ('type_non_export', 'Non-export'),
-            ('type_odi', 'ODI'),
+            ('type_odi', 'Outward Direct Investment'),
         ]
-        if not any(cleaned.get(v) for v, n in value_types):
-            self._errors['type'] = self.error_class(
-                ["You must choose at least one of Export, Non-export and ODI"]
-            )
+        if not any(cleaned.get(v) for v, n in value_types_names):
+            self._errors['types_all'] = self.error_class([
+                """You must choose at least one of Export, Non-export and
+                Outward Direct Investment"""
+            ])
 
         # have to have value for any checkbox you have ticked
-        for value_type, value_name in value_types:
+        for value_type, value_name in value_types_names:
             if not cleaned.get(value_type):
                 continue
             type_key = value_type[5:]

@@ -138,8 +138,6 @@
 			<p class="panel-heading">The win has been sent to the customer and these details cannot be edited.</p>
 			<div class="panel-body">
 
-				{% include "wins/partials/win-details-element.html" with name="Win type" val=win.type_display %}<br>
-
 				<h4>Export value</h4>
 				<p>
 					Total export value over the next 5 years.
@@ -168,16 +166,13 @@
 
 	{% else %}
 
-		<div class="form-group checkbox-group {{ form.type.errors|yesno:'error,' }}">
+		<div class="form-group checkbox-group {{ form.types_all.errors|yesno:'error,' }}">
 
-			{% comment %}
-				Using type field just to get this done quickly
-			{% endcomment %}
-			{{ form.type.errors }}
+			{{ form.types_all.errors }}
 
 			<h4 class="radio-label">
 				<span class="required">*</span>
-				{{ form.type.label }}:
+					Type of Win:
 			</h4>
 
 			<p class="help-text" style="padding-top: 10px">Tick all that apply.</p>
