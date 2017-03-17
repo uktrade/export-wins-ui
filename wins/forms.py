@@ -176,12 +176,12 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
             if self.editing:
                 raise forms.ValidationError("""
                     You cannot change the financial year of an already saved
-                    win - the business must have been won in the year ({}/{})
+                    Win - the business must have been won in the year ({}/{})
                        """.format(self.base_year, self.base_year + 1))
             else:
                 raise forms.ValidationError("""
                     You have chosen to enter a Win for financial year
-                    {}/{}, the business must have been one in that year
+                    {}/{}, the business must have been won in that year
                     """.format(self.base_year, self.base_year + 1))
 
         m = re.match(r"^(?P<month>\d\d)/(?P<year>\d\d\d\d)$", date_str)
