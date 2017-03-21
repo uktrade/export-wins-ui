@@ -13,7 +13,7 @@ COPY manage.py /app/manage.py
 COPY start.sh /app/start.sh
 
 WORKDIR /app
-RUN pip install -r /app/requirements.txt
+RUN pip install -r requirements.txt
 
 EXPOSE 8001
 CMD ./start.sh
