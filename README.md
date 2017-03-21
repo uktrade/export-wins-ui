@@ -77,3 +77,20 @@ python manage.py runserver 127.0.0.1:8001
 We have several users that seem to be stuck with IE 7, so we therefore need to support it.
 
 To try and enable support of IE 7 to Bootstrap, an [ie7.css has been included](https://github.com/coliff/bootstrap-ie7.), with a [box-sizing polyfill](https://github.com/Schepp/box-sizing-polyfill)
+
+
+# Docker
+
+The docker image should be built automatically in docker hub. To start the image you need to pass the required env variables:
+
+## OSX
+
+```bash
+docker run -e "COOKIE_SECRET=${COOKIE_SECRET}" -e "UI_SECRET=${UI_SECRET}" -e "DATA_SERVER=http://10.200.10.1:8000" -e "SECRET_KEY=${SECRET_KEY}" -e "DEBUG=True" -d -p 8002:8001 ukti/export-wins-ui:latest
+```
+
+## Linux
+
+```bash
+docker run -e "COOKIE_SECRET=${COOKIE_SECRET}" -e "UI_SECRET=${UI_SECRET}" -e "DATA_SERVER=http://localhost:8000" -e "SECRET_KEY=${SECRET_KEY}" -e "DEBUG=True" -d -p 8002:8001 ukti/export-wins-ui:latest
+```
