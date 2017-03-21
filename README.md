@@ -91,6 +91,8 @@ docker run -e "COOKIE_SECRET=${COOKIE_SECRET}" -e "UI_SECRET=${UI_SECRET}" -e "D
 
 ## Linux
 
+Linux can connect to the host and so as long as you have a data server running on port 8000, this will work:
+
 ```bash
-docker run -e "COOKIE_SECRET=${COOKIE_SECRET}" -e "UI_SECRET=${UI_SECRET}" -e "DATA_SERVER=http://localhost:8000" -e "SECRET_KEY=${SECRET_KEY}" -e "DEBUG=True" -d -p 8002:8001 ukti/export-wins-ui:latest
+docker run -e "COOKIE_SECRET=${COOKIE_SECRET}" -e "UI_SECRET=${UI_SECRET}" -e "SECRET_KEY=${SECRET_KEY}" -e "DEBUG=True" --net=host -d -p 8002:8001 ukti/export-wins-ui:latest
 ```
