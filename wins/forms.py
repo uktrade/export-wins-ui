@@ -159,6 +159,16 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
                 else:
                     field.choices = default_choice + field.choices
 
+        # remove 2017 HVCs for 2016. Done here because it is so much easier
+        # than adapting this system to do it via the back-end
+        hvcs_for_2017 = ['E218', 'E219','E220','E221','E222','E223','E224','E225','E226','E227','E228','E229','E230','E231','E232','E233','E234','E235','E236','E237','E238','E239','E240','E241','E242','E243']
+        if self.base_year == 2016:
+            hvc_choices = self.fields['hvc'].choices
+            self.fields['hvc'].choices = [
+                (code, name) for code, name in hvc_choices
+                if code not in hvcs_for_2017
+            ]
+
     @classmethod
     def _get_financial_year(cls, month_year_str):
         month, year = month_year_str.split('/')
