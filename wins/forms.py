@@ -161,13 +161,21 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
 
         # remove 2017 HVCs for 2016. Done here because it is so much easier
         # than adapting this system to do it via the back-end
-        hvcs_for_2017 = ['E218', 'E219','E220','E221','E222','E223','E224','E225','E226','E227','E228','E229','E230','E231','E232','E233','E234','E235','E236','E237','E238','E239','E240','E241','E242','E243']
+        new_hvcs_for_2017 = ['E218', 'E219','E220','E221','E222','E223','E224','E225','E226','E227','E228','E229','E230','E231','E232','E233','E234','E235','E236','E237','E238','E239','E240','E241','E242','E243']
+        hvcs_removed_for_2017 = []
+        hvc_choices = self.fields['hvc'].choices
         if self.base_year == 2016:
-            hvc_choices = self.fields['hvc'].choices
             self.fields['hvc'].choices = [
                 (code, name) for code, name in hvc_choices
-                if code not in hvcs_for_2017
+                if code not in new_hvcs_for_2017
             ]
+        elif self.base_year == 2017:
+            self.fields['hvc'].choices = [
+                (code, name) for code, name in hvc_choices
+                if code not in hvcs_removed_for_2017
+            ]
+        else:
+            raise Exception('invalid base year')
 
     @classmethod
     def _get_financial_year(cls, month_year_str):
