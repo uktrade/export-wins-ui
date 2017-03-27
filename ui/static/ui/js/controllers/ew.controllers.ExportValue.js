@@ -11,11 +11,7 @@ ew.controllers.ExportValue = (function(){
 		if( !fields.nonExportValue ){ throw new Error( errorMessage( 'fields.nonExportValue' ) ); }
 		if( !fields.odiValue ){ throw new Error( errorMessage( 'fields.odiValue' ) ); }
 
-		//if( !dates.winDate ){ throw new Error( errorMessage( 'dates.winDate' ) ); }
-		//if( !dates.labels ){ throw new Error( errorMessage( 'dates.labels' ) ); }
-
 		this.setupFields( fields );
-		//this.setupDates( dates );
 	}
 
 	ExportValueController.prototype.setupFields = function( fields ){
@@ -35,21 +31,6 @@ ew.controllers.ExportValue = (function(){
 			fields.odiValue.calculator.resetValues();
 		} );
 	};
-/*
-	ExportValueController.prototype.setupDates = function( dates ){
 
-		var labels = dates.labels;
-		var l = labels.length;
-
-		dates.winDate.events.yearChange.subscribe( function( newYear ){
-
-			var i = 0;
-
-			for( ; i < l; i++ ){
-				labels[ i ].updateLabels( newYear );
-			}
-		} );
-	};
-*/
 	return ExportValueController;
 }());

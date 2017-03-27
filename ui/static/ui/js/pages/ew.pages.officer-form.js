@@ -1,20 +1,5 @@
 ew.pages.officerForm = (function(){
 
-/*
-		window.addEventListener( 'beforeunload', function( e ){
-
-			//console.log( formHasChanges( 'win-form' ) );
-
-			if( formHasChanges( 'win-form' ) ){
-				console.log( 'changes made' );
-				e.returnValue = 'You have unsaved edits, are you sure you want to leave?';
-			} else {
-				console.log( 'no changes' );
-			}
-
-		} );
-*/
-
 	function createContributingTeams(){
 
 		var teams = [];
@@ -69,12 +54,6 @@ ew.pages.officerForm = (function(){
 			total: opts.odiTotal
 		});
 
-		//appComponents.winDate = new ew.components.WinDate( { id: opts.winDate } );
-
-		//appComponents.exportValueLabels = new ew.components.WinValueLabels( { valueIds: opts.exportValues } );
-		//appComponents.nonExportValueLabels = new ew.components.WinValueLabels( { valueIds: opts.nonExportValues } );
-		//appComponents.odiValueLabels = new ew.components.WinValueLabels( { valueIds: opts.odiValues } );
-
 		appControllers.exportValue = new ew.controllers.ExportValue({
 			exportValue: {
 				toggler: appComponents.exportValue,
@@ -88,14 +67,7 @@ ew.pages.officerForm = (function(){
 				toggler: appComponents.odiValue,
 				calculator: appComponents.calculateOdiValue
 			}			
-		}/*, {
-			winDate: appComponents.winDate,
-			labels: [
-				appComponents.exportValueLabels,
-				appComponents.nonExportValueLabels,
-				appComponents.odiValueLabels
-			]
-		}*/);
+		});
 	}
 
 	function createComponents( opts, appComponents, appControllers ){
@@ -156,8 +128,6 @@ ew.pages.officerForm = (function(){
 
 	return function officerFormPage( opts ){
 
-		//alert( 'officer page start' );
-
 		if( !opts ){ throw new Error( errorMessage( 'opts' ) ); }
 
 		if( typeof opts.isComplete === 'undefined' ){ throw new Error( errorMessage( 'opts.isComplete' ) ); }
@@ -188,8 +158,6 @@ ew.pages.officerForm = (function(){
 				removeCountry( opts.country );
 			}
 		}
-
-		//alert( 'officer page ok' );
 		
 		var app = ew.application;
 		var appComponents = app.components;
