@@ -65,12 +65,17 @@
 
 			<h4 class="supported-header">How we supported you</h4>
 			<div class="supported-details">{{ win.description|linebreaks }}</div>
+
+			{% if win.export_experience_customer %}
+					<h4 class="supported-header">Your export experience</h4>
+					<div class="supported-details">{{ win.export_experience_customer|linebreaks }}</div>
+			{% endif %}
 		</div>
 
 		<form method="post" action="{{ request.path }}" id="confirmation-form">
 
 			{% with field=form.agree_with_win %}
-			
+
 
 			<h4 class="confirm-details-heading">{{ form.agree_with_win.label }}:</h4>
 
@@ -131,7 +136,7 @@
 			<h3 class="pad-top">Your export experience</h3>
 
 			{% include "wins/partials/confirmation-radio.html" with field=form.last_export %}
-			
+
 
 			<h4>Tick any that apply to this win:</h4>
 

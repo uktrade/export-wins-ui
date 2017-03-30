@@ -57,6 +57,7 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
             "sent",
             "country_name",
             "type_display",
+            "export_experience_display",
             "location",
         )
 
@@ -237,6 +238,11 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
                     """Value of non-export breakdowns over 5 years must equal
                        total"""
                 )
+
+        if (cleaned.get('team_type') == 'itt' and not
+                cleaned.get('export_experience')):
+            msg = 'You must choose the Export experience'
+            self._errors['export_experience'] = self.error_class([msg])
 
         return cleaned
 

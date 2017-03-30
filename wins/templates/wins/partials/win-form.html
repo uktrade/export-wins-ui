@@ -90,7 +90,9 @@
 		{% include "wins/partials/win-field.html" with field=form.customer_email_address class="restrict-width-sm" help="We will send the customer form to this address to enable them to confirm the win details." %}
 		{% include "wins/partials/win-field.html" with field=form.customer_job_title class="restrict-width-sm" %}
 		{% include "wins/partials/win-field.html" with field=form.customer_location class="restrict-width-sm" %}
-
+		{% if not win.complete %}
+			{% include "wins/partials/form-radio.html" with field=form.export_experience class="restrict-width-sm" help="Your customer will be asked to confirm this information." %}
+		{% endif %}
 
 		<h3 class="form-section-heading">Export win details</h3>
 
@@ -107,6 +109,9 @@
 				{% include "wins/partials/win-details-element.html" with name="Country" val=win.country_name %}
 				{% include "wins/partials/win-details-element.html" with name="Date" val=win.date %}
 				{% include "wins/partials/win-details-element.html" with name="How was the company supported in achieving this win?" val=win.description %}
+				{% if win.export_experience_display %}
+						{% include "wins/partials/win-details-element.html" with name="Export Experience" val=win.export_experience_display %}
+				{% endif %}
 			</div>
 		</div>
 
