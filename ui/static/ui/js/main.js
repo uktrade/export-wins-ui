@@ -709,26 +709,15 @@ ew.components.ToggleExportValue = (function( $, CustomEvent ){
 	function ToggleExportValueComponent( opts ){
 
 		if( !opts ){ throw new Error( errorMessage( 'opts' ) ); }
-		if( !opts.fieldName ){ throw new Error( errorMessage( 'opts.fieldName' ) ); }
-		if( !opts.exportValue ){ throw new Error( errorMessage( 'opts.exportValue' ) ); }
-		if( !opts.nonExportValue ){ throw new Error( errorMessage( 'opts.nonExportValue' ) ); }
-		if( !opts.bothValue ){ throw new Error( errorMessage( 'opts.bothValue' ) ); }
-		if( !opts.exportId ){ throw new Error( errorMessage( 'opts.exportId' ) ); }
-		if( !opts.nonExportId ){ throw new Error( errorMessage( 'opts.nonExportId' ) ); }
-
-		this.fieldName = opts.fieldName;
-		this.exportValue = opts.exportValue;
-		this.nonExportValue = opts.nonExportValue;
-		this.bothValue = opts.bothValue;
+		if( !opts.fieldId ){ throw new Error( errorMessage( 'opts.fieldId' ) ); }
+		if( !opts.contentId ){ throw new Error( errorMessage( 'opts.contentId' ) ); }
 
 		this.events = {
-			hideExport: new CustomEvent(),
-			hideNonExport: new CustomEvent()
+			hide: new CustomEvent()
 		};
 
-		this.$exportContent = $( '#' + opts.exportId );
-		this.$nonExportContent = $( '#' + opts.nonExportId );
-		this.$field = $( 'input[ name=' + this.fieldName + ']' );
+		this.$content = $( '#' + opts.contentId );
+		this.$field = $( '#' + opts.fieldId );
 
 		this.$field.on( 'change', $.proxy( this.showContent, this ) );
 
@@ -737,31 +726,14 @@ ew.components.ToggleExportValue = (function( $, CustomEvent ){
 
 	ToggleExportValueComponent.prototype.showContent = function(){
 		
-		var currentVal = $( 'input[ name=' + this.fieldName + ']:checked' ).val();
+		if( this.$field[ 0 ].checked ){
 
-		switch( currentVal ){
-			case this.exportValue:
-				this.$exportContent.show();
-				this.$nonExportContent.hide();
-				this.events.hideNonExport.publish();
-			break;
+			this.$content.show();
 
-			case this.nonExportValue:
-				this.$exportContent.hide();
-				this.$nonExportContent.show();
-				this.events.hideExport.publish();
-			break;
-
-			case this.bothValue:
-				this.$exportContent.show();
-				this.$nonExportContent.show();
-			break;
-
-			default:
-				this.$exportContent.hide();
-				this.$nonExportContent.hide();
-				this.events.hideExport.publish();
-				this.events.hideNonExport.publish();
+		} else {
+			
+			this.$content.hide();
+			this.events.hide.publish();
 		}
 	};
 
@@ -968,25 +940,34 @@ ew.controllers.ExportValue = (function(){
 		return ( param  + ' is required for ExportValueController' );
 	}
 
-	function ExportValueController( toggleExport, calculateExport, calculateNonExport ){
+	function ExportValueController( fields, dates ){
 
-		if( !toggleExport ){ throw new Error( errorMessage( 'toggleExport' ) ); }
-		if( !calculateExport ){ throw new Error( errorMessage( 'calculateExport' ) ); }
-		if( !calculateNonExport ){ throw new Error( errorMessage( 'calculateNonExport' ) ); }
+		if( !fields.exportValue ){ throw new Error( errorMessage( 'fields.exportValue' ) ); }
+		if( !fields.nonExportValue ){ throw new Error( errorMessage( 'fields.nonExportValue' ) ); }
+		if( !fields.odiValue ){ throw new Error( errorMessage( 'fields.odiValue' ) ); }
 
-		toggleExport.events.hideExport.subscribe( function(){
-
-			calculateExport.resetValues();
-		} );
-
-		toggleExport.events.hideNonExport.subscribe( function(){
-
-			calculateNonExport.resetValues();
-		} );
+		this.setupFields( fields );
 	}
 
-	return ExportValueController;
+	ExportValueController.prototype.setupFields = function( fields ){
 
+		fields.exportValue.toggler.events.hide.subscribe( function(){
+
+			fields.exportValue.calculator.resetValues();
+		} );
+
+		fields.nonExportValue.toggler.events.hide.subscribe( function(){
+
+			fields.nonExportValue.calculator.resetValues();
+		} );
+
+		fields.odiValue.toggler.events.hide.subscribe( function(){
+
+			fields.odiValue.calculator.resetValues();
+		} );
+	};
+
+	return ExportValueController;
 }());
 ew.pages.confirmationForm = (function(){
 
@@ -1026,21 +1007,6 @@ ew.pages.confirmationForm = (function(){
 }());
 ew.pages.officerForm = (function(){
 
-/*
-		window.addEventListener( 'beforeunload', function( e ){
-
-			//console.log( formHasChanges( 'win-form' ) );
-
-			if( formHasChanges( 'win-form' ) ){
-				console.log( 'changes made' );
-				e.returnValue = 'You have unsaved edits, are you sure you want to leave?';
-			} else {
-				console.log( 'no changes' );
-			}
-
-		} );
-*/
-
 	function createContributingTeams(){
 
 		var teams = [];
@@ -1065,13 +1031,19 @@ ew.pages.officerForm = (function(){
 			limit: 50
 		});
 
-		appComponents.exportValues = new ew.components.ToggleExportValue({
-			fieldName: opts.exportType.name,
-			exportValue: opts.exportType.exportValue,
-			nonExportValue: opts.exportType.nonExportValue,
-			bothValue: opts.exportType.bothValue,
-			exportId: opts.exportContentId,
-			nonExportId: opts.nonExportContentId
+		appComponents.exportValue = new ew.components.ToggleExportValue({
+			fieldId: opts.exportType.exportValue,
+			contentId: opts.exportContentId
+		});
+
+		appComponents.nonExportValue = new ew.components.ToggleExportValue({
+			fieldId: opts.exportType.nonExportValue,
+			contentId: opts.nonExportContentId
+		});
+
+		appComponents.odiValue = new ew.components.ToggleExportValue({
+			fieldId: opts.exportType.odiValue,
+			contentId: opts.odiContentId
 		});
 
 		appComponents.calculateExportValue = new ew.components.CalculateExportValue({
@@ -1084,11 +1056,25 @@ ew.pages.officerForm = (function(){
 			total: opts.nonExportTotal
 		});
 
-		appControllers.exportValue = new ew.controllers.ExportValue(
-			appComponents.exportValues,
-			appComponents.calculateExportValue,
-			appComponents.calculateNonExportValue
-		);
+		appComponents.calculateOdiValue = new ew.components.CalculateExportValue({
+			values: opts.odiValues,
+			total: opts.odiTotal
+		});
+
+		appControllers.exportValue = new ew.controllers.ExportValue({
+			exportValue: {
+				toggler: appComponents.exportValue,
+				calculator: appComponents.calculateExportValue
+			},
+			nonExportValue: {
+				toggler: appComponents.nonExportValue,
+				calculator: appComponents.calculateNonExportValue
+			},
+			odiValue: {
+				toggler: appComponents.odiValue,
+				calculator: appComponents.calculateOdiValue
+			}			
+		});
 	}
 
 	function createComponents( opts, appComponents, appControllers ){
@@ -1149,8 +1135,6 @@ ew.pages.officerForm = (function(){
 
 	return function officerFormPage( opts ){
 
-		//alert( 'officer page start' );
-
 		if( !opts ){ throw new Error( errorMessage( 'opts' ) ); }
 
 		if( typeof opts.isComplete === 'undefined' ){ throw new Error( errorMessage( 'opts.isComplete' ) ); }
@@ -1164,10 +1148,9 @@ ew.pages.officerForm = (function(){
 			if( !opts.descriptionId ){ throw new Error( errorMessage( 'opts.descriptionId' ) ); }
 
 			if( !opts.exportType ){ throw new Error( errorMessage( 'opts.exportType' ) ); }
-			if( !opts.exportType.name ){ throw new Error( errorMessage( 'opts.exportType.name' ) ); }
 			if( !opts.exportType.exportValue ){ throw new Error( errorMessage( 'opts.exportType.exportValue' ) ); }
 			if( !opts.exportType.nonExportValue ){ throw new Error( errorMessage( 'opts.exportType.nonExportValue' ) ); }
-			if( !opts.exportType.bothValue ){ throw new Error( errorMessage( 'opts.exportType.bothValue' ) ); }
+			if( !opts.exportType.odiValue ){ throw new Error( errorMessage( 'opts.exportType.odiValue' ) ); }
 
 			if( !opts.exportContentId ){ throw new Error( errorMessage( 'opts.exportContentId' ) ); }
 			if( !opts.nonExportContentId ){ throw new Error( errorMessage( 'opts.nonExportContentId' ) ); }
@@ -1182,8 +1165,6 @@ ew.pages.officerForm = (function(){
 				removeCountry( opts.country );
 			}
 		}
-
-		//alert( 'officer page ok' );
 		
 		var app = ew.application;
 		var appComponents = app.components;

@@ -49,6 +49,11 @@
       <li class="list-group-item"><span>How the company was supported in achieving the win</span> {{ win.description }}</li>
       <li class="list-group-item"><span>Export value</span> &pound;{{ win.total_expected_export_value | intcomma }}</li>
       <li class="list-group-item"><span>Non-export value</span> &pound;{{ win.total_expected_non_export_value | intcomma }}</li>
+      <li class="list-group-item"><span>Outward Direct Investment value</span> &pound;{{ win.total_expected_odi_value | intcomma }}</li>
+
+      {% if win.export_experience_display %}
+          <li class="list-group-item"><span>Export experience</span> {{ win.export_experience_display }}</li>
+      {% endif %}
     </ul>
 
     <form method="post" id="win-complete-form">

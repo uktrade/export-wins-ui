@@ -106,7 +106,7 @@
     {% endif %}
   </div>
 
-  <h3 class="section-heading">Export win details</h3>
+  <h3 class="section-heading">Win details</h3>
 
   <div class="section-content">
 
@@ -191,9 +191,47 @@
           </li>
          </ol>
       </div>
+
+      <div class="col-sm-6">
+        <h4 class="odi-heading">Outward Direct Investment value</h4>
+
+        <p>
+          Total Outward Direct Investment value over the next 5 years.
+        </p>
+
+        {# this should show all 5 years even if we don't have data... #}
+
+        <ol class="export-value-group">
+          <li class="export-value-item first">
+            <span class="export-year">{{ win.breakdowns.odi.0.year | default:"&nbsp;" }}</span>
+            <span class="export-year-value">&pound;{{ win.breakdowns.odi.0.value | intcomma | default:0 }}</span>
+          </li>
+          <li class="export-value-item">
+            <span class="export-year">{{ win.breakdowns.odi.1.year | default:"&nbsp;" }}</span>
+            <span class="export-year-value">&pound;{{ win.breakdowns.odi.1.value | intcomma | default:0 }}</span>
+          </li>
+          <li class="export-value-item">
+            <span class="export-year">{{ win.breakdowns.odi.2.year | default:"&nbsp;" }}</span>
+            <span class="export-year-value">&pound;{{ win.breakdowns.odi.2.value | intcomma | default:0 }}</span>
+          </li>
+          <li class="export-value-item">
+            <span class="export-year">{{ win.breakdowns.odi.3.year | default:"&nbsp;" }}</span>
+            <span class="export-year-value">&pound;{{ win.breakdowns.odi.3.value | intcomma | default:0 }}</span>
+          </li>
+          <li class="export-value-item">
+            <span class="export-year">{{ win.breakdowns.odi.4.year | default:"&nbsp;" }}</span>
+            <span class="export-year-value">&pound;{{ win.breakdowns.odi.4.value | intcomma | default:0 }}</span>
+          </li>
+          <li class="export-value-item last">
+            <span class="export-year">Total</span>
+            <span class="export-year-value">&pound;{{ win.total_expected_odi_value | intcomma | default:0 }}</span>
+          </li>
+         </ol>
+      </div>
+
     </div>
 
-    {% include "wins/partials/win-details-element.html" with name="Expected export value related to goods or services" val=win.goods_vs_services %}
+    {% include "wins/partials/win-details-element.html" with name="Expected value related to goods or services" val=win.goods_vs_services %}
 
     {% include "wins/partials/win-details-element.html" with name="Goods or services that are being exported" val=win.name_of_export %}
 

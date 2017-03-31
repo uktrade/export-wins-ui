@@ -11,7 +11,7 @@ from ui.views import (
 from users.views import LoginView, LogoutView
 from wins.views import (
     ConfirmationView, EditWinView, LockedWinTemplateView, MyWinsView,
-    NewWinView, WinCompleteView, WinTemplateView, WinView, test500
+    NewWinView, NewWinYearView, WinCompleteView, WinTemplateView, WinView
 )
 
 urlpatterns = [
@@ -26,6 +26,12 @@ urlpatterns = [
         r"^wins/new/$",
         NewWinView.as_view(),
         name="new-win",
+    ),
+
+    url(
+        r"^wins/new/(?P<year>\d{4})/$",
+        NewWinYearView.as_view(),
+        name="new-win-year",
     ),
 
     # view/edit/complete a win
@@ -110,8 +116,6 @@ urlpatterns = [
         name="change-customer-email"),
     url(r"^delete$", SoftDeleteWinView.as_view(),
         name="soft-delete"),
-
-    url(r"^500$", test500),
 
 ]
 

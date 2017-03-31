@@ -46,6 +46,10 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
 
     # We're only caring about MM/YYYY formatted dates
     date = forms.fields.CharField(max_length=7, label="Date won")
+    types_all = forms.fields.BooleanField(required=False)  # just used to hang error on
+    type_export = forms.fields.BooleanField(required=False, label="Export")
+    type_non_export = forms.fields.BooleanField(required=False, label="Non-export")
+    type_odi = forms.fields.BooleanField(required=False, label="Outward Direct Investment")
 
     # specify fields from the serializer to exclude from the form
     class Meta(object):
@@ -59,12 +63,15 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
             "type_display",
             "export_experience_display",
             "location",
+            "type",
         )
 
     def __init__(self, *args, **kwargs):
 
         self.request = kwargs.pop("request")
+        self.editing = kwargs.pop('editing', False)
         self.completed = kwargs.pop('completed', False)
+        self.base_year = int(kwargs.pop('base_year'))
         breakdowns = kwargs.pop('breakdowns', [])
         advisors = kwargs.pop('advisors', [])
 
@@ -72,8 +79,24 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
 
         self.date_format = 'MM/YYYY'  # the format the date field expects
 
+        # when editing an existing win, pre-check the type checkboxes as
+        # appropriate to the values entered
+        if self.editing:
+            self.fields["type_export"].initial = bool(
+                kwargs['initial']['total_expected_export_value']
+            )
+            self.fields["type_non_export"].initial = bool(
+                kwargs['initial']['total_expected_non_export_value']
+            )
+            self.fields["type_odi"].initial = bool(
+                kwargs['initial']['total_expected_odi_value']
+            )
+
         self.fields["date"].widget.attrs.update(
             {"placeholder": self.date_format})
+        self.fields["date"].label = """
+            Date won (within {}/{} financial year)
+            """.format(self.base_year, self.base_year + 1)
 
         self.fields["is_personally_confirmed"].required = True
         self.fields["is_personally_confirmed"].label_suffix = ""
@@ -85,8 +108,12 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
             {"placeholder": "£GBP"})
         self.fields["total_expected_non_export_value"].widget.attrs.update(
             {"placeholder": "£GBP"})
+        self.fields["total_expected_odi_value"].widget.attrs.update(
+            {"placeholder": "£GBP"})
+
         self.fields["total_expected_export_value"].initial = '0'
         self.fields["total_expected_non_export_value"].initial = '0'
+        self.fields["total_expected_odi_value"].initial = '0'
 
         # make checkboxes not required
         self.fields["has_hvo_specialist_involvement"].required = False
@@ -110,7 +137,7 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
             "country",
             "total_expected_export_value",
             "total_expected_non_export_value",
-            "type",
+            "total_expected_odi_value",
         ]
 
         if self.completed:
@@ -133,10 +160,48 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
                 else:
                     field.choices = default_choice + field.choices
 
+        # remove 2017 HVCs for 2016. Done here because it is so much easier
+        # than adapting this system to do it via the back-end
+        new_hvcs_for_2017 = ['E218', 'E219','E220','E221','E222','E223','E224','E225','E226','E227','E228','E229','E230','E231','E232','E233','E234','E235','E236','E237','E238','E239','E240','E241']
+        hvcs_removed_for_2017 = ['E001', 'E003', 'E004', 'E010', 'E039', 'E048', 'E060', 'E062', 'E077', 'E080', 'E082', 'E084', 'E088', 'E090', 'E093', 'E101', 'E102', 'E109', 'E114', 'E115', 'E126', 'E127', 'E130', 'E131', 'E134', 'E136', 'E139', 'E142', 'E144', 'E157', 'E160', 'E162', 'E169', 'E172', 'E173', 'E176', 'E178', 'E180', 'E181', 'E190', 'E193', 'E195', 'E213', 'E214']
+        hvc_choices = self.fields['hvc'].choices
+        if self.base_year == 2016:
+            self.fields['hvc'].choices = [
+                (code, name) for code, name in hvc_choices
+                if code not in new_hvcs_for_2017
+            ]
+        elif self.base_year == 2017:
+            self.fields['hvc'].choices = [
+                (code, name) for code, name in hvc_choices
+                if code not in hvcs_removed_for_2017
+            ]
+        else:
+            raise Exception('invalid base year')
+
+    @classmethod
+    def _get_financial_year(cls, month_year_str):
+        month, year = month_year_str.split('/')
+        month, year = int(month), int(year)
+        return year if month >= 4 else year - 1
+
     def clean_date(self):
         """ Validate date entered as a string and reformat for serializer """
 
         date_str = self.cleaned_data.get("date")
+
+        # check won date is within chosen financial year
+        input_fy = self._get_financial_year(date_str)
+        if self.base_year != input_fy:
+            if self.editing:
+                raise forms.ValidationError("""
+                    You cannot change the financial year of an already saved
+                    Win - the business must have been won in the year ({}/{})
+                       """.format(self.base_year, self.base_year + 1))
+            else:
+                raise forms.ValidationError("""
+                    You have chosen to enter a Win for financial year
+                    {}/{}, the business must have been won in that year
+                    """.format(self.base_year, self.base_year + 1))
 
         m = re.match(r"^(?P<month>\d\d)/(?P<year>\d\d\d\d)$", date_str)
         if not m:
@@ -187,6 +252,31 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
     def clean(self):
         cleaned = super().clean()
 
+        if not self.completed:
+            # have to have checked at least one type of win
+            value_types_names = [
+                ('type_export', 'Export'),
+                ('type_non_export', 'Non-export'),
+                ('type_odi', 'Outward Direct Investment'),
+            ]
+            if not any(cleaned.get(v) for v, n in value_types_names):
+                self._errors['types_all'] = self.error_class([
+                    """You must choose at least one of Export, Non-export and
+                    Outward Direct Investment"""
+                ])
+
+            # have to have value for any checkbox you have ticked
+            for value_type, value_name in value_types_names:
+                if not cleaned.get(value_type):
+                    continue
+                type_key = value_type[5:]
+                value = cleaned.get("total_expected_{}_value".format(type_key))
+                if not value:
+                    self._errors[value_type] = self.error_class([
+                        """If you check {0}, you must enter at least one
+                           corresponding {0} value below""".format(value_name)
+                    ])
+
         # If you add an advisor name, you should also select their team
         for i in range(5):
             name_field_name = 'advisor_{}_name'.format(i)
@@ -210,6 +300,7 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
         if not self.errors and not self.completed:
             export_value = cleaned.get("total_expected_export_value")
             non_export_value = cleaned.get("total_expected_non_export_value")
+            odi_value = cleaned.get("total_expected_odi_value")
 
             export_breakdowns = [
                 cleaned.get("breakdown_exports_{}".format(i))
@@ -221,10 +312,15 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
                 for i in range(5)
             ]
 
-            if not export_value and not non_export_value:
+            odi_breakdowns = [
+                cleaned.get("breakdown_odi_{}".format(i))
+                for i in range(5)
+            ]
+
+            if not export_value and not non_export_value and not odi_value:
                 raise forms.ValidationError(
-                    """Wins must have total expected export or non-export value
-                       of more than £0.
+                    """Wins must have total expected export, non-export
+                        or ODI value of more than £0.
                     """
                 )
 
@@ -236,6 +332,12 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
             if sum(non_export_breakdowns) != non_export_value:
                 raise forms.ValidationError(
                     """Value of non-export breakdowns over 5 years must equal
+                       total"""
+                )
+
+            if sum(odi_breakdowns) != odi_value:
+                raise forms.ValidationError(
+                    """Value of ODI breakdowns over 5 years must equal
                        total"""
                 )
 
@@ -322,11 +424,11 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
         This assumes wins cannot be edited in the year after they are created
 
         """
-        base_year = 2016  # project is intended only to be used for 2016/17
+
         field_data = []
-        for breakdown_type in ['exports', 'non_exports']:
+        for breakdown_type in ['exports', 'non_exports', 'odi']:
             for i in range(0, 5):
-                year = (base_year + i)
+                year = (self.base_year + i)
                 field_name = 'breakdown_{}_{}'.format(breakdown_type, i)
                 field_data.append((field_name, year, breakdown_type))
                 label = "{}/{}".format(
@@ -348,6 +450,16 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
                 )
         return field_data
 
+    def _breakdown_typenum(self, name):
+        if name == 'exports':
+            return '1'
+        elif name == 'non_exports':
+            return 2
+        elif name == 'odi':
+            return 3
+        else:
+            raise Exception('unexpected breakdown name')
+
     def _add_breakdown_initial(self, breakdowns):
         """ Add breakdown data to `initial` """
 
@@ -357,7 +469,7 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
             for b in breakdowns
         }
         for field_name, year, breakdown_type in self.breakdown_field_data:
-            breakdown_typenum = "1" if breakdown_type == "exports" else "2"
+            breakdown_typenum = self._breakdown_typenum(breakdown_type)
             breakdown = self.year_type_to_breakdown.get(
                 '{}-{}'.format(year, breakdown_typenum)
             )
@@ -370,7 +482,7 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
         retval = []
         for field_name, year, breakdown_type in self.breakdown_field_data:
             value = self.cleaned_data.get(field_name)
-            breakdown_typenum = "1" if breakdown_type == "exports" else "2"
+            breakdown_typenum = self._breakdown_typenum(breakdown_type)
             breakdown = self.year_type_to_breakdown.get(
                 '{}-{}'.format(year, breakdown_typenum)
             )
@@ -449,6 +561,16 @@ class ConfirmationForm(BootstrappedForm, metaclass=ConfirmationFormMetaclass):
 
     def send_notifications(self, win_id):
         pass
+
+    def clean(self):
+        cleaned = super().clean()
+
+        if (cleaned.get('agree_with_win') is False and
+                not cleaned.get('comments')):
+            self._errors['comments'] = self.error_class([
+                """Please enter a comment explaining why you these details
+                   are not correct"""
+            ])
 
     def save(self):
 

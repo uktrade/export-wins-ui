@@ -5,23 +5,32 @@ ew.controllers.ExportValue = (function(){
 		return ( param  + ' is required for ExportValueController' );
 	}
 
-	function ExportValueController( toggleExport, calculateExport, calculateNonExport ){
+	function ExportValueController( fields, dates ){
 
-		if( !toggleExport ){ throw new Error( errorMessage( 'toggleExport' ) ); }
-		if( !calculateExport ){ throw new Error( errorMessage( 'calculateExport' ) ); }
-		if( !calculateNonExport ){ throw new Error( errorMessage( 'calculateNonExport' ) ); }
+		if( !fields.exportValue ){ throw new Error( errorMessage( 'fields.exportValue' ) ); }
+		if( !fields.nonExportValue ){ throw new Error( errorMessage( 'fields.nonExportValue' ) ); }
+		if( !fields.odiValue ){ throw new Error( errorMessage( 'fields.odiValue' ) ); }
 
-		toggleExport.events.hideExport.subscribe( function(){
-
-			calculateExport.resetValues();
-		} );
-
-		toggleExport.events.hideNonExport.subscribe( function(){
-
-			calculateNonExport.resetValues();
-		} );
+		this.setupFields( fields );
 	}
 
-	return ExportValueController;
+	ExportValueController.prototype.setupFields = function( fields ){
 
+		fields.exportValue.toggler.events.hide.subscribe( function(){
+
+			fields.exportValue.calculator.resetValues();
+		} );
+
+		fields.nonExportValue.toggler.events.hide.subscribe( function(){
+
+			fields.nonExportValue.calculator.resetValues();
+		} );
+
+		fields.odiValue.toggler.events.hide.subscribe( function(){
+
+			fields.odiValue.calculator.resetValues();
+		} );
+	};
+
+	return ExportValueController;
 }());
