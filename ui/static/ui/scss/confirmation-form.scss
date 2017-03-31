@@ -46,8 +46,10 @@
 	.win-details-wrapper .supported-header {
 
 		font-size: 1em;
-		margin: 0.5em 1em;
+		margin-top: 0;
+		padding: 0.5em 1em;
 		font-weight: bold;
+		border-top: 1px solid #eee;
 	}
 
 	.win-details {
@@ -56,7 +58,7 @@
 	}
 
 	.win-details dt {
-		width: 70%;
+		width: 60%;
 		float:left;
 		text-align: left;
 		padding: 0.25em 1em;
@@ -66,7 +68,7 @@
 
 	.win-details dd {
 		float:left;
-		width: 30%;
+		width: 40%;
 		padding: 0.25em 1em;
 		margin-left: 0;
 		box-sizing: border-box;

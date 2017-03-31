@@ -35,30 +35,35 @@
 
 			<dl class="dl-horizontal win-details">
 
-					<dt>Date business won</dt>
-					<dd>{{ win.date|date:'m/Y' }}</dd>
+				<dt>Date business won</dt>
+				<dd>{{ win.date|date:'m/Y' }}</dd>
 
-					<dt>Country where the business was won</dt>
-					<dd>{{ win.country }}</dd>
+				<dt>Country where the business was won</dt>
+				<dd>{{ win.country }}</dd>
+
+				{% if win.export_experience_customer %}
+					<dt>Your export experience</dt>
+					<dd>{{ win.export_experience_customer }}</dd>
+				{% endif %}
 
 				{% if win.business_type %}
 
-						<dt>Business deal type</dt>
-						<dd>{{ win.business_type }}</dd>
+					<dt>Business deal type</dt>
+					<dd>{{ win.business_type }}</dd>
 
 				{% endif %}
 
 				{% if win.total_expected_export_value %}
 
-						<dt>Export value expected over the next 5 years</dt>
-						<dd>&pound;{{ win.total_expected_export_value|intcomma }}</dd>
+					<dt>Export value expected over the next 5 years</dt>
+					<dd>&pound;{{ win.total_expected_export_value|intcomma }}</dd>
 
 				{% endif %}
 
 				{% if win.total_expected_non_export_value %}
 
-						<dt>Non-export value expected over the next 5 years</dt>
-						<dd>&pound;{{ win.total_expected_non_export_value|intcomma }}</dd>
+					<dt>Non-export value expected over the next 5 years</dt>
+					<dd>&pound;{{ win.total_expected_non_export_value|intcomma }}</dd>
 
 				{% endif %}
 			</dl>
@@ -66,10 +71,6 @@
 			<h4 class="supported-header">How we supported you</h4>
 			<div class="supported-details">{{ win.description|linebreaks }}</div>
 
-			{% if win.export_experience_customer %}
-					<h4 class="supported-header">Your export experience</h4>
-					<div class="supported-details">{{ win.export_experience_customer|linebreaks }}</div>
-			{% endif %}
 		</div>
 
 		<form method="post" action="{{ request.path }}" id="confirmation-form">
