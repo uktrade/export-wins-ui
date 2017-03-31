@@ -181,10 +181,44 @@ class BaseWinFormView(LoginRequiredMixin, FormView):
         return kwargs
 
 
-class NewWinView(BaseWinFormView):
-    """ Create a new Win """
+class NewWinView(LoginRequiredMixin, TemplateView):
+    """ View a list of all Wins of logged in User """
+
+    template_name = 'wins/new-win-which-year.html'
+
+
+class NewWinYearView(BaseWinFormView):
+    """ Create a new Win for a specific Financial Year
+
+
+    The form takes `base_year` kwarg, which validates that the Win was won in
+    that year, and makes changes to ODI & breakdown handling
+    """
 
     template_name = "wins/win-form.html"
+
+    def _handle_year(self, year):
+        if year not in "2016 2017":
+            raise Http404
+        self.year = year
+
+    def get(self, request, *args, **kwargs):
+        self._handle_year(kwargs['year'])
+        return super().get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        self._handle_year(kwargs['year'])
+        return super().post(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['financial_year'] = '{}/{}'.format(self.year, int(self.year) + 1)
+        return context
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['base_year'] = self.year
+        return kwargs
 
     def form_valid(self, form):
         """ If form is valid, create on data server """
@@ -225,6 +259,8 @@ class EditWinView(BaseWinFormView):
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
+        kwargs['editing'] = True
+        kwargs['base_year'] = WinForm._get_financial_year(self.win['date'])
         kwargs['completed'] = self.win['complete']
         kwargs['advisors'] = get_win_advisors(
             self.kwargs['win_id'],
@@ -248,9 +284,14 @@ class EditWinView(BaseWinFormView):
             {'value': b['value'], 'year': b['year']}
             for b in breakdowns if b['type'] == 2
         ]
+        odi = [
+            {'value': b['value'], 'year': b['year']}
+            for b in breakdowns if b['type'] == 3
+        ]
         self.win['breakdowns'] = {
             'exports': exports,
             'nonexports': nonexports,
+            'odi': odi,
         }
 
         return kwargs
@@ -371,7 +412,3 @@ class ConfirmationView(FormView):
             )
 
         return win_dict
-
-
-def test500(request):
-    raise Exception('test error')
