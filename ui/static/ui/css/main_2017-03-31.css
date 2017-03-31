@@ -80,9 +80,11 @@
 
 .confirmation-form .win-details { overflow: hidden; margin-bottom: 0; }
 
-.confirmation-form .win-details dt { width: 60%; float: left; text-align: left; padding: 0.25em 1em; clear: both; box-sizing: border-box; text-overflow: clip; }
+.confirmation-form .win-details dt { width: 60%; float: left; text-align: left; padding: 0.25em 1em; clear: both; box-sizing: border-box; text-overflow: clip; white-space: normal; }
 
 .confirmation-form .win-details dd { float: left; width: 40%; padding: 0.25em 1em; margin-left: 0; box-sizing: border-box; }
+
+.confirmation-form .win-details .win-details-label--odi, .confirmation-form .win-details .win-details-value--odi { min-height: 50px; }
 
 .confirmation-form .win-details dt:nth-of-type(even), .confirmation-form .win-details dd:nth-of-type(even) { background-color: #eee; }
 

@@ -65,6 +65,7 @@
 		clear: both;
 		box-sizing: border-box;
 		text-overflow: clip;
+		white-space: normal;
 	}
 
 	.win-details dd {
@@ -73,6 +74,11 @@
 		padding: 0.25em 1em;
 		margin-left: 0;
 		box-sizing: border-box;
+	}
+
+	.win-details .win-details-label--odi,
+	.win-details .win-details-value--odi {
+		min-height: 50px;
 	}
 
 	.win-details dt:nth-of-type( even ),
