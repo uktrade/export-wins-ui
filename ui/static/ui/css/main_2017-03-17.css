@@ -80,7 +80,7 @@
 
 .confirmation-form .win-details { overflow: hidden; margin-bottom: 0; }
 
-.confirmation-form .win-details dt { width: 70%; float: left; text-align: left; padding: 0.25em 1em; clear: both; box-sizing: border-box; }
+.confirmation-form .win-details dt { width: 70%; float: left; text-align: left; padding: 0.25em 1em; clear: both; box-sizing: border-box; text-overflow: clip; }
 
 .confirmation-form .win-details dd { float: left; width: 30%; padding: 0.25em 1em; margin-left: 0; box-sizing: border-box; }
 
@@ -314,4 +314,4 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-app
   .btn-responsive, .end-buttons .btn, body .end-buttons .btn { width: 100%; margin-bottom: 1em; margin-left: 0 !important; margin-right: 0 !important; }
   .non-export-heading { margin-top: 2em; } }
 
-/*# sourceMappingURL=main_2016-10-27.css.map */
+/*# sourceMappingURL=main_2017-03-17.css.map */

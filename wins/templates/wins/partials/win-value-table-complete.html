@@ -1,0 +1,19 @@
+{% load humanize %}
+<div class="scroll-table">
+<table class="table table-responsive">
+	<tr>
+		<th>{{ fields.0.year }}</th>
+		<th>{{ fields.1.year }}</th>
+		<th>{{ fields.2.year }}</th>
+		<th>{{ fields.3.year }}</th>
+		<th>{{ fields.4.year }}</th>
+	</tr>
+	<tr>
+		<td>&pound;{{ fields.0.value | intcomma }}</td>
+		<td>&pound;{{ fields.1.value | intcomma }}</td>
+		<td>&pound;{{ fields.2.value | intcomma }}</td>
+		<td>&pound;{{ fields.3.value | intcomma }}</td>
+		<td>&pound;{{ fields.4.value | intcomma }}</td>
+	</tr>
+</table>
+</div>
