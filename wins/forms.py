@@ -251,29 +251,30 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
     def clean(self):
         cleaned = super().clean()
 
-        # have to have checked at least one type of win
-        value_types_names = [
-            ('type_export', 'Export'),
-            ('type_non_export', 'Non-export'),
-            ('type_odi', 'Outward Direct Investment'),
-        ]
-        if not any(cleaned.get(v) for v, n in value_types_names):
-            self._errors['types_all'] = self.error_class([
-                """You must choose at least one of Export, Non-export and
-                Outward Direct Investment"""
-            ])
-
-        # have to have value for any checkbox you have ticked
-        for value_type, value_name in value_types_names:
-            if not cleaned.get(value_type):
-                continue
-            type_key = value_type[5:]
-            value = cleaned.get("total_expected_{}_value".format(type_key))
-            if not value:
-                self._errors[value_type] = self.error_class([
-                    """If you check {0}, you must enter at least one
-                       corresponding {0} value below""".format(value_name)
+        if not self.completed:
+            # have to have checked at least one type of win
+            value_types_names = [
+                ('type_export', 'Export'),
+                ('type_non_export', 'Non-export'),
+                ('type_odi', 'Outward Direct Investment'),
+            ]
+            if not any(cleaned.get(v) for v, n in value_types_names):
+                self._errors['types_all'] = self.error_class([
+                    """You must choose at least one of Export, Non-export and
+                    Outward Direct Investment"""
                 ])
+
+            # have to have value for any checkbox you have ticked
+            for value_type, value_name in value_types_names:
+                if not cleaned.get(value_type):
+                    continue
+                type_key = value_type[5:]
+                value = cleaned.get("total_expected_{}_value".format(type_key))
+                if not value:
+                    self._errors[value_type] = self.error_class([
+                        """If you check {0}, you must enter at least one
+                           corresponding {0} value below""".format(value_name)
+                    ])
 
         # If you add an advisor name, you should also select their team
         for i in range(5):
