@@ -188,6 +188,12 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
 
         date_str = self.cleaned_data.get("date")
 
+        # validate format
+        m = re.match(r"^(?P<month>\d\d)/(?P<year>\d\d\d\d)$", date_str)
+        if not m:
+            raise forms.ValidationError(
+                'Invalid format. Please use {}'.format(self.date_format))
+
         # check won date is within chosen financial year
         input_fy = self._get_financial_year(date_str)
         if self.base_year != input_fy:
@@ -201,11 +207,6 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
                     You have chosen to enter a Win for financial year
                     {}/{}, the business must have been won in that year
                     """.format(self.base_year, self.base_year + 1))
-
-        m = re.match(r"^(?P<month>\d\d)/(?P<year>\d\d\d\d)$", date_str)
-        if not m:
-            raise forms.ValidationError(
-                'Invalid format. Please use {}'.format(self.date_format))
 
         try:
             year = int(m.group("year"))
