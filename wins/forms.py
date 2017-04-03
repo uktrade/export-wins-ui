@@ -138,6 +138,7 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
             "total_expected_export_value",
             "total_expected_non_export_value",
             "total_expected_odi_value",
+            "export_experience",
         ]
 
         if self.completed:
@@ -155,10 +156,14 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
         default_choice = [('', 'Please choose...')]
         for name, field in self.fields.items():
             if type(field) == forms.ChoiceField and name not in not_dropdowns:
-                if field.choices[0][0] == '':
-                    field.choices = default_choice + field.choices[1:]
+                if name == 'export_experience':
+                    # special default/null choice for this field
+                    field.choices = [('', 'Unknown')] + field.choices[1:]
                 else:
-                    field.choices = default_choice + field.choices
+                    if field.choices[0][0] == '':
+                        field.choices = default_choice + field.choices[1:]
+                    else:
+                        field.choices = default_choice + field.choices
 
         # remove 2017 HVCs for 2016. Done here because it is so much easier
         # than adapting this system to do it via the back-end
@@ -344,7 +349,7 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
 
         if (cleaned.get('team_type') == 'itt' and not
                 cleaned.get('export_experience')):
-            msg = 'You must choose the Export experience'
+            msg = 'You must choose an Export experience other than "unknown"'
             self._errors['export_experience'] = self.error_class([msg])
 
         return cleaned
