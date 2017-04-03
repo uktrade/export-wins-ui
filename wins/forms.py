@@ -98,6 +98,8 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
             Date won (within {}/{} financial year)
             """.format(self.base_year, self.base_year + 1)
 
+        self.fields["export_experience"].required = True
+
         self.fields["is_personally_confirmed"].required = True
         self.fields["is_personally_confirmed"].label_suffix = ""
 
@@ -157,8 +159,8 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
         for name, field in self.fields.items():
             if type(field) == forms.ChoiceField and name not in not_dropdowns:
                 if name == 'export_experience':
-                    # special default/null choice for this field
-                    field.choices = [('', 'Unknown')] + field.choices[1:]
+                    # remove the null option
+                    field.choices = field.choices[1:]
                 else:
                     if field.choices[0][0] == '':
                         field.choices = default_choice + field.choices[1:]
@@ -347,10 +349,10 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
                        total"""
                 )
 
-        if (cleaned.get('team_type') == 'itt' and not
-                cleaned.get('export_experience')):
-            msg = 'You must choose an Export experience other than "unknown"'
-            self._errors['export_experience'] = self.error_class([msg])
+        # if (cleaned.get('team_type') == 'itt' and not
+        #         cleaned.get('export_experience')):
+        #     msg = 'You must choose an Export experience other than "unknown"'
+        #     self._errors['export_experience'] = self.error_class([msg])
 
         return cleaned
 
