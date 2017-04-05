@@ -161,8 +161,8 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
                 else:
                     field.choices = default_choice + field.choices
 
-        # the year in passed to FE in the code, so that FE can filter on it
-        # however, the backend only needs to know the chosen code
+        # the year is passed to FE in the code, so that FE can filter on it
+        # however, the backend only needs to know the code
         hvc_choices = self.fields['hvc'].choices
         filtered_hvcs = [
             (code, name) for code, name in hvc_choices
