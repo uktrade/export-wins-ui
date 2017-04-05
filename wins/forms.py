@@ -161,11 +161,10 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
                 else:
                     field.choices = default_choice + field.choices
 
-        # the year is passed to FE in the code, so that FE can filter on it
-        # however, the backend only needs to know the code
-        hvc_choices = self.fields['hvc'].choices
+        # HVC is encoded as code and two-digit FY e.g. E00117
+        # filter out HVCs as appopriate for selected Financial Year
         filtered_hvcs = [
-            (code, name) for code, name in hvc_choices
+            (code, name) for code, name in self.fields['hvc'].choices
             if code[-2:] == str(self.base_year)[-2:]
         ]
         sorted_hvcs = sorted(filtered_hvcs, key=itemgetter(1))
