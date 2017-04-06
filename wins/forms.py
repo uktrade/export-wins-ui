@@ -163,11 +163,12 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
 
         # HVC is encoded as code and two-digit FY e.g. E00117
         # filter out HVCs as appopriate for selected Financial Year
+        # note, need to retain the first default choice for null
         filtered_hvcs = [
-            (code, name) for code, name in self.fields['hvc'].choices
+            (code, name) for code, name in self.fields['hvc'].choices[1:]
             if code[-2:] == str(self.base_year)[-2:]
         ]
-        self.fields['hvc'].choices = sorted(filtered_hvcs, key=itemgetter(1))
+        self.fields['hvc'].choices[1:] = sorted(filtered_hvcs, key=itemgetter(1))
 
     @classmethod
     def _get_financial_year(cls, month_year_str):
