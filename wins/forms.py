@@ -1,3 +1,4 @@
+from operator import itemgetter
 import re
 
 from datetime import datetime
@@ -71,6 +72,7 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
         self.editing = kwargs.pop('editing', False)
         self.completed = kwargs.pop('completed', False)
         self.base_year = int(kwargs.pop('base_year'))
+        assert self.base_year in [2016, 2017], "invalid base year"
         breakdowns = kwargs.pop('breakdowns', [])
         advisors = kwargs.pop('advisors', [])
 
@@ -159,23 +161,13 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
                 else:
                     field.choices = default_choice + field.choices
 
-        # remove 2017 HVCs for 2016. Done here because it is so much easier
-        # than adapting this system to do it via the back-end
-        new_hvcs_for_2017 = ['E218', 'E219','E220','E221','E222','E223','E224','E225','E226','E227','E228','E229','E230','E231','E232','E233','E234','E235','E236','E237','E238','E239','E240','E241']
-        hvcs_removed_for_2017 = ['E001', 'E003', 'E004', 'E010', 'E039', 'E048', 'E060', 'E062', 'E077', 'E080', 'E082', 'E084', 'E088', 'E090', 'E093', 'E101', 'E102', 'E109', 'E114', 'E115', 'E126', 'E127', 'E130', 'E131', 'E134', 'E136', 'E139', 'E142', 'E144', 'E157', 'E160', 'E162', 'E169', 'E172', 'E173', 'E176', 'E178', 'E180', 'E181', 'E190', 'E193', 'E195', 'E213', 'E214']
-        hvc_choices = self.fields['hvc'].choices
-        if self.base_year == 2016:
-            self.fields['hvc'].choices = [
-                (code, name) for code, name in hvc_choices
-                if code not in new_hvcs_for_2017
-            ]
-        elif self.base_year == 2017:
-            self.fields['hvc'].choices = [
-                (code, name) for code, name in hvc_choices
-                if code not in hvcs_removed_for_2017
-            ]
-        else:
-            raise Exception('invalid base year')
+        # HVC is encoded as code and two-digit FY e.g. E00117
+        # filter out HVCs as appopriate for selected Financial Year
+        filtered_hvcs = [
+            (code, name) for code, name in self.fields['hvc'].choices
+            if code[-2:] == str(self.base_year)[-2:]
+        ]
+        self.fields['hvc'].choices = sorted(filtered_hvcs, key=itemgetter(1))
 
     @classmethod
     def _get_financial_year(cls, month_year_str):
