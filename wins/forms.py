@@ -167,8 +167,7 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
             (code, name) for code, name in self.fields['hvc'].choices
             if code[-2:] == str(self.base_year)[-2:]
         ]
-        sorted_hvcs = sorted(filtered_hvcs, key=itemgetter(1))
-        self.fields['hvc'].choices = sorted_hvcs
+        self.fields['hvc'].choices = sorted(filtered_hvcs, key=itemgetter(1))
 
     @classmethod
     def _get_financial_year(cls, month_year_str):
