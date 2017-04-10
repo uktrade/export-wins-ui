@@ -46,8 +46,10 @@
 	.win-details-wrapper .supported-header {
 
 		font-size: 1em;
-		margin: 0.5em 1em;
+		margin-top: 0;
+		padding: 0.5em 1em;
 		font-weight: bold;
+		border-top: 1px solid #eee;
 	}
 
 	.win-details {
@@ -56,21 +58,27 @@
 	}
 
 	.win-details dt {
-		width: 70%;
+		width: 60%;
 		float:left;
 		text-align: left;
 		padding: 0.25em 1em;
 		clear: both;
 		box-sizing: border-box;
 		text-overflow: clip;
+		white-space: normal;
 	}
 
 	.win-details dd {
 		float:left;
-		width: 30%;
+		width: 40%;
 		padding: 0.25em 1em;
 		margin-left: 0;
 		box-sizing: border-box;
+	}
+
+	.win-details .win-details-label--odi,
+	.win-details .win-details-value--odi {
+		min-height: 50px;
 	}
 
 	.win-details dt:nth-of-type( even ),

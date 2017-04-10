@@ -89,7 +89,20 @@
 		{% include "wins/partials/win-field.html" with field=form.customer_email_address class="restrict-width-sm" help="We will send the customer form to this address to enable them to confirm the win details." %}
 		{% include "wins/partials/win-field.html" with field=form.customer_job_title class="restrict-width-sm" %}
 		{% include "wins/partials/win-field.html" with field=form.customer_location class="restrict-width-sm" %}
+		{% if win.complete %}
 
+			{% if win.export_experience_display %}
+			<div class="panel panel-info">
+				<p class="panel-heading">The win has been sent to the customer and these details cannot be edited.</p>
+				<div class="panel-body">
+					{% include "wins/partials/win-details-element.html" with name="Export Experience" val=win.export_experience_display %}
+				</div>
+			</div>
+			{% endif %}
+
+		{% else %}
+			{% include "wins/partials/form-radio.html" with field=form.export_experience class="restrict-width-sm" help="Your customer will be asked to confirm this information." %}
+		{% endif %}
 
 		<h3 class="form-section-heading">Win details</h3>
 		<p>

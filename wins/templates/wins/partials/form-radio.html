@@ -7,7 +7,7 @@
 		{{ field.label }}:
 	</h4>
 
-	{% if help %}<p class="help-text">{{ help }}</p>{% endif %}
+	{% if help %}<p class="help-text" style="padding-top: 10px">{{ help }}</p>{% endif %}
 	{% if message %}<p class="field-message">{{ message }}</p>{% endif %}
 
 	{% for value, text in field.field.choices %}

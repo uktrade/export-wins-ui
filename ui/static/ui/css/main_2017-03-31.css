@@ -76,13 +76,15 @@
 
 .confirmation-form .win-details-wrapper { border: 1px solid #eee; border-radius: 0.25em; }
 
-.confirmation-form .win-details-wrapper .supported-header { font-size: 1em; margin: 0.5em 1em; font-weight: bold; }
+.confirmation-form .win-details-wrapper .supported-header { font-size: 1em; margin-top: 0; padding: 0.5em 1em; font-weight: bold; border-top: 1px solid #eee; }
 
 .confirmation-form .win-details { overflow: hidden; margin-bottom: 0; }
 
-.confirmation-form .win-details dt { width: 70%; float: left; text-align: left; padding: 0.25em 1em; clear: both; box-sizing: border-box; text-overflow: clip; }
+.confirmation-form .win-details dt { width: 60%; float: left; text-align: left; padding: 0.25em 1em; clear: both; box-sizing: border-box; text-overflow: clip; white-space: normal; }
 
-.confirmation-form .win-details dd { float: left; width: 30%; padding: 0.25em 1em; margin-left: 0; box-sizing: border-box; }
+.confirmation-form .win-details dd { float: left; width: 40%; padding: 0.25em 1em; margin-left: 0; box-sizing: border-box; }
+
+.confirmation-form .win-details .win-details-label--odi, .confirmation-form .win-details .win-details-value--odi { min-height: 50px; }
 
 .confirmation-form .win-details dt:nth-of-type(even), .confirmation-form .win-details dd:nth-of-type(even) { background-color: #eee; }
 
@@ -314,4 +316,4 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-app
   .btn-responsive, .end-buttons .btn, body .end-buttons .btn { width: 100%; margin-bottom: 1em; margin-left: 0 !important; margin-right: 0 !important; }
   .non-export-heading { margin-top: 2em; } }
 
-/*# sourceMappingURL=main_2017-03-17.css.map */
+/*# sourceMappingURL=main_2017-03-31.css.map */

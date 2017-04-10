@@ -35,43 +35,49 @@
 
 			<dl class="dl-horizontal win-details">
 
-					<dt>Date business won</dt>
-					<dd>{{ win.date|date:'m/Y' }}</dd>
+				<dt>Date business won</dt>
+				<dd>{{ win.date|date:'m/Y' }}</dd>
 
-					<dt>Country where the business was won</dt>
-					<dd>{{ win.country }}</dd>
+				<dt>Country where the business was won</dt>
+				<dd>{{ win.country }}</dd>
+
+				{% if win.export_experience_customer %}
+					<dt>Your export experience before this win can be described as</dt>
+					<dd>{{ win.export_experience_customer }}</dd>
+				{% endif %}
 
 				{% if win.business_type %}
 
-						<dt>Business deal type</dt>
-						<dd>{{ win.business_type }}</dd>
+					<dt>Business deal type</dt>
+					<dd>{{ win.business_type }}</dd>
 
 				{% endif %}
 
 				{% if win.total_expected_export_value %}
 
-						<dt>Export value expected over the next 5 years</dt>
-						<dd>&pound;{{ win.total_expected_export_value|intcomma }}</dd>
+					<dt>Export value expected over the next 5 years</dt>
+					<dd>&pound;{{ win.total_expected_export_value|intcomma }}</dd>
 
 				{% endif %}
 
 				{% if win.total_expected_non_export_value %}
 
-						<dt>Non-export value expected over the next 5 years</dt>
-						<dd>&pound;{{ win.total_expected_non_export_value|intcomma }}</dd>
+					<dt>Non-export value expected over the next 5 years</dt>
+					<dd>&pound;{{ win.total_expected_non_export_value|intcomma }}</dd>
 
 				{% endif %}
 
 				{% if win.total_expected_odi_value %}
 
-						<dt>Outward Direct Investment value expected over the next 5 years</dt>
-						<dd>&pound;{{ win.total_expected_odi_value|intcomma }}</dd>
+						<dt class="win-details-label--odi">Outward Direct Investment value expected over the next 5 years</dt>
+						<dd class="win-details-value--odi">&pound;{{ win.total_expected_odi_value|intcomma }}</dd>
 
 				{% endif %}
 			</dl>
 
 			<h4 class="supported-header">How we supported you</h4>
 			<div class="supported-details">{{ win.description|linebreaks }}</div>
+
 		</div>
 
 		<form method="post" action="{{ request.path }}" id="confirmation-form">
@@ -133,6 +139,8 @@
 			{% include "wins/partials/confirmation-checkbox.html" with field=form.involved_state_enterprise %}
 			{% include "wins/partials/confirmation-checkbox.html" with field=form.interventions_were_prerequisite %}
 			{% include "wins/partials/confirmation-checkbox.html" with field=form.support_improved_speed %}
+
+			<h4>Tick any that apply to this win:</h4>
 
 			{% include "wins/partials/confirmation-checkbox.html" with field=form.has_enabled_expansion_into_new_market label="It enabled you to expand into <strong>a new market</strong>" %}
 			{% include "wins/partials/confirmation-checkbox.html" with field=form.has_enabled_expansion_into_existing_market label="It enabled you to maintain or expand in <strong>an existing market</strong>" %}
