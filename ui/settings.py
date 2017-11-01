@@ -135,6 +135,7 @@ SEND_CUSTOMER_EMAIL_AP = "{}/admin/send-customer-email/".format(DATA_SERVER)
 SEND_ADMIN_CUSTOMER_EMAIL_AP = "{}/admin/send-admin-customer-email/".format(DATA_SERVER)
 CHANGE_CUSTOMER_EMAIL_AP = "{}/admin/change-customer-email/".format(DATA_SERVER)
 SOFT_DELETE_AP = "{}/admin/soft-delete/".format(DATA_SERVER)
+CSV_UPLOAD_NOTIFY_AP = "{}/mi/csv_files/".format(DATA_SERVER)
 
 
 # For UI server should match UI_SECRET in data server, for admin server should
@@ -186,3 +187,8 @@ if DEBUG:
 
 
 STAGING = os.getenv("STAGING")
+
+CSV_UPLOAD_AWS_ACCESS_KEY_ID = os.getenv('CSV_UPLOAD_AWS_ACCESS_KEY_ID')
+CSV_UPLOAD_AWS_SECRET_ACCESS_KEY = os.getenv('CSV_UPLOAD_AWS_SECRET_ACCESS_KEY')
+CSV_UPLOAD_AWS_BUCKET = os.getenv('CSV_UPLOAD_AWS_BUCKET')
+CSV_AWS_REGION = os.getenv('CSV_AWS_REGION', 'eu-west-2')

@@ -7,7 +7,7 @@ from ui.views import (
     AdminView, AddUserView, ChangeCustomerEmailView, CSVView,
     NewPassView, SendAdminCustomerEmailView, SendCustomerEmailView,
     SoftDeleteWinView,
-)
+    AdminUploadCSVView)
 from users.views import LoginView, LogoutView
 from wins.views import (
     ConfirmationView, EditWinView, LockedWinTemplateView, MyWinsView,
@@ -116,6 +116,8 @@ urlpatterns = [
         name="change-customer-email"),
     url(r"^delete$", SoftDeleteWinView.as_view(),
         name="soft-delete"),
+    url(r"^csv-upload$", AdminUploadCSVView.as_view(),
+        name="csv-upload"),
 
 ]
 
