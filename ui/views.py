@@ -1,12 +1,21 @@
 import datetime
+from io import TextIOWrapper
+from tempfile import TemporaryFile
 
+from boto3.exceptions import Boto3Error
+from botocore.exceptions import ClientError
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseForbidden
 from django.shortcuts import render
+from django.utils.timezone import now
 from django.views.generic import TemplateView, View
 
 from alice.braces import LoginRequiredMixin
 from alice.helpers import rabbit
+from defusedcsv import csv
+import boto3
+
+ERROR_500_TEXT = "Server error, please try again or contact support"
 
 
 class CSVView(LoginRequiredMixin, View):
@@ -22,6 +31,7 @@ class CSVView(LoginRequiredMixin, View):
 
 
 class StaffRequiredMixin(object):
+
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_staff:
             return HttpResponseForbidden()
@@ -40,7 +50,7 @@ class BaseAdminView(LoginRequiredMixin, StaffRequiredMixin, TemplateView):
         )
         if result.status_code == 500:
             return {
-                'error': "Server error, please try again or contact support"
+                'error': ERROR_500_TEXT
             }
         elif result.status_code != 201:
             error_data = result.json()
@@ -99,3 +109,110 @@ class SoftDeleteWinView(BaseAdminView):
 
     endpoint = settings.SOFT_DELETE_AP
     template_name = 'ui/admin/soft-delete.html'
+
+
+def sanitize_csv(csvfile, out):
+    """
+    protects csv from formula injection attacks
+    :param csvfile: file like object containing a csv
+    :param out: file like object to write the sanitized csv into
+    """
+    r = csv.DictReader(csvfile)
+
+    w = csv.DictWriter(out, r.fieldnames)
+    w.writeheader()
+    for row in r:
+        w.writerow(row)
+    out.seek(0)
+
+
+def upload_to_s3(file_):
+    """
+    upload a file like object to s3
+
+    :param file_: file to upload
+    :return: full s3uri
+    """
+    now_ = now()
+
+    file_name = 'export-wins/{year}/{month}/{timestamp}.csv'.format(
+        year=now_.year,
+        month=now_.month,
+        timestamp=now_.isoformat()
+    )
+
+    s3 = boto3.client(
+        's3',
+        aws_access_key_id=settings.CSV_UPLOAD_AWS_ACCESS_KEY_ID,
+        aws_secret_access_key=settings.CSV_UPLOAD_AWS_SECRET_ACCESS_KEY,
+        region_name=settings.CSV_AWS_REGION
+    )
+    s3.upload_fileobj(
+        file_,
+        settings.CSV_UPLOAD_AWS_BUCKET,
+        file_name,
+        ExtraArgs={'ServerSideEncryption': "AES256"}
+    )
+    return 's3://{bucket_name}/{key}'.format(
+        bucket_name=settings.CSV_UPLOAD_AWS_BUCKET,
+        key=file_name
+    )
+
+
+class AdminUploadCSVView(BaseAdminView):
+
+    endpoint = settings.CSV_UPLOAD_NOTIFY_AP
+    template_name = 'ui/admin/csv-upload.html'
+
+    def _admin_post(self):
+        result = rabbit.post(
+            self.endpoint,
+            request=self.request,
+            data={'path': self.context['file_name']},
+        )
+        if not result.ok:
+            self.context.update({'success': False, 'error': ERROR_500_TEXT})
+
+    def get_context_data(self, **kwargs):
+        context = super(AdminUploadCSVView, self).get_context_data(**kwargs)
+        context.update({'enctype': 'multipart/form-data'})
+        return context
+
+    def post(self, *args, **kwargs):
+        self.context = self.get_context_data()
+        self.context.update(**self.request.POST.dict())
+
+        if 'csvfile' in self.request.FILES:
+            uploaded = self.request.FILES['csvfile']
+            csvfile = TextIOWrapper(
+                uploaded.file, encoding=self.request.encoding)
+
+            if uploaded.content_type == 'text/csv':
+                with TemporaryFile(mode='w+', encoding='UTF-8') as o:
+                    try:
+                        sanitize_csv(csvfile, o)
+                    except UnicodeDecodeError:
+                        self.context.update(
+                            {'success': False, 'error': 'Uploaded file is not a valid .csv file.'})
+                        o.close()
+                        return render(self.request, self.template_name, self.context)
+
+                    try:
+                        result = upload_to_s3(o.buffer)
+                        self.context.update(
+                            {'success': True, 'file_name': result})
+                        self._admin_post()
+                    except (Boto3Error, ClientError):
+                        o.close()
+                        self.context.update({
+                            'success': False,
+                            'error': "Couldn't upload file to S3. Please try again."}
+                        )
+            else:
+                self.context.update(
+                    {'success': False, 'error': 'Uploaded file must be in .csv format.'})
+        else:
+            self.context.update(
+                {'success': False, 'error': 'A file is required.'})
+
+        return render(self.request, self.template_name, self.context)

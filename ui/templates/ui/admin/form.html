@@ -34,7 +34,7 @@
 
 	{% endif %}
 
-	<form method="post" class="admin-form form-horizontal">
+	<form method="post" class="admin-form form-horizontal" {% if enctype %} enctype="{{enctype}}" {% endif %}>
 
 		{% block form %}{% endblock %}
 

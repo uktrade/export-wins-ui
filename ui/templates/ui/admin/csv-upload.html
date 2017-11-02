@@ -1,0 +1,31 @@
+{% extends 'ui/admin/form.html' %}
+
+{% block success %}
+		Success file {{ file_name }}, has been uploaded and is available for download.
+{% endblock %}
+
+{% block breadcrumb-name %}CSV File Upload{% endblock %}
+{% block admin-title %}CSV File Upload{% endblock %}
+
+{% block form %}
+		<p class="lead restrict-width">
+			The file will be available to users of DataHub Management Information
+		</p>
+
+		<div class="form-group">
+			<label for="csvfile" class="col-sm-2 control-label">Upload File:</label>
+		<div class="col-sm-10 restrict-width-sm">
+				<input class="form-control" id="csvfile"
+							 type="file"
+							 name="csvfile"
+							 accept="text/csv, .csv"
+				>
+		</div>
+		</div>
+
+	<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10">
+				<input type="submit" value="submit" class="btn btn-primary">
+			</div>
+	</div>
+{% endblock %}
