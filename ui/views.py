@@ -117,10 +117,8 @@ def sanitize_csv(csvfile, out):
     :param csvfile: file like object containing a csv
     :param out: file like object to write the sanitized csv into
     """
-    r = csv.DictReader(csvfile)
-
-    w = csv.DictWriter(out, r.fieldnames)
-    w.writeheader()
+    r = csv.reader(csvfile)
+    w = csv.writer(out)
     for row in r:
         w.writerow(row)
     out.seek(0)
@@ -184,16 +182,17 @@ class AdminUploadCSVView(BaseAdminView):
 
         if 'csvfile' in self.request.FILES:
             uploaded = self.request.FILES['csvfile']
+            encoding = settings.CSV_UPLOAD_DEFAULT_ENCODING
             csvfile = TextIOWrapper(
-                uploaded.file, encoding=self.request.encoding)
-
+                uploaded.file, encoding=encoding)
             if uploaded.content_type == 'text/csv':
-                with TemporaryFile(mode='w+', encoding='UTF-8') as o:
+                with TemporaryFile(mode='w+', encoding=encoding) as o:
                     try:
                         sanitize_csv(csvfile, o)
                     except UnicodeDecodeError:
                         self.context.update(
-                            {'success': False, 'error': 'Uploaded file is not a valid .csv file.'})
+                            {'success': False, 'error': 'Uploaded file is not a valid .csv file. '
+                                                        'Please ensure it is encoded as Windows-1252.'})
                         o.close()
                         return render(self.request, self.template_name, self.context)
 
