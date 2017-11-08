@@ -136,7 +136,7 @@ SEND_ADMIN_CUSTOMER_EMAIL_AP = "{}/admin/send-admin-customer-email/".format(DATA
 CHANGE_CUSTOMER_EMAIL_AP = "{}/admin/change-customer-email/".format(DATA_SERVER)
 SOFT_DELETE_AP = "{}/admin/soft-delete/".format(DATA_SERVER)
 CSV_UPLOAD_NOTIFY_AP = "{}/mi/csv_files/".format(DATA_SERVER)
-
+CSV_UPLOAD_DEFAULT_ENCODING = os.getenv("CSV_UPLOAD_DEFAULT_ENCODING", "iso-8859-1")
 
 # For UI server should match UI_SECRET in data server, for admin server should
 # match ADMIN_SECRET in data server.
