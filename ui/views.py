@@ -157,6 +157,24 @@ def upload_to_s3(file_):
     )
 
 
+def check_content_type(content_type):
+    valid_content_types = {
+        'application/csv',
+        'application/x-csv',
+        'text/csv',
+        'text/comma-separated-values',
+        'text/x-comma-separated-values',
+        'text/plain'
+    }
+    if content_type in valid_content_types:
+        return True
+
+    if content_type.startswith('text/'):
+        return True
+
+    return False
+
+
 class AdminUploadCSVView(BaseAdminView):
 
     endpoint = settings.CSV_UPLOAD_NOTIFY_AP
@@ -185,7 +203,7 @@ class AdminUploadCSVView(BaseAdminView):
             encoding = settings.CSV_UPLOAD_DEFAULT_ENCODING
             csvfile = TextIOWrapper(
                 uploaded.file, encoding=encoding)
-            if uploaded.content_type == 'text/csv':
+            if check_content_type(uploaded.content_type):
                 with TemporaryFile(mode='w+', encoding=encoding) as o:
                     try:
                         sanitize_csv(csvfile, o)
