@@ -2,6 +2,7 @@ import datetime
 from io import TextIOWrapper
 from tempfile import TemporaryFile
 
+import sys
 from boto3.exceptions import Boto3Error
 from botocore.exceptions import ClientError
 from django.conf import settings
@@ -14,6 +15,9 @@ from alice.braces import LoginRequiredMixin
 from alice.helpers import rabbit
 from defusedcsv import csv
 import boto3
+from raven.contrib.django.raven_compat.models import client as sentry
+
+
 
 ERROR_500_TEXT = "Server error, please try again or contact support"
 
@@ -201,13 +205,21 @@ class AdminUploadCSVView(BaseAdminView):
         if 'csvfile' in self.request.FILES:
             uploaded = self.request.FILES['csvfile']
             encoding = settings.CSV_UPLOAD_DEFAULT_ENCODING
+            self.context.update({
+                'file_size': uploaded.size,
+                'orig_file_name': uploaded.name,
+                'content_type': uploaded.content_type,
+                'content_params': self.request.content_params,
+                'encoding': self.request.encoding,
+            })
             csvfile = TextIOWrapper(
                 uploaded.file, encoding=encoding)
             if check_content_type(uploaded.content_type):
                 with TemporaryFile(mode='w+', encoding=encoding) as o:
                     try:
                         sanitize_csv(csvfile, o)
-                    except UnicodeDecodeError:
+                    except UnicodeDecodeError as ude:
+                        sentry.captureException(exc_info=sys.exc_info(), request=self.request)
                         self.context.update(
                             {'success': False, 'error': 'Uploaded file is not a valid .csv file. '
                                                         'Please ensure it is encoded as Windows-1252.'})
@@ -220,6 +232,7 @@ class AdminUploadCSVView(BaseAdminView):
                             {'success': True, 'file_name': result})
                         self._admin_post()
                     except (Boto3Error, ClientError):
+                        sentry.captureException(exc_info=sys.exc_info(), request=self.request)
                         o.close()
                         self.context.update({
                             'success': False,
@@ -228,6 +241,7 @@ class AdminUploadCSVView(BaseAdminView):
             else:
                 self.context.update(
                     {'success': False, 'error': 'Uploaded file must be in .csv format.'})
+                sentry.capture('Message', message="CSV upload failed", request=self.request, extra=self.context)
         else:
             self.context.update(
                 {'success': False, 'error': 'A file is required.'})
