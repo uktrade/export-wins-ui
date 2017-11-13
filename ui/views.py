@@ -164,7 +164,8 @@ def check_content_type(content_type):
         'text/csv',
         'text/comma-separated-values',
         'text/x-comma-separated-values',
-        'text/plain'
+        'text/plain',
+        'application/vnd.ms-excel'
     }
     if content_type in valid_content_types:
         return True
