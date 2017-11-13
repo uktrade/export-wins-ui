@@ -3,6 +3,8 @@ from io import TextIOWrapper
 from tempfile import TemporaryFile
 
 import sys
+
+import _csv
 from boto3.exceptions import Boto3Error
 from botocore.exceptions import ClientError
 from django.conf import settings
@@ -219,7 +221,7 @@ class AdminUploadCSVView(BaseAdminView):
                 with TemporaryFile(mode='w+', encoding=encoding) as o:
                     try:
                         sanitize_csv(csvfile, o)
-                    except UnicodeDecodeError as ude:
+                    except (UnicodeDecodeError, _csv.Error) as ude:
                         sentry.captureException(exc_info=sys.exc_info(), request=self.request)
                         self.context.update(
                             {'success': False, 'error': 'Uploaded file is not a valid .csv file. '
