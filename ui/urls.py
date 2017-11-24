@@ -6,8 +6,7 @@ from django.views.generic import TemplateView
 from ui.views import (
     AdminView, AddUserView, ChangeCustomerEmailView, CSVView,
     NewPassView, SendAdminCustomerEmailView, SendCustomerEmailView,
-    SoftDeleteWinView,
-    AdminUploadCSVView)
+    SoftDeleteWinView, ExportWinsCSVView, AdminUploadCSVView)
 from users.views import LoginView, LogoutView
 from wins.views import (
     ConfirmationView, EditWinView, LockedWinTemplateView, MyWinsView,
@@ -125,3 +124,8 @@ csv_secret = os.getenv("CSV_SECRET")
 if csv_secret:
     csv_url = url(r"^{}/".format(csv_secret), CSVView.as_view(), name="csv")
     urlpatterns = [csv_url] + urlpatterns
+
+csv_fy_wins_secret = os.getenv("CSV_FY_WINS_SECRET")
+if csv_fy_wins_secret:
+    csv_fy_wins_url = url(r"^{}/".format(csv_fy_wins_secret), ExportWinsCSVView.as_view(), name="csv_wins")
+    urlpatterns = [csv_fy_wins_url] + urlpatterns
