@@ -36,6 +36,23 @@ class CSVView(LoginRequiredMixin, View):
         return resp
 
 
+class ExportWinsCSVView(LoginRequiredMixin, View):
+    """ Get CSV of current FY export wins data from Data server """
+
+    def get(self, request):
+        data_response = rabbit.get(settings.EW_CSV_AP, request=request)
+        today = datetime.datetime.utcnow()
+        today_str = today.strftime('%Y-%m-%d')
+        if today.month < 4:
+            fy = '{}-{}'.format(today.year-1, today.year)  
+        else:
+            fy = '{}-{}'.format(today.year, today.year+1)
+        filename = 'ew-{}-wins-{}.csv'.format(fy, today_str)
+        resp = HttpResponse(data_response.content, content_type='text/csv')
+        resp['Content-Disposition'] = 'attachment; filename=' + filename
+        return resp
+
+
 class StaffRequiredMixin(object):
 
     def dispatch(self, request, *args, **kwargs):
