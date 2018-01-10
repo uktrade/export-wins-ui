@@ -1,7 +1,7 @@
 Django==2.0.1
 PyJWT==1.5.3
 python-dateutil==2.6.1
-requests==2.10.0
+requests==2.18.4
 django-filter==0.13.0
 django_extensions==1.6.7
 gunicorn==19.5.0
