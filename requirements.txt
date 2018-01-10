@@ -2,7 +2,7 @@ Django==1.10.7
 PyJWT==1.4.0
 python-dateutil==2.5.3
 requests==2.10.0
-django-filter==0.13.0
+django-filter==1.1.0
 django_extensions==1.6.7
 gunicorn==19.5.0
 whitenoise==3.1
