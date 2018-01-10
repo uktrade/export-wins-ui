@@ -1,18 +1,18 @@
-Django==1.10.7
-PyJWT==1.4.0
-python-dateutil==2.5.3
-requests==2.10.0
-django-filter==0.13.0
-django_extensions==1.6.7
-gunicorn==19.5.0
-whitenoise==3.1
-raven==6.3.0
+Django==2.0.1
+PyJWT==1.5.3
+python-dateutil==2.6.1
+requests==2.18.4
+django-filter==1.1.0
+django_extensions==1.9.8
+gunicorn==19.7.1
+whitenoise==3.3.1
+raven==6.4.0
 defusedcsv==1.0.1
-boto3==1.4.7
+boto3==1.5.12
 
 # Tests
-factory-boy==2.7.0
-pytest==2.9.1
-pytest-django==2.9.1
-pytest-sugar==0.7.1
+factory-boy==2.9.2
+pytest==3.3.2
+pytest-django==3.1.2
+pytest-sugar==0.9.0
 
