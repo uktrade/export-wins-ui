@@ -8,7 +8,7 @@ import _csv
 from boto3.exceptions import Boto3Error
 from botocore.exceptions import ClientError
 from django.conf import settings
-from django.http import HttpResponse, HttpResponseForbidden
+from django.http import HttpResponse, HttpResponseForbidden, StreamingHttpResponse
 from django.shortcuts import render
 from django.utils.timezone import now
 from django.views.generic import TemplateView, View
@@ -28,10 +28,11 @@ class CSVView(LoginRequiredMixin, View):
     """ Get Zip of CSVs of current data from Data server """
 
     def get(self, request):
-        data_response = rabbit.get(settings.CSV_AP, request=request)
+        data_response = rabbit.get(settings.CSV_AP, request=request, stream=True)
         today_date = datetime.datetime.utcnow().strftime('%Y-%m-%d')
         filename = 'ew-data-{}.zip'.format(today_date)
-        resp = HttpResponse(data_response, content_type='application/zip')
+        data_iter = data_response.iter_content(8192)
+        resp = StreamingHttpResponse(data_iter, content_type='application/zip')
         resp['Content-Disposition'] = 'attachment; filename=' + filename
         return resp
 

@@ -92,6 +92,7 @@ class Rabbit(object):
         :return: A requests response object
         """
 
+        stream = kwargs.pop('stream', False)
         prepared_request = requests.Request(
             method, url, *args, **kwargs).prepare()
 
@@ -114,7 +115,7 @@ class Rabbit(object):
         signature = sha256(path + body + salt).hexdigest()
         prepared_request.headers["X-Signature"] = signature
 
-        response = cls.send_request(prepared_request, keep_trying)
+        response = cls.send_request(prepared_request, keep_trying, stream=stream)
 
         if response.status_code > 299:
             logger.error("Rabbit error: {} - {}".format(
@@ -138,9 +139,9 @@ class Rabbit(object):
         return response
 
     @classmethod
-    def send_request(cls, prepared_request, keep_trying):
+    def send_request(cls, prepared_request, keep_trying, stream=False):
         try:
-            return requests.Session().send(prepared_request)
+            return requests.Session().send(prepared_request, stream=stream)
         except requests.ConnectionError as e:
             if keep_trying:
                 print("Connection error.  Retrying...")
