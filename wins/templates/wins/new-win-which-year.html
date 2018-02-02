@@ -2,16 +2,16 @@
 
 {% load staticfiles %}
 {% load humanize %}
+{% load wins_tags %}
 
 {% block title %} - Create a new Win{% endblock %}
 {% block header %}Create a new Win{% endblock %}
 
 {% block content %}
 
-		In which Financial Year was the business won? <br><br>
-
-		<a href="{% url 'new-win-year' 2016 %}" class="btn btn-primary btn-responsive new-win-bottom-btn">2016/17</a>
+	In which Financial Year was the business won? <br><br>
+	{% for year in ALLOWED_YEARS %}
+		<a href="{% url 'new-win-year' year %}" class="btn btn-primary btn-responsive new-win-bottom-btn">{{ year|as_financial_year }}</a>
 		<br><br>
-		<a href="{% url 'new-win-year' 2017 %}" class="btn btn-primary btn-responsive new-win-bottom-btn">2017/18</a>
-
+	{% endfor %}
 {% endblock content %}

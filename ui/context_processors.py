@@ -6,4 +6,5 @@ def handy(request):
         "user": request.user,
         "FEEDBACK_EMAIL": settings.FEEDBACK_ADDRESS,
         "ANALYTICS_ID": settings.ANALYTICS_ID,
+        "ALLOWED_YEARS": settings.ALLOWED_YEARS
     }
