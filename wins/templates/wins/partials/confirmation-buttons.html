@@ -9,15 +9,15 @@
 	
 	<div class="btn-group" data-toggle="buttons">
 		{% for choice in field %}
-		<label for="{{ field.name }}-{{ forloop.counter }}" class="btn btn-default{% if choice.choice_value == field.value %} active{% endif %}"{% if choice.choice_value == field.value %} aria-pressed="true"{% endif %}>
-			{% if choice.choice_value == 'True' %}
+		<label for="{{ field.name }}-{{ forloop.counter }}" class="btn btn-default{% if choice.data.value == field.value %} active{% endif %}"{% if choice.data.value == field.value %} aria-pressed="true"{% endif %}>
+			{% if choice.data.value == 'True' %}
 				{{ trueLabel }}
 			{% endif %}
 
-			{% if choice.choice_value == "False" %}
+			{% if choice.data.value == "False" %}
 				{{ falseLabel }}
 			{% endif %}
-			<input type="radio" id="{{ field.name }}-{{ forloop.counter }}" name="{{ field.name }}" value="{{ choice.choice_value }}"{% if choice.choice_value == field.value %} checked{% endif %}>
+			<input type="radio" id="{{ field.name }}-{{ forloop.counter }}" name="{{ field.name }}" value="{{ choice.data.value }}"{% if choice.data.value == field.value %} checked{% endif %}>
 		</label>
 		{% endfor %}
 	</div>
