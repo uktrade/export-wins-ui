@@ -19,7 +19,7 @@
 				<label for="{{ field.name }}-{{ forloop.counter }}" class="btn btn-default{% if value == field.value %} active{% endif %}"{% if value == field.value %} aria-pressed="true"{% endif %}>
 					{{ choice.choice_label }}
 					<input type="radio" id="{{ field.name }}-{{ forloop.counter }}" name="{{ field.name }}" value="{{ value }}" {% if value == field.value %} checked{% endif %}>
-		</label>
+				</label>
 			{% endwith %}
 		{% endfor %}
 	</div>
