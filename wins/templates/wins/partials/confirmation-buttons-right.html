@@ -12,13 +12,15 @@
 	{% if tooltip %}
 		<span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-original-title="{{ tooltip }}"></span>
 	{% endif %}
-	
+
 	<div class="btn-group pull-right" data-toggle="buttons">
 		{% for choice in field %}
-		<label for="{{ field.name }}-{{ forloop.counter }}" class="btn btn-default{% if choice.data.value == field.value %} active{% endif %}"{% if choice.data.value == field.value %} aria-pressed="true"{% endif %}>
-			{{ choice.choice_label }}
-			<input type="radio" id="{{ field.name }}-{{ forloop.counter }}" name="{{ field.name }}" value="{{ choice.data.value }}" {% if choice.data.value == field.value %} checked{% endif %}>
+			{% with choice.data.value|stringformat:"s" as value %}
+				<label for="{{ field.name }}-{{ forloop.counter }}" class="btn btn-default{% if value == field.value %} active{% endif %}"{% if value == field.value %} aria-pressed="true"{% endif %}>
+					{{ choice.choice_label }}
+					<input type="radio" id="{{ field.name }}-{{ forloop.counter }}" name="{{ field.name }}" value="{{ value }}" {% if value == field.value %} checked{% endif %}>
 		</label>
+			{% endwith %}
 		{% endfor %}
 	</div>
 
