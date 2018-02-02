@@ -73,7 +73,7 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
         self.editing = kwargs.pop('editing', False)
         self.completed = kwargs.pop('completed', False)
         self.base_year = int(kwargs.pop('base_year'))
-        assert self.base_year in [2016, 2017], "invalid base year"
+        assert self.base_year in settings.ALLOWED_YEARS, "invalid base year"
         breakdowns = kwargs.pop('breakdowns', [])
         advisors = kwargs.pop('advisors', [])
 

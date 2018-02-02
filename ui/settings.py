@@ -162,6 +162,9 @@ EMAIL_SSL_KEYFILE = os.getenv("EMAIL_SSL_KEYFILE")
 EMAIL_SSL_CERTFILE = os.getenv("EMAIL_SSL_CERTFILE")
 EMAIL_BACKEND = os.getenv("EMAIL_BACKEND")  # The default is just fine
 
+# Space separated list of years that are allowed
+ALLOWED_YEARS_STR = os.environ.get('ALLOWED_YEARS', "2016 2017 2018")
+ALLOWED_YEARS = [int(x) for x in ALLOWED_YEARS_STR.split()]
 
 # Google Analytics
 ANALYTICS_ID = os.getenv("ANALYTICS_ID")

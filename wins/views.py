@@ -198,7 +198,7 @@ class NewWinYearView(BaseWinFormView):
     template_name = "wins/win-form.html"
 
     def _handle_year(self, year):
-        if year not in "2016 2017":
+        if year not in settings.ALLOWED_YEARS_STR:
             raise Http404
         self.year = year
 
