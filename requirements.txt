@@ -8,7 +8,7 @@ gunicorn==19.5.0
 whitenoise==3.1
 raven==6.3.0
 defusedcsv==1.0.1
-boto3==1.4.7
+boto3==1.5.32
 
 # Tests
 factory-boy==2.7.0
