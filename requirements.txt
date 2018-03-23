@@ -12,7 +12,7 @@ boto3==1.4.7
 
 # Tests
 factory-boy==2.7.0
-pytest==2.9.1
+pytest==3.4.2
 pytest-django==2.9.1
 pytest-sugar==0.7.1
 
