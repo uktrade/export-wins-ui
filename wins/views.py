@@ -78,7 +78,7 @@ class MyWinsView(LoginRequiredMixin, TemplateView):
         ]
         context['sent'] = sorted(
             sent,
-            key=lambda w: w['sent'][0],
+            key=lambda w: w['sent'][0] if len(w['sent']) else 0,
             reverse=True,
         )
 
