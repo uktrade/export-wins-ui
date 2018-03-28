@@ -247,9 +247,9 @@
 		</p>
 
 		{% include "wins/partials/win-field.html" with field=form.hvc class="restrict-width" %}
-		{% include "wins/partials/form-checkbox.html" with field=form.has_hvo_specialist_involvement %}
-		{% include "wins/partials/form-checkbox.html" with field=form.is_prosperity_fund_related %}
-		{% include "wins/partials/form-checkbox.html" with field=form.is_e_exported %}
+		{% include "wins/partials/form-checkbox-legacy.html" with field=form.has_hvo_specialist_involvement %}
+		{% include "wins/partials/form-checkbox-legacy.html" with field=form.is_prosperity_fund_related %}
+		{% include "wins/partials/form-checkbox-legacy.html" with field=form.is_e_exported %}
 
 		<div class="add-select-group">
 			{% include "wins/partials/win-field.html" with field=form.type_of_support_1 class="restrict-width support-group" %}

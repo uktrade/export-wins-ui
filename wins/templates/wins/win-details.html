@@ -245,9 +245,9 @@
   <div class="section-content">
     {% include "wins/partials/win-details-element.html" with name="HVC code, if applicable" val=win.hvc|default:"None" required=False %}
     {% include "wins/partials/win-details-element.html" with name="HVO Programme, if applicable" val=win.hvo_programme|default:"None" required=False %}
-    {% include "wins/partials/win-details-element.html" with name="Have HVO Specialists been involved" val=win.has_hvo_specialist_involvement %}
-    {% include "wins/partials/win-details-element.html" with name="Is this win Prosperity Fund related" val=win.is_prosperity_fund_related %}
-    {% include "wins/partials/win-details-element.html" with name="Does the win relate to e-exporting" val=win.is_e_exported %}
+    {% include "wins/partials/win-details-element-legacy-field.html" with name="Have HVO Specialists been involved" val=win.has_hvo_specialist_involvement %}
+    {% include "wins/partials/win-details-element-legacy-field.html" with name="Is this win Prosperity Fund related" val=win.is_prosperity_fund_related %}
+    {% include "wins/partials/win-details-element-legacy-field.html" with name="Does the win relate to e-exporting" val=win.is_e_exported %}
     {% include "wins/partials/win-details-element.html" with name="Type of support 1" val=win.type_of_support_1 %}
     {% include "wins/partials/win-details-element.html" with name="Type of support 2" val=win.type_of_support_2 required=False %}
     {% include "wins/partials/win-details-element.html" with name="Type of support 3" val=win.type_of_support_3 required=False %}
