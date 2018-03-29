@@ -1,7 +1,7 @@
 ew.pages.confirmationForm = (function(){
 
 	function setupConfirmToggle( agreeWithWinName ){
-	
+
 		var $infoBox = $( '#confirm-false-info' );
 		var $agree = $( 'form input[name='+ agreeWithWinName + ']' );
 
@@ -24,10 +24,39 @@ ew.pages.confirmationForm = (function(){
 			}
 		} );
 	}
-	
-	function confirmationFormPage( formId, agreeWithWinName ){
+
+    function setupMarketingOther( marketingInfo ){
+
+        var $inputs = $( 'form input[name='+ marketingInfo.inputName + ']' );
+        var $wrapper = $( '.'+ marketingInfo.otherWrapper );
+        var $otherInput = $( 'form input[name='+ marketingInfo.otherInputName + ']' );
+        var otherValue = $inputs.last().val();
+
+        function checkInputValue(){
+
+            var value = $inputs.filter( ':checked' ).val();
+            var isOther = ( value === otherValue );
+
+            if( isOther ){
+
+                $wrapper.show();
+                $otherInput.focus();
+
+            } else {
+
+                $wrapper.hide();
+                $otherInput.val( '' );
+            }
+        }
+
+        $inputs.change( checkInputValue );
+        checkInputValue();
+    }
+
+	function confirmationFormPage( formId, agreeWithWinName, marketingInfo ){
 
 		setupConfirmToggle( agreeWithWinName );
+        setupMarketingOther( marketingInfo );
 
 		ew.application.components.stopConfirmationFormSubmit = new ew.components.DisableMultiSubmit( formId );
 	}
