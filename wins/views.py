@@ -72,13 +72,16 @@ class MyWinsView(LoginRequiredMixin, TemplateView):
             key=lambda w: w['company_name'],
         )
 
+        # skip ones that weren't yet sent as well as not responded yet
+        # better to show not sent wins as a seperate table in UI
         sent = [
             w for w in wins
-            if w['complete'] and w not in context['responded']
+            if w['complete'] and w['sent'] and w not in context['responded']
         ]
+
         context['sent'] = sorted(
             sent,
-            key=lambda w: w['sent'][0] if len(w['sent']) else 0,
+            key=lambda w: w['sent'][0],
             reverse=True,
         )
 
