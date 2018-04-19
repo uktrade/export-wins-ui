@@ -4,7 +4,33 @@ The UI component for the export-wins application
 
 # Setup
 
-You need to have two ENV vars set UI_SECRET and DATA_SERVER.
+## Python
+
+* Install Python3 if you don't have it already
+* Create a virtual env for the project:
+```bash
+python3 -m venv /path/to/virtal-envs/export-wins-ui
+```
+
+* Then activate the virtual env:
+```bash
+source /path/to/virtal-envs/export-wins-ui/bin/activate
+```
+
+To make life easier setup an shell extension to read a .env or .envrc file and setup env vars for you, like [direnv](https://direnv.net/), then ensure you have the correct env variables set.
+
+Look at the [.env template file](.env.template) to set some variables that are required to start
+
+* Install the dependencies:
+
+To run the app you need to install the python requirements:
+
+```bash
+pip install -r requirements.txt
+```
+
+## Environment
+You need to have two ENV vars set: UI_SECRET and DATA_SERVER.
 
 * UI_SECRET is the secret created by the data server
 * DATA_SERVER is the URL to the data server i.e. http://127.0.0.1:8000
@@ -37,7 +63,7 @@ To run the build:
 npm run build
 ```
 
-There is also a watch task to run the build automatically:
+To help when developing the assets, there is also a watch task to run the build automatically when the files change:
 
 ```bash
 npm run watch
@@ -51,25 +77,14 @@ This also includes the JavaScript: all the available files are included in the G
 
 # Run
 
-You will need a python virtual env for this project, as ask a python dev if unsure how to do this.
-
-To run the app you need to install the python requirements:
-
-```bash
-pip install -r requirements.txt
-```
-
-and then run:
-
-```bash
-python manage.py runserver
-```
-
-This will likely get a conflict of port number from the data server (which should already be running), so you can specify a port:
+Before starting the app you need to have the [data server](https://github.com/uktrade/export-wins-data) running, and then run:
 
 ```bash
 python manage.py runserver 127.0.0.1:8001
 ```
+
+This specifies the port number becuase you would get a conflict from the data server (which should already be running on the default port of 8000).
+
 
 
 # IE 7
