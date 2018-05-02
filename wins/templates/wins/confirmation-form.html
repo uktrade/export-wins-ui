@@ -159,6 +159,12 @@
 
 			{% include "wins/partials/confirmation-buttons-right.html" with field=form.case_study_willing %}
 
+			{% include "wins/partials/confirmation-radio.html" with field=form.marketing_source %}
+
+			<div class="confirmation-other-marketing">
+				{{ form.other_marketing_source }}
+			</div>
+
 			{% include "wins/partials/confirmation-field.html" with field=form.comments help="Your comments may be shared with the individuals and teams who have supported you."%}
 
 			{{ form.win }}
@@ -177,6 +183,10 @@
 
 {% block js_footer %}
 	<script>
-		ew.pages.confirmationForm( 'confirmation-form', '{{ form.agree_with_win.name }}' );
+		ew.pages.confirmationForm( 'confirmation-form', '{{ form.agree_with_win.name }}', {
+			inputName: '{{ form.marketing_source.name }}',
+			otherWrapper: 'confirmation-other-marketing',
+			otherInputName: '{{ form.other_marketing_source.name }}'
+		} );
 	</script>
 {% endblock js_footer %}

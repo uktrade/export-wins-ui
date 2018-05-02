@@ -7,9 +7,9 @@ module.exports = function( grunt ){
 	grunt.initConfig({
 
 		files: {
-			
-			css: 'main_2017-03-31.css',
-			js: 'main_2017-03-10.min.js',
+
+			css: 'main_2018-04-29.css',
+			js: 'main_2018-04-29.min.js',
 
 			bootstrap: {
 				css: 'bootstrap_2016-08-31.css',

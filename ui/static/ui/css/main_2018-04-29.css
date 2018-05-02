@@ -108,6 +108,8 @@
   .confirmation-form .form-group .btn-group { float: none !important; width: 100%; }
   .confirmation-form .radio label, .confirmation-form .checkbox label { width: 100%; } }
 
+.confirmation-form .confirmation-other-marketing { width: 80%; margin-left: 10%; }
+
 .my-wins .header-count { font-size: 0.8em; font-weight: normal; }
 
 .my-wins .badge { background-color: #4814a0; margin-bottom: 0.25em; }
@@ -316,4 +318,4 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-app
   .btn-responsive, .end-buttons .btn, body .end-buttons .btn { width: 100%; margin-bottom: 1em; margin-left: 0 !important; margin-right: 0 !important; }
   .non-export-heading { margin-top: 2em; } }
 
-/*# sourceMappingURL=main_2017-03-31.css.map */
+/*# sourceMappingURL=main_2018-04-29.css.map */
