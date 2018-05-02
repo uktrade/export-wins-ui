@@ -1,0 +1,7 @@
+{% comment %}
+For fields that have been removed in the current version of the export win form,
+we still want to show their value iff they've been set in the past.
+{% endcomment %}
+{% if val %}
+	{% include "wins/partials/win-details-element.html" %}
+{% endif %}
