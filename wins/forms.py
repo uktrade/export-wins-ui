@@ -342,10 +342,11 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
                        total"""
                 )
 
-        # if (cleaned.get('team_type') == 'itt' and not
-        #         cleaned.get('export_experience')):
-        #     msg = 'You must choose an Export experience other than "unknown"'
-        #     self._errors['export_experience'] = self.error_class([msg])
+            # check if there is one associated programme
+            has_value = any(y for x, y in cleaned.items() if x.startswith('associated_programme'))
+            if not has_value:
+                msg = "At least one associated programme must be specified."
+                self._errors['associated_programme_1'] = self.error_class([msg])
 
         return cleaned
 

@@ -261,6 +261,8 @@
 			{% include "wins/partials/win-field.html" with field=form.associated_programme_1 class="restrict-width programme-group" %}
 			{% include "wins/partials/win-field.html" with field=form.associated_programme_2 class="restrict-width programme-group" %}
 			{% include "wins/partials/win-field.html" with field=form.associated_programme_3 class="restrict-width programme-group" %}
+			{% include "wins/partials/win-field.html" with field=form.associated_programme_4 class="restrict-width programme-group" %}
+			{% include "wins/partials/win-field.html" with field=form.associated_programme_5 class="restrict-width programme-group" %}
 		</div>
 
 		{# these manually place the label before the field #}
@@ -310,10 +312,11 @@
 				labelText: 'What type of support was given?'
 			},
 			programmeGroup: {
+				required: true,
 				selector: '.programme-group select',
 				buttonText: 'Add an associated programme',
-				labelText: 'Was there an associated programme?',
-				minVisible: 0
+				labelText: 'Choose an associated programme.',
+				minVisible: 1
 			},
 			exportType: {
 				exportValue: '{{ form.type_export.auto_id }}',
