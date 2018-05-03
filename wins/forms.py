@@ -561,6 +561,11 @@ class ConfirmationForm(BootstrappedForm, metaclass=ConfirmationFormMetaclass):
 
         self.fields["win"].widget = forms.widgets.HiddenInput()
 
+        # note: fields which are choices with blank=True get an empty field
+        for name, field in self.fields.items():
+            if name == 'marketing_source':
+                field.choices = field.choices[1:]
+
     def send_notifications(self, win_id):
         pass
 
