@@ -288,10 +288,10 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
             team_field_name = 'advisor_{}_hq_team'.format(i)
             msg = """Please choose a team type and a specific team for all
                      named contributing officers"""
-            if not self.cleaned_data[team_type_field_name]:
+            if not self.cleaned_data.get(team_type_field_name):
                 # attach message to hq team for template simplicity
                 self._errors[team_field_name] = self.error_class([msg])
-            if not self.cleaned_data[team_field_name]:
+            if not self.cleaned_data.get(team_field_name):
                 self._errors[team_field_name] = self.error_class([msg])
 
         # Breakdowns and totals are not editable once a win is marked complete
