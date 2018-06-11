@@ -1,5 +1,5 @@
 PyJWT==1.6.4
-Django==1.11.11
+Django==1.11.13
 python-dateutil==2.5.3
 requests==2.10.0
 django-filter==0.13.0
