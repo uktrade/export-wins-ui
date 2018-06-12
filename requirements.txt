@@ -1,11 +1,10 @@
 PyJWT==1.6.4
 Django==1.11.13
-python-dateutil==2.5.3
+python-dateutil==2.7.3
 requests==2.18.4
-django-filter==0.13.0
-django_extensions==1.6.7
-gunicorn==19.5.0
-whitenoise==3.1
+django_extensions==2.0.7
+gunicorn==19.8.1
+whitenoise==3.3.1
 raven==6.9.0
 defusedcsv==1.0.1
-boto3==1.4.7
+boto3==1.7.35
