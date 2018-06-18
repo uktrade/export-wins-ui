@@ -154,13 +154,18 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
             'goods_vs_services'
         ]
 
+        no_default_option = [
+            'business_potential',
+            'export_experience',
+        ]
+
         # add the default for drop-downs: "Please choose..."
         # note: fields which are choices with blank=True get an empty field
         # inserted at the beginning, so replace this with "Please choose..."
         default_choice = [('', 'Please choose...')]
         for name, field in self.fields.items():
             if type(field) == forms.ChoiceField and name not in not_dropdowns:
-                if name == 'export_experience':
+                if name in no_default_option:
                     # remove the null option
                     field.choices = field.choices[1:]
                 else:
