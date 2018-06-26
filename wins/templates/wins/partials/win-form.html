@@ -89,6 +89,7 @@
 		{% include "wins/partials/win-field.html" with field=form.customer_email_address class="restrict-width-sm" help="We will send the customer form to this address to enable them to confirm the win details." %}
 		{% include "wins/partials/win-field.html" with field=form.customer_job_title class="restrict-width-sm" %}
 		{% include "wins/partials/win-field.html" with field=form.customer_location class="restrict-width-sm" %}
+		{% include "wins/partials/form-radio.html" with field=form.business_potential class="restrict-width-sm" help="For ITA and UK region use only." %}
 		{% if win.complete %}
 
 			{% if win.export_experience_display %}
