@@ -3,7 +3,7 @@ Django==1.11.15
 python-dateutil==2.7.3
 requests==2.19.1
 django_extensions==2.1.0
-gunicorn==19.8.1
+gunicorn==19.9.0
 whitenoise==3.3.1
 raven==6.9.0
 defusedcsv==1.0.1
