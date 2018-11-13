@@ -4,7 +4,7 @@ python-dateutil==2.7.3
 requests==2.19.1
 django_extensions==2.1.0
 gunicorn==19.8.1
-whitenoise==3.3.1
+whitenoise==4.1.1
 raven==6.9.0
 defusedcsv==1.0.1
 boto3==1.7.70
