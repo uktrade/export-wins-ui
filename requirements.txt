@@ -7,4 +7,4 @@ gunicorn==19.8.1
 whitenoise==3.3.1
 raven==6.9.0
 defusedcsv==1.0.1
-boto3==1.7.70
+boto3==1.9.77
