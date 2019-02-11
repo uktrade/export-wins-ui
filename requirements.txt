@@ -1,5 +1,5 @@
 PyJWT==1.6.4
-Django==1.11.18
+Django==2.1.7
 python-dateutil==2.7.3
 requests==2.21.0
 django_extensions==2.1.0
