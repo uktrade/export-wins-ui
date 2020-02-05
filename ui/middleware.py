@@ -1,11 +1,11 @@
 import sys
-
 from urllib.parse import urlsplit, urlunsplit
 
 from django.http import HttpResponseRedirect
+from django.utils.deprecation import MiddlewareMixin
 
 
-class SSLRedirectMiddleware:
+class SSLRedirectMiddleware(MiddlewareMixin):
 
     def process_request(self, request):
         if not request.is_secure():
