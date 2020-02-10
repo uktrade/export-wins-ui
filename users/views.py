@@ -1,13 +1,11 @@
-import jwt
-
 from datetime import datetime
 
+import jwt
 from django.conf import settings
 from django.utils.http import is_safe_url
 from django.views.generic import FormView, RedirectView
 
 from alice.helpers import rabbit
-
 from .forms import LoginForm
 
 
@@ -43,7 +41,8 @@ class LoginView(FormView):
                 "session": form.session_cookie.value
             },
             settings.COOKIE_SECRET,
-        )
+            'HS256'
+        ).decode('utf-8')
         expires = datetime.fromtimestamp(form.session_cookie.expires)\
                           .strftime('%a, %d %b %Y %H:%M:%S')
         kwargs = {
@@ -60,7 +59,7 @@ class LoginView(FormView):
     def get_success_url(self):
         redirect_to = self.request.GET.get("next")
         if redirect_to:
-            if is_safe_url(url=redirect_to, host=self.request.get_host()):
+            if is_safe_url(url=redirect_to, allowed_hosts=self.request.get_host()):
                 return redirect_to
         return "/"
 

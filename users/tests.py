@@ -1,7 +1,7 @@
-from unittest.mock import patch, Mock
+from unittest.mock import Mock, patch
 
 from django.test import Client, TestCase
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 
 class LoginTest(TestCase):
