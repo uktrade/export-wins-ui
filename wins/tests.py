@@ -1,8 +1,8 @@
 import datetime
 from unittest.mock import MagicMock, Mock, patch
 
-from django.core.urlresolvers import reverse
 from django.test import TestCase
+from django.urls import reverse
 from django.utils import timezone
 
 

@@ -1,14 +1,12 @@
-from operator import itemgetter
 import re
-
 from datetime import datetime
-from dateutil.relativedelta import relativedelta
+from operator import itemgetter
 
+from dateutil.relativedelta import relativedelta
 from django import forms
 from django.conf import settings
-from django.core.urlresolvers import reverse
 
-from alice.helpers import rabbit, get_form_field
+from alice.helpers import get_form_field, rabbit
 from alice.metaclasses import ReflectiveFormMetaclass
 from ui.forms import BootstrappedForm
 

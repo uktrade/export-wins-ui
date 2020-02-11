@@ -1,17 +1,17 @@
 import os
+
 from dateutil.parser import parse as date_parser
 from dateutil.relativedelta import relativedelta
-
 from django.conf import settings
-from django.core.urlresolvers import reverse
 from django.http import Http404
 from django.shortcuts import redirect
+from django.urls import reverse
 from django.utils import timezone
 from django.views.generic import FormView, TemplateView
 
-from .forms import WinForm, ConfirmationForm
 from alice.braces import LoginRequiredMixin
 from alice.helpers import rabbit
+from .forms import ConfirmationForm, WinForm
 
 
 class WinTemplateView(TemplateView):
