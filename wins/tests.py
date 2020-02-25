@@ -1,10 +1,13 @@
 import datetime
+from unittest import mock
 
 import responses
 from django.conf import settings
 from django.test import Client, TestCase
 from django.urls import reverse
 from django.utils import timezone
+
+mock.patch('alice.metaclasses.rabbit', spec=True).start()
 
 
 class ConfirmationFormTest(TestCase):
