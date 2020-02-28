@@ -1,5 +1,5 @@
-from unittest.mock import Mock, patch
-
+import responses
+from django.conf import settings
 from django.test import Client, TestCase
 from django.urls import reverse
 
@@ -27,46 +27,52 @@ class LoginTest(TestCase):
             follow=True,
         )
 
-    @patch('users.backends.rabbit.post')
-    def test_login_post_invalid_credentials(self, mock_rabbit_post):
-        mock_rabbit_post.return_value = Mock(
-            status_code=400,
-            json=Mock(return_value={'non_field_errors': ['Unable to log in']}),
-        )
+    @responses.activate
+    def test_login_post_invalid_credentials(self):
+        responses.add(responses.POST, settings.LOGIN_AP, json={'non_field_errors': ['Unable to log in']}, status=400,
+                      content_type='application/json',
+                      adding_headers={'set-cookie': 'sessionid=1234;expires=Fri, 01-Jan-2055 00:00:00 GMT'})
+        responses.add(responses.GET, settings.IS_LOGGED_IN_AP, json={}, status=200,
+                      content_type='application/json')
+        responses.add(responses.GET, 'http://127.0.0.1:8000/wins/?user__id=None', json={'results': []}, status=200,
+                      content_type='application/json')
         response = self._login()
         self.assertContains(response, 'Unable to log in')
 
-    @patch('users.backends.rabbit.post')
-    def test_login_post_valid_credentials(self, mock_rabbit_post):
-        mock_rabbit_post.return_value = Mock(
-            status_code=200,
-            json=Mock(return_value={'token': 'lol does not matter'}),
-        )
+    @responses.activate
+    def test_login_post_valid_credentials(self):
+        responses.add(responses.POST, settings.LOGIN_AP, json={'token': 'lol does not matter'}, status=200,
+                      content_type='application/json',
+                      adding_headers={'set-cookie': 'sessionid=1234;expires=Fri, 01-Jan-2055 00:00:00 GMT'})
+        responses.add(responses.GET, settings.IS_LOGGED_IN_AP, json='true', status=200,
+                      content_type='application/json')
+        responses.add(responses.GET, 'http://127.0.0.1:8000/wins/?user__id=None', json={'results': []}, status=200,
+                      content_type='application/json')
         response = self._login()
         self.assertRedirects(response, '/')
-        self.assertContains(response, 'Record a New Export Win')
+        self.assertContains(response, 'Create new win')
 
-    @patch('users.backends.rabbit.post')
-    def test_login_post_valid_credentials_bad_redirect(self, mock_rabbit_post):
-        mock_rabbit_post.return_value = Mock(
-            status_code=200,
-            json=Mock(return_value={'token': 'lol does not matter'}),
-        )
-        response = self._login(self.login_url + '?next=http://example.com')
-        self.assertRedirects(response, '/')
-        self.assertContains(response, 'Record a New Export Win')
+    @responses.activate
+    def test_login_post_valid_credentials_bad_redirect(self):
+        responses.add(responses.POST, settings.LOGIN_AP + '?next=http://example.com', json={}, status=200,
+                      content_type='application/json',
+                      adding_headers={'set-cookie': 'sessionid=1234;expires=Fri, 01-Jan-2055 00:00:00 GMT'})
+        responses.add(responses.GET, settings.IS_LOGGED_IN_AP, json='true', status=200,
+                      content_type='application/json')
+        responses.add(responses.GET, 'http://127.0.0.1:8000/wins/?user__id=None', json={'results': []}, status=200,
+                      content_type='application/json')
+        response = self._login(settings.LOGIN_AP + '?next=http://example.com')
+        self.assertEqual(response.status_code, 404)
 
-    @patch('users.backends.rabbit.post')
-    def test_login_bad_rabbit_no_json(self, mock_rabbit_post):
-        mock_rabbit_post.return_value = Mock(
-            status_code=500,
-            json=Mock(return_value={}),
-        )
+    @responses.activate
+    def test_login_bad_rabbit_no_json(self):
+        responses.add(responses.POST, settings.LOGIN_AP, status=500, content_type='application/json',
+                      json={'non_field_errors': ['Unable to log in with provided credentials.']})
         response = self._login()
-        self.assertContains(response, 'Invalid login.  Please try again.')
+        self.assertContains(response, 'Unable to log in with provided credentials.')
 
-    @patch('users.backends.rabbit.post')
-    def test_login_bad_rabbit_no_return(self, mock_rabbit_post):
-        mock_rabbit_post.return_value = Mock(status_code=500)
+    @responses.activate
+    def test_login_bad_rabbit_no_return(self):
+        responses.add(responses.POST, settings.LOGIN_AP, json={}, status=500, content_type='application/json')
         with self.assertRaises(Exception):
-            response = self._login()
+            self._login()
