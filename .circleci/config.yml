@@ -1,0 +1,52 @@
+version: 2
+jobs:
+    build:
+        docker:
+            -   image: python:3.6.9
+
+        environment:
+            SECRET_KEY: 'ui-secret-1'
+            COOKIE_SECRET: 'ui-secret-2'
+            ADMIN_SECRET: 'data-secret-2'
+            UI_SECRET: $ADMIN_SECRET
+            DATA_SERVER: http://127.0.0.1:8000
+            DEBUG: True
+            CSV_UPLOAD_AWS_ACCESS_KEY_ID: 'aws-write-key-id'
+            CSV_UPLOAD_AWS_SECRET_ACCESS_KEY: 'aws-write-secret'
+            CSV_UPLOAD_AWS_BUCKET: 'aws-bucket'
+            CSV_AWS_REGION: 'aws-region'
+            ALLOWED_YEARS: 2016 2017
+            DJANGO_SETTINGS_MODULE: ui.settings
+            SESSION_COOKIE_SECURE: False
+
+        working_directory: ~/app
+
+        steps:
+            - checkout
+
+            -   restore_cache:
+                    name: Restore pip cache
+                    keys:
+                        - v1-export-wins-data-{{ checksum "requirements.txt" }}
+                    paths:
+                        - ~/cache/pip
+
+            -   run:
+                    name: Install dependencies
+                    command: python -m pip install --cache-dir ~/cache/pip --progress-bar off -r requirements.txt
+
+            -   save_cache:
+                    name: Save pip cache
+                    key: v1-export-wins-data-{{ checksum "requirements.txt" }}
+                    paths:
+                        - ~/cache/pip
+
+            -   run:
+                    name: Run tests
+                    command: python manage.py test
+
+workflows:
+    version: 2
+    build:
+        jobs:
+            - build
