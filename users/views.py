@@ -1,20 +1,40 @@
+import logging
 from datetime import datetime
 
 import jwt
 from django.conf import settings
 from django.utils.http import is_safe_url
 from django.views.generic import FormView, RedirectView
+from django.http import HttpResponseBadRequest, HttpResponseRedirect, HttpResponse
+
 
 from alice.helpers import rabbit
 from .forms import LoginForm
+
+logger = logging.getLogger(__name__)
 
 
 def cookie_domain():
     # in production, we want to share cookies across exportwins subdomains
     if not settings.DEBUG and not settings.STAGING:
-        return '.exportwins.service.trade.gov.uk'
+        return ".exportwins.service.trade.gov.uk"
     # otherwise None just uses whatever domain the page is loaded from
     return None
+
+
+def oauth_callback_view(request):
+    code = request.GET.get("code")
+    state = request.GET.get("state")
+
+    logger.debug(f"code {code} state {state}")
+
+    response = rabbit.post(
+        settings.OAUTH_CALLBACK_URL, data={"code": code, "state": state}
+    )
+
+    # logger.debug(response.status_code)
+    # TODO - actually redirect the user and grab their login details ...
+    return HttpResponse("Ok")
 
 
 class LoginView(FormView):
@@ -36,21 +56,19 @@ class LoginView(FormView):
         # server, for use when making requests to data server via Rabbit.
         # Note UI server and admin server have different secrets and domains.
         jwt_val = jwt.encode(
-            {
-                "user": form.user,
-                "session": form.session_cookie.value
-            },
+            {"user": form.user, "session": form.session_cookie.value},
             settings.COOKIE_SECRET,
-            'HS256'
-        ).decode('utf-8')
-        expires = datetime.fromtimestamp(form.session_cookie.expires)\
-                          .strftime('%a, %d %b %Y %H:%M:%S')
+            "HS256",
+        ).decode("utf-8")
+        expires = datetime.fromtimestamp(form.session_cookie.expires).strftime(
+            "%a, %d %b %Y %H:%M:%S"
+        )
         kwargs = {
-            'value': jwt_val,
-            'expires': expires,
-            'secure': settings.SESSION_COOKIE_SECURE,
-            'httponly': True,
-            'domain': cookie_domain(),
+            "value": jwt_val,
+            "expires": expires,
+            "secure": settings.SESSION_COOKIE_SECURE,
+            "httponly": True,
+            "domain": cookie_domain(),
         }
 
         response.set_cookie("alice", **kwargs)
