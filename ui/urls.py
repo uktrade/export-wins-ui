@@ -7,7 +7,7 @@ from ui.views import (
     AdminView, AddUserView, ChangeCustomerEmailView, CSVView,
     NewPassView, SendAdminCustomerEmailView, SendCustomerEmailView,
     SoftDeleteWinView, ExportWinsCSVView, AdminUploadCSVView)
-from users.views import LoginView, LogoutView
+from users.views import LoginView, LogoutView, oauth_callback_view
 from wins.views import (
     ConfirmationView, EditWinView, LockedWinTemplateView, MyWinsView,
     NewWinView, NewWinYearView, WinCompleteView, WinTemplateView, WinView
@@ -93,6 +93,8 @@ urlpatterns = [
         name="response_sample"
     ),
 
+    url(r"^accounts/callback/$", oauth_callback_view, name="oauth_callback_view"),
+
     url(
         r"^accounts/login/$",
         LoginView.as_view(),
@@ -103,6 +105,8 @@ urlpatterns = [
         LogoutView.as_view(),
         name="logout",
     ),
+
+
 
     url(r"^admin$", AdminView.as_view(), name="admin-index"),
     url(r"^add-user$", AddUserView.as_view(), name="add-user"),
