@@ -29,7 +29,7 @@
           <div class="hidden-print text-right">
             <a href="mailto:{{ FEEDBACK_EMAIL }}?subject=Export%20Wins%20Feedback" class="feedback-link">Feedback</a>
             {% if user.is_authenticated %}
-              <a href="{% url 'logout' %}" class="btn btn-danger btn-sm">Logout</a>
+              <a href="{% url 'logout' %}" class="btn btn-danger btn-sm">Logout {{ user.email }}</a>
             {% endif %}
           </div>
         </div>
