@@ -3,13 +3,14 @@ from datetime import datetime
 
 import jwt
 from django.conf import settings
+from django.shortcuts import render
 from django.utils.http import is_safe_url
+from django.urls import reverse
 from django.views.generic import FormView, RedirectView
-from django.http import HttpResponseBadRequest, HttpResponseRedirect, HttpResponse
-
+from django.http import HttpResponse, HttpResponseRedirect
 
 from alice.helpers import rabbit
-from .forms import LoginForm
+from .forms import LoginForm, get_dataserver_session_cookie
 
 logger = logging.getLogger(__name__)
 
@@ -26,15 +27,68 @@ def oauth_callback_view(request):
     code = request.GET.get("code")
     state = request.GET.get("state")
 
+    redirect_uri = request.build_absolute_uri(reverse("oauth_callback_view"))
+
     logger.debug(f"code {code} state {state}")
 
-    response = rabbit.post(
-        settings.OAUTH_CALLBACK_URL, data={"code": code, "state": state}
+    oauth_response = rabbit.post(
+        settings.OAUTH_CALLBACK_URL,
+        data={"code": code, "state": state, "redirect_uri": redirect_uri},
     )
 
-    # logger.debug(response.status_code)
-    # TODO - actually redirect the user and grab their login details ...
-    return HttpResponse("Ok")
+    js = oauth_response.json()
+
+    logger.debug(f"status_code: {oauth_response.status_code}")
+
+    session_cookie = get_dataserver_session_cookie(oauth_response.cookies)
+
+    next_url = js['next']
+    user = js['user']
+
+    logger.debug(user["email"])
+
+    logger.debug(f"redirect to {next_url} for user {user['email']} and session {session_cookie.value}")
+    #
+    jwt_val = jwt.encode({
+        "user": user,
+        "session": session_cookie.value
+    },
+        settings.COOKIE_SECRET,
+        "HS256",
+    ).decode("utf-8")
+
+    logger.debug(jwt_val)
+
+    expires = datetime.fromtimestamp(session_cookie.expires).strftime(
+        "%a, %d %b %Y %H:%M:%S"
+    )
+    kwargs = {
+        "value": jwt_val,
+        "expires": expires,
+        "secure": settings.SESSION_COOKIE_SECURE,
+        "httponly": True,
+        "domain": cookie_domain(),
+    }
+
+    response = HttpResponseRedirect(next_url)
+    response.set_cookie("alice", **kwargs)
+
+    return response
+
+
+def oauth_logout_view(request):
+    logger.info("attempting oauth logout")
+    rabbit.get(settings.LOGOUT_AP, request=request)  # Data server log out
+
+    response = HttpResponseRedirect(reverse("logged_out"))
+    response.delete_cookie("alice", domain=cookie_domain())
+
+    return response
+
+
+def oauth_logged_out_view(request):
+    logger.info("logged out")
+    return render(request, "users/logged_out.html", {})
 
 
 class LoginView(FormView):
@@ -55,6 +109,7 @@ class LoginView(FormView):
         # API into JWT cookie. Also save session id of session from data
         # server, for use when making requests to data server via Rabbit.
         # Note UI server and admin server have different secrets and domains.
+        logger.debug(form.user)
         jwt_val = jwt.encode(
             {"user": form.user, "session": form.session_cookie.value},
             settings.COOKIE_SECRET,
@@ -83,7 +138,6 @@ class LoginView(FormView):
 
 
 class LogoutView(RedirectView):
-
     url = "/"
 
     def get(self, request, *args, **kwargs):

@@ -1,12 +1,14 @@
+import logging
 from django import forms
 from django.conf import settings
 
 from ui.forms import BootstrappedForm
 from alice.helpers import rabbit
 
+logger = logging.getLogger(__name__)
+
 
 class LoginForm(BootstrappedForm):
-
     email = forms.EmailField()
     password = forms.CharField(widget=forms.widgets.PasswordInput)
 
@@ -36,6 +38,7 @@ class LoginForm(BootstrappedForm):
 
     def _login(self):
 
+        logger.debug(f"authenticating via {settings.LOGIN_AP}")
         response = rabbit.post(settings.LOGIN_AP, data={
             "username": self.cleaned_data["email"],
             "password": self.cleaned_data["password"]
@@ -54,12 +57,13 @@ class LoginForm(BootstrappedForm):
         # save user data from data server API, and session cookie created by
         # data server onto self for use in login view
         self.user = response.json()
-        self.session_cookie = self._get_cookie(response.cookies)
+        self.session_cookie = get_dataserver_session_cookie(response.cookies)
 
-    def _get_cookie(self, cookies):
-        """ Get the session cookie from the data server """
 
-        for cookie in cookies:
-            if cookie.name == "sessionid":
-                return cookie
-        raise Exception("The data server didn't return a session cookie")
+def get_dataserver_session_cookie(cookies):
+    """ Get the session cookie from the data server """
+
+    for cookie in cookies:
+        if cookie.name == "sessionid":
+            return cookie
+    raise Exception("The data server didn't return a session cookie")
