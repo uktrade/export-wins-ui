@@ -6,8 +6,10 @@
 {% block breadcrumb %}{% endblock %}
 
 {% block title %} - Logout{% endblock %}
-{% block header %}Logout{% endblock %}
+{% block header %}You've been logged out!{% endblock %}
 
 {% block content %}
-
+<p>
+	This website uses DIT Staff SSO. To log in again visit the <a href="{% url 'index' %}">home page</a>
+</p>
 {% endblock %}
