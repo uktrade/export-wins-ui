@@ -7,7 +7,8 @@
     "build": "grunt build",
     "watch": "grunt build; grunt watch",
     "sass": "grunt sass:main",
-    "sass:bootstrap": "grunt sass:bootstrap"
+    "sass:bootstrap": "grunt sass:bootstrap",
+    "postinstall": "grunt build"
   },
   "repository": {
     "type": "git",
