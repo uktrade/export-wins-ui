@@ -64,9 +64,7 @@ module.exports = function( grunt ){
 
 		uglify: {
 			options: {
-				compress: {
-					warnings: false
-				},
+                warnings: false,
 				mangle: true,
 				preserveComments: /^!|@preserve|@license|@cc_on/i,
 				sourceMap: true
