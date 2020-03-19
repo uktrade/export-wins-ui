@@ -37,11 +37,9 @@ def oauth_callback_view(request):
     )
 
     js = oauth_response.json()
-
     logger.debug(f"status_code: {oauth_response.status_code}")
 
     session_cookie = get_dataserver_session_cookie(oauth_response.cookies)
-
     next_url = js['next']
     user = js['user']
 
@@ -80,7 +78,10 @@ def oauth_logout_view(request):
     logger.info("attempting oauth logout")
     rabbit.get(settings.LOGOUT_AP, request=request)  # Data server log out
 
+    # client redirect to the logged out view means the browser will
+    # delete the cookie
     response = HttpResponseRedirect(reverse("logged_out"))
+    # remove the alice cookie - so the user is logged out
     response.delete_cookie("alice", domain=cookie_domain())
 
     return response
@@ -96,6 +97,8 @@ class LoginView(FormView):
 
     When user put their details into the form, the form passes them to the data
     server, which creates and manages a session for the user.
+
+    THIS IS LEFT IN THE CODE TO HANDLE MIGRATION FROM USERNAME/PASSWORD TO SSO
 
     """
 
