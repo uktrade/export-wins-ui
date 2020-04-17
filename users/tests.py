@@ -41,8 +41,10 @@ class LoginTest(TestCase):
 
     @responses.activate
     def test_login_post_valid_credentials(self):
-        responses.add(responses.POST, settings.LOGIN_AP, json={'token': 'apparently it does matter'}, status=200,
+        responses.add(responses.POST, settings.LOGIN_AP,
                       content_type='application/json',
+                      json={'token': 'apparently it does matter'},
+                      status=200,
                       adding_headers={'set-cookie': 'sessionid=1234;expires=Fri, 01-Jan-2055 00:00:00 GMT'})
         responses.add(responses.GET, settings.IS_LOGGED_IN_AP, json='true', status=200,
                       content_type='application/json')
