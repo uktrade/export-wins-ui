@@ -13,7 +13,8 @@ mock.patch('alice.metaclasses.rabbit', spec=True).start()
 class ConfirmationFormTest(TestCase):
     def setUp(self):
         self.client = Client()
-        self.login_url = reverse('login')
+        # sorry - this is throwback to when we had username password logins
+        self.login_url = '/login'
 
     def _login(self):
         responses.add(responses.POST, settings.LOGIN_AP, json={'token': 'lol does not matter'}, status=200,
