@@ -6,7 +6,7 @@ from django.http import HttpResponseRedirect, QueryDict
 from django.urls import reverse
 from django.utils.encoding import filepath_to_uri
 
-from alice.helpers import rabbit
+from alice.helpers import rabbit, RabbitException
 
 logger = logging.getLogger(__name__)
 
@@ -44,14 +44,18 @@ def get_oauth_url(request, next):
 
 class LoginRequiredMixin(object):
     def dispatch(self, request, *args, **kwargs):
-
         logger.debug(f"using alice_id {request.alice_id}")
 
         logger.debug(f"testing whether user is logged in at {settings.IS_LOGGED_IN_AP}")
-        response = rabbit.get(settings.IS_LOGGED_IN_AP, request=request)
-        logger.debug(f"{settings.IS_LOGGED_IN_AP} retured {response.status_code}")
 
-        is_logged_in = response.json()
+        try:
+            response = rabbit.get(settings.IS_LOGGED_IN_AP, request=request)
+            is_logged_in = response.json()
+        except RabbitException as e:
+            # this happens when data service returns 403 Forbidden for a check to is_logged_in
+            # not sure why this happens or even how to reproduce it
+            is_logged_in = False # the visitor will be redirected to oauth
+            logger.debug(f"{settings.IS_LOGGED_IN_AP} returned {response.status_code}")
 
         if is_logged_in and request.alice_id:
             logger.debug(f"user is logged in and alice_id is found")
