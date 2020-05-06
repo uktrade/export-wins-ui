@@ -55,7 +55,6 @@ class LoginRequiredMixin(object):
             # this happens when data service returns 403 Forbidden for a check to is_logged_in
             # not sure why this happens or even how to reproduce it
             is_logged_in = False # the visitor will be redirected to oauth
-            logger.debug(f"{settings.IS_LOGGED_IN_AP} returned {response.status_code}")
 
         if is_logged_in and request.alice_id:
             logger.debug(f"user is logged in and alice_id is found")
