@@ -12,3 +12,11 @@ class SSLRedirectMiddleware(MiddlewareMixin):
             if "runserver" not in sys.argv and "test" not in sys.argv:
                 return HttpResponseRedirect(urlunsplit(
                     ["https"] + list(urlsplit(request.get_raw_uri())[1:])))
+
+
+class CacheControlMiddleware(MiddlewareMixin):
+
+    def process_response(self, request, response):
+        response['Pragma'] = 'no-cache'
+        response['Cache-Control'] = 'max-age=0, no-cache, no-store, must-revalidate, private'
+        return response
