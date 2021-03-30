@@ -1,11 +1,10 @@
 import datetime
-from unittest import mock
-
 import responses
 from django.conf import settings
 from django.test import Client, TestCase
 from django.urls import reverse
 from django.utils import timezone
+from unittest import mock
 
 mock.patch('alice.metaclasses.rabbit', spec=True).start()
 
@@ -52,9 +51,12 @@ class ConfirmationFormTest(TestCase):
     @responses.activate
     def test_fails_with_old_win(self):
         self._add_common_resp()
-        responses.add(responses.GET, 'http://127.0.0.1:8000/limited-wins/123456789012345678901234567890123456/',
-                      json={'created': str(timezone.now() - datetime.timedelta(weeks=53))},
-                      status=200, content_type='application/json')
+        responses.add(
+            responses.GET,
+            'http://127.0.0.1:8000/limited-wins/123456789012345678901234567890123456/',
+            json={'created': str(timezone.now() - datetime.timedelta(days=settings.REVIEW_WINDOW_DAYS + 2))},
+            status=200, content_type='application/json'
+        )
         self._login()
         resp = self.client.get(reverse('responses', kwargs={'win_id': '123456789012345678901234567890123456'}))
         self.assertNotContains(resp, 'Please review this information')

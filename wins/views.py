@@ -323,7 +323,6 @@ class ConfirmationView(FormView):
 
     # limit the number of days form may be accessed after win submission for
     # security purposes
-    ACCEPTANCE_WINDOW = 365
 
     sample = False  # is this a sample win, which will not be saved?
 
@@ -396,9 +395,9 @@ class ConfirmationView(FormView):
 
         win_dict = win_resp.json()
 
-        # is it within security window?
+        # is it within security acceptance window?
         created = date_parser(win_dict["created"])
-        window_extent = created + relativedelta(days=self.ACCEPTANCE_WINDOW)
+        window_extent = created + relativedelta(days=settings.REVIEW_WINDOW_DAYS)
         now = timezone.now()
         if now > window_extent:
             raise self.SecurityException(

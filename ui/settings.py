@@ -206,6 +206,7 @@ ANALYTICS_ID = os.getenv("ANALYTICS_ID")
 
 # how long you can edit a win
 EDIT_TIMEOUT_DAYS = int(os.getenv('EDIT_TIMEOUT_DAYS', 120))
+REVIEW_WINDOW_DAYS = int(os.getenv('REVIEW_WINDOW_DAYS', 365 + 31))
 
 
 # Sentry
