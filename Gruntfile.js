@@ -1,5 +1,5 @@
 var loadGruntTasks = require( 'load-grunt-tasks' );
-var sass = require('node-sass');
+var sass = require('sass');
 
 module.exports = function( grunt ){
 
@@ -83,7 +83,7 @@ module.exports = function( grunt ){
 			options: {
                 implementation: sass,
 				sourceMap: true,
-				outputStyle: 'compact',
+				style: 'compact',
 				includePaths: [ '<%= src.bootstrap %>/stylesheets' ]
 			},
 			bootstrap: {
