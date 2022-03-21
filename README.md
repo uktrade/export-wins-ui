@@ -1,8 +1,12 @@
 # export-wins-ui
 
-The UI component for the export-wins application
+The UI component for the export-wins application.
+
+Requires the [Export wins data](https://github.com/uktrade/export-wins-data) application to be running first.
 
 # Setup
+
+After activating a python virtual environment using the instructions below, you can follow the commands in the [Makefile](Makefile) to most easily run the app.
 
 ## Python
 
@@ -17,10 +21,6 @@ python3 -m venv /path/to/virtal-envs/export-wins-ui
 source /path/to/virtal-envs/export-wins-ui/bin/activate
 ```
 
-To make life easier setup an shell extension to read a .env or .envrc file and setup env vars for you, like [direnv](https://direnv.net/), then ensure you have the correct env variables set.
-
-Look at the [.env template file](.env.template) to set some variables that are required to start
-
 * Install the dependencies:
 
 To run the app you need to install the python requirements:
@@ -30,10 +30,18 @@ pip install -r requirements.txt
 ```
 
 ## Environment
+
+Copy the [.env template file](.env.template) into a .env file to set the variables that are required to start
+```bash
+cp .env.template .env
+```
+
+To make life easier, setup a shell extension to read a .env or .envrc file, like [direnv](https://direnv.net/). Without this, you will need to run `source .env` following any changes to your environment variables.
+
 You need to have two ENV vars set: UI_SECRET and DATA_SERVER.
 
 * UI_SECRET is the secret created by the data server
-* DATA_SERVER is the URL to the data server i.e. http://127.0.0.1:8000
+* DATA_SERVER is the URL to the data server i.e. http://127.0.0.1:8001
 
 ## Debug
 If you want useful errors when there is an error also create:
@@ -80,12 +88,12 @@ This also includes the JavaScript: all the available files are included in the G
 Before starting the app you need to have the [data server](https://github.com/uktrade/export-wins-data) running, and then run:
 
 ```bash
-python manage.py runserver 127.0.0.1:8001
+python manage.py runserver 127.0.0.1:8000
 ```
 
-This specifies the port number becuase you would get a conflict from the data server (which should already be running on the default port of 8000).
+The app should now be running on port 8000. Often you will have trouble accessing via 0.0.0.0:8000, so will need to access via localhost:8000 in your browser.
 
-
+NOTE: [The export wins data](https://github.com/uktrade/export-wins-data) service will normally run on port 8001.
 
 # IE 7
 
@@ -111,3 +119,7 @@ Linux can connect to the host and so as long as you have a data server running o
 ```bash
 docker run -e "COOKIE_SECRET=${COOKIE_SECRET}" -e "UI_SECRET=${UI_SECRET}" -e "SECRET_KEY=${SECRET_KEY}" -e "DEBUG=True" --net=host -d -p 8002:8001 ukti/export-wins-ui:latest
 ```
+
+## Deploying
+
+Note that if there have been changes to the models in [export-wins-data](https://github.com/uktrade/export-wins-data), including metadata changes, export-wins-ui will need to also be redeployed as it gets data on startup from export-wins-data.
