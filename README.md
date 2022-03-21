@@ -33,7 +33,7 @@ pip install -r requirements.txt
 You need to have two ENV vars set: UI_SECRET and DATA_SERVER.
 
 * UI_SECRET is the secret created by the data server
-* DATA_SERVER is the URL to the data server i.e. http://127.0.0.1:8000
+* DATA_SERVER is the URL to the data server i.e. http://127.0.0.1:8001
 
 ## Debug
 If you want useful errors when there is an error also create:
