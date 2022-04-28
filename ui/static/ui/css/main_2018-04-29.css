@@ -1,321 +1,672 @@
-.win-form .form-group ul li { margin: 0.5em 0; }
-
-.win-form .radio-label { font-size: 1em; font-weight: bold; margin-bottom: -0.6em; margin-top: 2em; }
-
-.win-form .form-section-heading { margin-top: 3em; }
-
-.win-form .form-label { font-size: 1em; font-weight: bold; margin-top: 2em; }
-
-.win-form .remove-contributor { float: right; }
-
-.win-form .error .remove-contributor { margin-top: 4em; }
-
-.win-form .has-contributors { margin-top: 3em; }
-
-.win-form .contributing-location { margin-bottom: 3em; }
-
-.win-form .win-value-table { min-width: 750px; }
-
-.win-form .win-value-table td { width: 20%; }
-
-.win-form .radio-group { margin-bottom: 1.5em; }
-
-.win-form .radio, .win-form .checkbox { margin: 1.25em 0; }
-
-.win-form span.glyphicon { font-size: 1.4em; }
-
-.win-form .tooltip-inner { font-size: 1.2em; }
-
-.win-form .required { color: #B10E1E; vertical-align: top; font-size: 1.2em; }
-
-.win-form #id_description { height: 9em; }
-
-.win-form label { max-width: 95%; }
-
-.win-form .help-text { margin: -0.25em 0 0 0; color: #a7a7a7; padding: 0 0.5em 0.5em 0; }
-
-.win-form .field-message { margin: -0.5em 0 0.25em 0; padding: 0; }
-
-.win-form .win-form-well { margin-top: 3em; }
-
-.win-form .text-danger { color: #cf102d; }
-
-.win-form .add-select-group { margin-bottom: 3em; }
-
-.win-form .add-select-group .support-group, .win-form .add-select-group .programme-group { padding-right: 100px; position: relative; }
-
-.win-form .add-select-group .support-group .remove-select, .win-form .add-select-group .programme-group .remove-select { position: absolute; top: 0; right: 0; }
-
-.win-form h4 .required { padding-right: 0.25em; }
-
-.win-form .win-values { margin-top: 3em; }
-
-.win-form .win-values .alert { max-width: 100%; }
-
-.win-form .export-total, .win-form .export-year-value { font-size: 1.1em; font-weight: bold; margin-top: -1em; background-color: #e7e7e7; padding: 0.5em; }
-
-.win-form .non-export-heading { margin-top: 2em; }
-
-.confirmation-form { max-width: 650px; }
-
-.confirmation-form .more-info { font-size: 1.1em; position: relative; top: -2px; }
-
-.confirmation-form .form-group { clear: both; }
-
-.confirmation-form .form-group label { float: left; max-width: 80%; }
-
-.confirmation-form .tooltip-inner { font-size: 1.2em; }
-
-.confirmation-form #id_description { height: 9em; }
-
-.confirmation-form .help-text { clear: both; }
-
-.confirmation-form .pad-top { margin-top: 2em; }
-
-.confirmation-form .pad-text { padding: 1em; }
-
-.confirmation-form .win-details-wrapper { border: 1px solid #eee; border-radius: 0.25em; }
-
-.confirmation-form .win-details-wrapper .supported-header { font-size: 1em; margin-top: 0; padding: 0.5em 1em; font-weight: bold; border-top: 1px solid #eee; }
-
-.confirmation-form .win-details { overflow: hidden; margin-bottom: 0; }
-
-.confirmation-form .win-details dt { width: 60%; float: left; text-align: left; padding: 0.25em 1em; clear: both; box-sizing: border-box; text-overflow: clip; white-space: normal; }
-
-.confirmation-form .win-details dd { float: left; width: 40%; padding: 0.25em 1em; margin-left: 0; box-sizing: border-box; }
-
-.confirmation-form .win-details .win-details-label--odi, .confirmation-form .win-details .win-details-value--odi { min-height: 50px; }
-
-.confirmation-form .win-details dt:nth-of-type(even), .confirmation-form .win-details dd:nth-of-type(even) { background-color: #eee; }
-
-.confirmation-form .supported-details { padding: 0.25em 2em; }
-
-.confirmation-form .what-extent-heading { margin-top: 1.5em; }
-
-.confirmation-form .confirm-details-heading { margin-top: 1.5em; }
-
-.confirmation-form .buttons-right .btn-group { margin-right: -10px; min-width: 100px; }
-
-.confirmation-form .buttons-right .btn-group input { outline: none; }
-
-.confirmation-form .survey-buttons .btn-group { width: 100%; }
-
-.confirmation-form .survey-buttons .btn-group input { outline: none; }
-
-.confirmation-form .radio label, .confirmation-form .checkbox label { border: 1px solid #ccc; border-radius: 0.25em; padding: 0.5em 0.7em 0.5em 2.4em; margin-bottom: 0.5em; }
-
-@media (max-width: 767px) { .confirmation-form .btn-group .btn { width: 100%; border-radius: 4px !important; margin-bottom: 1em; max-width: 100%; display: block; }
-  .confirmation-form .form-group .btn-group { float: none !important; width: 100%; }
-  .confirmation-form .radio label, .confirmation-form .checkbox label { width: 100%; } }
-
-.confirmation-form .confirmation-other-marketing { width: 80%; margin-left: 10%; }
-
-.my-wins .header-count { font-size: 0.8em; font-weight: normal; }
-
-.my-wins .badge { background-color: #4814a0; margin-bottom: 0.25em; }
-
-.my-wins .new-win-bottom-btn { margin-top: 1em; }
-
-.my-wins .my-wins-header { margin-top: 2.5em; }
-
-.my-wins th, .my-wins td { text-align: left; }
-
-.my-wins th { position: relative; }
-
-.my-wins th .glyphicon { position: absolute; top: auto; bottom: 0.85em; left: -0.3em; color: #646464; }
-
-.my-wins .unsent-wins, .my-wins .sent-to-customer-wins, .my-wins .responded-wins { min-width: 800px; }
-
-.my-wins .text-right { text-align: right; }
-
-.my-wins .company-name { width: 24%; }
-
-.my-wins .country-name { width: 25%; }
-
-.my-wins .customer-name { width: 15%; }
-
-.my-wins .export-value { width: 14%; }
-
-.my-wins .date { width: 10%; min-width: 4em; }
-
-.my-wins .response-date, .my-wins .last-modified { width: 12%; min-width: 6em; }
-
-.my-wins .sent-to-customer-wins { min-width: 940px; }
-
-.my-wins .sent-to-customer-wins .company-name { width: 20%; }
-
-.my-wins .sent-to-customer-wins .country-name { width: 18%; }
-
-.my-wins .sent-to-customer-wins .customer-name { width: 16%; }
-
-.my-wins .sent-to-customer-wins .export-value { width: 13%; }
-
-.my-wins .sent-to-customer-wins .date, .my-wins .sent-to-customer-wins .date-sent, .my-wins .sent-to-customer-wins .date-last-sent { width: 11%; min-width: 4em; }
-
-.win-details { position: relative; }
-
-.win-details .glyphicon { margin-right: 0.5em; }
-
-.win-details .top-buttons { position: absolute; top: -3.6em; right: 0; z-index: 100; }
-
-@media (max-width: 768px) { .win-details .top-buttons { position: static; }
-  .win-details .top-buttons .btn { width: 100%; margin-bottom: 1.5em; } }
-
-.win-details .contributing-table th { text-align: left; }
-
-.win-details .company-name, .win-details .customer-name { font-size: 24px; }
-
-.win-details .officer-email { display: block; }
-
-.win-details .export-value-item { list-style: none; clear: left; }
-
-.win-details .export-value-item span { padding: 0.5em 1em; float: left; border: 1px solid #dcdcdc; border-bottom: 0; margin: 0; }
-
-.win-details .export-value-item .export-year { background-color: #e7e7e7; width: 6em; }
-
-.win-details .export-value-item .export-year-value { border-left: 0; width: 10em; text-align: right; }
-
-.win-details .export-value-group { overflow: hidden; padding: 0; }
-
-.win-details .export-value-group .first .export-year { border-radius: 5px 0 0 0; }
-
-.win-details .export-value-group .first .export-year-value { border-radius: 0 5px 0 0; }
-
-.win-details .export-value-group .last span { border-top: 2px solid #dcdcdc; border-bottom: 1px solid #dcdcdc; font-weight: bold; }
-
-.win-details .export-value-group .last .export-year { border-radius: 0 0 0 5px; }
-
-.win-details .export-value-group .last .export-year-value { border-radius: 0 0 5px 0; }
-
-.win-details .field-name { font-weight: bold; margin-bottom: 0.5em; }
-
-.win-details .field-value { margin-bottom: 1.5em; }
-
-.success-page-content { max-width: 700px; }
-
-.success-links { list-style: none; font-size: 1.2em; padding: 0; margin-left: 0; }
-
-.success-links li { padding: 0; margin-bottom: 0.7em; }
-
-.success-feedback-message { color: #a7a7a7; margin-top: 2em; }
-
-.success-page-lead { margin: 1.5em 0 2em 0; }
-
-.success-actions { margin-bottom: 3em; }
-
-.success-actions .btn { margin-right: 1em; }
-
-.success-actions .btn:last-of-type { margin-right: 0; }
-
-.win-success .btn-lg { margin: 1em 0 2em 0; }
-
-.win-success .success-link { font-size: 1.2em; }
-
-.win-success .primary-action { margin-bottom: 2em; }
-
-.win-success ul { padding: 0; margin-left: 0; list-style: none; }
-
-.win-success ul li { padding: 0; }
-
-body { border-top: 5px solid #cf102d; padding-top: 2.5em; }
-
-.logo-row { margin-top: -10px; }
-
-.logo-row .logo { height: 100px; }
-
-.feedback-link { margin-right: 1em; }
-
-.win-breadcrumb { list-style: none; padding: 0.5em 1em; background-color: #e7e7e7; border-radius: 2px; color: #a7a7a7; margin: 0 0 3em 0; overflow: hidden; }
-
-.win-breadcrumb li { padding: 0; float: left; margin: 0; }
-
-.win-breadcrumb li .separator { color: #a7a7a7; padding: 0 0.6em 0 0.6em; }
-
-.site-heading { margin-bottom: 1em; color: #000; }
-
-.site-heading h1 { margin-bottom: 0; }
-
-.site-heading h1 a, .site-heading h1 a:visited { color: #000; }
-
-.page-heading { margin-bottom: 0.5em; }
-
-hr { margin: 2.5em 1em; }
-
-h1 { margin-bottom: 1em; }
-
-form input { padding-left: 2em; padding-right: 2em; }
-
-.scroll-table { overflow-x: auto; margin-bottom: 20px; }
-
-.scroll-table::-webkit-scrollbar { width: 5px; }
-
-.scroll-table::-webkit-scrollbar-track { -webkit-border-radius: 5px; border-radius: 5px; background: rgba(0, 0, 0, 0.1); }
-
-.scroll-table::-webkit-scrollbar-thumb { -webkit-border-radius: 5px; border-radius: 5px; background: rgba(0, 0, 0, 0.2); }
-
-.scroll-table::-webkit-scrollbar-thumb:hover { background: rgba(0, 0, 0, 0.4); }
-
-.scroll-table::-webkit-scrollbar-thumb:window-inactive { background: rgba(0, 0, 0, 0.05); }
-
-td.error input { background-color: #B10E1E; color: #fff; }
-
-.form-group { margin: 1em 0; }
-
-.form-group.error { border: 1px solid #B10E1E; border-radius: 0.5em; padding: 1em; }
-
-.form-group .alert { padding: 0.5em; max-width: 100%; }
-
-.form-group ul { list-style: none; padding: 0; }
-
-.alert, .restrict-width { max-width: 600px; }
-
-.restrict-width-xsm { max-width: 200px; }
-
-.restrict-width-sm { max-width: 400px; }
-
-.restrict-width-lg { max-width: 800px; }
+.win-form .form-group ul li {
+  margin: 0.5em 0;
+}
+.win-form .radio-label {
+  font-size: 1em;
+  font-weight: bold;
+  margin-bottom: -0.6em;
+  margin-top: 2em;
+}
+.win-form .form-section-heading {
+  margin-top: 3em;
+}
+.win-form .form-label {
+  font-size: 1em;
+  font-weight: bold;
+  margin-top: 2em;
+}
+.win-form .remove-contributor {
+  float: right;
+}
+.win-form .error .remove-contributor {
+  margin-top: 4em;
+}
+.win-form .has-contributors {
+  margin-top: 3em;
+}
+.win-form .contributing-location {
+  margin-bottom: 3em;
+}
+.win-form .win-value-table {
+  min-width: 750px;
+}
+.win-form .win-value-table td {
+  width: 20%;
+}
+.win-form .radio-group {
+  margin-bottom: 1.5em;
+}
+.win-form .radio,
+.win-form .checkbox {
+  margin: 1.25em 0;
+}
+.win-form span.glyphicon {
+  font-size: 1.4em;
+}
+.win-form .tooltip-inner {
+  font-size: 1.2em;
+}
+.win-form .required {
+  color: #B10E1E;
+  vertical-align: top;
+  font-size: 1.2em;
+}
+.win-form #id_description {
+  height: 9em;
+}
+.win-form label {
+  max-width: 95%;
+}
+.win-form .help-text {
+  margin: -0.25em 0 0 0;
+  color: #a7a7a7;
+  padding: 0 0.5em 0.5em 0;
+}
+.win-form .field-message {
+  margin: -0.5em 0 0.25em 0;
+  padding: 0;
+}
+.win-form .win-form-well {
+  margin-top: 3em;
+}
+.win-form .text-danger {
+  color: #cf102d;
+}
+.win-form .add-select-group {
+  margin-bottom: 3em;
+}
+.win-form .add-select-group .support-group,
+.win-form .add-select-group .programme-group {
+  padding-right: 100px;
+  position: relative;
+}
+.win-form .add-select-group .support-group .remove-select,
+.win-form .add-select-group .programme-group .remove-select {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.win-form h4 .required {
+  padding-right: 0.25em;
+}
+.win-form .win-values {
+  margin-top: 3em;
+}
+.win-form .win-values .alert {
+  max-width: 100%;
+}
+.win-form .export-total,
+.win-form .export-year-value {
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-top: -1em;
+  background-color: #e7e7e7;
+  padding: 0.5em;
+}
+.win-form .non-export-heading {
+  margin-top: 2em;
+}
+
+.confirmation-form {
+  max-width: 650px;
+}
+.confirmation-form .more-info {
+  font-size: 1.1em;
+  position: relative;
+  top: -2px;
+}
+.confirmation-form .form-group {
+  clear: both;
+}
+.confirmation-form .form-group label {
+  float: left;
+  max-width: 80%;
+}
+.confirmation-form .tooltip-inner {
+  font-size: 1.2em;
+}
+.confirmation-form #id_description {
+  height: 9em;
+}
+.confirmation-form .help-text {
+  clear: both;
+}
+.confirmation-form .pad-top {
+  margin-top: 2em;
+}
+.confirmation-form .pad-text {
+  padding: 1em;
+}
+.confirmation-form .win-details-wrapper {
+  border: 1px solid #eee;
+  border-radius: 0.25em;
+}
+.confirmation-form .win-details-wrapper .supported-header {
+  font-size: 1em;
+  margin-top: 0;
+  padding: 0.5em 1em;
+  font-weight: bold;
+  border-top: 1px solid #eee;
+}
+.confirmation-form .win-details {
+  overflow: hidden;
+  margin-bottom: 0;
+}
+.confirmation-form .win-details dt {
+  width: 60%;
+  float: left;
+  text-align: left;
+  padding: 0.25em 1em;
+  clear: both;
+  box-sizing: border-box;
+  text-overflow: clip;
+  white-space: normal;
+}
+.confirmation-form .win-details dd {
+  float: left;
+  width: 40%;
+  padding: 0.25em 1em;
+  margin-left: 0;
+  box-sizing: border-box;
+}
+.confirmation-form .win-details .win-details-label--odi,
+.confirmation-form .win-details .win-details-value--odi {
+  min-height: 50px;
+}
+.confirmation-form .win-details dt:nth-of-type(even),
+.confirmation-form .win-details dd:nth-of-type(even) {
+  background-color: #eee;
+}
+.confirmation-form .supported-details {
+  padding: 0.25em 2em;
+}
+.confirmation-form .what-extent-heading {
+  margin-top: 1.5em;
+}
+.confirmation-form .confirm-details-heading {
+  margin-top: 1.5em;
+}
+.confirmation-form .buttons-right .btn-group {
+  margin-right: -10px;
+  min-width: 100px;
+}
+.confirmation-form .buttons-right .btn-group input {
+  outline: none;
+}
+.confirmation-form .survey-buttons .btn-group {
+  width: 100%;
+}
+.confirmation-form .survey-buttons .btn-group input {
+  outline: none;
+}
+.confirmation-form .radio label,
+.confirmation-form .checkbox label {
+  border: 1px solid #ccc;
+  border-radius: 0.25em;
+  padding: 0.5em 0.7em 0.5em 2.4em;
+  margin-bottom: 0.5em;
+}
+@media (max-width: 767px) {
+  .confirmation-form .btn-group .btn {
+    width: 100%;
+    border-radius: 4px !important;
+    margin-bottom: 1em;
+    max-width: 100%;
+    display: block;
+  }
+  .confirmation-form .form-group .btn-group {
+    float: none !important;
+    width: 100%;
+  }
+  .confirmation-form .radio label,
+.confirmation-form .checkbox label {
+    width: 100%;
+  }
+}
+.confirmation-form .confirmation-other-marketing {
+  width: 80%;
+  margin-left: 10%;
+}
+
+.my-wins .header-count {
+  font-size: 0.8em;
+  font-weight: normal;
+}
+.my-wins .badge {
+  background-color: #4814a0;
+  margin-bottom: 0.25em;
+}
+.my-wins .new-win-bottom-btn {
+  margin-top: 1em;
+}
+.my-wins .my-wins-header {
+  margin-top: 2.5em;
+}
+.my-wins th,
+.my-wins td {
+  text-align: left;
+}
+.my-wins th {
+  position: relative;
+}
+.my-wins th .glyphicon {
+  position: absolute;
+  top: auto;
+  bottom: 0.85em;
+  left: -0.3em;
+  color: #646464;
+}
+.my-wins .unsent-wins,
+.my-wins .sent-to-customer-wins,
+.my-wins .responded-wins {
+  min-width: 800px;
+}
+.my-wins .text-right {
+  text-align: right;
+}
+.my-wins .company-name {
+  width: 24%;
+}
+.my-wins .country-name {
+  width: 25%;
+}
+.my-wins .customer-name {
+  width: 15%;
+}
+.my-wins .export-value {
+  width: 14%;
+}
+.my-wins .date {
+  width: 10%;
+  min-width: 4em;
+}
+.my-wins .response-date,
+.my-wins .last-modified {
+  width: 12%;
+  min-width: 6em;
+}
+.my-wins .sent-to-customer-wins {
+  min-width: 940px;
+}
+.my-wins .sent-to-customer-wins .company-name {
+  width: 20%;
+}
+.my-wins .sent-to-customer-wins .country-name {
+  width: 18%;
+}
+.my-wins .sent-to-customer-wins .customer-name {
+  width: 16%;
+}
+.my-wins .sent-to-customer-wins .export-value {
+  width: 13%;
+}
+.my-wins .sent-to-customer-wins .date,
+.my-wins .sent-to-customer-wins .date-sent,
+.my-wins .sent-to-customer-wins .date-last-sent {
+  width: 11%;
+  min-width: 4em;
+}
+
+.win-details {
+  position: relative;
+}
+.win-details .glyphicon {
+  margin-right: 0.5em;
+}
+.win-details .top-buttons {
+  position: absolute;
+  top: -3.6em;
+  right: 0;
+  z-index: 100;
+}
+@media (max-width: 768px) {
+  .win-details .top-buttons {
+    position: static;
+  }
+  .win-details .top-buttons .btn {
+    width: 100%;
+    margin-bottom: 1.5em;
+  }
+}
+.win-details .contributing-table th {
+  text-align: left;
+}
+.win-details .company-name,
+.win-details .customer-name {
+  font-size: 24px;
+}
+.win-details .officer-email {
+  display: block;
+}
+.win-details .export-value-item {
+  list-style: none;
+  clear: left;
+}
+.win-details .export-value-item span {
+  padding: 0.5em 1em;
+  float: left;
+  border: 1px solid #dcdcdc;
+  border-bottom: 0;
+  margin: 0;
+}
+.win-details .export-value-item .export-year {
+  background-color: #e7e7e7;
+  width: 6em;
+}
+.win-details .export-value-item .export-year-value {
+  border-left: 0;
+  width: 10em;
+  text-align: right;
+}
+.win-details .export-value-group {
+  overflow: hidden;
+  padding: 0;
+}
+.win-details .export-value-group .first .export-year {
+  border-radius: 5px 0 0 0;
+}
+.win-details .export-value-group .first .export-year-value {
+  border-radius: 0 5px 0 0;
+}
+.win-details .export-value-group .last span {
+  border-top: 2px solid #dcdcdc;
+  border-bottom: 1px solid #dcdcdc;
+  font-weight: bold;
+}
+.win-details .export-value-group .last .export-year {
+  border-radius: 0 0 0 5px;
+}
+.win-details .export-value-group .last .export-year-value {
+  border-radius: 0 0 5px 0;
+}
+.win-details .field-name {
+  font-weight: bold;
+  margin-bottom: 0.5em;
+}
+.win-details .field-value {
+  margin-bottom: 1.5em;
+}
+
+.success-page-content {
+  max-width: 700px;
+}
+
+.success-links {
+  list-style: none;
+  font-size: 1.2em;
+  padding: 0;
+  margin-left: 0;
+}
+.success-links li {
+  padding: 0;
+  margin-bottom: 0.7em;
+}
+
+.success-feedback-message {
+  color: #a7a7a7;
+  margin-top: 2em;
+}
+
+.success-page-lead {
+  margin: 1.5em 0 2em 0;
+}
+
+.success-actions {
+  margin-bottom: 3em;
+}
+.success-actions .btn {
+  margin-right: 1em;
+}
+.success-actions .btn:last-of-type {
+  margin-right: 0;
+}
+
+.win-success .btn-lg {
+  margin: 1em 0 2em 0;
+}
+.win-success .success-link {
+  font-size: 1.2em;
+}
+.win-success .primary-action {
+  margin-bottom: 2em;
+}
+.win-success ul {
+  padding: 0;
+  margin-left: 0;
+  list-style: none;
+}
+.win-success ul li {
+  padding: 0;
+}
+
+body {
+  border-top: 5px solid #cf102d;
+  padding-top: 2.5em;
+}
+
+.logo-row {
+  margin-top: -10px;
+}
+.logo-row .logo {
+  height: 100px;
+}
+
+.feedback-link {
+  margin-right: 1em;
+}
+
+.win-breadcrumb {
+  list-style: none;
+  padding: 0.5em 1em;
+  background-color: #e7e7e7;
+  border-radius: 2px;
+  color: #a7a7a7;
+  margin: 0 0 3em 0;
+  overflow: hidden;
+}
+.win-breadcrumb li {
+  padding: 0;
+  float: left;
+  margin: 0;
+}
+.win-breadcrumb li .separator {
+  color: #a7a7a7;
+  padding: 0 0.6em 0 0.6em;
+}
+
+.site-heading {
+  margin-bottom: 1em;
+  color: #000;
+}
+.site-heading h1 {
+  margin-bottom: 0;
+}
+.site-heading h1 a,
+.site-heading h1 a:visited {
+  color: #000;
+}
+
+.page-heading {
+  margin-bottom: 0.5em;
+}
+
+hr {
+  margin: 2.5em 1em;
+}
+
+h1 {
+  margin-bottom: 1em;
+}
+
+form input {
+  padding-left: 2em;
+  padding-right: 2em;
+}
+
+.scroll-table {
+  overflow-x: auto;
+  margin-bottom: 20px;
+}
+.scroll-table::-webkit-scrollbar {
+  width: 5px;
+}
+.scroll-table::-webkit-scrollbar-track {
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.1);
+}
+.scroll-table::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.2);
+}
+.scroll-table::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.4);
+}
+.scroll-table::-webkit-scrollbar-thumb:window-inactive {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+td.error input {
+  background-color: #B10E1E;
+  color: #fff;
+}
+
+.form-group {
+  margin: 1em 0;
+}
+.form-group.error {
+  border: 1px solid #B10E1E;
+  border-radius: 0.5em;
+  padding: 1em;
+}
+.form-group .alert {
+  padding: 0.5em;
+  max-width: 100%;
+}
+.form-group ul {
+  list-style: none;
+  padding: 0;
+}
+
+.alert,
+.restrict-width {
+  max-width: 600px;
+}
+
+.restrict-width-xsm {
+  max-width: 200px;
+}
+
+.restrict-width-sm {
+  max-width: 400px;
+}
+
+.restrict-width-lg {
+  max-width: 800px;
+}
 
 /* Hide Firefox number field arrows */
-input[type='number'] { -moz-appearance: textfield; }
+input[type=number] {
+  -moz-appearance: textfield;
+}
 
-input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
 
-.footer { border-top: 3px solid #dcdcdc; margin-top: 4em; margin-bottom: 3em; padding-top: 4em; }
+.footer {
+  border-top: 3px solid #dcdcdc;
+  margin-top: 4em;
+  margin-bottom: 3em;
+  padding-top: 4em;
+}
+.footer img {
+  height: 100px;
+}
 
-.footer img { height: 100px; }
+.btn-responsive, .end-buttons .btn {
+  width: auto;
+  min-width: 120px;
+}
 
-.btn-responsive, .end-buttons .btn { width: auto; min-width: 120px; }
+.end-buttons {
+  margin-top: 3em;
+}
+.end-buttons .btn {
+  margin-right: 1em;
+}
+.end-buttons .btn:last-child {
+  margin-right: 0;
+}
 
-.end-buttons { margin-top: 3em; }
+.section-heading {
+  background-color: #e7e7e7;
+  padding: 1em;
+}
 
-.end-buttons .btn { margin-right: 1em; }
+.section-content {
+  padding: 1em 1.714em;
+}
 
-.end-buttons .btn:last-child { margin-right: 0; }
+.win-complete-buttons,
+.separate-section-heading {
+  margin-top: 3em;
+}
 
-.section-heading { background-color: #e7e7e7; padding: 1em; }
+.review-win-details-list {
+  font-weight: bold;
+}
+.review-win-details-list span {
+  display: block;
+  font-weight: normal;
+  padding-bottom: 0.25em;
+}
 
-.section-content { padding: 1em 1.714em; }
+.link-below-buttons {
+  margin-top: 2em;
+  display: block;
+}
 
-.win-complete-buttons, .separate-section-heading { margin-top: 3em; }
+.win-complete-end-buttons {
+  margin-bottom: 3em;
+}
 
-.review-win-details-list { font-weight: bold; }
+.win-sending-details {
+  font-size: 1.4em;
+  margin: 3em 0 1.2em 0;
+  background-color: #e7e7e7;
+  padding: 15px;
+}
+.win-sending-details .highlight {
+  font-weight: 500;
+}
 
-.review-win-details-list span { display: block; font-weight: normal; padding-bottom: 0.25em; }
+.win-seding-edit-message {
+  margin: 3em 0 -1em 0;
+}
 
-.link-below-buttons { margin-top: 2em; display: block; }
+.word-counter {
+  color: #a7a7a7;
+}
 
-.win-complete-end-buttons { margin-bottom: 3em; }
+@media (max-width: 768px) {
+  .logo-row .logo {
+    height: 70px;
+  }
 
-.win-sending-details { font-size: 1.4em; margin: 3em 0 1.2em 0; background-color: #e7e7e7; padding: 15px; }
+  .btn-responsive, .end-buttons .btn,
+body .end-buttons .btn {
+    width: 100%;
+    margin-bottom: 1em;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
 
-.win-sending-details .highlight { font-weight: 500; }
-
-.win-seding-edit-message { margin: 3em 0 -1em 0; }
-
-.word-counter { color: #a7a7a7; }
-
-@media (max-width: 768px) { .logo-row .logo { height: 70px; }
-  .btn-responsive, .end-buttons .btn, body .end-buttons .btn { width: 100%; margin-bottom: 1em; margin-left: 0 !important; margin-right: 0 !important; }
-  .non-export-heading { margin-top: 2em; } }
+  .non-export-heading {
+    margin-top: 2em;
+  }
+}
 
 /*# sourceMappingURL=main_2018-04-29.css.map */
