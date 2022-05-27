@@ -58,7 +58,7 @@ def oauth_callback_view(request):
         "session": session_cookie.value
     },
         settings.COOKIE_SECRET,
-        "HS256",
+        algorithm="HS256",
     ).decode("utf-8")
 
     logger.debug(jwt_val)
