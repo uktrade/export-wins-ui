@@ -53,13 +53,11 @@ def oauth_callback_view(request):
 
     logger.debug(f"redirect to {next_url} for user {user['email']} and session {session_cookie.value}")
     #
-    jwt_val = jwt.encode({
-        "user": user,
-        "session": session_cookie.value
-    },
+    jwt_val = jwt.encode(
+        {"user": user, "session": session_cookie.value},
         settings.COOKIE_SECRET,
-        "HS256",
-    ).decode("utf-8")
+        algorithm="HS256",
+    )
 
     logger.debug(jwt_val)
 
