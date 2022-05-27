@@ -59,7 +59,7 @@ def oauth_callback_view(request):
     },
         settings.COOKIE_SECRET,
         algorithm="HS256",
-    ).decode("utf-8")
+    )
 
     logger.debug(jwt_val)
 
