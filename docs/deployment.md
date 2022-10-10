@@ -28,7 +28,7 @@ The release title should be `v<VERSION_NUMBER>` and release notes can be created
 
 Check that the release notes generated contain what you expect to be deployed to production.
 
-6. Go to [Jenkins](https://jenkins.ci.uktrade.digital/job/mi-exportwins-ui/) and click on `Build with Parameters`.
+6. Go to Jenkins and click on `Build with Parameters`.
 
 7. Select `prod` for the environment.
 
