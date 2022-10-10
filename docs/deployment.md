@@ -1,6 +1,6 @@
 # Deployments
 
-Commits to `master` are automatically deployed to dev and staging environments.
+Deploy commits to `master` manually to dev and staging environments.
 
 Deployments to production are done manually through Jenkins where a Git tag can be used.
 
