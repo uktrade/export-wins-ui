@@ -2,7 +2,7 @@ PyJWT==2.4.0
 Django==3.2.15
 python-dateutil==2.8.1
 requests==2.22.0
-django-extensions==2.2.6
+django-extensions==3.2.1
 gunicorn==20.0.4
 whitenoise==5.0.1
 raven==6.10.0
