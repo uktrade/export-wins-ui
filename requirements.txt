@@ -9,4 +9,4 @@ raven==6.10.0
 defusedcsv==1.1.0
 boto3==1.11.10
 
-responses==0.10.9
+responses==0.22.0
