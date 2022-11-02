@@ -6,7 +6,7 @@ django-extensions==2.2.6
 gunicorn==20.0.4
 whitenoise==5.0.1
 raven==6.10.0
-defusedcsv==1.1.0
+defusedcsv==2.0.0
 boto3==1.11.10
 
 responses==0.10.9
