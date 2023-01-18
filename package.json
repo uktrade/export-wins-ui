@@ -8,8 +8,7 @@
     "watch": "grunt build; grunt watch",
     "sass": "grunt sass:main",
     "sass:bootstrap": "grunt sass:bootstrap",
-    "postinstall": "grunt build",
-    "preinstall": "npx npm-force-resolutions"
+    "postinstall": "grunt build"
   },
   "repository": {
     "type": "git",
@@ -31,8 +30,7 @@
     "load-grunt-tasks": "^5.1.0",
     "sass": "^1.56.2"
   },
-  "resolutions": {
-    "set-value": "4.0.1",
+  "overrides": {
     "async": "3.2.3"
   }
 }
