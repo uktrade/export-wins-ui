@@ -1,166 +1,234 @@
 {% load static %}<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>DIT Export Wins{% block title %}{% endblock title %}</title>
-    <link rel="stylesheet" href="{% static 'vendor/bootstrap/css/bootstrap_2016-08-31.css' %}">
-    <link rel="stylesheet" href="{% static 'ui/css/main_2018-04-29.css' %}">
-    <!--[if lte IE 7]>
-      <link href="{% static 'ui/css/bootstrap-ie7.css' %}" media="screen" rel="stylesheet">
-      <link href="{% static 'ui/css/ie7.css' %}" media="screen" rel="stylesheet">
-    <![endif]-->
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<title>DIT Export Wins{% block title %}{% endblock title %}</title>
+		<link
+			rel="stylesheet"
+			href="{% static 'vendor/bootstrap/css/bootstrap_2016-08-31.css' %}"
+		/>
+		<link
+			rel="stylesheet"
+			href="{% static 'ui/css/main_2018-04-29.css' %}"
+		/>
+		<!--[if lte IE 7]>
+			<link
+				href="{% static 'ui/css/bootstrap-ie7.css' %}"
+				media="screen"
+				rel="stylesheet"
+			/>
+			<link
+				href="{% static 'ui/css/ie7.css' %}"
+				media="screen"
+				rel="stylesheet"
+			/>
+		<![endif]-->
 
-    {% block css %}{% endblock css %}
+		{% block css %}{% endblock css %}
+	</head>
+	<body>
+		{% block banner %}{% endblock banner %}
 
-  </head>
-  <body>
+		<div class="content container">
+			<div class="row logo-row">
+				<div class="col-xs-5">
+					<img
+						src="{% static 'ui/img/dit-logo.png' %}"
+						alt="logo"
+						title="Department for International Trade"
+						height="100"
+						class="logo"
+					/>
+				</div>
+				<div class="col-xs-7">
+					<div class="hidden-print text-right">
+						<a
+							href="mailto:{{ FEEDBACK_EMAIL }}?subject=Export%20Wins%20Feedback"
+							class="feedback-link"
+							>Feedback</a
+						>
+						{% if user.is_authenticated %}{{ user.email }}&nbsp;
+						<a
+							href="{% url 'logout' %}"
+							class="btn btn-danger btn-sm"
+							>Logout</a
+						>
+						{% endif %}
+					</div>
+				</div>
+			</div>
 
-    {% block banner %}{% endblock banner %}
+			{% block site-header %}
+			<div class="site-heading">
+				<h1 class="h2"><a href="{% url 'index' %}">Export Wins</a></h1>
+			</div>
 
-    <div class="content container">
+			{% block breadcrumb %}
+			<ol class="win-breadcrumb hidden-print">
+				<li>
+					<a href="{% url 'index' %}">Your export wins</a
+					><span class="separator">/</span>
+				</li>
+				<li class="active">
+					{% block breadcrumb-name %}{% endblock breadcrumb-name %}
+				</li>
+			</ol>
+			{% endblock breadcrumb %} {% endblock site-header %}
 
-      <div class="row logo-row">
-        <div class="col-xs-5">
-          <img src="{% static 'ui/img/dit-logo.png' %}" alt="logo" title="Department for International Trade" height="100" class="logo">
-        </div>
-        <div class="col-xs-7">
-          <div class="hidden-print text-right">
-            <a href="mailto:{{ FEEDBACK_EMAIL }}?subject=Export%20Wins%20Feedback" class="feedback-link">Feedback</a>
-            {% if user.is_authenticated %}{{ user.email }}&nbsp;
-              <a href="{% url 'logout' %}" class="btn btn-danger btn-sm">Logout</a>
-            {% endif %}
-          </div>
-        </div>
-      </div>
+			<h2 class="h1 page-heading">
+				{% block header %}{% endblock header %}
+			</h2>
 
-      {% block site-header %}
-      <div class="site-heading">
-          <h1 class="h2"><a href="{% url 'index' %}">Export Wins</a></h1>
-      </div>
+			{% block content %}{% endblock content %}
 
-      {% block breadcrumb %}
-      <ol class="win-breadcrumb hidden-print">
-        <li><a href="{% url 'index' %}">Your export wins</a><span class="separator">/</span></li>
-        <li class="active">{% block breadcrumb-name %}{% endblock breadcrumb-name %}</li>
-      </ol>
-      {% endblock breadcrumb %}
+			<div class="row footer">
+				<div class="flex-container">
+					<div class="flex-child">
+						<div>
+							<a
+								class="statement"
+								href="https://data-services-help.trade.gov.uk/data-hub/how-articles/data-hub-accessibility-statement/data-hub-accessibility-statement/"
+								>Accessibility Statement</a
+							>
+						</div>
+						<div>
+							<a
+								class="statement"
+								href="https://workspace.trade.gov.uk/working-at-dit/policies-and-guidance/policies/export-wins-privacy-policy/"
+								>Privacy Policy</a
+							>
+						</div>
+					</div>
 
-      {% endblock site-header %}
+					<div class="col-xs-12 text-right flex-child">
+						<img
+							src="{% static 'ui/img/exporting-is-great-logo_200.png' %}"
+							alt="logo"
+							title="Department for International Trade Exporting is Great"
+							height="70"
+						/>
+					</div>
+				</div>
+			</div>
+		</div>
 
-      <h2 class="h1 page-heading">
-        {% block header %}{% endblock header %}
-      </h2>
+		<script src="{% static 'vendor/jquery-1.12.3.min.js' %}"></script>
+		<script src="{% static 'vendor/bootstrap/js/bootstrap_2016-08-31.min.js' %}"></script>
 
-      {% block content %}{% endblock content %}
+		<script src="{% static 'ui/js/main_2018-04-29.min.js' %}"></script>
 
-      <div class="row footer">
-        <div class="col-xs-12 text-right">
-           <img src="{% static 'ui/img/exporting-is-great-logo_200.png' %}" alt="logo" title="Department for International Trade Exporting is Great" height="70">
-        </div>
-      </div>
-    </div>
+		{% block js_footer %}{% endblock js_footer %} {% if ANALYTICS_ID %}
+		<script>
+			(function (i, s, o, g, r, a, m) {
+				i["GoogleAnalyticsObject"] = r;
+				(i[r] =
+					i[r] ||
+					function () {
+						(i[r].q = i[r].q || []).push(arguments);
+					}),
+					(i[r].l = 1 * new Date());
+				(a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
+				a.async = 1;
+				a.src = g;
+				m.parentNode.insertBefore(a, m);
+			})(
+				window,
+				document,
+				"script",
+				"https://www.google-analytics.com/analytics.js",
+				"ga"
+			);
+			ga("create", "{{ ANALYTICS_ID }}", "auto");
+			ga("send", "pageview");
+		</script>
+		{% endif %}
 
-    <script src="{% static 'vendor/jquery-1.12.3.min.js' %}"></script>
-    <script src="{% static 'vendor/bootstrap/js/bootstrap_2016-08-31.min.js' %}"></script>
+		<!-- env:{{ ENV_NAME }} git_branch:{{GIT_BRANCH}} git_commit:{{ GIT_COMMIT }} -->
 
-    <script src="{% static 'ui/js/main_2018-04-29.min.js' %}"></script>
+		{% if SHOW_ENV_BANNER %}
+		<style>
+			.env-banner {
+				position: fixed;
+				bottom: 0;
+				left: 0;
+				width: 100%;
+				height: 60px;
+				line-height: 60px;
+				background-color: gold;
+				color: black;
+				padding: 0 1em;
 
-    {% block js_footer %}{% endblock js_footer %}
+				cursor: pointer;
+				text-align: center;
+			}
 
-    {% if ANALYTICS_ID %}
-      <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-        ga('create', '{{ ANALYTICS_ID }}', 'auto');
-        ga('send', 'pageview');
-      </script>
-    {% endif %}
+			/*  although env banner should not be visible in prod!? */
+			.env-banner.production {
+				background-color: limegreen;
+				color: black;
+			}
 
-	<!-- env:{{ ENV_NAME }} git_branch:{{GIT_BRANCH}} git_commit:{{ GIT_COMMIT }} -->
+			.env-banner.dev,
+			.env-banner.local_development {
+				background-color: gold;
+				color: black;
+			}
 
+			.env-banner.staging {
+				background-color: aqua;
+				color: black;
+			}
 
-{% if SHOW_ENV_BANNER %}
-    <style>
-        .env-banner {
-            position: fixed;
-            bottom:0;
-            left:0;
-            width: 100%;
-            height: 60px;
-            line-height: 60px;
-            background-color: gold;
-			color: black;
-            padding: 0 1em;
+			.env-banner.uat {
+				background-color: lightpink;
+				color: black;
+			}
 
-            cursor: pointer;
-            text-align: center;
-        }
+			.env-banner.demo {
+				background-color: silver;
+				color: black;
+			}
 
-		{# although env banner should not be visible in prod!? #}
-		.env-banner.production {
-			background-color: limegreen;
-			color: black;
-		}
+			.env-banner:hover {
+				transition: all 0.1s ease-in-out;
+				opacity: 0.3;
+			}
 
-		.env-banner.dev, .env-banner.local_development {
-			background-color: gold;
-			color: black;
-		}
+			.env-banner p {
+				line-height: 60px;
+			}
 
-		.env-banner.staging {
-			background-color: aqua;
-			color:black;
-		}
+			.env-banner p .env {
+				text-transform: uppercase;
+				padding-right: 1em;
+			}
 
-		.env-banner.uat {
-			background-color: lightpink;
-			color: black;
-		}
-
-		.env-banner.demo {
-			background-color: silver;
-			color: black;
-		}
-
-        .env-banner:hover {
-            transition: all 0.1s ease-in-out;
-            opacity: 0.3;
-        }
-
-        .env-banner p {
-            line-height: 60px;
-        }
-
-        .env-banner p .env {
-            text-transform: uppercase;
-            padding-right:1em;
-        }
-
-        .env-banner p .gits {
-            padding: 0 1em 0 0;
-            font-style: italic;
-
-        }
-
-    </style>
-    <script>
-    function hide(){
-        var el = document.querySelector('.env-banner');
-        el.style = "display:none;";
-    }
-    </script>
-<div class="env-banner {{ ENV_NAME }}" onclick="javascript:hide()" title="click to hide">
-    <p class="govuk-body">
-        ENV:<span class="gits">        {{ ENV_NAME }}        </span>
-        GIT_BRANCH:<span class="gits">{{GIT_BRANCH}}</span>
-        GIT_COMMIT:<span class="gits">{{GIT_COMMIT}}</span>
-    </p>
-</div>
-{% endif %}
-  </body>
+			.env-banner p .gits {
+				padding: 0 1em 0 0;
+				font-style: italic;
+			}
+		</style>
+		<script>
+			function hide() {
+				var el = document.querySelector(".env-banner");
+				el.style = "display:none;";
+			}
+		</script>
+		<div
+			class="env-banner {{ ENV_NAME }}"
+			onclick="javascript:hide()"
+			title="click to hide"
+		>
+			<p class="govuk-body">
+				ENV:<span class="gits"> {{ ENV_NAME }} </span> GIT_BRANCH:<span
+					class="gits"
+					>{{GIT_BRANCH}}</span
+				>
+				GIT_COMMIT:<span class="gits">{{GIT_COMMIT}}</span>
+			</p>
+		</div>
+		{% endif %}
+	</body>
 </html>
-
