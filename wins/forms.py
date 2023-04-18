@@ -47,7 +47,7 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
     date = forms.fields.CharField(max_length=7, label="Date won")
     types_all = forms.fields.BooleanField(required=False)  # just used to hang error on
     type_export = forms.fields.BooleanField(required=False, label="Export")
-    type_non_export = forms.fields.BooleanField(required=False, label="Non-export")
+    type_non_export = forms.fields.BooleanField(required=False, label="Business success")
     type_odi = forms.fields.BooleanField(required=False, label="Outward Direct Investment")
 
     # specify fields from the serializer to exclude from the form
@@ -260,12 +260,12 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
             # have to have checked at least one type of win
             value_types_names = [
                 ('type_export', 'Export'),
-                ('type_non_export', 'Non-export'),
+                ('type_non_export', 'Business success'),
                 ('type_odi', 'Outward Direct Investment'),
             ]
             if not any(cleaned.get(v) for v, n in value_types_names):
                 self._errors['types_all'] = self.error_class([
-                    """You must choose at least one of Export, Non-export and
+                    """You must choose at least one of Export, Business success and
                     Outward Direct Investment"""
                 ])
 
@@ -323,7 +323,7 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
 
             if not export_value and not non_export_value and not odi_value:
                 raise forms.ValidationError(
-                    """Wins must have total expected export, non-export
+                    """Wins must have total expected export, business success
                         or ODI value of more than £0.
                     """
                 )
@@ -335,7 +335,7 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
 
             if sum(non_export_breakdowns) != non_export_value:
                 raise forms.ValidationError(
-                    """Value of non-export breakdowns over 5 years must equal
+                    """Value of business success breakdowns over 5 years must equal
                        total"""
                 )
 
