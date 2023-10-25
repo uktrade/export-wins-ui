@@ -28,7 +28,7 @@ The release title should be `v<VERSION_NUMBER>` and release notes can be created
 
 Check that the release notes generated contain what you expect to be deployed to production.
 
-6. Go to Jenkins and click on `Build with Parameters`.
+6. Go to Jenkins, find the project `mi-exportwins-ui` and click on `Build with Parameters`.
 
 7. Select `prod` for the environment.
 
@@ -46,3 +46,5 @@ Check that the release notes generated contain what you expect to be deployed to
 @here Export Wins UI v<VERSION_NUMBER> is now live!
 For more information see the release notes.
 ```
+
+13. Find the Jenkins project `mi-exportwins-admin` and deploy your tag here as well. You don't need to create a release in GitHub or announce this in Slack.
