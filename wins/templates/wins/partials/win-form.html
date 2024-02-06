@@ -4,6 +4,50 @@
 
 {% block content %}
 
+<style>
+	.collapsible-container {
+		display: flex;
+		align-items: center;
+		background-color: #ffffff;
+		border-left: 5px solid #000000;
+		padding: 0.5rem;
+	}
+
+	.collapsible-text {
+		margin-right: auto;
+		color: #000000;
+		font-size: 1.2em;
+		cursor: pointer;
+	}
+
+	.collapsible-button {
+		background-color: transparent;
+		color: #000000;
+		cursor: pointer;
+		border: none;
+		outline: none;
+		font-size: 1.5em;
+	}
+
+	.collapsible-content {
+		background-color: transparent;
+		overflow: hidden;
+		transition: max-height 0.2s ease-out;
+		max-height: 0;
+		padding-left: 18px;
+		padding-right: 18px;
+	}
+
+	.content-inner {
+		border-top: 1px solid #ccc;
+		padding: 0.5rem 0;
+	}
+
+	.collapsible-button.active {
+		transform: rotate(-180deg);
+	}
+</style>
+
 <div class="win-form">
 
 	{% if form.errors %}
@@ -240,7 +284,18 @@
 		{% include "wins/partials/form-radio.html" with field=form.goods_vs_services %}
 		{% include "wins/partials/win-field.html" with field=form.name_of_export class="restrict-width" %}
 		{% include "wins/partials/win-field.html" with field=form.sector class="restrict-width-lg" %}
-
+		<div class="collapsible-container">
+			<button type="button" class="collapsible-button" onclick="toggleCollapsible()">&#9660;</button>
+			<span class="collapsible-text" onclick="toggleCollapsible()">Oil and gas sector important information</span>
+		</div>
+		<div class="collapsible-content" id="collapsibleContent">
+			<div class="content-inner">
+				<p>Since 2021 the UK does not provide financial or promotional support for the fossil fuel energy sector overseas, so only exempt projects can be added.</p>
+				<p>See guidance in <a href="https://www.gov.uk/government/consultations/aligning-uk-international-support-for-the-clean-energy-transition" target="_blank" rel="noopener noreferrer">Aligning UK international support for the clean energy transition.</a></p> 
+				<p>If it doesn't meet the criteria the win will not be approved.</p>
+				<p>To check if your project is exempt contact <a href="mailto:fossilfuelenquiries@trade.gov.uk">fossilfuelenquiries@trade.gov.uk</a></p>
+			</div>
+		</div>
 
 		<h3 class="form-section-heading">Support provided</h3>
 		<p>
@@ -353,5 +408,15 @@
 			odiTotal: '{{ form.total_expected_odi_value.auto_id }}',
 			winDate: '{{ form.date.auto_id }}'
 		});
+		function toggleCollapsible() {
+			var collContent = document.getElementById("collapsibleContent");
+			var collButton = document.querySelector(".collapsible-button");
+			collButton.classList.toggle("active");
+			if (collContent.style.maxHeight) {
+				collContent.style.maxHeight = null;
+			} else {
+				collContent.style.maxHeight = collContent.scrollHeight + "px";
+			}
+		}
 	</script>
 {% endblock js_footer %}
