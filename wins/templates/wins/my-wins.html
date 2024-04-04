@@ -6,6 +6,24 @@
 {% block title %} - Your export wins{% endblock %}
 {% block header %}Your export wins{% endblock %}
 
+{% block moved-to-datahub %}
+  <p style="
+        border: 5px solid;
+        padding: 30px;
+        color: #F47738;
+        font-size: 21px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 26px;
+  ">
+    Export Wins has moved, all new wins must be added to
+    <a href="https://www.datahub.trade.gov.uk/"
+      target="_blank"
+      style="color: #F47738; text-decoration: underline;"
+    >Data Hub</a>.
+  </p>
+{% endblock moved-to-datahub %}
+
 {% block content %}
 
 {% comment %}
@@ -21,12 +39,12 @@
 
                 <p class="lead">You haven&#39;t created any wins yet.</p>
 
-                <a href="{% url 'new-win' %}" class="btn btn-primary btn-responsive btn-lg">Create new win</a>
+		            {% include "wins/partials/moving-to-datahub.html" %}
             </div>
 
         {% else %}
 
-            <a href="{% url 'new-win' %}" class="btn btn-primary btn-responsive">Create new win</a>
+		        {% include "wins/partials/moving-to-datahub.html" %}
 
             <h3 class="my-wins-header">Unsent wins <span class="header-count">({{ unsent | length }})</span></h3>
 

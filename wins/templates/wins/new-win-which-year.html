@@ -8,10 +8,11 @@
 {% block header %}Create a new Win{% endblock %}
 
 {% block content %}
+	{% include "wins/partials/moving-to-datahub.html" %}
 
-	In which Financial Year was the business won? <br><br>
+	<!-- In which Financial Year was the business won? <br><br>
 	{% for year in ALLOWED_YEARS %}
 		<a href="{% url 'new-win-year' year %}" class="btn btn-primary btn-responsive new-win-bottom-btn">{{ year|as_financial_year }}</a>
 		<br><br>
-	{% endfor %}
+	{% endfor %} -->
 {% endblock content %}
