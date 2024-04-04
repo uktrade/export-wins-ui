@@ -59,27 +59,7 @@
 					</div>
 				</div>
 			</div>
-
-      <p
-        class="alert moving-to-data-hub-alert"
-        role="alert"
-        style="
-          max-width: 100%;
-          background: #035999;
-          color: white;
-          padding: 0.5em;
-          margin: 40px 0;
-          text-align: center
-        "
-      >
-        <strong>Important:</strong>
-        <a
-          href="https://data-services-help.trade.gov.uk/data-hub/updates/announcements/export-wins-is-moving-to-data-hub/"
-          style="color: white; text-decoration: underline;"
-        >
-          Export Wins is moving to Data Hub shortly
-        </a>
-      </p>
+      {% block moved-to-datahub%}{% endblock moved-to-datahub %}
 
 			{% block site-header %}
 			<div class="site-heading">
