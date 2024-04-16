@@ -5,6 +5,10 @@
 {% block title %} - Create new win for {{ financial_year }} {% endblock %}
 {% block breadcrumb-name %}Create new win for {{ financial_year }} {% endblock %}
 {% block header %}Create new win for {{ financial_year }}{% endblock %}
+{% block content %}
+	{% include "wins/partials/moving-to-datahub.html" %}
+{% endblock content %}
+
 
 {% block banner %}
 	<div class="visible-print-block">
